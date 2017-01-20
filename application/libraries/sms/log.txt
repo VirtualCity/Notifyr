@@ -1,0 +1,13 @@
+[ content=hello world, address=tel:254129876543, requestId=1381130994446, applicationId=APP_000001, encoding=0, version=1.0 ]
+[ content=hello world, address=tel:254129876543, requestId=1381131233235, applicationId=APP_000001, encoding=0, version=1.0 ]
+[ content=50 68, address=tel:254129876543, requestId=1381131418887, applicationId=APP_000001, encoding=0, version=1.0 ]
+[ content=50 68, address=tel:254129876543, requestId=1381131647829, applicationId=APP_000001, encoding=0, version=1.0 ]
+Sms delivery report received from SDP : 
+[ destinationAddress=tel:254702122579, timeStamp=1310071310, requestId=tel:254702122579, deliveryStatus=Delivered ]
+[ content=50 68, address=tel:254129876543, requestId=1381131666592, applicationId=APP_000001, encoding=0, version=1.0 ]
+Sms delivery report received from SDP : 
+[ destinationAddress=tel:254702122579, timeStamp=1310071311, requestId=tel:254702122579, deliveryStatus=Delivered ]
+[ content=80 160, address=tel:254129876543, requestId=1407221535276, applicationId=APP_000001, encoding=0, version=1.0 ]
+[ content=80 160, address=tel:254129876543, requestId=1407221658587, applicationId=APP_000001, encoding=0, version=1.0 ]
+[ content=80 160, address=tel:254702122579, requestId=1407221948817, applicationId=APP_000001, encoding=0, version=1.0 ]
+[ content=80 160, address=tel:254702122579, requestId=1407222304078, applicationId=APP_000001, encoding=0, version=1.0 ]

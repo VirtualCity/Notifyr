@@ -1,0 +1,109 @@
+[16-Mar-2015 16:04:44 Africa/Nairobi] ERROR: 500 | Server URL is invalid
+[16-Mar-2015 16:05:54 Africa/Nairobi] ERROR: 500 | Server URL is invalid
+[16-Mar-2015 16:09:14 Africa/Nairobi] ERROR: 500 | Server URL is invalid
+[16-Mar-2015 16:10:57 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 409
+[16-Mar-2015 16:11:06 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 409
+[16-Mar-2015 16:11:46 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 409
+[16-Mar-2015 16:15:41 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 410
+[16-Mar-2015 16:16:48 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 410
+[16-Mar-2015 16:17:17 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 410
+[16-Mar-2015 16:17:24 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 410
+[16-Mar-2015 16:36:47 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 410
+[16-Mar-2015 16:38:58 Africa/Nairobi] PHP Fatal error:  Call to undefined function check_order_ref() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 410
+[16-Mar-2015 16:43:01 Africa/Nairobi] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 80305 bytes) in C:\xampp\htdocs\ci-nestle\system\database\drivers\mysql\mysql_driver.php on line 315
+[16-Mar-2015 16:49:03 Africa/Nairobi] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 80305 bytes) in C:\xampp\htdocs\ci-nestle\system\database\drivers\mysql\mysql_driver.php on line 315
+[16-Mar-2015 16:53:55 Africa/Nairobi] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 42063 bytes) in C:\xampp\htdocs\ci-nestle\system\libraries\Log.php on line 99
+[16-Mar-2015 16:56:29 Africa/Nairobi] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 37926 bytes) in C:\xampp\htdocs\ci-nestle\system\libraries\Log.php on line 99
+[16-Mar-2015 16:58:26 Africa/Nairobi] ERROR: 500 | Server URL is invalid
+[16-Mar-2015 17:08:08 Africa/Nairobi] ERROR: 500 | Server URL is invalid
+[17-Mar-2015 16:31:43 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:34:47 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:38:00 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:39:05 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:39:50 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:47:10 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:49:00 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:50:06 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:50:20 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:51:46 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:53:57 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:54:38 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 394
+[17-Mar-2015 16:58:23 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 395
+[17-Mar-2015 17:01:56 Africa/Nairobi] PHP Fatal error:  Call to undefined function update_purchase_report() in C:\xampp\htdocs\ci-nestle\application\controllers\sms\receive.php on line 395
+[15-May-2015 12:07:00 Africa/Nairobi] PHP Fatal error:  Call to a member function get_tas_mobile() on null in C:\xampp\htdocs\ci-agrimanagr\application\controllers\sms\receive.php on line 65
+[15-May-2015 12:08:25 Africa/Nairobi] PHP Fatal error:  Call to a member function get_tas_mobile() on null in C:\xampp\htdocs\ci-agrimanagr\application\controllers\sms\receive.php on line 65
+[21-May-2015 15:06:20 Africa/Nairobi] PHP Fatal error:  Uncaught exception 'Exception' with message 'Some of the required parameters are not provided' in C:\xampp\htdocs\ci-agrisms\application\libraries\sms\SmsReceiver.php:37
+Stack trace:
+#0 C:\xampp\htdocs\ci-agrisms\system\core\Loader.php(1099): SmsReceiver->__construct()
+#1 C:\xampp\htdocs\ci-agrisms\system\core\Loader.php(975): CI_Loader->_ci_init_class('SmsReceiver', '', NULL, NULL)
+#2 C:\xampp\htdocs\ci-agrisms\system\core\Loader.php(216): CI_Loader->_ci_load_class('sms/SmsReceiver...', NULL, NULL)
+#3 C:\xampp\htdocs\ci-agrisms\application\controllers\sms\receive.php(30): CI_Loader->library('sms/SmsReceiver...')
+#4 [internal function]: Receive->index()
+#5 C:\xampp\htdocs\ci-agrisms\system\core\CodeIgniter.php(359): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\ci-agrisms\index.php(214): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\ci-agrisms\application\libraries\sms\SmsReceiver.php on line 37
+[06-Jul-2016 15:37:53 Africa/Nairobi] PHP Fatal error:  Uncaught exception 'Exception' with message 'Some of the required parameters are not provided' in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php:37
+Stack trace:
+#0 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(1099): SmsReceiver->__construct()
+#1 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(975): CI_Loader->_ci_init_class('SmsReceiver', '', NULL, NULL)
+#2 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(216): CI_Loader->_ci_load_class('sms/SmsReceiver...', NULL, NULL)
+#3 C:\xampp\htdocs\agrimanagrsms\application\controllers\sms\receive.php(30): CI_Loader->library('sms/SmsReceiver...')
+#4 [internal function]: Receive->index()
+#5 C:\xampp\htdocs\agrimanagrsms\system\core\CodeIgniter.php(359): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\agrimanagrsms\index.php(214): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php on line 37
+[06-Jul-2016 15:39:17 Africa/Nairobi] PHP Fatal error:  Uncaught exception 'Exception' with message 'Some of the required parameters are not provided' in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php:37
+Stack trace:
+#0 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(1099): SmsReceiver->__construct()
+#1 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(975): CI_Loader->_ci_init_class('SmsReceiver', '', NULL, NULL)
+#2 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(216): CI_Loader->_ci_load_class('sms/SmsReceiver...', NULL, NULL)
+#3 C:\xampp\htdocs\agrimanagrsms\application\controllers\sms\receive.php(30): CI_Loader->library('sms/SmsReceiver...')
+#4 [internal function]: Receive->index()
+#5 C:\xampp\htdocs\agrimanagrsms\system\core\CodeIgniter.php(359): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\agrimanagrsms\index.php(214): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php on line 37
+[08-Jul-2016 12:57:58 Africa/Nairobi] PHP Fatal error:  Uncaught exception 'Exception' with message 'Some of the required parameters are not provided' in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php:37
+Stack trace:
+#0 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(1099): SmsReceiver->__construct()
+#1 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(975): CI_Loader->_ci_init_class('SmsReceiver', '', NULL, NULL)
+#2 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(216): CI_Loader->_ci_load_class('sms/SmsReceiver...', NULL, NULL)
+#3 C:\xampp\htdocs\agrimanagrsms\application\controllers\sms\receive.php(30): CI_Loader->library('sms/SmsReceiver...')
+#4 [internal function]: Receive->index()
+#5 C:\xampp\htdocs\agrimanagrsms\system\core\CodeIgniter.php(359): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\agrimanagrsms\index.php(214): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php on line 37
+[08-Jul-2016 13:00:03 Africa/Nairobi] PHP Fatal error:  Uncaught exception 'Exception' with message 'Some of the required parameters are not provided' in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php:38
+Stack trace:
+#0 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(1099): SmsReceiver->__construct()
+#1 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(975): CI_Loader->_ci_init_class('SmsReceiver', '', NULL, NULL)
+#2 C:\xampp\htdocs\agrimanagrsms\system\core\Loader.php(216): CI_Loader->_ci_load_class('sms/SmsReceiver...', NULL, NULL)
+#3 C:\xampp\htdocs\agrimanagrsms\application\controllers\sms\receive.php(30): CI_Loader->library('sms/SmsReceiver...')
+#4 [internal function]: Receive->index()
+#5 C:\xampp\htdocs\agrimanagrsms\system\core\CodeIgniter.php(359): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\agrimanagrsms\index.php(214): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\agrimanagrsms\application\libraries\sms\SmsReceiver.php on line 38
+[08-Jul-2016 17:42:42 Africa/Nairobi] PHP Fatal error:  Maximum execution time of 300 seconds exceeded in C:\xampp\htdocs\agrimanagrsms\application\controllers\sms\receive.php on line 191
+[08-Jul-2016 18:18:07 Africa/Nairobi] PHP Fatal error:  Call to undefined function g_message() in C:\xampp\htdocs\agrimanagrsms\application\controllers\sms\receive.php on line 175
+[13-Dec-2016 14:48:56 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 377
+[13-Dec-2016 14:52:05 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 377
+[13-Dec-2016 14:53:19 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 377
+[13-Dec-2016 14:54:06 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 378
+[13-Dec-2016 14:54:38 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 378
+[13-Dec-2016 14:56:44 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 379
+[13-Dec-2016 14:57:19 Africa/Nairobi] PHP Fatal error:  Call to undefined function get_group_by_id() in C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php on line 379
+[14-Dec-2016 09:52:41 Africa/Nairobi] PHP Fatal error:  Uncaught exception 'Exception' with message 'Some of the required parameters are not provided' in C:\xampp\htdocs\notifyr\application\libraries\sms\SmsReceiver.php:38
+Stack trace:
+#0 C:\xampp\htdocs\notifyr\system\core\Loader.php(1099): SmsReceiver->__construct()
+#1 C:\xampp\htdocs\notifyr\system\core\Loader.php(975): CI_Loader->_ci_init_class('SmsReceiver', '', NULL, NULL)
+#2 C:\xampp\htdocs\notifyr\system\core\Loader.php(216): CI_Loader->_ci_load_class('sms/SmsReceiver...', NULL, NULL)
+#3 C:\xampp\htdocs\notifyr\application\controllers\sms\receive.php(31): CI_Loader->library('sms/SmsReceiver...')
+#4 [internal function]: Receive->index()
+#5 C:\xampp\htdocs\notifyr\system\core\CodeIgniter.php(359): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\notifyr\index.php(214): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\notifyr\application\libraries\sms\SmsReceiver.php on line 38
