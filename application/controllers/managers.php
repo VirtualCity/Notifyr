@@ -19,17 +19,17 @@ class Managers extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Region Managers";
-        $this->load->view('templates/header', $data);
-        $this->load->view('managers/view_managers',$data);
+        $data['mainContent']='managers/view_managers';
+        $this->load->view('templates/template',$data); 
 
     }
 
     function datatables(){
         $this->datatables->select('managers.id AS id,managers.name as name,mobile,email,division,regions.name AS region,managers.modified As modified,managers.created As created')
-            ->unset_column('id')
-            ->add_column('actions', get_area_managers_buttons('$1'), 'id')
-            ->from('managers')
-            ->join('regions', 'managers.region_id = regions.id');
+        ->unset_column('id')
+        ->add_column('actions', get_area_managers_buttons('$1'), 'id')
+        ->from('managers')
+        ->join('regions', 'managers.region_id = regions.id');
         echo $this->datatables->generate();
     }
 
@@ -94,8 +94,8 @@ class Managers extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Region Manager"; //
-        $this->load->view('templates/header', $data);
-        $this->load->view('managers/add_manager',$data);
+        $data['mainContent']='managers/add_manager';
+        $this->load->view('templates/template',$data); 
 
     }
 
@@ -124,8 +124,8 @@ class Managers extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Region Manager";
-        $this->load->view('templates/header', $data);
-        $this->load->view('managers/edit_manager',$data);
+        $data['mainContent']='managers/edit_manager';
+        $this->load->view('templates/template',$data); 
 
     }
 
@@ -212,8 +212,8 @@ class Managers extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Import Region Managers";
-        $this->load->view('templates/header', $data);
-        $this->load->view('managers/import_managers',$data);
+        $data['mainContent']='managers/import_managers';
+        $this->load->view('templates/template',$data); 
     }
 
     function do_upload(){
@@ -310,71 +310,71 @@ class Managers extends Admin_Controller{
 
 
                     // Check manager name exists or not
-                    $existsName = $this->managers_m->check_manager_name($managerName);
+                $existsName = $this->managers_m->check_manager_name($managerName);
 
-                    if($existsName){
+                if($existsName){
                         //manager Name exists
-                        $existingNames =$existingNames.' | '.$managerName;
+                    $existingNames =$existingNames.' | '.$managerName;
                         //log as not added
-                        log_message('info',$managerName.' EXISTS! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
-                    }else {
+                    log_message('info',$managerName.' EXISTS! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
+                }else {
                         // Check manager mobile exists or not
-                        $existsMobile = $this->managers_m->check_manager_mobile($managerMobile);
-                        $valid_mobile = $this->__checkMobile($managerMobile);
-                        log_message('info','Mobile Exist: '.print_r($existsMobile).' Mobile Valid: '.print_r($valid_mobile));
-                        if($existsMobile OR $valid_mobile === false){
+                    $existsMobile = $this->managers_m->check_manager_mobile($managerMobile);
+                    $valid_mobile = $this->__checkMobile($managerMobile);
+                    log_message('info','Mobile Exist: '.print_r($existsMobile).' Mobile Valid: '.print_r($valid_mobile));
+                    if($existsMobile OR $valid_mobile === false){
 
-                            if($existsMobile){
+                        if($existsMobile){
                                 //manager Mobile exists
-                                $existingMobiles =$existingMobiles.' | '.$managerMobile;
+                            $existingMobiles =$existingMobiles.' | '.$managerMobile;
                                 //log as not added
-                                log_message('info',$managerMobile.' EXISTS! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
-                            }else{
+                            log_message('info',$managerMobile.' EXISTS! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
+                        }else{
                                 //manager Mobile not added
-                                $notAdded = $notAdded. ' | '.$managerName;
+                            $notAdded = $notAdded. ' | '.$managerName;
                                 //log as not added
-                                log_message('info','INVALID MOBILE FORMAT! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
-                            }
+                            log_message('info','INVALID MOBILE FORMAT! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
+                        }
 
-                        }else {
+                    }else {
 
                             //Email exist
                             // Check manager email exists or not
-                            $existsEmail = $this->managers_m->check_manager_email($managerEmail);
+                        $existsEmail = $this->managers_m->check_manager_email($managerEmail);
 
-                            if(valid_email($managerEmail)===false){
-                                $notAdded = $notAdded. ' | '.$managerName;
+                        if(valid_email($managerEmail)===false){
+                            $notAdded = $notAdded. ' | '.$managerName;
                                 //log as not added
-                                log_message('info',' INVALID EMAIL! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
-                            }else{
+                            log_message('info',' INVALID EMAIL! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
+                        }else{
 
-                                if($existsEmail===true){
-                                    $existingEmails =$existingEmails.' | '.$managerEmail;
+                            if($existsEmail===true){
+                                $existingEmails =$existingEmails.' | '.$managerEmail;
                                     //log as not added
-                                    log_message('info',$managerEmail.' EXISTS! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
-                                }else{
+                                log_message('info',$managerEmail.' EXISTS! IGNORED ENTRY: '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
+                            }else{
                                     //Fields Valid. Add the manager
-                                    $manager_added = $this->managers_m->add_manager(ucwords($managerName),$managerMobile,strtolower($managerEmail),strtoupper($managerDivision),$regionId);
+                                $manager_added = $this->managers_m->add_manager(ucwords($managerName),$managerMobile,strtolower($managerEmail),strtoupper($managerDivision),$regionId);
 
-                                    if($manager_added){
-                                        $addCounter++;
+                                if($manager_added){
+                                    $addCounter++;
                                         //log the region added
-                                        log_message('info',$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion.' ADDED SUCCESSFULLY! ');
+                                    log_message('info',$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion.' ADDED SUCCESSFULLY! ');
 
-                                    }else{
-                                        $notAdded = $notAdded. ' | '.$managerName;
+                                }else{
+                                    $notAdded = $notAdded. ' | '.$managerName;
                                         //log the region as not added
-                                        log_message('info','MANAGER NOT ADDED! '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
-                                    }
+                                    log_message('info','MANAGER NOT ADDED! '.$managerDivision.' '.$managerName.' '.$managerMobile.' '.$managerEmail.' '.$managerRegion);
                                 }
-
                             }
-
 
                         }
 
 
                     }
+
+
+                }
 
 
             }

@@ -56,30 +56,4 @@
 </div>
 <!-- end #content -->
 
-
-<div id="importModal" class="modal  fade" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header blue">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
-        <h3 id="myModalLabel">Importing Data</h3>
-    </div>
-
-    <div class="modal-body">
-        <div id="loading-div-background">
-            <div id="loading-div" class="ui-corner-all align_center">
-                <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
-                <br>PROCESSING. PLEASE WAIT...
-            </div>
-        </div>
-        <br/>
-    </div>
-
-</div>
-
-
-
-<script type="text/javascript">
-    function checkFile(){
-        jQuery('#importModal').modal('show');
-    }
-</script>
-
+ 

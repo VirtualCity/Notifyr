@@ -81,31 +81,4 @@
 </div>
 </div>
 <!-- end #content -->
-
-<div class="modal fade" id="importModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Processing</h4>
-            </div>
-            <div class="modal-body">
-                <div id="loading-div-background">
-                    <div id="loading-div" class="ui-corner-all align_center">
-                        <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
-                        <br>PROCESSING. PLEASE WAIT...
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    function checkFile(){
-        jQuery('#importModal').modal('show');
-    }
-</script>
-
-
+ 

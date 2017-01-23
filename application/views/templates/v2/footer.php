@@ -3,6 +3,25 @@
 	&copy; 2017 Virtual city
 </div>
 
+<div class="modal fade" data-backdrop="static" id="importModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Processing</h4>
+            </div>
+            <div class="modal-body">
+                <div id="loading-div-background">
+                    <div id="loading-div" class="ui-corner-all align_center">
+                        <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
+                        <br>PROCESSING. PLEASE WAIT...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <!-- begin scroll to top btn -->
 <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
@@ -32,6 +51,13 @@
 	$(document).ready(function() {
 		App.init();
 	});
+</script>
+
+<script type="text/javascript">
+    function checkFile(){
+        jQuery('#importModal').modal('show');
+    }
+
 </script>
 
 </body>
