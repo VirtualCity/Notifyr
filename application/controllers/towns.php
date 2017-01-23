@@ -18,16 +18,16 @@ class Towns extends Admin_Controller{
     function index(){
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Towns";
-        $this->load->view('templates/header', $data);
-        $this->load->view('towns/view_towns',$data);
+        $data['mainContent']='towns/view_towns';
+        $this->load->view('templates/template',$data); 
     }
 
     function datatable(){
         $this->datatables->select('towns.id AS id,towns.name AS town,towns.code as code,regions.name AS region, towns.modified AS modified,towns.created AS created')
-            ->unset_column('id')
-            ->add_column('actions', get_towns_buttons('$1'), 'id')
-            ->from('towns')
-            ->join('regions','towns.region_id = regions.id');
+        ->unset_column('id')
+        ->add_column('actions', get_towns_buttons('$1'), 'id')
+        ->from('towns')
+        ->join('regions','towns.region_id = regions.id');
 
         echo $this->datatables->generate();
     }
@@ -84,8 +84,8 @@ class Towns extends Admin_Controller{
         $data['region_id'] =$region_id;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Town";
-        $this->load->view('templates/header', $data);
-        $this->load->view('towns/add_town',$data);
+        $data['mainContent']='towns/add_town';
+        $this->load->view('templates/template',$data); 
     }
 
     function edit($id=null){
@@ -111,9 +111,8 @@ class Towns extends Admin_Controller{
         $data['regions'] = $regions;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Town";
-        $this->load->view('templates/header', $data);
-        $this->load->view('towns/edit_town',$data);
-
+        $data['mainContent']='towns/edit_town';
+        $this->load->view('templates/template',$data);
     }
 
     function modify(){
@@ -183,8 +182,9 @@ class Towns extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Import Towns";
-        $this->load->view('templates/header', $data);
-        $this->load->view('towns/import_towns',$data);
+        $data['mainContent']='towns/import_towns';
+        $this->load->view('templates/template',$data);
+        
     }
 
     function do_upload(){
@@ -321,9 +321,8 @@ class Towns extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Assign Supervisors to Town";
-        $this->load->view('templates/header', $data);
-        $this->load->view('towns/assign_town_supervisors',$data);
-
+        $data['mainContent']='towns/assign_town_supervisors';
+        $this->load->view('templates/template',$data); 
     }
 
     function assignsupervisor(){
@@ -400,20 +399,20 @@ class Towns extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Town Supervisors";
-        $this->load->view('templates/header', $data);
-        $this->load->view('towns/view_town_supervisors',$data);
+        $data['mainContent']='towns/view_town_supervisors';
+        $this->load->view('templates/template',$data); 
 
     }
 
     function town_supervisors($id){
         if(!empty($id)) {
             $this->datatables->select('supervisors.id AS id,supervisors.name as name,supervisors.mobile as mobile,
-            supervisors.email as email,supervisors.division as division, supervisors.modified As modified,supervisors.created As created')
-                ->unset_column('id')
-                ->add_column('actions', get_towns_supervisor_buttons('$1',$id), 'id')
-                ->from('supervisors_towns')
-                ->join('supervisors', 'supervisors_towns.supervisor_id = supervisors.id')
-                ->where('supervisors_towns.town_id',$id);
+                supervisors.email as email,supervisors.division as division, supervisors.modified As modified,supervisors.created As created')
+            ->unset_column('id')
+            ->add_column('actions', get_towns_supervisor_buttons('$1',$id), 'id')
+            ->from('supervisors_towns')
+            ->join('supervisors', 'supervisors_towns.supervisor_id = supervisors.id')
+            ->where('supervisors_towns.town_id',$id);
 
             echo $this->datatables->generate();
 

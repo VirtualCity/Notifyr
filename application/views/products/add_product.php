@@ -1,108 +1,77 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
+<div id="content" class="content">
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a href="<?=base_url("products")?>">Products</a><span class="divider">/</span></li>
-            <li class="active"><a>Add Product</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="javascript:;"><i class="fa fa-file"></i> View products</a></li>
+            <li class="active">Add Product </li>
+        </ol>
     </div>
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
 
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Add Product</h5>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-no-rounded-corner panel-default">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Add Product</h4>
                 </div>
-                <div class="well-content no_search">
+                <div class="panel-body">
 
                     <form action="<?=base_url('products/add')?>" method="post" class="form-horizontal">
 
-                        <div class="form_row">
-                            <label for="code" class="field_name align_right lblBold">Product Code </label>
-                            <div class="field">
-                                <input type="text" name="code" id="code" placeholder="Product Code" class="span6" value="<?=$code?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('code'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="name" class="field_name align_right lblBold">Product Name </label>
-                            <div class="field">
-                                <input type="text" name="name" id="name" placeholder="Product Name" class="span6" value="<?=$name?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('name'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="description" class="field_name align_right lblBold">Description </label>
-                            <div class="field">
-                                <input type="text" name="description" id="description" placeholder="Description/SKU" class="span6" value="<?=$description?>""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('description'); ?> </font></div>
-                            </div>
+                        <div class="col-md-12 col-xs-12">
+                            <label>Product Code </label><span class="text-danger"> *</span>
+
+                            <input required type="text" name="code" id="code" placeholder="Product Code" class="form-control" value="<?=$code?>"/>
+                            <span class="text-danger">  <?<?php echo form_error('code'); ?> </span>
 
                         </div>
+
+                        <hr class="field-separator">
+                        <div class="col-md-12 col-xs-12">
+                            <label>Product Name</label><span class="text-danger"> *</span>
+                            
+                            <input required type="text" name="name" id="name" placeholder="Product Name" class="form-control" value="<?=$name?>"/>
+                            <span class="text-danger">  <?php echo form_error('name'); ?> </span>
+
+                        </div>
+
+                        <div class="col-md-12 col-xs-12">
+                            <label>Description</label><span class="text-danger"> *</span>
+                            
+                            <input required type="text" name="description" id="description" placeholder="Description/SKU" class="form-control" value="<?=$description?>""/>
+                            <span class="text-danger"><?php echo form_error('description'); ?></span>
+
+
+                        </div>
+
                         <hr class="field-separator">
 
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-plus"></i> Add</button>
-                            </div>
+                        <div class="col-md-12 col-xs-12">
+                            <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-save"></i> Save</button>
+                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+
                         </div>
 
                     </form>
-                </div>
-            </div>
 
+                </div>
+                <div class="panel-footer">Add Product</div>
+            </div>
         </div>
     </div>
 </div>
 
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-
-</body>
-</html>
+<!-- end #content -->
