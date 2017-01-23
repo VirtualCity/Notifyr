@@ -257,8 +257,12 @@ class Contacts extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Contact";
-        $this->load->view('templates/header', $data);
-        $this->load->view('contacts/edit_contact',$data);
+
+         $data['mainContent']='contacts/edit_contact';
+        $this->load->view('templates/template',$data);
+
+
+        
 
     }
 
