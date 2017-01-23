@@ -186,3 +186,7 @@ table {
         margin-bottom: 12% !important;
     }
 }
+.field-separator{
+    clear: both;
+    margin-bottom: 10px;
+}

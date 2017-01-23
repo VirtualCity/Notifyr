@@ -34,8 +34,8 @@
                     <form action="<?php echo base_url('groups/add');?>" method="post" class="form-horizontal">
 
                      <div class="col-md-12 col-xs-12">
-                        <label for="fname" class="field_name align_right lblBold">First Name </label><span class="text-danger"> *</span>
-                        <div >
+                         <label >Group Name </label><span class="text-danger"> *</span>
+                         <div >
                             <input required type="text" name="group" id="group" placeholder="Group Name" class="form-control" value="<?php echo $group ?>"/>
 
                             <span class="text-danger"> <?php echo form_error('group'); ?> </span>
@@ -43,9 +43,9 @@
                     </div> 
 
                     <div class="col-md-12 col-xs-12">
-                        <label for="fname" class="field_name align_right lblBold">Description </label><span class="text-danger"> *</span>
+                    <label>Description </label><span class="text-danger"> *</span>
                         <div >
-                           
+
                             <textarea id="description" name="description" placeholder="Group Description" class="form-control" rows="4" value=""><?php echo $description ?></textarea>
 
                             <span class="text-danger"> <?php echo form_error('description'); ?> </span>
@@ -55,16 +55,14 @@
                     <hr class="field-separator">
 
                     <div class="col-md-12 col-xs-12">
-                        <div >
-                            <button type="submit" class="btn btn-primary"><i class=""></i> Save</button>
-                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
-                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                        <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                     </div>
 
 
 
 
-                     
+
 
                 </form>
             </div>
