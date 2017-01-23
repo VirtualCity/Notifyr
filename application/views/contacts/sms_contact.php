@@ -18,7 +18,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                          
                     </div>
-                    <h4 class="panel-title">SMS Contact</h4>
+                    <h4 class="panel-title">SMS : <?php echo $name;?></h4>
                 </div>
                 <div class="panel-body">
                    <div class="well-content no_search">
@@ -39,7 +39,7 @@
                         <div class="col-md-6 col-xs-12">
                         <label for="message" class="field_name align_right lblBold">Message</label><span class="text-danger"> *</span>
                        <div class="field">
-                                <textarea  id="message" required="textarea" name="message" placeholder="Message" class="span6" rows="4" value=""></textarea>
+                                <textarea  id="message" required="textarea" name="message" placeholder="Message" class="form-control" rows="4" value=""></textarea>
                                 <span class="text-danger"> <?php echo form_error('fname'); ?> </span>
                                 </div>
                     </div>

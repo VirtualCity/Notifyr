@@ -69,6 +69,7 @@ class Contacts extends MY_Controller{
             //retrieve the msisdn for the recipient
             $msisdn = $this->contacts_model->get_contact($id);
             //display reply view
+            $data['name']=$msisdn->name;           
             $data['msisdn']= $msisdn->msisdn;
             $data['id']= $id;
 
