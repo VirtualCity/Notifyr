@@ -1,11 +1,11 @@
 <div id="content" class="content">
- 
+   
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-        <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="javascript:;"><i class="fa fa-file"></i> Regions</a></li>
-        <li class="active">Import Regions</li>
-    </ol>
+            <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="javascript:;"><i class="fa fa-file"></i> Regions</a></li>
+            <li class="active">Import Regions</li>
+        </ol>
     </div>
 
     <div id="alert_placeholder">
@@ -15,7 +15,7 @@
         <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
         <?php } ?>
     </div>
- 
+    
 
     <div class="row">
         <div class="col-md-12">
@@ -24,12 +24,12 @@
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                         
+                        
                     </div>
                     <h4 class="panel-title">Import Regions</h4>
                 </div>
                 <div class="panel-body">
-                   <div class="well-content no_search">
+                 <div class="well-content no_search">
                     <?php //echo $status->message; ?>
                     <form action="<?=base_url('regions/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
 
@@ -44,73 +44,78 @@
                         <hr class="field-separator">
                         <div class="form_row">
                             <label class="field_name align_right"></label>
-                             <div class="form-group col-lg-3">
-                        
-                        <div class="field">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Import</button>
+                            <div class="form-group col-lg-3">
+                                
+                              <div class="col-md-12 col-xs-12">
+                                <br>
+                                <br>
+                                <br>
+                                <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                            </div>
                         </div>
                     </div>
-                        </div>
 
-                    </form>
+                </form>
 
-                    <br/>
-                    <?php
-                    $existing = $this->session->flashdata('existing');
-                    if(!empty($existing)){ ?>
-                        <div id="alertdiv" class="alert alert-info "><a class="close" data-dismiss="alert">x</a>
-                            <strong>Regions already Existing!</strong>
-                            <br>
-                            <span><?= $existing ?></span>
-                        </div>
-                    <?php } ?>
-                    <br/>
-                    <?php
-                    $not_imported = $this->session->flashdata('notImported');
-                    if(!empty($not_imported)){ ?>
-                        <div id="alertdiv" class="alert alert-info "><a class="close" data-dismiss="alert">x</a>
-                            <strong>Failed to import!</strong>
-                            <br>
-                            <span><?= $not_imported ?></span>
-                        </div>
-                    <?php } ?>
-                </div> 
+                <br/>
+                <?php
+                $existing = $this->session->flashdata('existing');
+                if(!empty($existing)){ ?>
+                <div id="alertdiv" class="alert alert-info "><a class="close" data-dismiss="alert">x</a>
+                    <strong>Regions already Existing!</strong>
+                    <br>
+                    <span><?= $existing ?></span>
                 </div>
-                <div class="panel-footer">Import Regions</div>
-            </div>
+                <?php } ?>
+                <br/>
+                <?php
+                $not_imported = $this->session->flashdata('notImported');
+                if(!empty($not_imported)){ ?>
+                <div id="alertdiv" class="alert alert-info "><a class="close" data-dismiss="alert">x</a>
+                    <strong>Failed to import!</strong>
+                    <br>
+                    <span><?= $not_imported ?></span>
+                </div>
+                <?php } ?>
+            </div> 
         </div>
+        <div class="panel-footer">Import Regions</div>
     </div>
+</div>
+</div>
 </div>
 
 
-<div id="importModal" class="modal  fade" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header blue">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
-        <h3 id="myModalLabel">Importing Data</h3>
-    </div>
-
-    <div class="modal-body">
-        <div id="loading-div-background">
-            <div id="loading-div" class="ui-corner-all align_center">
-                <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
-                <br>PROCESSING. PLEASE WAIT...
+<div class="modal fade" id="importModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Processing</h4>
             </div>
-        </div>
-        <br/>
-    </div>
+            <div class="modal-body">
+                <div id="loading-div-background">
+                    <div id="loading-div" class="ui-corner-all align_center">
+                        <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
+                        <br>PROCESSING. PLEASE WAIT...
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
 </div>
 
 
 <!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
 
-<script type="text/javascript">
-    function checkFile(){
-        jQuery('#importModal').modal('show');
-    }
-</script>
+    <script type="text/javascript">
+        function checkFile(){
+            jQuery('#importModal').modal('show');
+        }
+    </script>
 
 
 </body>

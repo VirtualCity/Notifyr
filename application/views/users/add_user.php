@@ -1,165 +1,125 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
-
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a>Users</a> <span class="divider">/</span></li>
-            <li class="active"><a>Add User</a></li>
-        </ul>
+<div id="content" class="content">
+ 
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="javascript:;"><i class="fa fa-file"></i> Add User</a></li>
+            <li class="active">Add New User</li>
+        </ol>
     </div>
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
         if(!empty($appmsg)){ ?>
-            <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
         <?php } ?>
     </div>
-    <div class="inner_content">
 
-        <div class="widgets_area">
-
-
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Add New User</h5>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-no-rounded-corner panel-default">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        
+                    </div>
+                    <h4 class="panel-title">Add New User</h4>
                 </div>
-                <div class="well-content no_search">
+                <div class="panel-body">
+                    <div class="well-content no_search">
 
-                    <form action="<?=base_url('users/add')?>" method="post" class="form-horizontal">
-
-                        <div class="form_row">
-                            <label for="fname" class="field_name align_right lblBold">First Name </label>
-                            <div class="field">
-                                <input type="text" name="fname" id="fname" placeholder="First Name" class="span6" value="<?=$fname?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('fname'); ?> </font></div>
+                        <form action="<?=base_url('users/add')?>" method="post" class="form-horizontal">
+                            <div class="col-md-6 col-xs-12">
+                                <label  > First Name</label><span class="text-danger"> *</span>
+                                <input required type="text" name="fname" id="fname" placeholder="First Name" class="form-control" value="<?=$fname?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('fname'); ?> </span>
+                            </div>
+                            
+                            <div class="col-md-6 col-xs-12">
+                                <label  >Surname</label><span class="text-danger"> *</span>
+                                <input required type="text" name="sname" id="sname" placeholder="Surname" class="form-control" value="<?=$sname?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('sname'); ?> </span>
+                            </div>
+                            
+                            <div class="col-md-6 col-xs-12">
+                                <label  >Other Names</label><span class="text-danger"> *</span>
+                                <input required type="text" name="oname" id="oname" placeholder="Other Names" class="form-control" value="<?=$oname?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('oname'); ?> </span>
+                            </div>
+                            
+                            <div class="col-md-6 col-xs-12">
+                                <label  >Email</label><span class="text-danger"> *</span>
+                                <input required type="text" name="email" id="email" placeholder="Other Names" class="form-control" value="<?=$email?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('email'); ?> </span>
                             </div>
 
-                        </div>
-                        <hr class="field-separator">
+                            
+                            
+                            <div class="col-md-6 col-xs-12">
+                                <label  >Mobile No</label><span class="text-danger"> *</span>
+                                <input required type="text" name="mobile" id="mobile" placeholder="Mobile No" class="form-control" value="<?=$mobile?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('mobile'); ?> </span>
+                            </div>
+                            
+                            <div class="col-md-6 col-xs-12">
+                                <label  >Username</label><span class="text-danger"> *</span>
+                                <input required type="text" name="username" id="username" placeholder="Username" class="form-control" value="<?=$username?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('username'); ?> </span>
+                            </div>
+                            
 
-                        <div class="form_row">
-                            <label for="sname" class="field_name align_right lblBold">Surname </label>
-                            <div class="field">
-                                <input type="text" name="sname" id="sname" placeholder="Surname" class="span6" value="<?=$sname?>""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('sname'); ?> </font></div>
+                            <div class="col-md-6 col-xs-12">
+                                <label  >Password</label><span class="text-danger"> *</span>
+                                <input required type="text" name="password" id="password" placeholder="password" class="form-control" value="<?=$password?>"/>
+                                
+                                <span class="text-danger"> <?php echo form_error('password'); ?> </span>
+                            </div>
+                            
+
+                            <div class="col-md-6 col-xs-12">
+                                <label for="role" >Select Role </label>
+                                <span class="text-danger"> *</span>
+                                <div class="field">
+                                    <select name="role" id="role" class="form-control" >
+                                        <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
+                                        <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>User</option>
+                                        <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Super User</option>
+                                        <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
+                                    </select> 
+                                    <div><span class="text-danger"><?php echo form_error('role'); ?> </span></div>
+                                </div>
                             </div>
 
-                        </div>
-                        <hr class="field-separator">
+                            
 
-                        <div class="form_row">
-                            <label for="oname" class="field_name align_right lblBold">Other Names </label>
-                            <div class="field">
-                                <input type="text" name="oname" id="oname" placeholder="Other Names" class="span6" value="<?=$oname?>""/>
-                                <div><font color="red"> <?php echo form_error('oname'); ?> </font></div>
+                            <hr class="field-separator">
+                            <div class="col-md-6 col-xs-12">
+                                <div >
+                                    <button type="submit" class="btn btn-success"><i class=""></i> Save</button>
+                                    <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                                </div>
                             </div>
-                        </div>
-                        <hr class="field-separator">
+                            
 
-                        <div class="form_row">
-                            <label for="email" class="field_name align_right lblBold">Email </label>
-                            <div class="field">
-                                <input type="text" name="email" id="email" placeholder="Email Address" class="span6" value="<?=$email?>""/>
-                                <div><font color="red"> <?php echo form_error('email'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-
-                        <div class="form_row">
-                            <label for="mobile" class="field_name align_right lblBold">Mobile No </label>
-                            <div class="field">
-                                <input type="text" name="mobile" id="mobile" placeholder="254" class="span6" value="<?=$mobile?>""/>
-                                <div><font color="red"> <?php echo form_error('mobile'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-
-
-
-                        <div class="form_row">
-                            <label for="username" class="field_name align_right lblBold">Username</label>
-                            <div class="field">
-                                <input type="text" name="username" id="username" placeholder="Username" class="span6" value="<?=$username?>""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('username'); ?> </font></div>
-                            </div>
-
-                        </div>
-                        <hr class="field-separator">
-
-                        <div class="form_row">
-                            <label for="password" class="field_name align_right lblBold">Password</label>
-                            <div class="field">
-                                <input type="password" name="password" id="password" placeholder="Password" class="span6" value="<?=$password?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('password'); ?> </font></div>
-                            </div>
-
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="role" class="field_name align_right lblBold">Select Role </label>
-                            <div class="field">
-                                <select name="role" id="role" class="span6" rows="4" >
-                                    <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
-                                    <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>User</option>
-                                    <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Super User</option>
-                                    <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
-                                </select> <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('role'); ?> </font></div>
-                            </div>
-                        </div>
-
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-plus"></i> Save</button>
-                            </div>
-                        </div>
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
+                <div class="panel-footer">Add New User</div>
             </div>
-
         </div>
     </div>
 </div>
 
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 
-<script src="<?php echo($base); ?>assets/js/jquery-1.11.1.js"></script>
-<script src="<?php echo($base); ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php echo($base); ?>assets/js/bootstrap.js"></script>
-
-<script src="<?php echo($base); ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.uniform.min.js"></script>
-
-<script src="<?php echo($base); ?>assets/js/library/jquery.autosize-min.js"></script>
-
-<script src="<?php echo($base); ?>assets/js/design_core.js"></script>
 
 <script>
 
@@ -188,5 +148,3 @@ if( $user_role === 'ADMIN'){
 
 </script>
 
-</body>
-</html>

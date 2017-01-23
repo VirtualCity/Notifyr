@@ -18,8 +18,11 @@ class Suspended extends Admin_Controller{
     function index(){
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Manage Suspended Users";
-        $this->load->view('templates/header', $data);
-        $this->load->view('users/view_suspended',$data);
+
+        $data['mainContent']='users/view_suspended';
+        $this->load->view('templates/template',$data);
+        
+        
     }
 
     //return suspended users

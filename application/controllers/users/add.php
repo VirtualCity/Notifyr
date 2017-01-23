@@ -83,8 +83,11 @@ class Add extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add User";
-        $this->load->view('templates/header', $data);
-        $this->load->view('users/add_user',$data);
+
+  $data['mainContent']='users/add_user';
+        $this->load->view('templates/template',$data);
+
+     
     }
 
     public function mobile_check($str){
