@@ -8,6 +8,7 @@
             <li class="active">Import Products</li>
         </ol>
     </div>
+
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
@@ -33,16 +34,14 @@
                     <div class="col-md-12 col-xs-12">
                         <label>Select File To Import:</label><span class= "text-danger"> *</span>
 
-                        <div class="field">
-                            <input type="file" name="userfile" id="userfile"/>
-                        </div>
+                        <input type="file" class="form-control" name="userfile" id="userfile"/>
 
                     </div>
 
                     <hr class="field-separator">
                     <div class="col-md-12 col-xs-12">
-                    <button type="submit" class="btn btn-primary"><i class=""></i> <i class="fa fa-upload"></i>  Import</button>
-                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                        <button type="submit" onclick="checkFile()" class="btn btn-primary"><i class=""></i> <i class="fa fa-upload"></i>  Import</button>
+                        <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
                     </div>
 
@@ -56,3 +55,31 @@
 </div>
 </div>
 <!-- end #content -->
+
+
+<div id="importModal" class="modal  fade" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header blue">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
+        <h3 id="myModalLabel">Importing Data</h3>
+    </div>
+
+    <div class="modal-body">
+        <div id="loading-div-background">
+            <div id="loading-div" class="ui-corner-all align_center">
+                <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
+                <br>PROCESSING. PLEASE WAIT...
+            </div>
+        </div>
+        <br/>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    function checkFile(){
+        jQuery('#importModal').modal('show');
+    }
+</script>
+
