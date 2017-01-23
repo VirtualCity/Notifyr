@@ -189,4 +189,9 @@ table {
 .field-separator{
     clear: both;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
+
+
+
+#loading-div-background{background: #ffffff;}
