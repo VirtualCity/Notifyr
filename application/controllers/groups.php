@@ -79,8 +79,9 @@ class Groups extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add SMS Group";
-        $this->load->view('templates/header', $data);
-        $this->load->view('groups/add_group',$data);
+
+        $data['mainContent']='groups/add_group';
+        $this->load->view('templates/template',$data);
     }
 
     function contacts($id=null){
