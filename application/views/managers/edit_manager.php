@@ -1,86 +1,70 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a href="<?=base_url("managers")?>">Area Managers</a><span class="divider">/</span></li>
-            <li class="active"><a>Edit Manager</a></li>
-        </ul>
+<!-- begin #content -->
+<div id="content" class="content">
+    
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo site_url('managers') ?>"><i class="fa fa-circle"></i> Managers</a></li>
+            <li class="active">Edit Manager</li>
+        </ol>
     </div>
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
 
+    
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Edit Region Manager</h5>
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-no-rounded-corner panel-default">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        
+                    </div>
+                    <h4 class="panel-title">Edit Manager: <?php echo $name ?></h4>
                 </div>
-                <div class="well-content no_search">
+                <div class="panel-body">
+                       <form action="<?=base_url('managers/modify')?>" method="post" class="form-horizontal">
 
-                    <form action="<?=base_url('managers/modify')?>" method="post" class="form-horizontal">
-                        <input type="hidden" name="id" value="<?=$id?>"/>
-                        <div class="form_row">
-                            <label for="name" class="field_name align_right lblBold">Name </label>
-                            <div class="field">
-                                <input type="text" name="name" id="name" placeholder="Manager Name" class="span6" value="<?=$name?>""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('name'); ?> </font></div>
-                            </div>
+                        <div class="col-md-12 col-xs-12">
+                            <label > Name </label><span class="text-danger"> *</span>
+                            <input required type="text" name="name" id="name" placeholder=" Name" class="form-control" value="<?php echo $name ?>"/>
 
+                            <span class="text-danger"> <?php echo form_error('name'); ?> </span>
                         </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="mobile" class="field_name align_right lblBold">Mobile Number </label>
-                            <div class="field">
-                                <input type="text" name="mobile" id="mobile" placeholder="2547xxxxxxxx" class="span6" value="<?=$mobile?>"" />
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('mobile'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="email" class="field_name align_right lblBold">Email </label>
-                            <div class="field">
-                                <input type="text" name="email" id="email" placeholder="Email" class="span6" value="<?=$email?>""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('email'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="division" class="field_name align_right lblBold">Division </label>
-                            <div class="field">
-                                <input type="text" name="division" id="division" placeholder="Division" class="span6" value="<?=$division?>""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('division'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="region" class="field_name align_right lblBold">Region</label>
-                            <div class="field">
-                                <select name="region" id="region" class="span6" rows="4" >
+
+                        <div class="col-md-12 col-xs-12">
+                            <label > Phone Number </label><span class="text-danger"> *</span>
+                            <input required type="number" name="mobile" id="mobile" placeholder="2547xxxxxxxx" class="form-control" value="<?php echo $mobile ?>"/>
+
+                            <span class="text-danger"> <?php echo form_error('mobile'); ?> </span>
+                        </div> 
+
+                        <div class="col-md-12 col-xs-12">
+                            <label > Email Address</label><span class="text-danger"> *</span>
+                            <input required type="email" name="email" id="email" placeholder="email" class="form-control" value="<?php echo $email ?>"/>
+                            <span class="text-danger"> <?php echo form_error('email'); ?> </span>
+                        </div> 
+
+
+                        <div class="col-md-12 col-xs-12">
+                            <label > Division</label><span class="text-danger"> *</span>
+                            <input required type="text" name="division" id="division" placeholder="Division" class="form-control" value="<?php echo $division ?>"/>
+                            <span class="text-danger"> <?php echo form_error('division'); ?> </span>
+                        </div> 
+
+                        <div class="col-md-12 col-xs-12">
+                            <label > Region</label><span class="text-danger"> *</span>
+                            <select name="region" id="region" class="form-control" rows="4" >
                                     <option value="">---Please Select Region---</option>
                                     <?php
                                     if(!empty($areas)){
@@ -88,46 +72,23 @@ if( $user_role === 'ADMIN'){
                                             <option value="<?=$row->id?>" <?php if ($row->id ===$region_id){echo "selected";}?>><?=$row->name?></option>
                                         <?php   }
                                     } ?>
-                                </select> <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('region'); ?></font></div>
-                            </div>
-                        </div>
+                                </select>
+                            <span class="text-danger"> <?php echo form_error('region'); ?> </span>
+                        </div> 
+
 
                         <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-edit"></i> Edit</button>
-                            </div>
+                        <div class="col-md-12 col-xs-12">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                         </div>
 
                     </form>
                 </div>
+                <div class="panel-footer">Edit Manager</div>
             </div>
-
         </div>
     </div>
 </div>
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-
-</body>
-</html>
+<!-- end #content -->
+ 
