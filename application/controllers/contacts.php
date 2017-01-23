@@ -81,8 +81,11 @@ class Contacts extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Contact";
-        $this->load->view('templates/header', $data);
-        $this->load->view('contacts/sms_contact',$data);
+          $data['mainContent']='contacts/sms_contact';
+        $this->load->view('templates/template',$data);
+
+
+       
     }
 
     function sendsms(){
