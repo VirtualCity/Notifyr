@@ -20,8 +20,8 @@ class Supervisors extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Supervisors";
-        $this->load->view('templates/header', $data);
-        $this->load->view('supervisors/view_supervisors',$data);
+        $data['mainContent']='supervisors/view_supervisors';
+        $this->load->view('templates/template',$data); 
 
     }
 
@@ -84,8 +84,8 @@ class Supervisors extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Supervisor";
-        $this->load->view('templates/header', $data);
-        $this->load->view('supervisors/add_supervisor',$data);
+        $data['mainContent']='supervisors/add_supervisor';
+        $this->load->view('templates/template',$data); 
 
     }
 
@@ -119,8 +119,8 @@ class Supervisors extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Supervisor";
-        $this->load->view('templates/header', $data);
-        $this->load->view('supervisors/edit_supervisor',$data);
+        $data['mainContent']='supervisors/edit_supervisor';
+        $this->load->view('templates/template',$data); 
 
     }
 
@@ -233,8 +233,8 @@ class Supervisors extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Import Supervisors";
-        $this->load->view('templates/header', $data);
-        $this->load->view('supervisors/import_supervisors',$data);
+        $data['mainContent']='supervisors/import_supervisors';
+        $this->load->view('templates/template',$data); 
     }
 
     function do_upload(){
