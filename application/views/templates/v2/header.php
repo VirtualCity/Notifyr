@@ -3,7 +3,9 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Controllr | <?php echo $title ?></title>
+	<link rel="shortcut icon" href="<?php echo base_url() ?>favicon.ico">
+
+    <title>Notifyr |  <?php echo $title ?></title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -50,7 +52,7 @@
 					</button>
 				</div>
 				<a href="" class="navbar-brand">
-					<span class="navbar-logo"> Controllr</a>
+					<span class="navbar-logo"> Notifyr</a>
 
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">
