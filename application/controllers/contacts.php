@@ -20,14 +20,14 @@ class Contacts extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Contacts";
+
         $data['mainContent']='contacts/view_active_contacts';
         $this->load->view('templates/template',$data);
 
-        
     }
 
     function datatable(){
-        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region,contacts.created as created')
+        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region')
             ->unset_column('id')
             ->add_column('actions', get_active_contacts_buttons('$1'), 'id')
             ->join('regions','contacts.region_id = regions.id','left')
@@ -41,8 +41,13 @@ class Contacts extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Suspended Contacts";
-        $this->load->view('templates/header', $data);
-        $this->load->view('contacts/view_suspended_contacts',$data);
+
+        $data['mainContent']='contacts/view_suspended_contacts';
+        $this->load->view('templates/template',$data);
+
+    
+
+       
     }
 
     function datatable2(){
