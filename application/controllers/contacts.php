@@ -20,8 +20,10 @@ class Contacts extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Contacts";
-        $this->load->view('templates/header', $data);
-        $this->load->view('contacts/view_active_contacts',$data);
+        $data['mainContent']='contacts/view_active_contacts';
+        $this->load->view('templates/template',$data);
+
+        
     }
 
     function datatable(){
