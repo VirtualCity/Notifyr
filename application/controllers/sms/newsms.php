@@ -74,8 +74,11 @@ class Newsms extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "New SMS";
-        $this->load->view('templates/header', $data);
-        $this->load->view('sms/newsms',$data);
+        $data['mainContent']='sms/newsms';
+
+        $this->load->view('templates/template',$data);
+
+        
     }
 
     function msisdn_check($str){
