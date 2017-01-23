@@ -109,7 +109,6 @@ class Dashboard extends MY_Controller{
         $data['title'] = "Dashboard";
         $data['mainContent']='dashboard';
         $this->load->view('templates/template',$data);
-        $this->load->view('dashboard',$data);
     }
 
 }

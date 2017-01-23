@@ -1,96 +1,74 @@
-<body >
-<!--Header Section-->
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
+<div id="content" class="content">
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?php echo base_url("dashboard");?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a>New SMS</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
+            <li class="active">New SMS</li>
+        </ol>
     </div>
 
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
 
-        <div class="widgets_area">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-no-rounded-corner panel-default">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
-
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>New SMS</h5>
+                    </div>
+                    <h4 class="panel-title">New SMS</h4>
                 </div>
-                <div class="well-content no_search">
+                <div class="panel-body">
+                 <form action="<?php echo base_url('sms/newsms');?>" method="post" class="form-horizontal">
 
-                    <form action="<?php echo base_url('sms/newsms');?>" method="post" class="form-horizontal">
-                        <div class="form_row">
-                            <label for="msisdn" class="field_name align_right lblBold">Mobile Number</label>
-                            <div class="field">
-                                <input type="text" name="msisdn" id="msisdn" placeholder="254" class="span6" value="<?php echo $msisdn;?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('msisdn'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="message" class="field_name align_right lblBold">Message</label>
-                            <div class="field">
-                                <textarea id="message" name="message" placeholder="Message" class="span6" rows="4" value=""><?php echo $message; ?></textarea>
-                                <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('message'); ?> </font></div>
-                            </div>
+                    <div class="col-md-12 col-xs-12">
+                        <label>Mobile Number </label><span class="text-danger"> *</span>
+
+                        <input type="text" name="msisdn" id="msisdn" placeholder="254" class="form-control" value="<?php echo $msisdn;?>"/>
+                        <span class="text-danger">  <?php echo form_error('msisdn'); ?> </span>
+                        
+
+                    </div>
+
+
+                    <div class="col-md-12 col-xs-12">
+                        <label>Message </label><span class="text-danger"> *</span>
+
+
+                        <textarea required="true"  id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
+                        <span class="text-danger"><?php echo form_error('message'); ?> </span>
+                        
+                    </div>
+
+
+                    <hr class="field-separator">
+                    <div class="col-md-12 col-xs-12">
+                        <label class="field_name align_right"></label>
+                        <div class="field">
+
+                            <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-envelope"></i> Send</button>
+                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+
 
                         </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-envelope"></i> Send</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
+            <div class="panel-footer">New SMS</div>
 
         </div>
     </div>
 </div>
+</div>
+</div>
+<!-- end #content -->
 
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-
-</body>
-</html>

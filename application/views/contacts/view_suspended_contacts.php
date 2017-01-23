@@ -1,79 +1,70 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
 
- <!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+<div id="content" class="content">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url('dashboard')?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a href="<?=base_url("contacts")?>">Contacts</a><span class="divider">/</span></li>
-            <li class="active"><a >Suspended Contacts</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="javascript:;"><i class="fa fa-file"></i> Contacts</a></li>
+            <li class="active">Suspended Contacts</li>
+        </ol>
     </div>
 
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Suspended Contacts</h5>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-no-rounded-corner panel-default">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Suspended Contacts</h4>
                 </div>
-                <div class="well-content no_search">
+
+
+                <div class="panel-body">
+
+
 
                     <table class="table table-striped table-bordered table-hover datatable"  id="example">
                         <thead>
-                        <tr>
-                            <th>Mobile Number</th>
-                            <th>Contact Name</th>
-                            <th>Id Number</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Region</th>
-                            <th>Town</th>
-                            <th>Date Created</th>
-                            <?Php if($user_role!=="USER"){ ?>
+                            <tr>
+                                <th>Mobile Number</th>
+                                <th>Contact Name</th>
+                                <th>Id Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Region</th>
+                                <th>Town</th>
+                                <th>Date Created</th>
+                                <?Php if($user_role!=="USER"){ ?>
                                 <th>Action</th>
-                            <?Php  } ?>
+                                <?Php  } ?>
 
-                        </tr>
+                            </tr>
                         </thead>
 
                     </table>
 
-                </div>
-            </div>
 
+                </div>
+                <div class="panel-footer">Suspended Contacts</div>
+
+            </div>
         </div>
     </div>
 </div>
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/tabletools/js/datatables.tableTools.js'); ?>"></script>
 <script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('#example').dataTable({
@@ -92,38 +83,27 @@ if( $user_role === 'ADMIN'){
                 "aButtons": [ "copy", "csv","xls","pdf" ]
             },
             columns: [
-                { "data": "msisdn"},
-                { "data": "name"},
-                { "data": "id_number"},
-                { "data": "email"},
-                { "data": "address"},
-                { "data": "region"},
-                { "data": "town"},
-                { "data": "created"}
-                <?Php if($user_role==="ADMIN"){ ?>
+            { "data": "msisdn"},
+            { "data": "name"},
+            { "data": "id_number"},
+            { "data": "email"},
+            { "data": "address"},
+            { "data": "region"},
+            { "data": "town"},
+            { "data": "created"}
+            <?Php if($user_role==="ADMIN"){ ?>
                 ,
                 { "data": "actions","orderable": false,"searchable": false }
                 <?Php  } ?>
-            ],
-            "oLanguage": {
-                "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
-            },
-            "ajax":{
-                "url": "<?php echo base_url('contacts/datatable2')?>",
-                "type": "POST"
-            }
-        });
+                ],
+                "oLanguage": {
+                    "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
+                },
+                "ajax":{
+                    "url": "<?php echo base_url('contacts/datatable2')?>",
+                    "type": "POST"
+                }
+            });
     });
 
 </script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-</body>
-</html>
