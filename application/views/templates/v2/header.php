@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<link rel="shortcut icon" href="<?php echo base_url() ?>favicon.ico">
 
-    <title>Notifyr |  <?php echo $title ?></title>
+	<title>Notifyr |  <?php echo $title ?></title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -72,6 +72,9 @@
 									<i class="fa fa-user"></i><span class="hidden-xs"> <?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?></span> <b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu animated fadeInLeft">
+									<li class="arrow"></li>
+									<li><a href="<?=base_url('settings/configuration')?>">SDP Configuration</a></li>
+									<li><a href="<?=base_url('settings/services')?>">Agrimanagr Services</a></li>
 									<li class="arrow"></li>
 									<li><a href="<?=base_url('password')?>"><i class="fa fa-cog"></i> Change password</a></li>
 									<li><a href="<?=base_url('logout')?>"><i class="fa fa-remove"></i> Log Out</a></li>
