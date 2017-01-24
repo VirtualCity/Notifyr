@@ -13,14 +13,10 @@ class Subscriptions extends Admin_Controller{
     }
 
     function index(){
-
-
-
-
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Subscriptions";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/subscriptions',$data);
+        $data['mainContent']='reports/subscriptions';
+        $this->load->view('templates/template',$data);
 
     }
 
