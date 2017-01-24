@@ -24,12 +24,13 @@ class Inbox extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Inbox";
-        $this->load->view('templates/header', $data);
-        $this->load->view('logs/view_inbox',$data);
+        $data['mainContent'] = 'logs/view_inbox';
+        $this->load->view('templates/template', $data);
+ 
     }
 
     function datatable(){
-        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message,message_type, status, sms_received.created AS created')
+        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message,message_type, sms_received.status As status, sms_received.created AS created')
             ->unset_column('id')
             ->add_column('actions', get_received_messages_buttons('$1'), 'id')
             ->from('sms_received LEFT JOIN contacts USING (msisdn)');
