@@ -3,8 +3,7 @@
 
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-            <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="javascript:;"><i class="fa fa-file"></i> View Products</a></li>
+            <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Import Products</li>
         </ol>
     </div>
