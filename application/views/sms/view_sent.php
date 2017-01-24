@@ -36,7 +36,7 @@ if( $user_role === 'ADMIN'){
                 </div>
                 <div class="well-content no_search">
 
-                    <table class="table-bordered table-hover display responsive nowrap" width="100%" cellspacing="0" id="example">
+                    <table class="table table-striped table-bordered table-hover datatable" width="100%" cellspacing="0" id="example">
                         <thead>
                         <tr>
                             <th>Mobile</th>

@@ -33,7 +33,7 @@
                     <h4 class="panel-title">Messages Pending Reply</h4>
                 </div>
                 <div class="panel-body">
-                        <table class="table-bordered table-hover display responsive nowrap" width="100%" cellspacing="0" id="example">
+                        <table class="table table-striped table-bordered table-hover datatable" width="100%" cellspacing="0" id="example">
                         <thead>
                         <tr>
                             <th>Group</th>

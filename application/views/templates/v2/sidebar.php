@@ -12,7 +12,7 @@
 		<ul class="nav">
 			<ul class="nav">
 				<li class="nav-header">Navigation</li>
-				<li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 				<li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
