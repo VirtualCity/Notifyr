@@ -2,8 +2,7 @@
  
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-        <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="javascript:;"><i class="fa fa-file"></i> Contacts</a></li>
+        <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">SMS Contact</li>
     </ol>
     </div>
@@ -36,7 +35,7 @@
                         <div class="col-md-6 col-xs-12">
                         <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label><span class="text-danger"> *</span>
                         <div >
-                            <input required type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"/>
+                            <input required type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"  readOnly="true"/>
                             
                             <span class="text-danger"> <?php echo form_error('msisdn'); ?> </span>
                         </div>
