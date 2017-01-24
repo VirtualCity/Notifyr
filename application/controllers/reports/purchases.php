@@ -20,8 +20,8 @@ class Purchases extends My_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Purchases Report";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/view_purchases',$data);
+        $data['mainContent'] = 'reports/view_purchases';
+        $this->load->view('templates/template', $data);
     }
 
 

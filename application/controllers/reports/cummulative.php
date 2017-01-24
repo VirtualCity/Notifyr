@@ -16,9 +16,8 @@ class Cummulative extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Cummulative Queries";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/cummulative',$data);
-
+        $data['mainContent'] = 'reports/cummulative';
+        $this->load->view('templates/template', $data);
     }
 
     function datatable(){
