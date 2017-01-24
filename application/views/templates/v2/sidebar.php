@@ -158,18 +158,7 @@
 					</ul>
 				</li>
 
-				<li class="has-sub">
-					<a href="javascript:;">
-						<b class="caret pull-right"></b>
-						<i class="fa fa-users"></i>
-						<span>Users</span>
-					</a>
-					<ul class="sub-menu">
-						<li><a href="<?=base_url('users/active')?>">View Active Users</a></li>
-						<li><a href="<?=base_url('users/suspended')?>">View Suspended Users</a></li>
-						<li><a href="<?=base_url('users/add')?>">Add User</a></li>
-					</ul>
-				</li>
+		 
 
 				<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 			</ul>

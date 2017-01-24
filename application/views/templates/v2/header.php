@@ -73,10 +73,8 @@
 								</a>
 								<ul class="dropdown-menu animated fadeInLeft">
 									<li class="arrow"></li>
-									<li><a href="<?=base_url('settings/configuration')?>">SDP Configuration</a></li>
-									<li><a href="<?=base_url('settings/services')?>">Agrimanagr Services</a></li>
-									<li class="arrow"></li>
-									<li><a href="<?=base_url('password')?>"><i class="fa fa-cog"></i> Change password</a></li>
+								
+									<li><a href="<?=base_url('password')?>"><i class="fa fa-cogs"></i> Application Settings</a></li>
 									<li><a href="<?=base_url('logout')?>"><i class="fa fa-remove"></i> Log Out</a></li>
 
 								</ul>

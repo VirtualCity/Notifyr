@@ -1,12 +1,16 @@
+
+<!-- begin #content -->
 <div id="content" class="content">
- 
+
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-         <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Suspended Users</li>
-    </ol>
+            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Suspended Users</li>
+        </ol>
     </div>
-  <div id="alert_placeholder">
+
+
+    <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
         if(!empty($appmsg)){ ?>
@@ -14,54 +18,59 @@
         <?php } ?>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                         
-                    </div>
-                    <h4 class="panel-title">Suspended Users</h4>
-                </div>
-                <div class="panel-body">
-                    </div>
-                <div class="well-content no_search ">
 
-                    <table id="example" class="table table-striped table-bordered table-hover datatable">
+    <div class="row">
+        <ul class="nav nav-tabs nav-stacked col-md-2">
+          <li ><a href="<?php echo site_url('password') ?>" > Change Password</a></li>
+          <li><a href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+          <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+          <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
+      </ul>
+      <div class="panel panel-primary tab-content col-md-10">
+        <div class="tab-pane active" id="tab_a">
+           <ul class="nav nav-tabs">
+            <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
+        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="default-tab-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                        </div>                
+                        <h4>Suspended Users</h4>
+                    </div>
+
+                    <div class="panel-body">
+                     <table id="example" class="table table-striped table-bordered table-hover datatable">
                         <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Full Names</th>
-                            <th>Mobile No</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Date Created</th>
-                            <?Php if($user_role==="ADMIN"){ ?>
+                            <tr>
+                                <th>Username</th>
+                                <th>Full Names</th>
+                                <th>Mobile No</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Date Created</th>
+                                <?Php if($user_role==="ADMIN"){ ?>
                                 <th>Action</th>
-                            <?php } ?>
-                        </tr>
+                                <?php } ?>
+                            </tr>
                         </thead>
                         <tbody ></tbody>
                     </table>
                 </div>
-                <div class="panel-footer">Suspended Users</div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+</div><!-- tab content -->
+</div>
+</div>
 
 
 <script type="text/javascript">
