@@ -2,8 +2,7 @@
  
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-        <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="javascript:;"><i class="fa fa-file"></i> Regions </a></li>
+       <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">View Regions</li>
     </ol>
     </div>
