@@ -34,45 +34,35 @@
                         <div class="col-md-12 col-xs-12">
                             <label>Product Code </label><span class="text-danger"> *</span>
 
-                            <div class="field">
-                                <input type="text" name="code" id="code" placeholder="Product Code" class="form-control" value="<?=$code?>"/>
-                                <span class="text-danger">  <?<?php echo form_error('code'); ?> </span>
-                                
-                            </div>
+                            <input required type="text" name="code" id="code" placeholder="Product Code" class="form-control" value="<?=$code?>"/>
+                            <span class="text-danger">  <?<?php echo form_error('code'); ?> </span>
+
                         </div>
 
                         <hr class="field-separator">
                         <div class="col-md-12 col-xs-12">
                             <label>Product Name</label><span class="text-danger"> *</span>
                             
-                            <div class="field">
-                                <input type="text" name="name" id="name" placeholder="Product Name" class="form-control" value="<?=$name?>"/>
-                                <span class="text-danger">  <?php echo form_error('name'); ?> </span>
-                                
-                            </div>
+                            <input required type="text" name="name" id="name" placeholder="Product Name" class="form-control" value="<?=$name?>"/>
+                            <span class="text-danger">  <?php echo form_error('name'); ?> </span>
+
                         </div>
 
-                        <hr class="field-separator">
                         <div class="col-md-12 col-xs-12">
                             <label>Description</label><span class="text-danger"> *</span>
                             
-                            <div class="field">
-                                <input type="text" name="description" id="description" placeholder="Description/SKU" class="form-control" value="<?=$description?>""/>
-                                <span class="text-danger"><?php echo form_error('description'); ?></span>
-                                
-                            </div>
+                            <input required type="text" name="description" id="description" placeholder="Description/SKU" class="form-control" value="<?=$description?>""/>
+                            <span class="text-danger"><?php echo form_error('description'); ?></span>
+
 
                         </div>
 
                         <hr class="field-separator">
 
                         <div class="col-md-12 col-xs-12">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-envelope"></i> Add</button>
-                                <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                            <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-save"></i> Save</button>
+                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
-                            </div>
                         </div>
 
                     </form>

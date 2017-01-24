@@ -1,28 +1,27 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
-
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a href="<?=base_url("regions")?>">Regions</a><span class="divider">/</span></li>
-            <li class="active"><a >Edit Region</a></li>
-        </ul>
+<div id="content" class="content">
+ 
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+        <li><a href="javascript:;"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="javascript:;"><i class="fa fa-file"></i> Regions</a></li>
+        <li class="active">Edit Region</li>
+    </ol>
     </div>
+ 
 
-    <div class="inner_content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-no-rounded-corner panel-default">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                         
+                    </div>
+                    <h4 class="panel-title">Edit Region</h4>
+                </div>
+                <div class="panel-body">
+                   <div class="inner_content">
         <div id="alert_placeholder">
             <?php
             $appmsg = $this->session->flashdata('appmsg');
@@ -36,54 +35,65 @@ if( $user_role === 'ADMIN'){
                 <div class="well-header">
                     <h5>Edit Region</h5>
                 </div>
+                 <div class="panel-body">
                 <div class="well-content no_search">
 
                     <form action="<?=base_url('regions/modify')?>" method="post" class="form-horizontal">
                         <input type="hidden" name="id" value="<?=$id?>"/>
-                        <div class="form_row">
-                            <label for="region" class="field_name align_right lblBold">Region Name </label>
-                            <div class="field">
-                                <input type="text" name="region" id="region" placeholder="Region Name" class="span6" value="<?php echo $region;?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('region'); ?> </font></div>
-                            </div>
 
+                         <div class="col-md-6 col-xs-12">
+                        <label for="region" class="field_name align_right lblBold"> Region Name</label><span class="text-danger"> *</span>
+                        <div >
+                            <input required type="text" name="region" id="region" placeholder="Region Name" class="form-control" value="<?=$region?>"/>
+                            
+                            <span class="text-danger"> <?php echo form_error('region'); ?> </span>
                         </div>
+                    </div>
                         <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="code" class="field_name align_right lblBold">Region Code </label>
-                            <div class="field">
-                                <input type="text" name="code" id="code" placeholder="Region Code" class="span6" value="<?php echo $code ?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('code'); ?> </font></div>
-                            </div>
-
+                        <div class="col-md-6 col-xs-12">
+                        <label for="code" class="field_name align_right lblBold"> Region Code</label><span class="text-danger"> *</span>
+                        <div >
+                            <input required type="text" name="code" id="code" placeholder="Region Code" class="form-control" value="<?=$region?>"/>
+                            
+                            <span class="text-danger"> <?php echo form_error('code'); ?> </span>
                         </div>
+                    </div>
                         <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="description" class="field_name align_right lblBold">Description</label>
-                            <div class="field">
-                                <textarea id="description" name="description" placeholder="Region Description" class="span6" rows="4" ><?php echo $description;?></textarea>
-
-                                <div><font color="red"><?php echo form_error('description'); ?> </font></div>
-                            </div>
-
+                        <div class="col-md-6 col-xs-12">
+                        <label for="description" class="field_name align_right lblBold">Description</label><span class="text-danger"> *</span>
+                       <div class="field">
+                                <textarea  id="description" required="textarea" name="description" placeholder="Description" class="form-control" rows="4" value=""></textarea>
+                                <span class="text-danger"> <?php echo form_error('description'); ?> </span>
+                                </div>
+                    </div>
+                    <hr class="field-separator">
+                     <div class="col-md-6 col-xs-12">
+                        <div >
+                            <button type="submit" class="btn btn-success"><i class=""></i> Edit</button>
+                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                         </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-edit"></i> Edit</button>
-                            </div>
-                        </div>
+                    </div>
 
+                        
                     </form>
                 </div>
             </div>
 
         </div>
     </div>
+                </div>
+                <div class="panel-footer">Edit Region</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+
 
 
 
@@ -91,18 +101,6 @@ if( $user_role === 'ADMIN'){
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.1.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.uniform.min.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.autosize-min.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/design_core.js"></script>
 
 <script>
 
@@ -132,5 +130,3 @@ if( $user_role === 'ADMIN'){
 
 </script>
 
-</body>
-</html>

@@ -8,6 +8,7 @@
             <li class="active">Import Products</li>
         </ol>
     </div>
+
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
@@ -33,16 +34,14 @@
                     <div class="col-md-12 col-xs-12">
                         <label>Select File To Import:</label><span class= "text-danger"> *</span>
 
-                        <div class="field">
-                            <input type="file" name="userfile" id="userfile"/>
-                        </div>
+                        <input type="file" class="form-control" name="userfile" id="userfile"/>
 
                     </div>
 
                     <hr class="field-separator">
                     <div class="col-md-12 col-xs-12">
-                    <button type="submit" class="btn btn-primary"><i class=""></i> <i class="fa fa-upload"></i>  Import</button>
-                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                        <button type="submit" onclick="checkFile()" class="btn btn-primary"><i class=""></i> <i class="fa fa-upload"></i>  Import</button>
+                        <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
                     </div>
 
@@ -56,3 +55,5 @@
 </div>
 </div>
 <!-- end #content -->
+
+ 
