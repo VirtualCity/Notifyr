@@ -25,8 +25,8 @@ class Managers extends Admin_Controller
     function index(){
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Email Report";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/email_managers',$data);
+        $data['mainContent'] = 'reports/email_managers';
+        $this->load->view('templates/template', $data);
     }
 
     function mail(){
