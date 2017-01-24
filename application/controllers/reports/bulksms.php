@@ -16,8 +16,11 @@ class Bulksms extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Bulk Alerts Sent";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/bulksms',$data);
+
+         $data['mainContent']='reports/bulksms';
+        $this->load->view('templates/template',$data);
+
+
 
     }
 

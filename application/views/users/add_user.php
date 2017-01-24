@@ -2,7 +2,7 @@
  
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-            <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+             <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
            
             <li class="active">Add New User</li>
         </ol>
