@@ -6,29 +6,35 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
            <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Active Contacts</li>
-        </ol>
-    </div>
+           <li class="active">Active Contacts</li>
+       </ol>
+   </div>
 
-    <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
+   <div id="alert_placeholder">
+    <?php
+    $appmsg = $this->session->flashdata('appmsg');
+    if(!empty($appmsg)){ ?>
+    <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+    <?php } ?>
+</div>
 
+<div class="row">
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Active Contacts</h4></a></li>
+        <li class=""><a href="<?=base_url('contacts/suspended')?>" >Suspended Contacts</a></li>
+    </ul>
+
+    <div class="panel panel-primary tab-content">
+        <div class="tab-pane fade active in" id="default-tab-1">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
-                    </div>
-                    <h4 class="panel-title">Active Contacts</h4>
+                    </div>                
+                    <h4>Active Contacts</h4>
                 </div>
 
                 <div class="panel-body">
@@ -42,7 +48,7 @@
                             <th>Address</th>
                             <th>Region</th>
                             <th>Town</th>
-                          
+
                             <?Php if($user_role!=="USER"){ ?>
                             <th>Action</th>
                             <?Php  } ?>
@@ -56,11 +62,14 @@
 
 
         </div>
+    </div>
 
+</div>
 
 </div>
 </div>
-</div>
+<!-- end col-6 -->
+
 
 <script type="text/javascript">
     jQuery(document).ready(function(){

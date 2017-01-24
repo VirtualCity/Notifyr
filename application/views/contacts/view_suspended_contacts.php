@@ -4,64 +4,70 @@
 
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-           <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Suspended Contacts</li>
-        </ol>
-    </div>
+         <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+         <li class="active">Suspended Contacts</li>
+     </ol>
+ </div>
 
-    <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
+ <div id="alert_placeholder">
+    <?php
+    $appmsg = $this->session->flashdata('appmsg');
+    if(!empty($appmsg)){ ?>
+    <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+    <?php } ?>
+</div>
+<div class="row">
 
+    <ul class="nav nav-tabs">
+        <li class=""><a href="<?=base_url('contacts')?>" >Active Contacts</a></li>
+        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Contacts</h4></a></li>
+    </ul>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
+    <div class="panel panel-primary tab-content">
+        <div class="tab-pane fade active in" id="default-tab-1">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
-                    </div>
-                    <h4 class="panel-title">Suspended Contacts</h4>
+                    </div>                
+                    <h4>Suspended Contacts</h4>
                 </div>
-
 
                 <div class="panel-body">
+                   <table class="table table-striped table-bordered table-hover datatable"  id="example">
+                    <thead>
+                        <tr>
+                            <th>Mobile Number</th>
+                            <th>Contact Name</th>
+                            <th>Id Number</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Region</th>
+                            <th>Town</th>
+                            <th>Date Created</th>
+                            <?Php if($user_role!=="USER"){ ?>
+                            <th>Action</th>
+                            <?Php  } ?>
 
+                        </tr>
+                    </thead>
 
-
-                    <table class="table table-striped table-bordered table-hover datatable"  id="example">
-                        <thead>
-                            <tr>
-                                <th>Mobile Number</th>
-                                <th>Contact Name</th>
-                                <th>Id Number</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Region</th>
-                                <th>Town</th>
-                                <th>Date Created</th>
-                                <?Php if($user_role!=="USER"){ ?>
-                                <th>Action</th>
-                                <?Php  } ?>
-
-                            </tr>
-                        </thead>
-
-                    </table>
-
-
-                </div>
-                <div class="panel-footer">Suspended Contacts</div>
-
+                </table>
             </div>
+            <div class="panel-footer">Suspended Contacts</div>
+
+
         </div>
     </div>
+
+</div>
+
+</div>
+
+
+
 </div>
 
 <script type="text/javascript">

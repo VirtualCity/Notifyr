@@ -25,17 +25,8 @@
 					</ul>
 				</li>
 
-				<li class="has-sub">
-					<a href="javascript:;">
-						<b class="caret pull-right"></b>
-						<i class="fa fa-group"></i>
-						<span>Contact List</span>
-					</a>
-					<ul class="sub-menu">
-						<li><a href="<?=base_url('contacts')?>">View Active Contacts</a></li>
-						<li><a href="<?=base_url('contacts/suspended')?>">View Suspended Contacts</a></li>				
-					</ul>
-				</li>
+				<li><a href="<?=base_url('contacts')?>"><i class="fa fa-group"></i> <span>Contact List</span></a></li>
+
 
 				<li class="has-sub">
 					<a href="javascript:;">
