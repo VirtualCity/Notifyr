@@ -28,41 +28,34 @@
       </ul>
       <div class="panel panel-primary tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
-           <div class="panel">
+         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-heading-btn">
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                 </div>
                 <h4 class="panel-title">SDP Configuration Settings</h4>
             </div>
             <div class="panel-body">
-               <form action="<?=base_url('settings/services')?>" method="post" class="form-horizontal">
-                        <div class="form_row">
-                            <label for="qservice" class="field_name align_right lblBold">Cummulative Service URL </label>
-                            <div class="field">
-                                <input type="text" name="qservice" id="qservice" placeholder="Service URL" class="span6" value="<?=$qservice?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('qservice'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
+             <form action="<?=base_url('settings/services')?>" method="post" class="form-horizontal">
 
+              <div class="col-md-12 col-xs-12">
+                <label > Cummulative Service URL  </label><span class="text-danger"> *</span>
+                <input type="text" name="qservice" id="qservice" placeholder="Service URL" class="form-control" value="<?=$qservice?>"/>
 
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-plus"></i> Save</button>
-                            </div>
-                        </div>
+                <span class="text-danger"> <?php echo form_error('qservice'); ?> </span>
+            </div>     
+            <hr class="field-separator">
+            <div class="col-md-12 col-xs-12">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
 
-                    </form>
             </div>
-        </div>
-       </div>
-        
-   </div><!-- tab content -->
+        </form>
+    </div>
+</div>
 </div>
 
- 
+</div><!-- tab content -->
+</div>
+
