@@ -1,44 +1,44 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a >Settings</a><span class="divider">/</span></li>
-            <li class="active"><a>Agrimanagr SMS Services</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Agrimanagr SMS Services Settings</li>
+        </ol>
     </div>
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
 
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Agrimanagr SMS Services Settings</h5>
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
+
+
+    <div class="row">
+        <ul class="nav nav-tabs nav-stacked col-md-2">
+          <li ><a href="<?php echo site_url('password') ?>" > Change Password</a></li>
+          <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+          <li class="active"><a data-toggle="tab" href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+          <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
+      </ul>
+      <div class="panel panel-primary tab-content col-md-10">
+        <div class="tab-pane active" id="tab_a">
+           <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
                 </div>
-                <div class="well-content no_search">
-
-                    <form action="<?=base_url('settings/services')?>" method="post" class="form-horizontal">
+                <h4 class="panel-title">SDP Configuration Settings</h4>
+            </div>
+            <div class="panel-body">
+               <form action="<?=base_url('settings/services')?>" method="post" class="form-horizontal">
                         <div class="form_row">
                             <label for="qservice" class="field_name align_right lblBold">Cummulative Service URL </label>
                             <div class="field">
@@ -58,32 +58,11 @@ if( $user_role === 'ADMIN'){
                         </div>
 
                     </form>
-                </div>
             </div>
-
         </div>
-    </div>
+       </div>
+        
+   </div><!-- tab content -->
 </div>
 
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-
-</body>
-</html>
+ 

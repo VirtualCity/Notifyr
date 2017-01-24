@@ -94,9 +94,8 @@ class Configuration extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";
-        $this->load->view('templates/header', $data);
-        $this->load->view('settings/app_config',$data);
-
+        $data['mainContent'] = 'settings/app_config';
+        $this->load->view('templates/template', $data);
     }
 
 }

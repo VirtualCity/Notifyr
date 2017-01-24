@@ -1,138 +1,81 @@
-<body >
-<!--Header Section-->
-<?Php include "templates/app_header.php" ?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a>Change Password</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Change Password</li>
+        </ol>
     </div>
+
+
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
         if(!empty($appmsg)){ ?>
-            <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
         <?php } ?>
     </div>
-    <div class="inner_content">
-
-        <div class="widgets_area">
 
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Change Password</h5>
+    <div class="row">
+        <ul class="nav nav-tabs nav-stacked col-md-2">
+          <li class="active"><a href="#tab_a" data-toggle="tab"> Change Password</a></li>
+          <li><a href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+          <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+          <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
+      </ul>
+      <div class="panel panel-primary tab-content col-md-10">
+        <div class="tab-pane active" id="tab_a">
+           <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
                 </div>
-                <div class="well-content no_search">
-
-                    <form action="<?=base_url('password')?>" method="post" class="form-horizontal">
-
-                        <div class="form_row">
-                            <label for="password" class="field_name align_right lblBold">Current Password </label>
-                            <div class="field">
-                                <input type="password" name="password" id="password" class="span6" value=""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('password'); ?> </font></div>
-                            </div>
-
-                        </div>
-                        <hr class="field-separator">
-
-                        <div class="form_row">
-                            <label for="group" class="field_name align_right lblBold">New Password </label>
-                            <div class="field">
-                                <input type="password" name="npassword" id="npassword"  class="span6" value=""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('npassword'); ?> </font></div>
-                            </div>
-
-                        </div>
-                        <hr class="field-separator">
-
-                        <div class="form_row">
-                            <label for="cnpassword" class="field_name align_right lblBold">Confirm New Password</label>
-                            <div class="field">
-                                <input type="password" name="cnpassword" id="cnpassword"  class="span6" value=""/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('cnpassword'); ?> </font></div>
-                            </div>
-
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-save"></i> Save</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
+                <h4 class="panel-title">Change Password</h4>
             </div>
+            <div class="panel-body">
+                <form action="<?=base_url('password')?>" method="post" class="form-horizontal">
 
+                    <div class="col-md-12 col-xs-12">
+                        <label > Name </label><span class="text-danger"> *</span>
+                        <input type="password" name="password" id="password" class="form-control" value=""/>
+
+                        <span class="text-danger"> <?php echo form_error('password'); ?> </span>
+                    </div> 
+
+                    <div class="col-md-12 col-xs-12">
+                        <label > New Password </label><span class="text-danger"> *</span>
+                        <input type="password" name="npassword" id="npassword"  class="form-control" value=""/>
+
+                        <span class="text-danger"> <?php echo form_error('npassword'); ?> </span>
+                    </div> 
+
+                    <div class="col-md-12 col-xs-12">
+                        <label > Confirm New Password </label><span class="text-danger"> *</span>
+                        <input type="password" name="cnpassword" id="cnpassword"  class="form-control" value=""/>
+
+                        <span class="text-danger"> <?php echo form_error('cnpassword'); ?> </span>
+                    </div>  
+
+                    <hr class="field-separator">
+                    <div class="col-md-12 col-xs-12">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+
+                    </div>
+
+                </form>
+            </div>
         </div>
-    </div>
+       </div>
+        
+   </div><!-- tab content -->
 </div>
 
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+ 
 
-<script src="<?php base_url() ?>assets/js/jquery-1.11.1.js"></script>
-<script src="<?php base_url() ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php base_url() ?>assets/js/bootstrap.js"></script>
-
-<script src="<?php base_url() ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php base_url() ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php base_url() ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php base_url() ?>assets/js/library/jquery.uniform.min.js"></script>
-
-<script src="<?php base_url() ?>assets/js/library/jquery.autosize-min.js"></script>
-
-<script src="<?php base_url() ?>assets/js/design_core.js"></script>
-
-<script>
-
-
-
-    function showalert(message,alerttype){
-        $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">x</a><span>'+message+'</span></div>')
-        setTimeout(function() {
-            $('#alertdiv').remove();
-        },6000);
-    }
-
-    function showMessage(message){
-        if(message.length>0){
-            showalert2(message,"alert-info");
-        }
-    }
-
-    function showalert2(message,alerttype){
-        $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">x</a><span>'+message+'</span></div>')
-        setTimeout(function() {
-            $('#alertdiv').remove();
-        },3000);
-
-
-    }
-
-</script>
-
-</body>
-</html>

@@ -69,8 +69,8 @@ class Password extends MY_Controller{
         $data['message']=array($appmsg,$alert_type);
         $data['title'] = 'Change Password';
         $data['user_role'] = $this->session->userdata('role');
-        $this->load->view('templates/header',$data );
-        $this->load->view('password');
+        $data['mainContent']='password';
+        $this->load->view('templates/template',$data); 
 
     }
 }

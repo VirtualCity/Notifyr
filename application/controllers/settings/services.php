@@ -60,8 +60,8 @@ class Services extends MY_Controller{
         $data['qservice']=$origin_qservice;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Agrimanagr SMS Service";
-        $this->load->view('templates/header', $data);
-        $this->load->view('settings/services',$data);
+        $data['mainContent'] = 'settings/services';
+        $this->load->view('templates/template', $data);
 
     }
 

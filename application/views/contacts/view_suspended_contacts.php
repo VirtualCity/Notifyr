@@ -18,7 +18,7 @@
 </div>
 <div class="row">
 
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs ">
         <li class=""><a href="<?=base_url('contacts')?>" >Active Contacts</a></li>
         <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Contacts</h4></a></li>
     </ul>
