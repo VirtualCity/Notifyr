@@ -36,40 +36,39 @@
                   <form action="<?=base_url('reports/received/send')?>" method="post" class="form-horizontal">
                     <input type="hidden" name="id" value="<?=$id?>"/>
                     <div class="col-md-12 col-xs-12">
-                    <label >Mobile Number</label> 
-                       <input type="text" name="msisdn" id="msisdn" placeholder="" class="form-control" value="<?=$msisdn?>" readonly="true"/>
-                   </div>  
+                        <label >Mobile Number</label> 
+                        <input type="text" name="msisdn" id="msisdn" placeholder="" class="form-control" value="<?=$msisdn?>" readonly="true"/>
+                    </div>  
 
-                   <div class="col-md-12 col-xs-12">
-                    <label >Contact Number</label> 
-                       <input type="text" name="from" id="from" placeholder="Contact Name" class="form-control" value="<?=$name?>" readonly="true"/>
-                   </div>  
+                    <div class="col-md-12 col-xs-12">
+                        <label >Contact Number</label> 
+                        <input type="text" name="from" id="from" placeholder="Contact Name" class="form-control" value="<?=$name?>" readonly="true"/>
+                    </div>  
 
-                   <div class="col-md-12 col-xs-12">
-                    <label >Contact Number</label> 
-                       <textarea id="received" name="received" placeholder="" class="form-control" value="" readonly="true"><?=$received_msg?></textarea>
-                   </div> 
+                    <div class="col-md-12 col-xs-12">
+                        <label >Contact Number</label> 
+                        <textarea id="received" name="received" placeholder="" class="form-control" value="" readonly="true"><?=$received_msg?></textarea>
+                    </div> 
 
-                   <div class="col-md-12 col-xs-12">
-                    <label >Reply Message</label><span class="text-danger">*</span>
-                       <textarea required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""></textarea>
-                       <span class="text-danger"><?php echo form_error('message'); ?></span>
-                   </div> 
+                    <div class="col-md-12 col-xs-12">
+                        <label >Reply Message</label><span class="text-danger">*</span>
+                        <textarea required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""></textarea>
+                        <span class="text-danger"><?php echo form_error('message'); ?></span>
+                    </div> 
 
-                <hr class="field-separator">
+                    <hr class="field-separator">
 
                     <div class="col-md-12 col-xs-12">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-envelope"></i> Send</button>
                         <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                     </div>
 
-            </form>
-            <br>
+                </form>
+                <br>
+            </div>
+            <div class="panel-footer">Reply Message</div>
         </div>
-        <div class="panel-footer">Reply Message</div>
     </div>
 </div>
 </div>
-</div>
 <!-- end #content -->
- 

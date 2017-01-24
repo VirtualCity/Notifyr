@@ -24,17 +24,17 @@ class Pending extends MY_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Messages Pending Reply";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/view_pending',$data);
+        $data['mainContent']='reports/view_pending';
+        $this->load->view('templates/template',$data);
     }
 
     function datatable(){
-        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message, status, sms_received.created AS created')
+        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message,  sms_received.status As status, sms_received.created AS created')
             ->unset_column('id')
             ->add_column('actions', get_pending_messages_buttons('$1'), 'id')
             ->from('sms_received LEFT JOIN contacts USING (msisdn)')
             ->where('message_type','GROUP')
-            ->where('status','PENDING');
+            ->where('sms_received.status ','PENDING');
 
         echo $this->datatables->generate();
     }
@@ -61,8 +61,8 @@ class Pending extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Message Reply";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/reply_pending',$data);
+        $data['mainContent']='reports/reply_pending';
+        $this->load->view('templates/template',$data);
     }
 
     function send(){
