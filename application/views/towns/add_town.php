@@ -4,7 +4,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          
+            <li><a href="javascript:;"><i class="fa fa-file"></i> Page Options</a></li>
             <li class="active">Add Town</li>
         </ol>
     </div>
