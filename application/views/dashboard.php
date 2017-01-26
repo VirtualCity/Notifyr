@@ -1,188 +1,165 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
+ 
+<div id="content" class="content">
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a>Dashboard</a></li>
-        </ul>
+            <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+        </ol>
     </div>
-    <div class="inner_content">
-        <div class="statistic clearfix">
-            <div class="current_page pull-left">
-                <span><i class="icon-dashboard"></i> Dashboard</span> <span class="hidden-480 quote">- SMS Portal</span>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Dashboard</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="statistic widget-stats">
+                            <div class="current_page pull-left">
+                                <span><i class="fa fa-dashboard"></i> Dashboard</span> <span class="hidden-480 quote">- SMS Portal</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="report-widgets">
+                            <div class="row">
+
+
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-green">
+                                        <div class="stats-icon"><i class="fa fa-desktop"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Received Today</h4>
+                                            <p id="visitors_count"> <?= $todays_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+
+                                
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-purple">
+                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Received last 7 days</h4>
+                                            <p id="today_reports"> <?= $weeks_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+                                
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Received Last 30 days</h4>
+                                            <p id="total_reports"> <?= $months_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        <?php //if($user_role !== 'STOCKIST') {?>
+                        <div class="status-widgets">
+                            <div class="row">
+
+                             <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-group"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Contacts</h4>
+                                            <p id="surveys_count"> <?= $contacts_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-group"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Groups</h4>
+                                            <p id="active_survey"> <?= $groups_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-group"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Blacklisted</h4>
+                                            <p id="category_count"> <?= $blacklist_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    <!--     <div class="row">
+                            <div class="col-md-12">
+                                <h5>Cummulative Queries in the Last 7 Days</h5>
+                                <div class="panel blue">
+                                    <div class="panel-body">
+                                        <div class="chart-container" >
+                                            <div id="totals_chart" class="mychart"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <h5>Total Group Messages in the Last 7 Days</h5>
+                                <div class="panel blue">
+                                    <div class="panel-body">
+                                        <div class="chart-container">
+                                            <div id="groups_chart" class="mychart"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="report-widgets">
-            <div class="row-fluid">
-                <div class="span4">
-                    <div class="widget yellow clearfix">
-                        <div class="content">
-                            <div class="icon">
-                                <i class="icon-envelope"></i>
-                                Total Received Today
-                            </div>
-                            <div class="value" id="visitors_count">
-                                <?= $todays_total; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="widget dark_turq clearfix">
-                        <div class="content">
-                            <div class="icon">
-                                <i class="icon-envelope"></i>
-                                Total Received last 7 days
-                            </div>
-                            <div class="value" id="today_reports">
-                                <?= $weeks_total; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="widget orange clearfix">
-                        <div class="content">
-                            <div class="icon">
-                                <i class="icon-envelope"></i>
-                                Total Received Last 30 days
-                            </div>
-                            <div class="value" id="total_reports">
-                                <?= $months_total; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php //if($user_role !== 'STOCKIST') {?>
-        <div class="status-widgets">
-            <div class="row-fluid">
-                <div class="span4">
-                    <div class="widget blue clearfix">
-                        <div class="options">
-
-                            <i class="icon-group"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number" id="surveys_count">
-                                <?= $contacts_total; ?>
-                            </div>
-                            <div class="description">
-                                Contacts
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="span4">
-                    <div class="widget grey clearfix">
-                        <div class="options">
-                            <i class="icon-group"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number" id="active_survey">
-                                <?= $groups_total; ?>
-                            </div>
-                            <div class="description">
-                                Groups
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="span4">
-                    <div class="widget red clearfix">
-                        <div class="options">
-                            <i class="icon-list-alt"></i>
-                        </div>
-                        <div class="details">
-                            <div class="number" id="category_count">
-                                <?= $blacklist_total; ?>
-                            </div>
-                            <div class="description">
-                                Blacklisted
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="widgets_area">
-            <div class="row-fluid">
-                <h5>Cummulative Queries in the Last 7 Days</h5>
-                <div class="well blue">
-
-                    <div class="well-content no_search no_padding">
-                        <div class="chart-container" >
-                            <div id="totals_chart" class="mychart"> </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row-fluid">
-                <h5>Total Group Messages in the Last 7 Days</h5>
-                <div class="well blue">
-
-                    <div class="well-content no_search no_padding">
-                        <div class="chart-container">
-                            <div id="groups_chart" class="mychart"> </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
+<!-- end #content -->
 
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="<?php echo($base); ?>assets/js/jquery-1.11.1.js"></script>
-<script src="<?php echo($base); ?>assets/js/jquery-1.10.2.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php echo($base); ?>assets/js/bootstrap.js"></script>
-
-<script src="<?php echo($base); ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.uniform.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.sparkline.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/chosen.jquery.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.autosize-min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/footable/footable.js"></script>
-
-<script src="<?php echo($base); ?>assets/js/design_core.js"></script>
-
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="<?=base_url('assets/charts/excanvas.js')?>"></script><![endif]-->
-<script src="<?=base_url('assets/charts/jquery.flot.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.time.min.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.axislabels.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.orderBars.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.resize.js')?>"></script>
-
-<script type="text/javascript">
-    jQuery(document).ready(function(){
+<!-- <script type="text/javascript">
+     jQuery(document).ready(function(){
         /*Cummulative Query Chart*/
         var data2 = [<?php echo $last_7days_cummulative; ?>];
 
@@ -255,6 +232,11 @@ if( $user_role === 'ADMIN'){
         };
 
         jQuery.plot($("#totals_chart"), dataset2, options2);
+            });
+</script> -->
+
+<!-- <script type="text/javascript">
+    jQuery(document).ready(function(){
 
         /*Groups Message Chart*/
         var dq1 = [<?php echo $last_7days_received; ?>];
@@ -346,6 +328,8 @@ if( $user_role === 'ADMIN'){
 
         jQuery.plot(jQuery("#groups_chart"), ordersData, ordersOptions);
     });
-</script>
-</body>
-</html>
+</script> -->
+
+
+
+ 

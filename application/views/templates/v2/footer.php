@@ -37,7 +37,11 @@
 <script src="<?php echo $path;?>assets/v2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="<?php echo $path;?>assets/v2/plugins/jquery-cookie/jquery.cookie.js"></script>
 <!-- ================== END BASE JS ================== -->
-
+<script src="<?=base_url('assets/charts/jquery.flot.js')?>"></script>
+<script src="<?=base_url('assets/charts/jquery.flot.time.min.js')?>"></script>
+<script src="<?=base_url('assets/charts/jquery.flot.axislabels.js')?>"></script>
+<script src="<?=base_url('assets/charts/jquery.flot.orderBars.js')?>"></script>
+<script src="<?=base_url('assets/charts/jquery.flot.resize.js')?>"></script>
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 <script src="<?php echo $path;?>assets/v2/js/apps.min.js"></script>
 <!-- ================== END PAGE LEVEL JS ================== -->

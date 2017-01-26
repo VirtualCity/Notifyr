@@ -108,6 +108,9 @@ class Dashboard extends MY_Controller{
         $data['user_role'] = $role;
         $data['title'] = "Dashboard";
         $data['mainContent']='dashboard';
+       /* echo "<pre>";
+        print_r ($data);
+        echo "</pre>";*/
         $this->load->view('templates/template',$data);
     }
 
