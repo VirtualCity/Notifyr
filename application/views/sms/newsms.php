@@ -54,7 +54,7 @@
                         <label class="field_name align_right"></label>
                         <div class="field">
 
-                            <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-envelope"></i> Send</button>
+                            <button type="submit" class="btn btn-primary"><i class=""></i> <i class="fa fa-send"></i> Send</button>
                             <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
 

@@ -60,7 +60,7 @@
 
                     <div class="col-md-6 col-xs-12">
 
-                        <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-envelope"></i> Send</button>
+                        <button type="submit" class="btn btn-primary"><i class=""></i> <i class="fa fa-send"></i> Send</button>
                         <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
                     </div>

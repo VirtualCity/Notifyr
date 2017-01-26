@@ -27,10 +27,10 @@ function __autoload($classname){
 |
 */
 //Server
-$config['base_url']	= 'http://localhost:81/notifyr/';
+//$config['base_url']	= 'http://40.113.123.6/notifyr/';
 
 //Local
-//$config['base_url']	= 'http://localhost:81/notifyr/';
+$config['base_url']	= 'http://localhost:81/notifyr/';
 /*
 |--------------------------------------------------------------------------
 | Index File

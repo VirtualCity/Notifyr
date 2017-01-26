@@ -111,7 +111,7 @@
                 <hr class="field-separator">
                 <div class="col-md-6 col-xs-12">
                     <div >
-                        <button type="submit" class="btn btn-success"><i class=""></i> Save</button>
+                        <button type="submit" class="btn btn-primary"><i class=""></i> Save</button>
                         <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                     </div>
                 </div>

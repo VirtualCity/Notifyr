@@ -55,7 +55,7 @@
 						<span>SMS Reports</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('reports/cummulative')?>">Cummulative Queries</a></li>
+						<li><a href="<?=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
 						<li><a href="<?=base_url('reports/purchases')?>">Purchase Report</a></li>
 						<li><a href="<?=base_url('reports/received')?>">Group Messages Received</a></li>
 						<li><a href="<?=base_url('reports/replied')?>">Group Messages Replied</a></li>
