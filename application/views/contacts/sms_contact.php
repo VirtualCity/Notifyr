@@ -53,7 +53,7 @@
 
                     <div class="col-md-6 col-xs-12">
                         <div >
-                            <button type="submit" class="btn btn-success"><i class=""></i> Send</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Send</button>
                             <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                         </div>
                     </div>

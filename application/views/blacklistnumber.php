@@ -45,7 +45,7 @@
                         <div class="col-md-12 col-xs-12">
                             <label class="field_name align_right"></label>
                             <div class="field">
-                                <button type="submit" class="btn btn-success"><i class=""></i> <i class="icon-plus-sign"></i>Blacklist</button>
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-times-circle"></i> <i class="icon-plus-sign"></i>Blacklist</button>
                                 <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
 

@@ -59,7 +59,7 @@
                         <hr class="field-separator">
 
                         <div class="col-md-12 col-xs-12">
-                            <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-save"></i> Save</button>
+                            <button type="submit" class="btn btn-primary"><i class=""></i> <i class="fa fa-save"></i> Save</button>
                             <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
                         </div>

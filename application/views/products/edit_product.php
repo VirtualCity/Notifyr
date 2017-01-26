@@ -68,7 +68,7 @@
                         <div class="col-md-12 col-xs-12">
                             <label class="field_name align_right"></label>
                             <div class="field">
-                            <button type="submit" class="btn btn-success"><i class=""></i> <i class="fa fa-envelope"></i>  Edit</button>
+                            <button type="submit" class="btn btn-primary"><i class=""></i> <i class="fa fa-save"></i>  Save Changes</button>
                                 <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
                                
                             </div>
