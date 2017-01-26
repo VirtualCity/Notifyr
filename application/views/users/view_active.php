@@ -33,7 +33,7 @@
       </ul>
 
 
-      <div class="panel panel-primary tab-content col-md-10">
+      <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
          <ul class="nav nav-tabs">
             <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Active Users</h4></a></li>

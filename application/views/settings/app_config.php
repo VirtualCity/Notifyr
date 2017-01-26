@@ -30,7 +30,7 @@
               <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
           <?php endif ?>
       </ul>
-      <div class="panel panel-primary tab-content col-md-10">
+      <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <div class="panel">
             <div class="panel-heading">

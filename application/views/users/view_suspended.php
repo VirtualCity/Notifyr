@@ -30,7 +30,7 @@
               <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
           <?php endif ?>
       </ul>
-      <div class="panel panel-primary tab-content col-md-10">
+      <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <ul class="nav nav-tabs">
             <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
