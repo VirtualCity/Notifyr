@@ -14,7 +14,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link href="<?php echo $path;?>assets/v2/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
 	<link href="<?php echo $path;?>assets/v2/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="<?php echo $path;?>assets/v2/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="<?php echo $path;?>assets/v2/css/animate.min.css" rel="stylesheet" />
 	<link href="<?php echo $path;?>assets/v2/css/style.min.css" rel="stylesheet" />
 	<link href="<?php echo $path;?>assets/v2/css/style-responsive.min.css" rel="stylesheet" />
