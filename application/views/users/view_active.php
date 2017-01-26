@@ -20,15 +20,22 @@
 
 
     <div class="row">
+
         <ul class="nav nav-tabs nav-stacked col-md-2">
-          <li ><a href="<?php echo site_url('password') ?>" > Change Password</a></li>
-          <li><a href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
-          <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
-          <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
+          <li ><a href="<?php echo site_url('password') ?>"> Change Password</a></li>
+          <?php if ($this->session->userdata('role')!="USER"): ?>
+              <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+                  <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+                  <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+              <?php endif ?>
+              <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
+          <?php endif ?>
       </ul>
+
+
       <div class="panel panel-primary tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
-           <ul class="nav nav-tabs">
+         <ul class="nav nav-tabs">
             <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Active Users</h4></a></li>
             <li class=""><a href="<?=base_url('users/suspended')?>" >Suspended Users</a></li>
         </ul>
@@ -46,7 +53,8 @@
                     </div>
 
                     <div class="panel-body">
-                     <table id="example" class="table table-striped table-bordered table-hover datatable">
+
+                    <table id="example" class="table table-striped table-bordered table-hover datatable">
                         <thead>
                             <tr>
                                 <th>Username</th>
@@ -63,6 +71,9 @@
                         <tbody ></tbody>
                     </table>
                 </div>
+                <div class="panel-footer"><?php if ($this->session->userdata('role')==="ADMIN"): ?>
+                        <a href="<?php echo site_url('users/add') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</a><br><br>                    
+                    <?php endif ?></div>
             </div>
         </div>
     </div>

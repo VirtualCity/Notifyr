@@ -150,19 +150,19 @@ table {
 }
 
 .ui-button {
-     display: inline-block;
-    position: relative;
-    padding: 5px;
-    line-height: normal;
-    margin-right: .1em;
-    margin-bottom:1em;
-    cursor: pointer;
-    vertical-align: middle;
-    text-align: center;
-    overflow: visible;
-        border-radius: 0;
-    border-left: 1px solid #555555;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1), 0 3px 5px rgba(0, 0, 0, 0.2);
+   display: inline-block;
+   position: relative;
+   padding: 5px;
+   line-height: normal;
+   margin-right: .1em;
+   margin-bottom:1em;
+   cursor: pointer;
+   vertical-align: middle;
+   text-align: center;
+   overflow: visible;
+   border-radius: 0;
+   border-left: 1px solid #555555;
+   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1), 0 3px 5px rgba(0, 0, 0, 0.2);
 
 }
 
@@ -178,7 +178,11 @@ table {
 }
 .navbar-brand{font-weight: 700;font-size: 2em;}
 .panel-title{font-weight: 600;font-size: 1.5em;}
+
 @media (max-width:767px) {
+    .nav-stacked>li {
+        width: 70px;
+    }
     .navbar {
         margin-left: 0;
     }
@@ -186,6 +190,7 @@ table {
         margin-bottom: 12% !important;
     }
 }
+
 .field-separator{
     clear: both;
     margin-bottom: 10px;
@@ -195,4 +200,10 @@ table {
 
 
 #loading-div-background {background: #ffffff;}
+.nav-stacked>li {
+    width: 110%;
+}
 
+.nav-stacked>li.active {
+    border-left: 2px solid #000;
+}

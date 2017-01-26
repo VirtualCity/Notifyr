@@ -20,12 +20,18 @@
 
 
     <div class="row">
-        <ul class="nav nav-tabs nav-stacked col-md-2">
-          <li class="active"><a href="#tab_a" data-toggle="tab"> Change Password</a></li>
-          <li><a href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
-          <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
-          <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
+     <ul class="nav nav-tabs nav-stacked col-md-2">
+          <li class="active"><a href="<?php echo site_url('password') ?>" data-toggle="tab" > Change Password</a></li>
+          <?php if ($this->session->userdata('role')!="USER"): ?>
+              <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+                  <li ><a href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+                  <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+              <?php endif ?>
+              <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
+          <?php endif ?>
       </ul>
+
+       
       <div class="panel panel-primary tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <div class="panel">
