@@ -18,8 +18,11 @@ class Regions extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Regions";
-        $this->load->view('templates/header', $data);
-        $this->load->view('regions/view_regions',$data);
+
+         $data['mainContent']='regions/view_regions';
+        $this->load->view('templates/template',$data);
+
+        
     }
 
     function datatable(){
@@ -80,8 +83,10 @@ class Regions extends Admin_Controller{
         $data['description'] =$description;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Region";
-        $this->load->view('templates/header', $data);
-        $this->load->view('regions/add_region',$data);
+         $data['mainContent']='regions/add_region';
+        $this->load->view('templates/template',$data);
+
+       
     }
 
     function edit($id=null){
@@ -104,8 +109,11 @@ class Regions extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Region";
-        $this->load->view('templates/header', $data);
-        $this->load->view('regions/edit_region',$data);
+        $data['mainContent']='regions/edit_region';
+        $this->load->view('templates/template',$data);
+
+
+       
 
 
 
@@ -182,8 +190,10 @@ class Regions extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Import Regions";
-        $this->load->view('templates/header', $data);
-        $this->load->view('regions/import_regions',$data);
+
+         $data['mainContent']='regions/import_regions';
+    
+        $this->load->view('templates/template', $data);
     }
 
     function do_upload(){

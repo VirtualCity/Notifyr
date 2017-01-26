@@ -1,142 +1,89 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a href="<?=base_url("towns")?>">Towns</a><span class="divider">/</span></li>
-            <li class="active"><a >Edit Town</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo site_url('towns') ?>"><i class="fa fa-map-marker"></i> Towns</a></li>
+            <li class="active"><a >Edit Town: <?php echo $town;?></a></li>
+        </ol>
     </div>
 
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Edit Town</h5>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Edit Town: <?php echo $town;?></h4>
                 </div>
-                <div class="well-content no_search">
-
+                <div class="panel-body">
                     <form action="<?=base_url('towns/modify')?>" method="post" class="form-horizontal">
                         <input type="hidden" name="id" value="<?=$id?>"/>
-                        <div class="form_row">
-                            <label for="town" class="field_name align_right lblBold">Town Name </label>
-                            <div class="field">
-                                <input type="text" name="town" id="town" placeholder="Town Name" class="span6" value="<?php echo $town;?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('town'); ?> </font></div>
+
+                        <div class="col-md-6 col-xs-12">
+                        <label>Town Name </label><span class="text-danger"> *</span>
+                            <div >
+                                <input required type="text" name="town" id="town" placeholder="TOwn Name" class="form-control" value="<?=$town?>"/>
+
+                                <span class="text-danger"> <?php echo form_error('town'); ?> </span>
                             </div>
-
                         </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="code" class="field_name align_right lblBold">Town Code </label>
-                            <div class="field">
-                                <input type="text" name="code" id="code" placeholder="Town Code" class="span6" value="<?php echo $code ?>"/>
 
-                                <div><font color="red"> <?php echo form_error('code'); ?> </font></div>
+                        <div class="col-md-6 col-xs-12">
+                        <label>Town Code </label><span class="text-danger"> *</span>
+                            <div >
+                                <input required type="text" name="code" id="code" placeholder="TOwn Code" class="form-control" value="<?=$code?>"/>
+
+                                <span class="text-danger"> <?php echo form_error('code'); ?> </span>
                             </div>
+                        </div>  
 
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="region_id" class="field_name align_right lblBold">Region</label>
-                            <div class="field">
-                                <select name="region_id" id="region_id" class="span6" >
+                        <div class="col-md-6 col-xs-12">
+                        <label>Region </label><span class="text-danger"> *</span>
+                            <div >
+                                <select name="region_id" id="region_id" class="form-control" >
                                     <option value="">---Please Select Region---</option>
                                     <?php
                                     if(!empty($regions)){
                                         foreach($regions as $row) { ?>
-                                            <option value="<?=$row->id?>" <?php if ($row->id ===$region_id){echo "selected";}?>><?=$row->name?></option>
+                                        <option value="<?=$row->id?>" <?php if ($row->id ===$region_id){echo "selected";}?>><?=$row->name?></option>
                                         <?php   }
                                     } ?>
-                                </select> <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('region_id'); ?></font></div>
+                                </select> 
+
+                                <span class="text-danger"> <?php echo form_error('region_id'); ?> </span>
                             </div>
                         </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large blue"><i class="icon-edit"></i> Edit</button>
-                            </div>
-                        </div>
+
+
+                    
+                         <hr class="field-separator">
+
+                    <div class="col-md-12 col-xs-12">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+                        <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                    </div>
 
                     </form>
+                    <br>
                 </div>
+                <div class="panel-footer">Edit Town: <?php echo $town;?></div>
             </div>
-
         </div>
     </div>
 </div>
+<!-- end #content -->
 
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.1.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.uniform.min.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.autosize-min.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/design_core.js"></script>
-
-<script>
-
-
-
-    function showalert(message,alerttype){
-        $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">x</a><span>'+message+'</span></div>')
-        setTimeout(function() {
-            $('#alertdiv').remove();
-        },6000);
-    }
-
-    function showMessage(message){
-        if(message.length>0){
-            showalert2(message,"alert-info");
-        }
-    }
-
-    function showalert2(message,alerttype){
-        $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">x</a><span>'+message+'</span></div>')
-        setTimeout(function() {
-            $('#alertdiv').remove();
-        },3000);
-
-
-    }
-
-</script>
-
-</body>
-</html>

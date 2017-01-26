@@ -1,158 +1,113 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="<?=base_url("dashboard")?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          
+            <li class="active">Group import</li>
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a href="<?=base_url("groups")?>">Groups</a><span class="divider">/</span></li>
-            <li class="active"><a>Group import</a></li>
-        </ul>
+        </ol>
     </div>
+
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
         if(!empty($appmsg)){ ?>
-            <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
         <?php } ?>
     </div>
-    <div class="inner_content">
-
-        <div class="widgets_area">
 
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Import To Group</h5>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Import To Group</h4>
                 </div>
-                <div class="well-content no_search">
-                    <?php //echo $status->message; ?>
+                <div class="panel-body">
                     <form action="<?=base_url('groups/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
 
-                        <div class="form_row">
-                            <label for="userfile" class="field_name align_right lblBold">Select File To Import:</label>
-                            <div class="field">
-                                <input type="file" name="userfile" id="userfile"/>
-                            </div>
+                       <div class="col-md-12 col-xs-12">
+                        <label >Select File To Import: </label>
+                        <span class="text-danger"> *</span>
+                        <input type="file" class="form-control" name="userfile" id="userfile"/>
+                    </div>
 
-                        </div>
+                    <div class="col-md-12 col-xs-12">
+                        <label >SMS Group </label>
+                        <span class="text-danger"> *</span>
+                        <select name="group" id="group"  class="form-control">
+                            <option value="">---Please Select SMS Group---</option>
+                            <?php foreach($groups as $row) { ?>
+                            <option value="<?=$row->id?>" ><?=$row->name?></option>
+                            <?php } ?>
+                        </select>
+                        <span class="text-danger"><?php echo form_error('group'); ?></span>
 
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="group" class="field_name align_right lblBold">SMS Group </label>
-                            <div class="field">
-                                <select name="group" id="group" placeholder="Please Select a Group" class="span6" rows="4" >
-                                    <option value="">---Please Select SMS Group---</option>
-                                    <?php foreach($groups as $row) { ?>
-                                        <option value="<?=$row->id?>" ><?=$row->name?></option>
-                                    <?php } ?>
-                                </select> <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('group'); ?></font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" name="submit" class="btn btn-large dark_green" onclick="checkFile()"><i class="icon-plus"></i> Import</button>
-                            </div>
-                        </div>
+                    </div>
 
-                    </form>
+                    
 
-                    <br/>
-                    <?php
-                    $existing = $this->session->flashdata('existing');
-                    if(!empty($existing)){ ?>
-                        <div id="alertdiv" class="alert alert-warning "><a class="close" data-dismiss="alert">x</a>
-                            <strong>Existing Entries!</strong>
-                            <br>
-                            <span><?= $existing ?></span>
-                        </div>
-                    <?php } ?>
-                    <br/>
-                    <br/>
-                    <?php
-                    $invalid = $this->session->flashdata('invalid');
-                    if(!empty($invalid)){ ?>
-                        <div id="alertdiv" class="alert alert-danger "><a class="close" data-dismiss="alert">x</a>
-                            <strong>Invalid Entries!</strong>
-                            <br>
-                            <span><?= $invalid ?></span>
-                        </div>
-                    <?php } ?>
-                    <br/>
-                    <?php
-                    $not_imported = $this->session->flashdata('notimported');
-                    if(!empty($not_imported)){ ?>
-                        <div id="alertdiv" class="alert alert-danger "><a class="close" data-dismiss="alert">x</a>
-                            <strong>Failed to import!</strong>
-                            <br>
-                            <span><?= $not_imported ?></span>
-                        </div>
-                    <?php } ?>
+
+                    <div class="col-md-12 col-xs-12">
+                        <br>
+                        <br>
+                        <br>
+                        <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                    </div>
+
+
+
+                 
+
+                </form>
+
+
+
+                <br/>
+                <?php
+                $existing = $this->session->flashdata('existing');
+                if(!empty($existing)){ ?>
+                <div id="alertdiv" class="alert alert-warning "><a class="close" data-dismiss="alert">x</a>
+                    <strong>Existing Entries!</strong>
+                    <br>
+                    <span><?= $existing ?></span>
                 </div>
-            </div>
+                <?php } ?>
+                <br/>
+                <br/>
+                <?php
+                $invalid = $this->session->flashdata('invalid');
+                if(!empty($invalid)){ ?>
+                <div id="alertdiv" class="alert alert-danger "><a class="close" data-dismiss="alert">x</a>
+                    <strong>Invalid Entries!</strong>
+                    <br>
+                    <span><?= $invalid ?></span>
+                </div>
+                <?php } ?>
+                <br/>
+                <?php
+                $not_imported = $this->session->flashdata('notimported');
+                if(!empty($not_imported)){ ?>
+                <div id="alertdiv" class="alert alert-danger "><a class="close" data-dismiss="alert">x</a>
+                    <strong>Failed to import!</strong>
+                    <br>
+                    <span><?= $not_imported ?></span>
+                </div>
+                <?php } ?>
 
+
+                <br>
+            </div>
+            <div class="panel-footer">Import To Group</div>
         </div>
     </div>
 </div>
-<div id="importModal" class="modal  fade" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header blue">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
-        <h3 id="myModalLabel">Importing Data</h3>
-    </div>
-
-    <div class="modal-body">
-        <div id="loading-div-background">
-            <div id="loading-div" class="ui-corner-all align_center">
-                <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
-                <br>PROCESSING. PLEASE WAIT...
-            </div>
-        </div>
-        <br/>
-    </div>
-
 </div>
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?= base_url('assets/js/jquery-1.11.1.js') ?>"></script>
-<script src="<?= base_url('assets/js/jquery-ui-1.10.3.js') ?>"></script>
-<script src="<?= base_url('assets/js/bootstrap.js') ?>"></script>
-<script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
-
-<script src="<?= base_url('assets/js/library/jquery.collapsible.min.js') ?>"></script>
-<script src="<?= base_url('assets/js/library/jquery.mCustomScrollbar.min.js') ?>"></script>
-<script src="<?= base_url('assets/js/library/jquery.mousewheel.min.js') ?>"></script>
-<script src="<?= base_url('assets/js/library/jquery.uniform.min.js') ?>"></script>
-
-<script src="<?= base_url('assets/js/library/jquery.autosize-min.js') ?>"></script>
-<script src="<?= base_url('assets/js/library/jquery.easytabs.js') ?>"></script>
-
-<script src="<?= base_url('assets/js/design_core.js') ?>"></script>
-<script type="text/javascript">
-    function checkFile(){
-        jQuery('#importModal').modal('show');
-    }
-</script>
-
-
-
-</body>
-</html>
+<!-- end #content -->

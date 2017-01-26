@@ -30,8 +30,8 @@ class Blacklist extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Blacklisted Numbers";
-        $this->load->view('templates/header', $data);
-        $this->load->view('blacklist',$data);
+        $data['mainContent']='blacklist';
+        $this->load->view('templates/template',$data);
     }
 
     function datatable(){

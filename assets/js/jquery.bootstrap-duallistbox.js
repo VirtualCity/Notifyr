@@ -319,16 +319,16 @@
         ' <div class="box1">' +
         '   <label></label>' +
         '   <span class="info-container">' +
-        '     <span class="info"></span>' +
-        '     <button type="button" class="btn clear1 pull-right"></button>' +
+        '     <span class="text-info"></span>' +
+        '     <button type="button" class="btn btn-primary clear1 pull-right"></button>' +
         '   </span>' +
         '   <input class="filter" type="text">' +
         '   <div class="btn-group buttons">' +
-        '     <button type="button" class="btn moveall">' +
+        '     <button type="button" class="btn btn-primary moveall">' +
         '       <i></i>' +
         '       <i></i>' +
         '     </button>' +
-        '     <button type="button" class="btn move">' +
+        '     <button type="button" class="btn btn-primary move">' +
         '       <i></i>' +
         '     </button>' +
         '   </div>' +
@@ -337,12 +337,12 @@
         ' <div class="box2">' +
         '   <label></label>' +
         '   <span class="info-container">' +
-        '     <span class="info"></span>' +
+        '     <span class="text-info"></span>' +
         '     <button type="button" class="btn clear2 pull-right"></button>' +
         '   </span>' +
         '   <input class="filter" type="text">' +
         '   <div class="btn-group buttons">' +
-        '     <button type="button" class="btn remove">' +
+        '     <button type="button" class="btn  remove">' +
         '       <i></i>' +
         '     </button>' +
         '     <button type="button" class="btn removeall">' +
@@ -423,22 +423,23 @@
     },
     setBootstrap2Compatible: function(value, refresh) {
       this.settings.bootstrap2Compatible = value;
+      console.log('compatible - '+value);
       if (value) {
         //this.container.removeClass('row').addClass('row-fluid bs2compatible');
-        this.container.find('.box1, .box2').removeClass('col-md-6').addClass('span3');
-        this.container.find('.clear1, .clear2').removeClass('btn-default btn-xs').addClass('btn-mini');
+        this.container.find('.box1, .box2').removeClass('col-md-6').addClass('col-md-6 col-xs-6');
+        this.container.find('.clear1, .clear2').removeClass('btn-default btn-xs').addClass('btn-xs');
         this.container.find('input, select').removeClass('form-control');
         this.container.find('.btn').removeClass('btn-default');
-        this.container.find('.moveall > i, .move > i').removeClass('glyphicon glyphicon-arrow-right').addClass('icon-arrow-right');
-        this.container.find('.removeall > i, .remove > i').removeClass('glyphicon glyphicon-arrow-left').addClass('icon-arrow-left');
+        this.container.find('.moveall > i, .move > i').removeClass('glyphicon glyphicon arrow-right').addClass('fa fa-arrow-right');
+        this.container.find('.removeall > i, .remove > i').removeClass('glyphicon glyphicon arrow-left').addClass('fa fa-arrow-left');
       } else {
         this.container.removeClass('row-fluid bs2compatible').addClass('row');
         this.container.find('.box1, .box2').removeClass('span6').addClass('col-md-6');
-        this.container.find('.clear1, .clear2').removeClass('btn-mini').addClass('btn-default btn-xs');
+        this.container.find('.clear1, .clear2').removeClass('btn-xs').addClass('btn-default btn-xs');
         this.container.find('input, select').addClass('form-control');
         this.container.find('.btn').addClass('btn-default');
-        this.container.find('.moveall > i, .move > i').removeClass('icon-arrow-right').addClass('glyphicon glyphicon-arrow-right');
-        this.container.find('.removeall > i, .remove > i').removeClass('icon-arrow-left').addClass('glyphicon glyphicon-arrow-left');
+        this.container.find('.moveall > i, .move > i').removeClass('fa fa-arrow-right').addClass('glyphicon glyphicon arrow-right');
+        this.container.find('.removeall > i, .remove > i').removeClass('fa fa-arrow-left').addClass('glyphicon glyphicon arrow-left');
       }
       if (refresh) {
         refreshSelects(this);

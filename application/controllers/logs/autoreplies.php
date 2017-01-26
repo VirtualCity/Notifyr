@@ -15,10 +15,10 @@ class Autoreplies extends Admin_Controller{
     function index(){
 
 
-        //$data['user_role'] = $this->session->userdata('role');
+        $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Auto Reply SMS";
-        $this->load->view('templates/header', $data);
-        $this->load->view('logs/view_autoreply',$data);
+        $data['mainContent'] = 'logs/view_autoreply';
+        $this->load->view('templates/template', $data);
     }
 
     function datatable(){

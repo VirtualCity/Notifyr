@@ -18,8 +18,9 @@ class Products extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Products";
-        $this->load->view('templates/header', $data);
-        $this->load->view('products/view_products',$data);
+         $data['mainContent']='products/view_products';
+        $this->load->view('templates/template', $data);
+
 
     }
 
@@ -76,8 +77,10 @@ class Products extends Admin_Controller{
         $data['description']=$description;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Product";
-        $this->load->view('templates/header', $data);
-        $this->load->view('products/add_product',$data);
+        $data['mainContent']='products/add_product';
+
+        $this->load->view('templates/template', $data);
+        
 
     }
 
@@ -100,9 +103,9 @@ class Products extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Product";
-        $this->load->view('templates/header', $data);
-        $this->load->view('products/edit_product',$data);
-
+       $data['mainContent']='products/edit_product';
+        $this->load->view('templates/template', $data);
+       
     }
 
     function modify(){
@@ -188,8 +191,9 @@ class Products extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Import Products";
-        $this->load->view('templates/header', $data);
-        $this->load->view('products/import_products',$data);
+        $data['mainContent']='products/import_products';
+        $this->load->view('templates/template', $data);
+       
     }
 
     function do_upload(){

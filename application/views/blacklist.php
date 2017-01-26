@@ -1,98 +1,87 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li class="active"><a>Blacklist</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+    <ol class="breadcrumb pull-left ">
+            <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Blacklisted Numbers</li>
+        </ol>
     </div>
+
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
         if(!empty($appmsg)){ ?>
-            <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
         <?php } ?>
     </div>
-    <div class="inner_content">
-        <div class="widgets_area">
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Blacklisted Numbers</h5>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Blacklisted Numbers</h4>
                 </div>
-                <div class="well-content no_search">
+                <div class="panel-body">
 
-                    <table class="table table-striped table-bordered table-hover datatable"  id="example">
+                    <table class="table table-striped  table-hover datatable"  id="example">
                         <thead>
-                        <tr>
+                            <tr>
 
-                            <th>Mobile Number</th>
-                            <th>Date Blacklisted</th>
-                            <?Php if($user_role!=="USER"){ ?>
+                                <th>Mobile Number</th>
+                                <th>Date Blacklisted</th>
+                                <?Php if($user_role!=="USER"){ ?>
                                 <th>Action</th>
-                            <?Php  } ?>
+                                <?Php  } ?>
 
-                        </tr>
+                            </tr>
                         </thead>
                     </table>
 
                 </div>
+                <div class="panel-footer">Blacklisted Numbers</div>
             </div>
-
         </div>
     </div>
 </div>
+<!-- end #content -->
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 
 
-<script src="<?= base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?= base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo($base); ?>assets/tabletools/js/datatables.tableTools.js"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function(){
-        jQuery('#example').dataTable({
-            "processing": true,
-            "bServerSide": true,
-            "sAjaxSource": "<?=base_url('blacklist/datatable')?>",
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "iDisplayStart ": 20,
-            "aLengthMenu": [[50, 100,200,500], [50, 100,200,500]],
-            "dom": 'T<"clear">lfrtip',
-            "tableTools": {
-                "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>"
-            },
-            aoColumns: [
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#example').dataTable({
+                "processing": true,
+                "bServerSide": true,
+                "sAjaxSource": "<?=base_url('blacklist/datatable')?>",
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                "iDisplayStart ": 20,
+                "aLengthMenu": [[50, 100,200,500], [50, 100,200,500]],
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>"
+                },
+                aoColumns: [
                 { "mData": "msisdn","bSearchable": true,"bSortable": true },
                 { "mData": "created","bSearchable": true,"bSortable": true}
                 <?Php if($user_role!=="USER"){ ?>
-                ,
-                { "mData": "actions","bSearchable": false,"bSearchable": false }
-                <?Php  } ?>
-            ],
-            "order": [[ 1, "desc" ]],
-            "oLanguage": {
-                "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
-            },
-            fnInitComplete : function () {
+                    ,
+                    { "mData": "actions","bSearchable": false,"bSearchable": false }
+                    <?Php  } ?>
+                    ],
+                    "order": [[ 1, "desc" ]],
+                    "oLanguage": {
+                        "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
+                    },
+                    fnInitComplete : function () {
                 //oTable.fnAdjustColumnSizing();
             },
             fnServerData : function (sSource, aoData, fnCallback) {
@@ -105,47 +94,9 @@ if( $user_role === 'ADMIN'){
                 });
             }
         });
-    });
+        });
 
-</script>
-<script src="<?php echo($base); ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php echo($base); ?>assets/js/bootstrap.js"></script>
+    </script>
 
-<script src="<?php echo($base); ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php echo($base); ?>assets/js/library/jquery.uniform.min.js"></script>
+    
 
-<script src="<?php echo($base); ?>assets/js/library/jquery.autosize-min.js"></script>
-<script type="text/javascript">
-
-
-    function showalert(message,alerttype){
-        $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">x</a><span>'+message+'</span></div>')
-        setTimeout(function() {
-            $('#alertdiv').remove();
-        },6000);
-    }
-
-    function showMessage(message){
-        if(message.length>0){
-            showalert2(message,"alert-info");
-        }
-    }
-
-    function showalert2(message,alerttype){
-        $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">x</a><span>'+message+'</span></div>')
-        setTimeout(function() {
-            $('#alertdiv').remove();
-        },3000);
-
-
-    }
-
-
-</script>
-
-<script src="<?php echo($base); ?>assets/js/design_core.js"></script>
-
-</body>
-</html>

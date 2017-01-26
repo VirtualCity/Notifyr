@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'local';
 $active_record = TRUE;
 /*Live Environment*/
 $db['default']['hostname'] = 'localhost';
