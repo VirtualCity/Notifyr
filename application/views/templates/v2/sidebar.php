@@ -39,10 +39,11 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('groups')?>">View Groups</a></li>
-						<?php if ($this->session->userdata('role')==="ADMIN" || $this->session->userdata('role')==="SUPER_USER"): ?>
+						<?php if ($this->session->userdata('role')!="USER"): ?>
 							<li><a href="<?=base_url('groups/add')?>">Add Group</a></li>
-						<?php elseif ($this->session->userdata('role')==="ADMIN"): ?>
-							<li><a href="<?=base_url('groups/import')?>">Import to Group</a></li>
+							<?php if ($this->session->userdata('role')==="ADMIN"): ?>
+								<li><a href="<?=base_url('groups/import')?>">Import to Group</a></li>
+							<?php endif ?>
 						<?php endif ?>
 						
 					</ul>
@@ -111,10 +112,11 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('products')?>">View Products</a></li>
-						<?php if ($this->session->userdata('role')==="ADMIN" || $this->session->userdata('role')==="SUPER_USER"): ?>
+						<?php if ($this->session->userdata('role')!="USER"): ?>
 							<li><a href="<?=base_url('products/add')?>">Add Product</a></li>
-						<?php elseif ($this->session->userdata('role')==="ADMIN"): ?>
-							<li><a href="<?=base_url('products/import')?>">Import Products</a></li>
+							<?php if ($this->session->userdata('role')==="ADMIN"): ?>
+								<li><a href="<?=base_url('products/import')?>">Import Products</a></li>
+							<?php endif ?>
 						<?php endif ?>
 
 					</ul>
@@ -128,10 +130,11 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('towns')?>">View Towns</a></li>
-						<?php if ($this->session->userdata('role')==="ADMIN" || $this->session->userdata('role')==="SUPER_USER"): ?>
+						<?php if ($this->session->userdata('role')!="USER"): ?>
 							<li><a href="<?=base_url('towns/add')?>">Add Town</a></li>
-						<?php elseif ($this->session->userdata('role')==="ADMIN"): ?>
-							<li><a href="<?=base_url('towns/import')?>">Import Towns</a></li>
+							<?php if ($this->session->userdata('role')==="ADMIN"): ?>
+								<li><a href="<?=base_url('towns/import')?>">Import Towns</a></li>
+							<?php endif ?>
 						<?php endif ?>
 					</ul>
 				</li>
@@ -144,15 +147,16 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('regions')?>">View Regions</a></li>
-						<?php if ($this->session->userdata('role')==="ADMIN" || $this->session->userdata('role')==="SUPER_USER"): ?>
+						<?php if ($this->session->userdata('role')!="USER"): ?>
 							<li><a href="<?=base_url('regions/add')?>">Add Region</a></li>
-						<?php elseif ($this->session->userdata('role')==="ADMIN"): ?>
-							<li><a href="<?=base_url('regions/import')?>">Import Regions</a></li>
+							<?php if ($this->session->userdata('role')==="ADMIN"): ?>
+								<li><a href="<?=base_url('regions/import')?>">Import Regions</a></li>
+							<?php endif ?>
 						<?php endif ?>
 					</ul>
 				</li>
 
-				<?php if ($this->session->userdata('role')==="ADMIN" || $this->session->userdata('role')==="SUPER_USER"): ?>
+				<?php if ($this->session->userdata('role')!="USER"): ?>
 					<li class="has-sub">
 						<a href="javascript:;">
 							<b class="caret pull-right"></b>
@@ -162,38 +166,38 @@
 						<ul class="sub-menu">
 							<li><a href="<?=base_url('supervisors')?>">View Supervisors</a></li>
 							<li><a href="<?=base_url('supervisors/add')?>">Add Supervisor</a></li>
-						<?php if ($this->session->userdata('role')==="ADMIN"): ?>
+							<?php if ($this->session->userdata('role')==="ADMIN"): ?>
 
-							<li><a href="<?=base_url('supervisors/import')?>">Import Supervisor</a></li>
-						<?php endif ?>
-
-
-					</ul>
-				</li>
-
-				<li class="has-sub">
-					<a href="javascript:;">
-						<b class="caret pull-right"></b>
-						<i class="fa fa-circle"></i>
-						<span>Managers</span>
-					</a>
-					<ul class="sub-menu">
-						<li><a href="<?=base_url('managers')?>">View Managers</a></li>
-						<li><a href="<?=base_url('managers/add')?>">Add Manager</a></li>
-					<?php if ($this->session->userdata('role')==="ADMIN"): ?>
-
-						<li><a href="<?=base_url('managers/import')?>">Import Managers</a></li>
-					<?php endif ?>
-
-				</ul>
-			</li>
-
-		<?php endif ?>
+								<li><a href="<?=base_url('supervisors/import')?>">Import Supervisor</a></li>
+							<?php endif ?>
 
 
+						</ul>
+					</li>
 
-		<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
-	</ul>
-</div>
-</div>
-<div class="sidebar-bg"></div>
+					<li class="has-sub">
+						<a href="javascript:;">
+							<b class="caret pull-right"></b>
+							<i class="fa fa-circle"></i>
+							<span>Managers</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="<?=base_url('managers')?>">View Managers</a></li>
+							<li><a href="<?=base_url('managers/add')?>">Add Manager</a></li>
+							<?php if ($this->session->userdata('role')==="ADMIN"): ?>
+
+								<li><a href="<?=base_url('managers/import')?>">Import Managers</a></li>
+							<?php endif ?>
+
+						</ul>
+					</li>
+
+				<?php endif ?>
+
+
+
+				<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="sidebar-bg"></div>
