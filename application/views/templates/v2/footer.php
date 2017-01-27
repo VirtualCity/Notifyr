@@ -1,6 +1,9 @@
 <?php $path=base_url(); ?>
 <div id="footer" class="footer">
-	&copy; 2017 Virtual city
+<div >
+        <img height="10px" src="<?php echo $path;?>assets/v2/img/hd-vc-logo.png" class="img-responsive">
+
+</div>
 </div>
 
 <div class="modal fade" data-backdrop="static" id="importModal">
