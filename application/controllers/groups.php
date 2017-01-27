@@ -20,15 +20,15 @@ class Groups extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Groups";
-        $this->load->view('templates/header', $data);
-        $this->load->view('groups/view_groups',$data);
+        $data['mainContent']='groups/view_groups';
+        $this->load->view('templates/template',$data);
     }
 
     function datatable(){
         $this->datatables->select('id,name,description,created')
-            ->unset_column('id')
-            ->add_column('actions', get_groups_buttons('$1'), 'id')
-            ->from('groups');
+        ->unset_column('id')
+        ->add_column('actions', get_groups_buttons('$1'), 'id')
+        ->from('groups');
 
         echo $this->datatables->generate();
     }
@@ -79,8 +79,9 @@ class Groups extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add SMS Group";
-        $this->load->view('templates/header', $data);
-        $this->load->view('groups/add_group',$data);
+
+        $data['mainContent']='groups/add_group';
+        $this->load->view('templates/template',$data);
     }
 
     function contacts($id=null){
@@ -94,8 +95,9 @@ class Groups extends MY_Controller{
             $data['groupid']=$id;
             $data['user_role'] = $this->session->userdata('role');
             $data['title'] = "Group Contacts";
-            $this->load->view('templates/header', $data);
-            $this->load->view('groups/view_group_contacts',$data);
+            $data['mainContent']='groups/view_group_contacts';
+            $this->load->view('templates/template',$data);
+
         }else{
             // No group id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Group identifier provided ');
@@ -107,12 +109,12 @@ class Groups extends MY_Controller{
 
     function datatable2($id){
         $this->datatables->select('group_contacts.id as id,group_contacts.msisdn AS msisdn,contacts.name as name,email,
-        id_number,address,towns.name as town,regions.name as region, group_contacts.created as created')
-            ->unset_column('id')
-            ->from('group_contacts LEFT JOIN contacts USING (msisdn)')
-            ->where('group_contacts.groupid',$id)
-            ->join('towns','contacts.town_id = towns.id','Left')
-            ->join('regions','contacts.region_id = regions.id','Left');
+            id_number,address,towns.name as town,regions.name as region, group_contacts.created as created')
+        ->unset_column('id')
+        ->from('group_contacts LEFT JOIN contacts USING (msisdn)')
+        ->where('group_contacts.groupid',$id)
+        ->join('towns','contacts.town_id = towns.id','Left')
+        ->join('regions','contacts.region_id = regions.id','Left');
 
         echo $this->datatables->generate();
     }
@@ -148,8 +150,10 @@ class Groups extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Edit Group";
-        $this->load->view('templates/header', $data);
-        $this->load->view('groups/edit_group',$data);
+
+        $data['mainContent']='groups/edit_group';
+        $this->load->view('templates/template',$data);
+
 
     }
 
@@ -207,13 +211,12 @@ class Groups extends MY_Controller{
 
     function import(){
         $groups = $this->groups_model->get_all_groups();
-
         $data['groups']=$groups;
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Import Contacts to Group";
-        $this->load->view('templates/header', $data);
-        $this->load->view('groups/import_contacts',$data);
+        $data['mainContent']='groups/import_contacts';
+        $this->load->view('templates/template',$data);
     }
 
     function do_upload(){
@@ -223,51 +226,51 @@ class Groups extends MY_Controller{
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         if($this->input->post('group')!==""){
-                $group_id = $this->input->post('group');
+            $group_id = $this->input->post('group');
 
-                $config['upload_path'] = './uploads/groups/';
-                $config['allowed_types'] = 'xls|xlsx';
+            $config['upload_path'] = './uploads/groups/';
+            $config['allowed_types'] = 'xls|xlsx';
                 //$config['overwrite'] = TRUE;
-                $config['max_size']	= '1000';
-                $config['max_width']  = '1024';
-                $config['max_height']  = '768';
-                $config['encrypt_name']	= TRUE;
+            $config['max_size']	= '1000';
+            $config['max_width']  = '1024';
+            $config['max_height']  = '768';
+            $config['encrypt_name']	= TRUE;
 
-                $this->load->library('upload', $config);
+            $this->load->library('upload', $config);
 
-                if ( ! $this->upload->do_upload()){
-                    $error = array('error' => $this->upload->display_errors());
+            if ( ! $this->upload->do_upload()){
+                $error = array('error' => $this->upload->display_errors());
 
-                    log_message('error','Error: File not imported. '.$error);
+                log_message('error','Error: File not imported. '.$error);
                     // Display fail message
-                    $this->session->set_flashdata('appmsg', $error['error']);
-                    $this->session->set_flashdata('alert_type', 'alert-danger');
-                    redirect('groups/import');
-                }else{
-                    $data = array('upload_data' => $this->upload->data());
+                $this->session->set_flashdata('appmsg', $error['error']);
+                $this->session->set_flashdata('alert_type', 'alert-danger');
+                redirect('groups/import');
+            }else{
+                $data = array('upload_data' => $this->upload->data());
 
-                    foreach($data['upload_data'] as $item => $value){
-                        log_message('info','item: '.$item. ' value: '.$value);
-                    }
+                foreach($data['upload_data'] as $item => $value){
+                    log_message('info','item: '.$item. ' value: '.$value);
+                }
 
-                    $data2 =  $this->upload->data();
-                    $file_name= $data2['file_name'];
+                $data2 =  $this->upload->data();
+                $file_name= $data2['file_name'];
 
-                    $result = $this->import_excel($file_name,$group_id);
+                $result = $this->import_excel($file_name,$group_id);
 
-                    $importedNo =$result['count'];
-                    $existing = $result['existing'];
-                    $unregistered = $result['existing'];
-                    $notImported = $result['notadded'];
+                $importedNo =$result['count'];
+                $existing = $result['existing'];
+                $unregistered = $result['existing'];
+                $notImported = $result['notadded'];
 
                     // Display success message
-                    $this->session->set_flashdata('existing', $existing);
-                    $this->session->set_flashdata('notimported', $notImported);
-                    $this->session->set_flashdata('unregistered', $unregistered);
-                    $this->session->set_flashdata('appmsg', 'Contacts imported: '.$importedNo);
-                    $this->session->set_flashdata('alert_type', 'alert-success');
-                    redirect('groups/import');
-                }
+                $this->session->set_flashdata('existing', $existing);
+                $this->session->set_flashdata('notimported', $notImported);
+                $this->session->set_flashdata('unregistered', $unregistered);
+                $this->session->set_flashdata('appmsg', 'Contacts imported: '.$importedNo);
+                $this->session->set_flashdata('alert_type', 'alert-success');
+                redirect('groups/import');
+            }
 
 
         }else{

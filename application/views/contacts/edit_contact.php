@@ -1,85 +1,76 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
-
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a href="<?=base_url("contacts")?>">Contacts</a><span class="divider">/</span></li>
-            <li class="active"><a >Edit Contact</a></li>
-        </ul>
+<div id="content" class="content">
+ 
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+       <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+       <li><a href="<?=base_url('Contacts')?>"><i class="fa fa-group"></i> Contacts</a></li>
+              <li class="active">Edit Contact</li>
+    </ol>
     </div>
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
+ 
 
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
-
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Edit Contact</h5>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                         
+                    </div>
+                    <h4 class="panel-title">Edit Contact</h4>
                 </div>
+                <div class="panel-body">
                 <div class="well-content no_search">
 
                     <form action="<?=base_url('contacts/modify')?>" method="post" class="form-horizontal">
                         <input type="hidden" name="id" value="<?=$id?>"/>
-                        <div class="form_row">
-                            <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label>
-                            <div class="field">
-                                <input type="text" name="msisdn" id="msisdn"  class="span6" value="<?=$msisdn?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('msisdn'); ?> </font></div>
-                            </div>
 
+                         <div class="col-md-6 col-xs-12">
+                        <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label><span class="text-danger"> *</span>
+                        <div >
+                            <input required type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"/>
+                            
+                            <span class="text-danger"> <?php echo form_error('msisdn'); ?> </span>
                         </div>
+                    </div>
                         <hr class="field-separator">
 
-                        <div class="form_row">
-                            <label for="name" class="field_name align_right lblBold">Name </label>
-                            <div class="field">
-                                <input type="text" name="name" id="name" class="span6" value="<?=$name?>"/>
-                                <div><font color="red"> <?php echo form_error('name'); ?> </font></div>
-                            </div>
 
+
+                        <div class="col-md-6 col-xs-12">
+                        <label for="name" class="field_name align_right lblBold">Name </label>
+                        <div >
+                            <input  type="text" name="name" id="name"  class="form-control" value="<?=$name?>"/>
                         </div>
+                    </div>
+
+                        
                         <hr class="field-separator">
 
-                        <div class="form_row">
-                            <label for="email" class="field_name align_right lblBold">Email</label>
-                            <div class="field">
-                                <input type="text" name="email" id="email" class="span6" value="<?=$email?>"/>
-                                <div><font color="red"> <?php echo form_error('email'); ?> </font></div>
-                            </div>
-
+                         <div class="col-md-6 col-xs-12">
+                        <label for="email" class="field_name align_right lblBold">Email</label>
+                        <div >
+                            <input  type="text" name="email" id="email"  class="form-control" value="<?=$email?>"/>
                         </div>
+                    </div>
                         <hr class="field-separator">
 
-                        <div class="form_row">
-                            <label for="address" class="field_name align_right lblBold">Address</label>
-                            <div class="field">
-                                <input type="text" name="address" id="address"  class="span6" value="<?=$address?>"/>
-                                <div><font color="red"> <?php echo form_error('address'); ?> </font></div>
-                            </div>
-
+                        <div class="col-md-6 col-xs-12">
+                        <label for="address" class="field_name align_right lblBold">Address</label>
+                        <div >
+                            <input  type="text" name="address" id="address"  class="form-control" value="<?=$address?>"/>
                         </div>
-                        <hr class="field-separator">
+                    </div>
+                    <hr class="field-separator">
                         <div class="form_row">
                             <label class="field_name align_right"></label>
                             <div class="field">
@@ -89,31 +80,13 @@ if( $user_role === 'ADMIN'){
 
                     </form>
                 </div>
+                   
+                </div>
+                <div class="panel-footer">Edit Contact</div>
             </div>
-
         </div>
     </div>
 </div>
-
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.1.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.3.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.collapsible.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.mCustomScrollbar.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.mousewheel.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.uniform.min.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/library/jquery.autosize-min.js"></script>
-
-<script src="<?php echo base_url(); ?>assets/js/design_core.js"></script>
-
 <script>
 
 
@@ -142,5 +115,3 @@ if( $user_role === 'ADMIN'){
 
 </script>
 
-</body>
-</html>

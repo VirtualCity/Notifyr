@@ -1,43 +1,39 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url('dashboard')?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a>Reports</a><span class="divider">/</span></li>
-            <li class="active"><a>Messages Replied</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a><i class="fa fa-bar-chart"></i> SMS Reports</a></li>
+            <li class="active"> Messages Replied</li>
+        </ol>
     </div>
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>Messages Replied</h5>
+
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+                    </div>
+                    <h4 class="panel-title">Messages Replied</h4>
                 </div>
-                <div class="well-content no_search">
-
-                    <table class="table-bordered table-hover display responsive nowrap" width="100%" cellspacing="0" id="example">
+                <div class="panel-body">
+                     <table class="table table-striped table-bordered table-hover datatable" width="100%" cellspacing="0" id="example">
                         <thead>
                         <tr>
                             <th>Mobile</th>
@@ -51,23 +47,18 @@ if( $user_role === 'ADMIN'){
                         </thead>
 
                     </table>
-
                 </div>
+                <div class="panel-footer">Messages Replied</div>
             </div>
-
         </div>
     </div>
 </div>
+<!-- end #content -->
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+ 
 
-<script src="<?= base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?= base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-<script src="<?= base_url('assets/js/ellipsis.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/tabletools/js/datatables.tableTools.js'); ?>"></script>
+ 
 <script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('#example').DataTable({
@@ -85,10 +76,7 @@ if( $user_role === 'ADMIN'){
             "tableTools": {
                 "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>",
                 "aButtons": [ "copy", "csv","xls","pdf" ]
-            },columnDefs: [ {
-                targets: [2,3],
-                render: jQuery.fn.dataTable.render.ellipsis( 50, true )
-            } ],
+            },
             columns: [
 
                 { "data": "sent_to" },
@@ -110,20 +98,4 @@ if( $user_role === 'ADMIN'){
         });
     });
 
-</script>
-<!--<script src="<?php /*echo base_url('assets/datatables/js/responsive.js'); */?>"></script>-->
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-
-<script src="<?php echo  base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo  base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo  base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo  base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-
-<script src="<?php echo  base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-
-
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-</body>
-</html>
+</script> 

@@ -1,157 +1,140 @@
-<body >
-<!--Header Section-->
-<?Php $this->load->view('templates/app_header');?>
 
-<!--Navigation Section-->
-<?Php
-if( $user_role === 'ADMIN'){
-    $this->load->view('templates/navigation');
-}else if($user_role === 'SUPER_USER'){
-    $this->load->view('templates/navigation_super_user');
-}else{
-    $this->load->view('templates/navigation_user');
-}
-?>
+<!-- begin #content -->
+<div id="content" class="content">
 
-<div id="content" class="no-sidebar"> <!-- Content start -->
-    <div class="top_bar">
-        <ul class="breadcrumb">
-            <li><a href="<?=base_url("dashboard")?>"><i class="icon-home"></i> Home</a> <span class="divider">/</span></li>
-            <li><a >Settings</a><span class="divider">/</span></li>
-            <li class="active"><a>SDP Configuration</a></li>
-        </ul>
+    <div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">SDP Configuration Settings</li>
+        </ol>
     </div>
-    <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
-        <div class="widgets_area">
 
 
-            <div class="well blue">
-                <div class="well-header">
-                    <h5>SDP Configuration Settings</h5>
+    <div id="alert_placeholder">
+        <?php
+        $appmsg = $this->session->flashdata('appmsg');
+        if(!empty($appmsg)){ ?>
+        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
+        <?php } ?>
+    </div>
+
+
+    <div class="row">
+        <ul class="nav nav-tabs nav-stacked col-md-2">
+          <li ><a href="<?php echo site_url('password') ?>" > Change Password</a></li>
+          <?php if ($this->session->userdata('role')!="USER"): ?>
+              <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+                  <li class="active"><a data-toggle="tab" href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+                  <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+              <?php endif ?>
+              <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
+          <?php endif ?>
+      </ul>
+      <div class="panel tab-content col-md-10">
+        <div class="tab-pane active" id="tab_a">
+           <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
                 </div>
-                <div class="well-content no_search">
+                <h4 class="panel-title">SDP Configuration Settings</h4>
+            </div>
+            <div class="panel-body">
+             <form action="<?=base_url('settings/configuration')?>" method="post" class="form-horizontal">
 
-                    <form action="<?=base_url('settings/configuration')?>" method="post" class="form-horizontal">
-                        <div class="form_row">
-                            <label for="appid" class="field_name align_right lblBold">Application ID </label>
-                            <div class="field">
-                                <input type="text" name="appid" id="appid" placeholder="APP_ID" class="span6" value="<?=$appid?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('appid'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="password" class="field_name align_right lblBold">Application Password </label>
-                            <div class="field">
-                                <input type="text" name="password" id="password" placeholder="Application Password" class="span6" value="<?=$password?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('password'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="shortcode" class="field_name align_right lblBold">SMS Short Code </label>
-                            <div class="field">
-                                <input type="text" name="shortcode" id="shortcode" placeholder="E.g 20358" class="span6" value="<?=$shortcode?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('shortcode'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="keyword" class="field_name align_right lblBold">SMS Keyword </label>
-                            <div class="field">
-                                <input type="text" name="keyword" id="keyword" placeholder="Keyword" class="span6" value="<?=$keyword?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('keyword'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="subscription" class="field_name align_right lblBold">Subscription Keyword </label>
-                            <div class="field">
-                                <input type="text" name="subscription" id="subscription" placeholder="Subscription Keyword" class="span6" value="<?=$subscription?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('subscription'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="unsubscription" class="field_name align_right lblBold">Un-subscription Keyword</label>
-                            <div class="field">
-                                <input type="text" name="unsubscription" id="unsubscription" placeholder="Un-subscription Keyword" class="span6" value="<?=$unsubscription?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('unsubscription'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="smsurl" class="field_name align_right lblBold">SMS SDP Server URL </label>
-                            <div class="field">
-                                <input type="text" name="smsurl" id="smsurl" placeholder="E.g http://40.113.123.6:7000/sms/send" class="span6" value="<?=$smsurl?>"/>
-                                <font color="red"> *</font>
-                                <div><font color="red"> <?php echo form_error('smsurl'); ?> </font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label for="groups" class="field_name align_right lblBold">Product linked Group</label>
-                            <div class="field">
-                                <select name="groups" id="groups" class="span6" >
-                                    <option value="">-- Select sms group linked to products---</option>
-                                    <?php
-                                    if(!empty($groups)){
-                                        foreach($groups as $row) { ?>
-                                            <option value="<?=$row->id?>" <?php if ($row->id ===$productsgroupid){echo "selected";}?>><?=$row->name?></option>
-                                        <?php   }
-                                    } ?>
-                                </select> <font color="red"> *</font>
-                                <div><font color="red"><?php echo form_error('groups'); ?></font></div>
-                            </div>
-                        </div>
-                        <hr class="field-separator">
-                        <div class="form_row">
-                            <label class="field_name align_right"></label>
-                            <div class="field">
-                                <button type="submit" class="btn btn-large dark_green"><i class="icon-save"></i> Save</button>
-                            </div>
-                        </div>
+              <div class="col-md-12 col-xs-12">
+                <label > Application ID  </label><span class="text-danger"> *</span>
+                <input required type="text" name="appid" id="appid" placeholder="Application ID" class="form-control" value="<?php echo $appid ?>"/>
 
-                    </form>
-                </div>
+                <span class="text-danger"> <?php echo form_error('appid'); ?> </span>
+            </div>  
+
+            <div class="col-md-12 col-xs-12">
+                <label > Application Password  </label><span class="text-danger"> *</span>
+                <input type="text" name="password" id="password" placeholder="Application Password" class="form-control" value="<?=$password?>"/>
+
+                <span class="text-danger"> <?php echo form_error('password'); ?> </span>
             </div>
 
-        </div>
+            <div class="col-md-12 col-xs-12">
+                <label > SMS Short Code  </label><span class="text-danger"> *</span>
+                <input type="text" name="shortcode" id="shortcode" placeholder="SMS Short Code" class="form-control" value="<?=$shortcode?>"/>
+
+                <span class="text-danger"> <?php echo form_error('shortcode'); ?> </span>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <label > SMS Keyword  </label><span class="text-danger"> *</span>
+                <input type="text" name="keyword" id="keyword" placeholder="SMS Keyword" class="form-control" value="<?=$keyword?>"/>
+
+                <span class="text-danger"> <?php echo form_error('keyword'); ?> </span>
+            </div>
+
+
+            <div class="col-md-12 col-xs-12">
+                <label > Subscription Keyword  </label><span class="text-danger"> *</span>
+                <input type="text" name="subscription" id="subscription" placeholder="Subscription Keyword" class="form-control" value="<?=$subscription?>"/>
+
+                <span class="text-danger"> <?php echo form_error('subscription'); ?> </span>
+            </div>
+
+
+            <div class="col-md-12 col-xs-12">
+                <label >Un-subscription Keyword  </label><span class="text-danger"> *</span>
+                <input type="text" name="unsubscription" id="unsubscription" placeholder="Un-subscription Keyword" class="form-control" value="<?=$unsubscription?>"/>
+
+                <span class="text-danger"> <?php echo form_error('unsubscription'); ?> </span>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <label >SMS SDP Server URL  </label><span class="text-danger"> *</span>
+                <input type="text" name="smsurl" id="smsurl" placeholder="SMS SDP Server URL" class="form-control" value="<?=$smsurl?>"/>
+
+                <span class="text-danger"> <?php echo form_error('smsurl'); ?> </span>
+            </div>
+
+
+            <div class="col-md-12 col-xs-12">
+                <label > SMS Short Code  </label><span class="text-danger"> *</span>
+                <input type="text" name="shortcode" id="shortcode" placeholder="SMS Short Code" class="form-control" value="<?=$shortcode?>"/>
+
+                <span class="text-danger"> <?php echo form_error('shortcode'); ?> </span>
+            </div>     
+
+
+            <div class="col-md-12 col-xs-12">
+                <label > Product linked Group  </label><span class="text-danger"> *</span>
+                <select name="groups" id="groups" class="form-control" >
+                    <option value="">-- Select sms group linked to products---</option>
+                    <?php
+                    if(!empty($groups)){
+                        foreach($groups as $row) { ?>
+                        <option value="<?=$row->id?>" <?php if ($row->id ===$productsgroupid){echo "selected";}?>><?=$row->name?></option>
+                        <?php   }
+                    } ?>
+                </select>
+
+                <span class="text-danger"> <?php echo form_error('groups'); ?> </span>
+            </div>
+
+
+
+            <hr class="field-separator">
+            <div class="col-md-12 col-xs-12">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
+
+            </div>
+
+
+        </form>
     </div>
+</div>
+</div>
+
+</div><!-- tab content -->
 </div>
 
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
-
-
-</body>
-</html>

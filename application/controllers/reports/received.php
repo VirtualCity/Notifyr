@@ -24,16 +24,16 @@ class Received extends MY_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Messages Received";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/view_received',$data);
+        $data['mainContent']='reports/view_received';
+        $this->load->view('templates/template',$data);
     }
 
     function datatable(){
-        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message, status, sms_received.created AS created')
-            ->unset_column('id')
-            ->add_column('actions', get_received_messages_buttons('$1'), 'id')
-            ->from('sms_received LEFT JOIN contacts USING (msisdn)')
-            ->where('message_type','GROUP');
+        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message, sms_received.status AS status, sms_received.created AS created')
+        ->unset_column('id')
+        ->add_column('actions', get_received_messages_buttons('$1'), 'id')
+        ->from('sms_received LEFT JOIN contacts USING (msisdn)')
+        ->where('message_type','GROUP');
 
         echo $this->datatables->generate();
     }
@@ -60,8 +60,8 @@ class Received extends MY_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Message Reply";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/reply_received',$data);
+        $data['mainContent']='reports/reply_received';
+        $this->load->view('templates/template',$data);
     }
 
     function send(){

@@ -71,8 +71,9 @@ class Addblacklist extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "BlackList Number";
-        $this->load->view('templates/header', $data);
-        $this->load->view('blacklistnumber',$data);
+        $data['mainContent']='blacklistnumber';
+        $this->load->view('templates/template', $data);
+       
     }
 
     function checkmsisdn($msisdn){

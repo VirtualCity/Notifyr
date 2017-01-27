@@ -20,12 +20,10 @@ class Replied extends MY_Controller{
     }
 
     function index(){
-
-
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Messages Replied";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/view_Replied',$data);
+        $data['mainContent']='reports/view_Replied';
+        $this->load->view('templates/template',$data);
     }
 
     function datatable(){

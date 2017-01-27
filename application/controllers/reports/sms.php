@@ -21,8 +21,12 @@ class Sms extends Reports_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Single Alerts Sent";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/sms',$data);
+        $data['mainContent']='reports/sms';
+        $this->load->view('templates/template',$data);
+
+
+
+       
     }
 
     function datatable(){

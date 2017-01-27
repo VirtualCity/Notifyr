@@ -18,9 +18,9 @@ class Subscribed extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Subscribed Contacts";
-        $this->load->view('templates/header', $data);
-        $this->load->view('reports/subscribed',$data);
-
+        $data['mainContent'] = 'reports/subscribed';
+        $this->load->view('templates/template', $data);
+       
     }
 
     function datatable(){

@@ -23,8 +23,12 @@ class Sent extends Reports_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Sent";
-        $this->load->view('templates/header', $data);
-        $this->load->view('sms/view_sent',$data);
+          $data['mainContent']='sms/view_sent';
+        $this->load->view('templates/template',$data);
+
+
+
+       
     }
 
     function datatable(){

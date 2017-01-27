@@ -23,8 +23,8 @@ class Outbox extends Admin_Controller{
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Sent";
-        $this->load->view('templates/header', $data);
-        $this->load->view('logs/view_outbox',$data);
+        $data['mainContent'] = 'logs/view_outbox';
+        $this->load->view('templates/template', $data);
     }
 
     function datatable(){

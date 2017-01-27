@@ -103,20 +103,15 @@ class Dashboard extends MY_Controller{
                 $last_7days_replied = $last_7days_replied."[".$formatedDate.",".$count."]";
             }
         }
-
         $data['last_7days_replied'] = $last_7days_replied;
-
-
-
-
-
-
-
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $role;
         $data['title'] = "Dashboard";
-        $this->load->view('templates/header', $data);
-        $this->load->view('dashboard',$data);
+        $data['mainContent']='dashboard';
+       /* echo "<pre>";
+        print_r ($data);
+        echo "</pre>";*/
+        $this->load->view('templates/template',$data);
     }
 
 }

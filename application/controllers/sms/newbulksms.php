@@ -98,8 +98,9 @@ class Newbulksms extends Admin_Controller{
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "New Bulk SMS";
-        $this->load->view('templates/header', $data);
-        $this->load->view('sms/newbulksms',$data);
+        $data['mainContent']='sms/newbulksms';
+        $this->load->view('templates/template', $data);
+        
     }
 
 

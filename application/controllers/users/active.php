@@ -10,6 +10,8 @@ class Active extends Admin_Controller{
     function __construct(){
         parent::__construct();
         $this->load->helper('buttons_helper');
+
+
         $this->load->model('user_model');
         $this->load->database();
     }
@@ -17,8 +19,10 @@ class Active extends Admin_Controller{
     function index(){
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Manage Actve Users";
-        $this->load->view('templates/header', $data);
-        $this->load->view('users/view_active',$data);
+
+         $data['mainContent']='users/view_active';
+        $this->load->view('templates/template',$data);
+        
     }
     //return activated users
     function datatable(){
