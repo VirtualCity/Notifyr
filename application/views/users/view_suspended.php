@@ -35,6 +35,9 @@
            <ul class="nav nav-tabs">
             <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
         <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
+        <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+            <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
+        <?php endif ?>
         </ul>
 
         <div class="tab-content">

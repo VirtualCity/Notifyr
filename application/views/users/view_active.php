@@ -35,9 +35,12 @@
 
       <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
-         <ul class="nav nav-tabs">
+           <ul class="nav nav-tabs">
             <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Active Users</h4></a></li>
             <li class=""><a href="<?=base_url('users/suspended')?>" >Suspended Users</a></li>
+            <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+                <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
+            <?php endif ?>
         </ul>
 
         <div class="tab-content">
@@ -54,30 +57,28 @@
 
                     <div class="panel-body">
 
-                    <table id="example" class="table table-striped table-bordered table-hover datatable">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Full Names</th>
-                                <th>Mobile No</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Date Created</th>
-                                <?Php if($user_role==="ADMIN"){ ?>
-                                <th>Action</th>
-                                <?php } ?>
-                            </tr>
-                        </thead>
-                        <tbody ></tbody>
-                    </table>
+                        <table id="example" class="table table-striped table-bordered table-hover datatable">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Full Names</th>
+                                    <th>Mobile No</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Date Created</th>
+                                    <?Php if($user_role==="ADMIN"){ ?>
+                                    <th>Action</th>
+                                    <?php } ?>
+                                </tr>
+                            </thead>
+                            <tbody ></tbody>
+                        </table>
+                    </div>
+
                 </div>
-                <div class="panel-footer"><?php if ($this->session->userdata('role')==="ADMIN"): ?>
-                        <a href="<?php echo site_url('users/add') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</a><br><br>                    
-                    <?php endif ?></div>
             </div>
         </div>
     </div>
-</div>
 
 </div><!-- tab content -->
 </div>
