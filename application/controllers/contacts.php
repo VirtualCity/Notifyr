@@ -293,11 +293,15 @@ class Contacts extends MY_Controller{
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
+                //Update msisdn to group contact too
+                $current = $this->contacts_model->get_contact($id);
+                $_msisdn=$current->msisdn;
 
+                $update_grp_contact=$this->groups_model->update_group_contact_msisdn($_msisdn, $msisdn);
                 //Save new user
                 $updated = $this->contacts_model->edit_contact($id,$msisdn,ucwords($name),$idno,strtolower($email),$address);
 
-                if($updated){
+                if($updated && $update_grp_contact){
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Contact updated successfully');
                     $this->session->set_flashdata('alert_type', 'alert-success');
