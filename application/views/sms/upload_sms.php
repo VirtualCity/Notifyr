@@ -5,7 +5,7 @@
         <ol class="breadcrumb pull-left ">
             <li><a href="<?=base_url("dashboard")?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
           
-            <li class="active">Group import</li>
+            <li class="active">Import SMS</li>
 
         </ol>
     </div>
@@ -28,47 +28,29 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>
-                    <h4 class="panel-title">Import To Group</h4>
+                    <h4 class="panel-title">Send SMS From Excel</h4>
                 </div>
                 <div class="panel-body">
-                    <form action="<?=base_url('groups/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
-
+                    <form action="<?=base_url('sms/newbulksms/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+<!--                        <div class="col-md-12 col-xs-12">-->
+<!--                            <div class="alert alert-info alert-dismissable">-->
+<!--                                <ul>-->
+<!--                                    <li class="list-group-item">Max File Size 2MB</li>-->
+<!--                                    <li class="list-group-item">Send Max 20 SMS</li>-->
+<!--                                </ul></div>-->
+<!--                        </div>-->
                        <div class="col-md-12 col-xs-12">
-                        <label >Select File To Import: </label>
+                        <label >Select SMS File To Send: </label>
                         <span class="text-danger"> *</span>
-                        <input type="file" class="form-control" name="userfile" id="userfile"/>
+                        <input type="file" required="required" class="form-control" name="userfile" id="userfile"/>
                     </div>
-
-                    <div class="col-md-12 col-xs-12">
-                        <label >SMS Group </label>
-                        <span class="text-danger"> *</span>
-                        <select name="group" id="group"  class="form-control">
-                            <option value="">---Please Select SMS Group---</option>
-                            <?php foreach($groups as $row) { ?>
-                            <option value="<?=$row->id?>" ><?=$row->name?></option>
-                            <?php } ?>
-                        </select>
-                        <span class="text-danger"><?php echo form_error('group'); ?></span>
-
-                    </div>
-
-                    
-
-
-                    <div class="col-md-12 col-xs-12">
+                   <div class="col-md-12 col-xs-12">
                         <br>
                         <br>
                         <br>
-                        <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                        <button type="submit" name="submit" class="btn btn-primary"  ><i class="fa fa-upload"></i> Import</button>
                     </div>
-
-
-
-                 
-
-                </form>
-
-
+                    </form>
 
                 <br/>
                 <?php
@@ -105,7 +87,7 @@
 
                 <br>
             </div>
-            <div class="panel-footer">Import To Group</div>
+            <div class="panel-footer">Import SMS File To Send</div>
         </div>
     </div>
 </div>
