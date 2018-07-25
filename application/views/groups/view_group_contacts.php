@@ -47,7 +47,7 @@
 
                     </table>
                 </div>
-                <div class="panel-footer">?=$group_name ?> Contacts</div>
+                <div class="panel-footer"><?=$group_name ?> Contacts</div>
             </div>
         </div>
     </div>
