@@ -56,7 +56,7 @@ class Newbulksms extends Admin_Controller
                     $recipients = array();
                     //Create an array with recipients
                     foreach ($addresses as $address) {
-                        $recipients[] = 'tel:' . $address->msisdn;
+                        $recipients[] = $address->msisdn;
                     }
 
                     //Send message to group
@@ -164,15 +164,13 @@ class Newbulksms extends Admin_Controller
             $result = $this->import_excel($file_name, $group_id);
 
             $importedNo = $result['count'];
-            $existing = $result['existing'];
-            $unregistered = $result['existing'];
+            $unregistered = $result['unregistered'];
             $notImported = $result['notadded'];
 
             // Display success message
-            $this->session->set_flashdata('existing', $existing);
             $this->session->set_flashdata('notimported', $notImported);
             $this->session->set_flashdata('unregistered', $unregistered);
-            $this->session->set_flashdata('appmsg', 'Contacts imported: ' . $importedNo);
+            $this->session->set_flashdata('appmsg', 'Total SMS Sent: ' . $importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
             redirect('sms/newbulksms/uploadexcel');
         }
@@ -218,19 +216,28 @@ class Newbulksms extends Admin_Controller
             if ($mobile != null && $mobile != "") {
 
                 //check if mobile has 12 characters and is numeric
-                if (is_numeric($mobile) && strlen($mobile)==12) {
-                        if($text !=""){
+                if (is_numeric($mobile) && strlen($mobile) == 12) {
+                    if ($text != "") {
+                        $recipients = array($mobile);
+                        $msg_sent = $this->sendsms_model->send_sms($recipients, $text);
 
-                        }
+                        log_message("info", "Sending status: " . $msg_sent);
+
+                        if ($msg_sent == 'success') {
+                            $addCounter++;
+
+                        } else
+                            $notAdded = $notAdded . ' | ' . $mobile;
+
+                    }
                 } else
-                    $unknownContacts = $unknownContacts .' | '.$mobile;
+                    $unknownContacts = $unknownContacts . ' | ' . $mobile;
 
             }
 
         }
 
-
-        $import_result = array('count' => $addCounter, 'notadded' => $notAdded);
+        $import_result = array('count' => $addCounter, 'notadded' => $notAdded, 'unregistered' => $unknownContacts);
 
         return $import_result;
     }

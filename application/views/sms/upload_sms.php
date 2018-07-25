@@ -51,21 +51,10 @@
                         <button type="submit" name="submit" class="btn btn-primary"  ><i class="fa fa-upload"></i> Import</button>
                     </div>
                     </form>
-
-                <br/>
-                <?php
-                $existing = $this->session->flashdata('existing');
-                if(!empty($existing)){ ?>
-                <div id="alertdiv" class="alert alert-warning "><a class="close" data-dismiss="alert">x</a>
-                    <strong>Existing Entries!</strong>
-                    <br>
-                    <span><?= $existing ?></span>
-                </div>
-                <?php } ?>
                 <br/>
                 <br/>
                 <?php
-                $invalid = $this->session->flashdata('invalid');
+                $invalid = $this->session->flashdata('unregistered');
                 if(!empty($invalid)){ ?>
                 <div id="alertdiv" class="alert alert-danger "><a class="close" data-dismiss="alert">x</a>
                     <strong>Invalid Entries!</strong>
@@ -78,7 +67,7 @@
                 $not_imported = $this->session->flashdata('notimported');
                 if(!empty($not_imported)){ ?>
                 <div id="alertdiv" class="alert alert-danger "><a class="close" data-dismiss="alert">x</a>
-                    <strong>Failed to import!</strong>
+                    <strong>Failed to Send !</strong>
                     <br>
                     <span><?= $not_imported ?></span>
                 </div>
