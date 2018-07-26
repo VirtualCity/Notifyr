@@ -11,7 +11,7 @@
     <div id="alert_placeholder">
         <?php
         $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
+		if(!empty($appmsg)){ ?>
         <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
         <?php } ?>
     </div>
@@ -26,7 +26,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>
-                    <h4 class="panel-title">New Bulk SMS</h4>
+                    <h4 class="panel-title"><?php ?></h4>
                 </div>
                 <div class="panel-body">
                    <form action="<?php echo base_url('sms/newbulksms');?>" method="post" class="form-horizontal">
@@ -47,15 +47,36 @@
 
                     <div class="col-md-12 col-xs-12">
                         <label>Message </label><span class="text-danger"> *</span>
-                        <div >
+                       <div class="row">
+                       	 <div class="col-md-8">
+                        	<label>Type to Compose</label>
+                        	 <div >
 
                             <textarea required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
                             
                             <span class="text-danger"> <?php echo form_error('message'); ?> </span>
                         </div>
+                        </div> <div class="col-md-4">
+                        	<label>Select Template</label>
+                        	 <div >
+							 <select name="template" id="template_id" class="form-control" >
+                            <option value="">---Please Select Template---</option>
+                            <?php
+                            if(count($templates)>0){
+                                foreach($templates as $row) { ?>
+                                <option value="<?=$row->id?>"  template="<?=$row->template?>"  title="<?=$row->title?>"><?=$row->title?></option>
+                                <?php   }
+                            }else{
+                            	echo "No templates found.";
+                            } ?>
+                        </select>                             
+                        </div>
+                        </div>
+                       </div>
+                        
                     </div>
 
-
+					<br />
                     <hr class="field-separator">
 
                     <div class="col-md-6 col-xs-12">
@@ -77,3 +98,9 @@
 </div>
 </div>
 <!-- end #content -->
+<script>
+	$("#template_id").change(function(){
+		var template= $("#template_id option:selected").attr("template");
+		$("#message").val(template);
+	});
+</script>

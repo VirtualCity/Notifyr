@@ -15,6 +15,15 @@ function get_view_products_buttons($id){
 
     return $html;
 }
+function get_view_templates_buttons($id){
+    $ci = & get_instance();
+    $html = '<span class="actions">';
+    $html .= '<a href="' . base_url() . 'sms/newsms/edittemplate/' . $id . '">&nbsp; Edit</a>';
+    $html .= '</span>';
+
+    return $html;
+}
+
 
 function get_active_retailers_buttons($id){
     $ci = & get_instance();

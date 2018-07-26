@@ -24,6 +24,17 @@
 						<ul class="sub-menu">
 							<li><a href="<?=base_url('sms/newsms')?>">New SMS</a></li>
 							<li><a href="<?=base_url('sms/newbulksms')?>">New Bulk SMS</a></li>
+							<li class="has-sub">
+						<a href="javascript:;">
+							<b class="caret pull-right"></b>
+							<i class="fa fa-ticket"></i>
+							<span>SMS Templates</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="<?=base_url('sms/newsms/smstemplate')?>">New SMS Template</a></li>
+							<li><a href="<?=base_url('sms/newsms/templates')?>">Template List</a></li>
+						</ul>
+					</li>
 						</ul>
 					</li>
 				<?php endif ?>
