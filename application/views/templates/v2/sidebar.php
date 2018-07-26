@@ -24,6 +24,8 @@
 						<ul class="sub-menu">
 							<li><a href="<?=base_url('sms/newsms')?>">New SMS</a></li>
 							<li><a href="<?=base_url('sms/newbulksms')?>">New Bulk SMS</a></li>
+							<li><a href="<?=base_url('sms/newbulksms/uploadexcel')?>">New SMS From Excel</a></li>
+
 							<li class="has-sub">
 						<a href="javascript:;">
 							<b class="caret pull-right"></b>

@@ -16,7 +16,8 @@ class SmsSender{
 
     public function __construct(){
        // $this->server = $server; // Assign server url
-		$this->server = "http://api.hewani.co.ke:7000/sms/send";
+		//$this->server = "http://api.hewani.co.ke:7000/sms/send";
+		$this->server = "https://tapconnector.azurewebsites.net/api/africastalking/agrimanagr-heifer";
 
         /*$settings = $this->getSettings();
         if(!empty($settings->value5)){
@@ -60,7 +61,7 @@ class SmsSender{
             "password" => $password,
             "message" => $message,
             "deliveryStatusRequest" => $deliveryStatusRequest,
-            "destinationAddresses" => $addresses,
+            "recipients" => $addresses,
             "sourceAddress" => $sourceAddress,
             "chargingAmount" => $charging_amount,
             "encoding" => $encoding,

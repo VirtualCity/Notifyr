@@ -44,7 +44,8 @@ class Newsms extends Admin_Controller {
 			//Does it have valid form info (not empty values)
 			if ($this -> form_validation -> run()) {
 				//Send message
-				$recipients = array('tel:' . $msisdn);
+				//$recipients = array('tel:' . $msisdn);
+				$recipients = array($msisdn);
 				$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
 
 				log_message("info", "Sending status: " . $msg_sent);
@@ -76,7 +77,7 @@ class Newsms extends Admin_Controller {
 		$data['title'] = "New SMS";
 		$data['mainContent'] = 'sms/newsms';
 
-		$this -> load -> view('templates/template', $data);
+		$this -> load -> view('templates/template', $data); 
 
 	}
 
