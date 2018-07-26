@@ -52,7 +52,8 @@
 
 <!-- <script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
  -->	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/tabletools/js/datatables.tableTools.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/tabletools/js/datatables.tableTools.js'); ?>"></script>
+    <script src="<?php echo $path;?>assets/js/multiple-select.js"></script>
 	
 <script>
 	$(document).ready(function() {

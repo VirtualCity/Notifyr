@@ -34,12 +34,14 @@ class Newbulksms extends Admin_Controller{
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         $group_id="";
-        $message="";
+        $message=""; 
 
         // has the form been submitted
         if($this->input->post()){
             $group_id = $this->input->post('group');
             $message = $this->input->post('message');
+            $groupcontacts = $this->input->post('groupcontacts');
+            
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
@@ -47,17 +49,17 @@ class Newbulksms extends Admin_Controller{
                 $group_details = $this->groups_model->get_group_by_id($group_id);
 
                 //Retrieve group contacts if group exists and put in an array
-                $addresses = $this->contacts_model->get_group_contacts($group_id);
+               // $addresses = $this->contacts_model->get_group_contacts($group_id);
 
-                if($addresses){
-                    $recipients= array();
-                    //Create an array with recipients
-                    foreach($addresses as $address){
-                        $recipients[]='tel:'.$address->msisdn;
-                    }
+                if(count($groupcontacts) > 0){
+                    // $recipients= array();
+                    // //Create an array with recipients
+                    // foreach($addresses as $address){
+                    //     $recipients[]='tel:'.$address->msisdn;
+                    // }
 
                     //Send message to group
-                    $msg_sent= $this->sendsms_model->send_sms($recipients,$message);
+                    $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
 
                     log_message("info","Sending status: ".$msg_sent);
 
@@ -101,6 +103,13 @@ class Newbulksms extends Admin_Controller{
         $data['mainContent']='sms/newbulksms';
         $this->load->view('templates/template', $data);
         
+    }
+
+
+    //pull subgroups based on groupid
+    public function subgroups($id) { 
+        $groupContacts = $this->contacts_model->get_subgroup_contacts($id);
+        echo json_encode($groupContacts);
     }
 
 

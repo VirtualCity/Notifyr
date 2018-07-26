@@ -25,6 +25,7 @@
     <link href="<?php echo base_url() ?>assets/css/stylesheet.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/icon/font-awesome.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/css/main.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet">
     <link href='<?php echo base_url() ?>assets/fonts.googleapis.com/css4c5c.css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
 

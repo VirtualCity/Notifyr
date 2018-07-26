@@ -44,6 +44,17 @@
                         <span class="text-danger"> <?php echo form_error('group'); ?> </span>
                         
                     </div>
+                    <br>
+                     <div class="col-md-12 col-xs-12">
+                        <label>Group Contacts </label>
+                        
+                        <select class="subgrp" multiple="multiple" name="groupcontacts[]" id="groupcontacts_" class="form-control">
+                        <option value="">---Please Select SMS Sub-Group contacts---</option>
+                        </select>
+
+                        <span class="text-danger"> <?php echo form_error('groupcontacts'); ?> </span>
+                        
+                      </div>
 
                     <div class="col-md-12 col-xs-12">
                         <label>Message </label><span class="text-danger"> *</span>
@@ -77,3 +88,30 @@
 </div>
 </div>
 <!-- end #content -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select[name="group"]').on('change', function() {
+            var groupId = $(this).val();
+            var base='<?php echo base_url(); ?>';
+            if(groupId) {
+                $.ajax({
+                    url:  base + 'sms/newbulksms/subgroups/'+groupId,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('#groupcontacts_').empty();
+                        $.each(data, function(key, value) {
+                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'">'+ value.name +'</option>');
+                        });
+                        $('#groupcontacts_').multipleSelect();
+                    }
+                });
+            }else{
+                $('#groupcontacts_').empty();
+            }
+        });
+
+        
+    });
+    
+</script>

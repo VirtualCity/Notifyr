@@ -42,6 +42,8 @@ $route['default_controller'] = "login";
 $route['suspenduser/(:num)'] = "users/suspend/$1";
 $route['404_override'] = "error_404";
 
+$route['subgroup/(:any)'] = 'Newbulksms/subgroups/$1';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
