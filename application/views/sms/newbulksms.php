@@ -45,15 +45,18 @@
                         
                     </div>
                     <br>
+                       <hr class="field-separator">
                      <div class="col-md-12 col-xs-12">
-                        <label>Group Contacts </label>
-                        
-                        <select class="subgrp" multiple="multiple" name="groupcontacts[]" id="groupcontacts_" class="form-control">
-                        <option value="">---Please Select SMS Sub-Group contacts---</option>
-                        </select>
 
-                        <span class="text-danger"> <?php echo form_error('groupcontacts'); ?> </span>
-                        
+                          <label>Group Contacts </label><span class="text-danger"> *</span>
+                         <div class="">
+                          <select style="height:30px" class="form-control" multiple="multiple" name="groupcontacts[]" id="groupcontacts_">
+                              <option value="">---Please Select SMS Sub-Group contacts---</option>
+                          </select>
+
+                          <span class="text-danger"> <?php echo form_error('groupcontacts'); ?> </span>
+
+                      </div>
                       </div>
 
                     <div class="col-md-12 col-xs-12">
@@ -127,9 +130,10 @@
                     success:function(data) {
                         $('#groupcontacts_').empty();
                         $.each(data, function(key, value) {
-                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'">'+ value.name +'</option>');
+                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'"> '+ value.name +'</option>');
                         });
                         $('#groupcontacts_').multipleSelect();
+                        $(".ms-parent").removeAttr("style");
                     }
                 });
             }else{

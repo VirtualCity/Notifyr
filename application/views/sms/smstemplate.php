@@ -42,8 +42,7 @@
                         <select class="form-control" name="type" id="type">
                         	<?php if(!empty($type)) echo '<option value="'.$type.'">'.$type.'</option>'?>
                         	  <option value="">---Please Select Type---</option>
-                        	    <option value="GREETINGS">GREETINGS</option>
-                        	     <option value="ORDER">ORDER</option>
+                        	    <option value="DEFAULT">DEFAULT</option>
                         </select>
                         <span class="text-danger"><?php echo form_error('type'); ?> </span>
                         
