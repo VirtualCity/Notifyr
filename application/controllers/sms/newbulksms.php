@@ -8,17 +8,26 @@ if (!defined('BASEPATH'))
  * Time: 4:06 PM
  */
 class Newbulksms extends Admin_Controller {
-	function __construct() {
-		parent::__construct();
-		$this -> load -> library('sms/SmsSender.php');
-		$this -> load -> model('sms_model');
-		$this -> load -> model('contacts_model');
-		$this -> load -> model('groups_model');
-		$this -> load -> model('sendsms_model');
-		$this -> load -> model('template_model');
-
-            redirect('dashboard');
-        }
+	function __construct()
+    {
+        parent::__construct();
+        $this->load->library('sms/SmsSender.php');
+        $this->load->model('sms_model');
+        $this->load->model('contacts_model');
+        $this->load->model('groups_model');
+        $this->load->model('sendsms_model');
+        $this->load->model('template_model');
+    }
+        public function index()
+        {
+            //check if user and redirect to dashboard
+            $role = $this->session->userdata('role');
+            if ($role === "USER") {
+                // Display message
+                $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+                $this->session->set_flashdata('alert_type', 'alert-info');
+                redirect('dashboard');
+            }
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('group', 'SMS Group', 'required|max_length[50]');
@@ -86,7 +95,7 @@ class Newbulksms extends Admin_Controller {
         $data['groups'] = $groups;
         $data['group_id'] = $group_id;
         $data['message'] = $message;
-
+        $data['templates']= $this->template_model->get_all_templates();
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "New Bulk SMS";
