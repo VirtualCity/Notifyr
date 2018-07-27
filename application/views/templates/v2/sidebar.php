@@ -25,24 +25,25 @@
 							<li><a href="<?=base_url('sms/newsms')?>">New SMS</a></li>
 							<li><a href="<?=base_url('sms/newbulksms')?>">New Bulk SMS</a></li>
 							<li><a href="<?=base_url('sms/newbulksms/uploadexcel')?>">New SMS From Excel</a></li>
-
-							<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret pull-right"></b>
-							<i class="fa fa-ticket"></i>
-							<span>SMS Templates</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="<?=base_url('sms/newsms/smstemplate')?>">New SMS Template</a></li>
+ 							<li><a href="<?=base_url('sms/newsms/smstemplate')?>">New SMS Template</a></li>
 							<li><a href="<?=base_url('sms/newsms/templates')?>">Template List</a></li>
-						</ul>
-					</li>
+
 						</ul>
 					</li>
 				<?php endif ?>
 				
-				<li><a href="<?=base_url('contacts')?>"><i class="fa fa-group"></i> <span>Contact List</span></a></li>
-
+<!--				<li><a href="--><?//=base_url('contacts')?><!--"><i class="fa fa-group"></i> <span>Contact List</span></a></li>-->
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <b class="caret pull-right"></b>
+                        <i class="fa fa-group"></i>
+                        <span>Contacts</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="<?=base_url('contacts')?>">View Contacts</a></li>
+                        <li><a href="<?=base_url('contacts/add')?>">Add Contact</a></li>
+                    </ul>
+                </li>
 
 				<li class="has-sub">
 					<a href="javascript:;">

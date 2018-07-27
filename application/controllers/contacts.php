@@ -13,6 +13,8 @@ class Contacts extends MY_Controller{
         $this->load->helper('buttons_helper');
         $this->load->model('groups_model');
         $this->load->model('contacts_model');
+        $this->load->model('towns_m');
+        $this->load->model('regions_m');
 
     }
 
@@ -163,12 +165,15 @@ class Contacts extends MY_Controller{
         redirect('contacts');
     }
 
-    /*function add(){
+    function add(){
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('msisdn', 'Mobile Number', 'required|numeric|is_unique[contacts.msisdn]|exact_length[12]');
         $this->form_validation->set_rules('name', 'Name', 'max_length[50]');
         $this->form_validation->set_rules('idno', 'Id Number', 'max_length[30]|numeric');
+        $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
+        $this->form_validation->set_rules('town_id', 'Town', 'required|numeric');
+        $this->form_validation->set_rules('group_id', 'Group', 'required|numeric');
         $this->form_validation->set_rules('email', 'Email', 'max_length[50]|valid_email');
         $this->form_validation->set_rules('address', 'Address', 'max_length[100]');
 
@@ -180,6 +185,7 @@ class Contacts extends MY_Controller{
         $email="";
         $address="";
         $idno="";
+        $id_number='';
 
         // has the form been submitted
         if($this->input->post()){
@@ -188,6 +194,9 @@ class Contacts extends MY_Controller{
             $idno = $this->input->post('idno');
             $email = $this->input->post('email');
             $address = $this->input->post('address');
+            $region_id = $this->input->post('region_id');
+            $town_id = $this->input->post('town_id');
+            $group_id = $this->input->post('group_id');
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
@@ -203,9 +212,11 @@ class Contacts extends MY_Controller{
 
                 }else{
                     //Save new contact
-                    $saved = $this->contacts_model->create_contact($msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address));
+                    $saved = $this->contacts_model->create_contact($msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id);
+                   // $saved = $this->contacts_model->add_group_contacts($group_id, $msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id);
 
                     if($saved){
+                        $this->contacts_model->add_contact_togroup_viaId($msisdn,$group_id);
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'New contact added successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
@@ -228,12 +239,22 @@ class Contacts extends MY_Controller{
         $data['idno']=$idno;
         $data['email']=$email;
         $data['address']=$address;
+        $data['id_number']=$id_number;
+
+        $regions = $this->regions_m->get_all_regions();
+        $data['regions'] = $regions;
+        $towns= $this->towns_m-> get_all_towns();
+        $data['towns']=$towns;
+        $groups= $this->groups_model-> get_all_groups();
+        $data['groups']=$groups;
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Contact";
-        $this->load->view('templates/header', $data);
-        $this->load->view('contacts/add_contact',$data);
-    }*/
+        $data['user_role'] = $this->session->userdata('role');
+
+        $data['mainContent']='contacts/add';
+        $this->load->view('templates/template',$data);
+    }
 
    
 
