@@ -18,6 +18,7 @@
 	<link href="<?php echo $path;?>assets/v2/css/animate.min.css" rel="stylesheet" />
 	<link href="<?php echo $path;?>assets/v2/css/style.min.css" rel="stylesheet" />
 	<link href="<?php echo $path;?>assets/v2/css/style-responsive.min.css" rel="stylesheet" />
+	<link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet">
 
 
 	<link rel="stylesheet" href="<?=base_url('assets/css/jquery.dataTables.css')?>">
@@ -31,6 +32,7 @@
 	<script src="<?php echo $path;?>assets/v2/plugins/pace/pace.min.js"></script>
 	<!-- ================== END BASE JS ================== -->
 	<script src="<?php echo $path;?>assets/v2/plugins/jquery/jquery-1.9.1.min.js"></script>
+	<script src="<?php echo $path;?>assets/js/multiple-select.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="http://40.113.123.6/provisioning/assets/links/links.css">
 </head>

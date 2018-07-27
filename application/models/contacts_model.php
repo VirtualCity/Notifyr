@@ -35,6 +35,8 @@ class Contacts_model extends CI_Model{
         }
     }
 
+
+
     function get_all_contacts(){
         $query = $this->db->get('contacts');
 
@@ -50,6 +52,25 @@ class Contacts_model extends CI_Model{
         $this->db->select('msisdn');
         $this->db->from('group_contacts');
         $this->db->where('groupid',$group);
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> result();
+        }else{
+            return false;
+        }
+
+    }
+
+    function get_subgroup_contacts($group){
+        $this->db->select('group_contacts.msisdn AS msisdn,contacts.name as name')
+        ->from('group_contacts LEFT JOIN contacts USING (msisdn)')
+        ->where('group_contacts.groupid',$group);
+
+
+        // $this->db->select('id,msisdn');
+        // $this->db->from('group_contacts');
+        // $this->db->where('groupid',$group);
         $query = $this -> db -> get();
 
         if($query -> num_rows() > 0){
