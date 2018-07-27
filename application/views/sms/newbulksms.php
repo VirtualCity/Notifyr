@@ -132,7 +132,9 @@
                         $.each(data, function(key, value) {
                             $('#groupcontacts_').append('<option value="'+ value.msisdn +'"> '+ value.name +'</option>');
                         });
-                        $('#groupcontacts_').multipleSelect();
+                        $('#groupcontacts_').multipleSelect({
+                            filter: true
+                        });
                         $(".ms-parent").removeAttr("style");
                     }
                 });
