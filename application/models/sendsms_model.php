@@ -25,7 +25,7 @@ class Sendsms_model extends CI_Model
         if ($configurationData) {
             $applicationId = $configurationData->value1;
             $password = $configurationData->value2;
-            $sourceAddress = $configurationData->value3;
+            $sourceAddress = $configurationData->value9;
         }
 
 

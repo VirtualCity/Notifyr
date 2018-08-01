@@ -97,10 +97,10 @@
 
 
             <div class="col-md-12 col-xs-12">
-                <label > SMS Short Code  </label><span class="text-danger"> *</span>
-                <input type="text" name="shortcode" id="shortcode" placeholder="SMS Short Code" class="form-control" value="<?=$shortcode?>"/>
+                <label > Source Address Name  </label><span class="text-danger"> *</span>
+                <input type="text" name="shortcodeName" id="shortcodeName" placeholder="Sorce address" class="form-control" value="<?=$shortcodeName?>"/>
 
-                <span class="text-danger"> <?php echo form_error('shortcode'); ?> </span>
+                <span class="text-danger"> <?php echo form_error('shortcodeName'); ?> </span>
             </div>     
 
 

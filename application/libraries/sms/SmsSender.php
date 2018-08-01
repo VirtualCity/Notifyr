@@ -17,17 +17,26 @@ class SmsSender{
     public function __construct(){
        // $this->server = $server; // Assign server url
 		//$this->server = "http://api.hewani.co.ke:7000/sms/send";
-		$this->server = "https://tapconnector.azurewebsites.net/api/africastalking/agrimanagr-heifer";
+        // $this->server = "https://tapconnector.azurewebsites.net/api/africastalking/agrimanagr-heifer";
+        // $this->server = "http://localhost:4200/api/africastalking/agrimanagr-heifer";
+        
 
-        /*$settings = $this->getSettings();
-        if(!empty($settings->value5)){
-            $this->server = $settings->value5;
+        // $settings = $this->getServerUrl();
+        // if(!empty($settings[0]->value5)){
+            
+        //     $this->server = $settings[0]->value5;
+        // print_r($this->server);
+        //     exit();
+        // }
+        $settings = $this->getSettings();
+        if(!empty($settings[0]->value5)){
+            $this->server = $settings[0]->value5;
         }else{
-            $this->server = "http://api.hewani.co.ke:7000/sms/send";
+            // $this->server = "http://api.hewani.co.ke:7000/sms/send";
 
             //use this for local testing
             //$this->server = "http://localhost:7000/sms/send";
-        }*/
+        }
         
     }
 
@@ -57,7 +66,8 @@ class SmsSender{
 
     private function smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header){
 
-        $arrayField = array("applicationId" => $applicationId,
+        $arrayField = array(
+            "applicationId" => $applicationId,
             "password" => $password,
             "message" => $message,
             "deliveryStatusRequest" => $deliveryStatusRequest,
@@ -66,7 +76,9 @@ class SmsSender{
             "chargingAmount" => $charging_amount,
             "encoding" => $encoding,
             "version" => $version,
-            "binaryHeader" => $binary_header);
+            "binaryHeader" => $binary_header,
+            "apiKey"=>$password
+        );
 
         $jsonObjectFields = json_encode($arrayField);
 
@@ -121,6 +133,7 @@ class SmsSender{
             return false;
         }
     }
+    
 }
 
 class SmsException extends Exception{ // Sms Exception Handler

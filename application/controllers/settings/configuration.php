@@ -18,9 +18,10 @@ class Configuration extends Admin_Controller{
     function index(){
         // SET VALIDATION RULES
         $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
-        $this->form_validation->set_rules('password', 'Application Password', 'required|exact_length[32]|alpha_numeric');
+        $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
         $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[10]|numeric');
         $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('shortcodeName', 'Source Address', 'required|max_length[60]|alpha_numeric');
         $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
@@ -30,6 +31,7 @@ class Configuration extends Admin_Controller{
         $origin_appid="";
         $origin_password="";
         $origin_shortcode="";
+        $origin_shortcodeName="";
         $origin_keyword="";
         $origin_smsurl="";
         $subscription_word="";
@@ -42,6 +44,7 @@ class Configuration extends Admin_Controller{
             $origin_appid = $this->input->post('appid');
             $origin_password = $this->input->post('password');
             $origin_shortcode = $this->input->post('shortcode');
+            $origin_shortcodeName = $this->input->post('shortcodeName');
             $origin_keyword = $this->input->post('keyword');
             $origin_smsurl = $this->input->post('smsurl');
             $subscription_word = $this->input->post('subscription');
@@ -52,7 +55,7 @@ class Configuration extends Admin_Controller{
             if($this->form_validation->run()){
 
                 //Save new product
-                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid);
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName);
 
                 if($saved){
                     // Display success message
@@ -78,6 +81,7 @@ class Configuration extends Admin_Controller{
                 $subscription_word = $configurationData->value6;
                 $unsubscription_word = $configurationData->value7;
                 $productsgroupid = $configurationData->value8;
+                $origin_shortcodeName = $configurationData->value9;
             }
         }
         $groups = $this->groups_model->get_all_groups();
@@ -91,6 +95,7 @@ class Configuration extends Admin_Controller{
         $data['subscription']=$subscription_word;
         $data['unsubscription']=$unsubscription_word;
         $data['productsgroupid']=$productsgroupid;
+        $data['shortcodeName']=$origin_shortcodeName;
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";

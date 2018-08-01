@@ -64,7 +64,7 @@ class Receive extends CI_Controller{
             if($configurationData){
                 $applicationId = $configurationData->value1;
                 $password = $configurationData->value2;
-                $sourceAddress = $configurationData->value3;
+                $sourceAddress = $configurationData->value9;
                 $sourceKeyword = $configurationData->value4;
                 $subscriptionKeyword = $configurationData->value6;
                 $unsubscriptionKeyword = $configurationData->value7;
