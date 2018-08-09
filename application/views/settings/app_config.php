@@ -59,8 +59,8 @@
             </div>
 
             <div class="col-md-12 col-xs-12">
-                <label > SMS Short Code  </label><span class="text-danger"> *</span>
-                <input type="text" name="shortcode" id="shortcode" placeholder="SMS Short Code" class="form-control" value="<?=$shortcode?>"/>
+                <label > SMS Sender Id  </label><span class="text-danger"> *</span>
+                <input type="text" name="shortcode" id="shortcode" placeholder="Sender id" class="form-control" value="<?=$shortcode?>"/>
 
                 <span class="text-danger"> <?php echo form_error('shortcode'); ?> </span>
             </div>

@@ -64,6 +64,7 @@ class Receive extends CI_Controller{
             if($configurationData){
                 $applicationId = $configurationData->value1;
                 $password = $configurationData->value2;
+                $senderId = $configurationData->value3;
                 $sourceAddress = $configurationData->value9;
                 $sourceKeyword = $configurationData->value4;
                 $subscriptionKeyword = $configurationData->value6;
@@ -487,7 +488,7 @@ class Receive extends CI_Controller{
             $destinationAddresses = array($address);
             $binary_header = "";
             // log_message("info","Response ".$responseMsg ." ". $destinationAddresses." ". $password." ".$applicationId." ".$sourceAddress." ".$deliveryStatusRequest." ".$charging_amount." ".$encoding." ".$version." ".$binary_header);
-            $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header);
+            $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
             log_message("info","SDP Response: ".$res);
             //save record to smsout
             $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0);

@@ -19,7 +19,7 @@ class Configuration extends Admin_Controller{
         // SET VALIDATION RULES
         $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
         $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
-        $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[10]|numeric');
+        $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[20]|alpha_dash');
         $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('shortcodeName', 'Source Address', 'required|max_length[60]|alpha_numeric');
         $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');

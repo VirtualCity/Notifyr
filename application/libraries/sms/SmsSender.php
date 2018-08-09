@@ -46,12 +46,12 @@ class SmsSender{
         Send them to smsMany
     **/
 
-    public function sms($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header){
+    public function sms($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
         log_message("info","Sms Sender sms function" );
         if (is_array($addresses)) {
-            return $this->smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header);
+            return $this->smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
         } else if (is_string($addresses) && trim($addresses) != "") {
-            return $this->smsMany($message, array($addresses), $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header);
+            return $this->smsMany($message, array($addresses), $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
         } else {
             throw new Exception("address should a string or a array of strings");
         }
@@ -64,11 +64,12 @@ class SmsSender{
         Send json to sendRequest
     **/
 
-    private function smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header){
+    private function smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
 
         $arrayField = array(
             "applicationId" => $applicationId,
             "password" => $password,
+            "senderId" =>$senderId,
             "message" => $message,
             "deliveryStatusRequest" => $deliveryStatusRequest,
             "recipients" => $addresses,

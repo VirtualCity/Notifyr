@@ -24,6 +24,7 @@ class Sendsms_model extends CI_Model
         $configurationData = $this->get_configuration();
         if ($configurationData) {
             $applicationId = $configurationData->value1;
+            $senderId = $configurationData->value3;
             $password = $configurationData->value2;
             $sourceAddress = $configurationData->value9;
         }
@@ -47,7 +48,7 @@ class Sendsms_model extends CI_Model
             $destinationAddresses = $destination;
             $binary_header = "";
             //  log_message("info","Sending Parameters ".$responseMsg ." ". $destinationAddresses[0]." ". $password." ".$applicationId." ".$sourceAddress." ".$deliveryStatusRequest." ".$charging_amount." ".$encoding." ".$version." ".$binary_header);
-            $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header);
+            $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
 
             $response = json_decode($res);
             $server_response = $response->SMSMessageData->Recipients;
