@@ -25,22 +25,20 @@ class SmsReceiver{
         check the validity of the response
     **/
     public function __construct(){
-       // log_message("info",file_get_contents('php://input'));
-        $array = json_decode(file_get_contents('php://input'), true);
+        $array = json_decode(file_get_contents('php://input'),TRUE);
         $this->sourceAddress = $array['sourceAddress'];
         $this->message = $array['message'];
         $this->requestId = $array['requestId'];
         $this->applicationId = $array['applicationId'];
         $this->encoding = $array['encoding'];
         $this->version = $array['version'];
-
-        if (!((isset($this->sourceAddress) && isset($this->message)))) {
+        if ($this->sourceAddress==null && $this->message==null) {
             throw new Exception("Some of the required parameters are not provided");
         } else {
             // Success received response
             $responses = array("statusCode" => "S1000", "statusDetail" => "Success");
             header("Content-type: application/json");
-            echo json_encode($responses);
+          //  echo json_encode($responses);
 
         }
     }
