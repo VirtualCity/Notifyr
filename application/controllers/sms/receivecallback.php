@@ -102,7 +102,7 @@ class ReceiveCallback extends CI_Controller{
                                 if(strlen($part2) >= 4 ){
 
                                     //First four digits rep product code
-                                    $productCode  = substr($part2,0, 4);
+                                    $productCode  = substr($part2,0, 3);
                                     log_message("info","product code".$productCode);
                                     $product_valid = $this->products_m->check_code($productCode);
                                     if($product_valid){

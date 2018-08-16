@@ -66,6 +66,13 @@
             </div>
 
             <div class="col-md-12 col-xs-12">
+                <label > SMS Short Code </label><span class="text-danger"> *</span>
+                <input type="text" name="shortcodeNumber" id="shortcodeNumber" placeholder="Short Code" class="form-control" value="<?=$shortcodeNumber?>"/>
+
+                <span class="text-danger"> <?php echo form_error('shortcodeNumber'); ?> </span>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
                 <label > SMS Keyword  </label><span class="text-danger"> *</span>
                 <input type="text" name="keyword" id="keyword" placeholder="SMS Keyword" class="form-control" value="<?=$keyword?>"/>
 
