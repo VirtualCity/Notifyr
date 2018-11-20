@@ -95,23 +95,19 @@ class ReceiveCallback extends CI_Controller{
 
                             //Split message where there is space
                             $split = explode(' ', $content);
-                           // $split1 = explode(',', $split)
+
                             if (sizeof($split) < 3) {
                                 $part2 = $split[1];//Carton Code
                                 $searchString = ',';
                                 $validProductCodes = [];
                                 $invalidProductCodes = [];
                                 $validCodes = [];
-                                
                                 //Check length of Carton Code if greater than 4
                                 if(strlen($part2) >= 4 ){
-                                    //check if has comma
-                                    if(strpos($part2,$searchString) !== false){
-                                        //split to get array of product codes
+                                    if(strpos($part2, $searchString) !== false){
                                         $productCodes = explode(',', $part2);
-                                        //loop through the product codes array and check validity for each
                                         foreach($productCodes as $code){
-                                               //First four digits rep product code
+                                                //First four digits rep product code
                                             $productCode  = substr($code,0, 3);
                                             log_message("info","product code".$productCode);
                                             $product_valid = $this->products_m->check_code($productCode);
@@ -122,94 +118,99 @@ class ReceiveCallback extends CI_Controller{
                                                 array_push($invalidProductCodes,$productCode);
                                             }
                                         }
-                                        //check if invalid exist and respond accodingly
+
                                         if(!empty($invalidProductCodes)){
                                             $responseMsg = 'Unable to determine some products provided!';
                                         }else{
                                             $contact = $this->contacts_model->get_contact_by_msisdn($msisdn);
-                                                if(!$contact){
-                                                    $contact = $this->__getDefaultContact();
-                                                }
-                                                if(!empty($allowedPurchaseGroup && $allowedPurchaseGroup !=0)){
-                                                    
-                                                    //restricted to single group
-                                                    $subscribed = $this->contacts_model->check_subscribed_contact($allowedPurchaseGroup,$msisdn);
-                                                    $active = $this->contacts_model->check_active_contact($allowedPurchaseGroup,$msisdn);
+                                            if(!$contact){
+                                                $contact = $this->__getDefaultContact();
+                                            }
+                                            if(!empty($allowedPurchaseGroup && $allowedPurchaseGroup !=0)){
                                                 
-                                                    if($subscribed && $active){
-                                                        //loop through the valid product codes and save
-                                                        for ($x = 0; $x < sizeof($validCodes); $x++) {
-                                                            $product_saved = $this->sms_model->save_purchase_report($validCodes[$x],$validProductCodes[$x],$msisdn,$contact);
-                                                          }
-                                                        //$product_saved = $this->sms_model->save_purchase_report($part2,$productCode,$msisdn,$contact);
-
+                                                //restricted to single group
+                                                $subscribed = $this->contacts_model->check_subscribed_contact($allowedPurchaseGroup,$msisdn);
+                                                $active = $this->contacts_model->check_active_contact($allowedPurchaseGroup,$msisdn);
+                                            
+                                                if($subscribed && $active){
+                                                    //loop and save
+                                                    $countSaved = 0;
+                                                    $countNotSaved = 0;
+                                                    $failedProductCodes = [];
+                                                    for ($x = 0; $x < sizeof($validCodes); $x++) {
+                                                        $product_saved = $this->sms_model->save_purchase_report($validCodes[$x],$validProductCodes[$x],$msisdn,$contact);
                                                         if($product_saved){
-                                                            //log_message("info","Report Saved");
-                                                            $responseMsg = 'Your report has been received. Thank you';
+                                                            $countSaved++;
+                                                            log_message("info","Report Saved");
+                                                            // $responseMsg = 'Your report has been received. Thank you';
                                                         }else{
-                                                            $responseMsg = 'Your report has not been received. Please try again';
+                                                            $countNotSaved++;
+                                                            array_push($failedProductCode,$validCodes[$x]);
+                                                            log_message("info","Report not saved Saved");
+                                                            // $responseMsg = 'Your report has been received. Thank you';
                                                         }
+                                                      }
+                                                    if($countSaved === 0){
+                                                        log_message("warn", $countNotSaved + " Report not saved Saved");
+                                                        $responseMsg = 'Your report was not received. please try again';
+                                                    }else if(!empty($failedProductCodes)){
+                                                        log_message("warn", $countNotSaved + " Report not saved Saved");
+                                                        $responseMsg = 'Your report for prduct(s) '+ $failedProductCodes.join(", ") +' was not received. please resend';
                                                     }else{
-                                                        $responseMsg = 'Sorry! You are not allowed to use this SMS service';
+                                                        $responseMsg = 'Your report has been received. Thank you';
                                                     }
-                                                    //confirm sender is in group
+                                                 
                                                 }else{
-                                                    $responseMsg = 'Sorry! This service has been disabled';
+                                                    $responseMsg = 'Sorry! You are not allowed to use this SMS service';
                                                 }
+                                                //confirm sender is in group
+                                            }else{
+                                                $responseMsg = 'Sorry! This service has been disabled';
+                                            }
                                         }
                                     }else{
-                                                //First four digits rep product code
-                                            $productCode  = substr($part2,0, 3);
-                                            log_message("info","product code".$productCode);
-                                            $product_valid = $this->products_m->check_code($productCode);
-                                            if($product_valid){
-                                                $contact = $this->contacts_model->get_contact_by_msisdn($msisdn);
-                                                if(!$contact){
-                                                    $contact = $this->__getDefaultContact();
-                                                }
-                                                if(!empty($allowedPurchaseGroup && $allowedPurchaseGroup !=0)){
-                                                    
-                                                    //restricted to single group
-                                                    $subscribed = $this->contacts_model->check_subscribed_contact($allowedPurchaseGroup,$msisdn);
-                                                    $active = $this->contacts_model->check_active_contact($allowedPurchaseGroup,$msisdn);
+                                        //First four digits rep product code
+                                        $productCode  = substr($part2,0, 3);
+                                        log_message("info","product code".$productCode);
+                                        $product_valid = $this->products_m->check_code($productCode);
+                                        if($product_valid){
+                                            $contact = $this->contacts_model->get_contact_by_msisdn($msisdn);
+                                            if(!$contact){
+                                                $contact = $this->__getDefaultContact();
+                                            }
+                                            if(!empty($allowedPurchaseGroup && $allowedPurchaseGroup !=0)){
                                                 
-                                                    if($subscribed && $active){
-                                                        $product_saved = $this->sms_model->save_purchase_report($part2,$productCode,$msisdn,$contact);
+                                                //restricted to single group
+                                                $subscribed = $this->contacts_model->check_subscribed_contact($allowedPurchaseGroup,$msisdn);
+                                                $active = $this->contacts_model->check_active_contact($allowedPurchaseGroup,$msisdn);
+                                            
+                                                if($subscribed && $active){
+                                                    $product_saved = $this->sms_model->save_purchase_report($part2,$productCode,$msisdn,$contact);
 
-                                                        if($product_saved){
-                                                            //log_message("info","Report Saved");
-                                                            $responseMsg = 'Your report has been received. Thank you';
-                                                        }else{
-                                                            $responseMsg = 'Your report has not been received. Please try again';
-                                                        }
+                                                    if($product_saved){
+                                                        //log_message("info","Report Saved");
+                                                        $responseMsg = 'Your report has been received. Thank you';
                                                     }else{
-                                                        $responseMsg = 'Sorry! You are not allowed to use this SMS service';
+                                                        $responseMsg = 'Your report has been received. Thank you';
                                                     }
-                                                    //confirm sender is in group
                                                 }else{
-                                                    $responseMsg = 'Sorry! This service has been disabled';
+                                                    $responseMsg = 'Sorry! You are not allowed to use this SMS service';
                                                 }
-
+                                                //confirm sender is in group
                                             }else{
-                                                $responseMsg = 'Unable to determine product!';
+                                                $responseMsg = 'Sorry! This service has been disabled';
                                             }
 
                                         }else{
-                                            $responseMsg = 'Wrong Format! Kindly use the correct SMS format.';
+                                            $responseMsg =  $responseMsg = 'Unable to determine product!';
                                         }
                                     }
+                                    
+                                }else{
+                                    $responseMsg = 'Wrong Format! Kindly use the correct SMS format.';
+                                }
 
-                            }
-
-                            // else if($split1!=null){
-                            // $productCode1=$split1[0],
-                            // $productCode2=$split1[1],
-                            // $productCode3=$split1[2],
-                            // $productCode4=$split1[3],
-                            // $productCode5=$split1[4]
-
-                            //}
-                            else {
+                            } else {
 
                                 $part2 = $split[1];//Service Word or Group Name or Reg or Unreg
                                 $part3 = $split[2];//Farmercode or Group Name or GROUP Message
