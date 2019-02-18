@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.dataTables_themeroller.css">
 
     <link href="<?php echo base_url() ?>assets/css/stylesheet.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>provisioning/assets/links/links.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/icon/font-awesome.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/css/main.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet">
@@ -38,15 +39,7 @@
             font-family: myLogoFont;
             src: url("<?=base_url('assets/fonts/futured.ttf')?>") /* TTF file for CSS3 browsers */
         }
-    </style
-	<link href="http://40.113.123.6/provisioning/assets/links/links.css" rel="stylesheet">
-<script src="http://40.113.123.6/provisioning/assets/links/links.js"></script>
-
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-   <!-- <script src="../../assets/js/html5shiv.js"></script>
-    <script src="../../assets/js/respond.min.js"></script>-->
-    <![endif]-->
+    </style>
+    <script src="<?php echo base_url() ?>assets/links/links.js"></script>
 </head>
 

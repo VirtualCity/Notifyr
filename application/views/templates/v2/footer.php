@@ -48,7 +48,7 @@
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 <script src="<?php echo $path;?>assets/v2/js/apps.min.js"></script>
 <!-- ================== END PAGE LEVEL JS ================== -->
-<script type="text/javascript" src="http://40.113.123.6/provisioning/assets/links/links.js"></script>
+<script src="<?=base_url('assets/links/links.js')?>"></script>
 
 <!-- <script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
  -->	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
