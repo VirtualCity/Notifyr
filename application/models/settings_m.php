@@ -179,7 +179,8 @@ class Settings_m extends CI_Model{
                 'value6'=>$value6,
                 'value7'=>$value7,
                 'value8'=>$value8,
-                'value9'=>$value9
+                'value9'=>$value9,
+                'shortcode'=>$shortcode
             );
 
             $this->db->insert('settings',$data);
