@@ -10,6 +10,87 @@
 
 class Dashboard_model extends CI_Model{
 
+    var $server;
+
+    public function __construct(){
+       
+        $settings = $this->getSettings();
+        if(!empty($settings[0]->balanceurl)){
+            $this->server = $settings[0]->balanceurl;
+            // $this->server = "http://localhost:4200/api/africastalking/balance";
+        }else{
+            
+        }
+        
+    }
+
+    private function getSettings(){
+        $CI =& get_instance();
+        $CI->db->select('*');
+        $CI->db->from('settings');
+        $CI->db->where('title','CONFIGURATION');
+        $query  =   $CI->db->get();
+        return $query->result();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
+
+    function get_configuration()
+    {
+        $this->db->select('*');
+        $this->db->from('settings');
+        $this->db->where('title', 'CONFIGURATION');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    function getBalance($password, $sourceAddress){
+
+        $arrayField = array(
+            "user" => $sourceAddress,
+            "apiKey"=>$password
+        );
+        $jsonObjectFields = json_encode($arrayField);
+        log_message("info",$jsonObjectFields );
+        return $this->sendRequest($jsonObjectFields);
+    }
+
+    function sendRequest($jsonObjectFields){
+        $ch = curl_init($this->server);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonObjectFields);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        return $this->handleResponse($res);
+    }
+
+    /*
+        Get the response from sendRequest
+        check response is empty
+        return response
+    **/
+
+    function handleResponse($resp){
+        if ($resp == "") {
+            throw new SmsException
+            ("Server URL is invalid", '500');
+        } else {
+            return $resp;
+        }
+    }
+
     function get_todays_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('sms_received');
@@ -28,27 +109,33 @@ class Dashboard_model extends CI_Model{
     }
 
     function get_balance_total(){
-        
-        $balance = "KSH 15000.20";
-        return $balance;
-        // // Set your app credentials
-        // $username    = "virtual";
-        // $apiKey      = "94219a7707b2db0c295d43d39a566d0cf7920d197ff0eabfc00d12cf35f5e2ff";
 
-        // // Initialize the SDK
-        // $AT          = new AfricasTalking($username, $apiKey);
+        $password = "";
+        $sourceAddress = "";
 
-        // // Get the application service
-        // $application = $AT->application();
+        $configurationData = $this->get_configuration();
+        if ($configurationData) {
+            $password = $configurationData->value2;
+            $sourceAddress = $configurationData->value9;
+        }
 
-        // try {
-        //     // Fetch the application data
-        //     $data = $application->fetchApplicationData();
+        try {
+            $encoding = "0";
+            $version = "1.0";
+            $deliveryStatusRequest = "0";
+            $charging_amount = "0";
+            $binary_header = "";
+            $res = $this->getBalance($password, $sourceAddress);
 
-        //     return $data;
-        // } catch(Exception $e) {
-        //     echo "Error: ".$e->getMessage();
-        // }
+            $response = json_decode($res);
+            return $response;
+
+        } catch (SmsException $ex) {
+            log_message("info", "Status code error: " . $ex->getStatusCode());
+            log_message("info", "Status message error: " . $ex->getStatusMessage());
+            error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+            return "fail";
+        }
     }
 
     function get_weeks_total(){
@@ -312,4 +399,30 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+}
+class SmsException extends Exception{ // Sms Exception Handler
+
+    var $code;
+    var $response;
+    var $statusMessage;
+
+    public function __construct($message, $code, $response = null){
+        parent::__construct($message);
+        $this->statusMessage = $message;
+        $this->code = $code;
+        $this->response = $response;
+    }
+
+    public function getStatusCode(){
+        return $this->code;
+    }
+
+    public function getStatusMessage(){
+        return $this->statusMessage;
+    }
+
+    public function getRawResponse(){
+        return $this->response;
+    }
+
 }

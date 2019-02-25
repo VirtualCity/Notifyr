@@ -102,6 +102,13 @@
                 <span class="text-danger"> <?php echo form_error('smsurl'); ?> </span>
             </div>
 
+            <div class="col-md-12 col-xs-12">
+                <label >SMS SDP Balance Server URL  </label><span class="text-danger"> *</span>
+                <input type="text" name="balanceurl" id="balanceurl" placeholder="SMS SDP Balance Server URL" class="form-control" value="<?=$balanceurl?>"/>
+
+                <span class="text-danger"> <?php echo form_error('balanceurl'); ?> </span>
+            </div>
+
 
             <div class="col-md-12 col-xs-12">
                 <label > Source Address Name  </label><span class="text-danger"> *</span>

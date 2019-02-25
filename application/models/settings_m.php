@@ -141,7 +141,7 @@ class Settings_m extends CI_Model{
 
     /* SDP Configuration Section*/
 
-    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode){
+    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl){
         $configTagExist = $this->check_configuration();
 
         if($configTagExist){
@@ -156,7 +156,8 @@ class Settings_m extends CI_Model{
                 'value7'=>$value7,
                 'value8'=>$value8,
                 'value9'=>$value9,
-                'shortcode'=>$shortcode
+                'shortcode'=>$shortcode,
+                'balanceurl'=>$balanceurl
             );
             $this->db->where('title', 'CONFIGURATION');
             $result = $this->db->update('settings',$data);
@@ -180,7 +181,8 @@ class Settings_m extends CI_Model{
                 'value7'=>$value7,
                 'value8'=>$value8,
                 'value9'=>$value9,
-                'shortcode'=>$shortcode
+                'shortcode'=>$shortcode,
+                'balanceurl'=>$balanceurl
             );
 
             $this->db->insert('settings',$data);
