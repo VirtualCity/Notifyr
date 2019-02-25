@@ -126,19 +126,21 @@
 
                             </div>
                         </div>
-                    <!--     <div class="row">
-                            <div class="col-md-12">
-                                <h5>Cummulative Queries in the Last 7 Days</h5>
-                                <div class="panel blue">
-                                    <div class="panel-body">
-                                        <div class="chart-container" >
-                                            <div id="totals_chart" class="mychart"> </div>
+                        <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-money"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Account Balance</h4>
+                                            <p id="category_count"> <?= $balance_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <h5>Total Group Messages in the Last 7 Days</h5>
                                 <div class="panel blue">
                                     <div class="panel-body">
@@ -147,8 +149,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div> -->
+                            </div> -->
+                        </div>
 
                     </div>
                 </div>

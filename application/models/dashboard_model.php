@@ -5,6 +5,8 @@
  * Date: 7/31/14
  * Time: 2:14 PM
  */
+// require 'vendor/autoload.php';
+// use AfricasTalking\SDK\AfricasTalking;
 
 class Dashboard_model extends CI_Model{
 
@@ -23,6 +25,30 @@ class Dashboard_model extends CI_Model{
             return $count;
 
         }
+    }
+
+    function get_balance_total(){
+        
+        $balance = "KSH 15000.20";
+        return $balance;
+        // // Set your app credentials
+        // $username    = "virtual";
+        // $apiKey      = "94219a7707b2db0c295d43d39a566d0cf7920d197ff0eabfc00d12cf35f5e2ff";
+
+        // // Initialize the SDK
+        // $AT          = new AfricasTalking($username, $apiKey);
+
+        // // Get the application service
+        // $application = $AT->application();
+
+        // try {
+        //     // Fetch the application data
+        //     $data = $application->fetchApplicationData();
+
+        //     return $data;
+        // } catch(Exception $e) {
+        //     echo "Error: ".$e->getMessage();
+        // }
     }
 
     function get_weeks_total(){

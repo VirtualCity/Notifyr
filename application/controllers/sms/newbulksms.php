@@ -31,7 +31,7 @@ class Newbulksms extends Admin_Controller {
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('group', 'SMS Group', 'required|max_length[50]');
-        $this->form_validation->set_rules('message', 'Message', 'required|max_length[160]');
+        $this->form_validation->set_rules('message', 'Message', 'required|max_length[480]');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         $group_id = "";

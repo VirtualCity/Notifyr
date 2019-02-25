@@ -66,9 +66,34 @@
                         	<label>Type to Compose</label>
                         	 <div >
 
-                            <textarea required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
+                            <textarea onkeyup="countChars(this);" onkeydown="countChars(this);" maxlength="480" required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
                             
                             <span class="text-danger"> <?php echo form_error('message'); ?> </span>
+
+                        <!-- ------------------------------------------------------------------ -->
+                            <p id="bulkmsgNum">0 Message(s)</p>
+                            <script type="text/JavaScript">
+                            function countChars(obj){
+                                var maxLength = 480;
+                                var singleMessageSize = 160;
+                                var strLength = obj.value.length;
+                                
+                                if(((strLength) > -1) && ((strLength) <= 0)){
+                                    document.getElementById("bulkmsgNum").innerHTML = 0 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                                }else if(((strLength) > 0) && ((strLength) <= 160)){
+                                    document.getElementById("bulkmsgNum").innerHTML = 1 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                                }else if(((strLength) > 160) && ((strLength) <= 320)){
+                                    document.getElementById("bulkmsgNum").innerHTML = 2 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                                }else if(((strLength) > 320) && ((strLength) <= 480)){
+                                    document.getElementById("bulkmsgNum").innerHTML = 3 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                                }else{
+                                    document.getElementById("bulkmsgNum").innerHTML = ' Message too big (more than 3)';
+                                }
+
+                            }
+                            </script>
+
+                    <!-- ------------------------------------------------------------------ -->
                         </div>
                         </div> <div class="col-md-4">
                         	<label>Select Template</label>
