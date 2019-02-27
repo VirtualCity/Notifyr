@@ -53,7 +53,7 @@ class Dashboard_model extends CI_Model{
         }
     }
 
-    function getBalance($password, $sourceAddress){
+    function getSmsBalance($password, $sourceAddress){
 
         $arrayField = array(
             "user" => $sourceAddress,
@@ -108,7 +108,7 @@ class Dashboard_model extends CI_Model{
         }
     }
 
-    function get_balance_total(){
+    function get_sms_balance(){
 
         $password = "";
         $sourceAddress = "";
@@ -125,27 +125,8 @@ class Dashboard_model extends CI_Model{
             $deliveryStatusRequest = "0";
             $charging_amount = "0";
             $binary_header = "";
-            $res = $this->getBalance($password, $sourceAddress);
-            $result = "";
-            $arr = json_decode($res, true);
-            foreach ($arr as $innerArray) {
-                //  Check type
-                if (is_array($innerArray)){
-                    //  Scan through inner loop
-                    foreach ($innerArray as $value) {
-                        $result = $value;
-                    }
-                }else{
-                    // one, two, three
-                    $result = $innerArray;
-                }
-            }
-            $expldArr = explode(" ",$result);
-            $curr = $expldArr[0];
-            $rawCurr = $expldArr[1];
-            $formattedCurr = $this->formatcurrency($rawCurr, "KES");
-            $response = $curr . " " . $formattedCurr;
-            return $response;
+            $res = $this->getSmsBalance($password, $sourceAddress);
+            return $res;
 
         } catch (SmsException $ex) {
             log_message("info", "Status code error: " . $ex->getStatusCode());

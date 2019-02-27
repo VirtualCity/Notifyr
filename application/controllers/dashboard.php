@@ -34,6 +34,7 @@ class Dashboard extends MY_Controller{
         $groups_total =  "";
         $outbox_total = "";
         $balance_total = "";
+        $sms_balance = "";
 
         $today_totals = $this->dashboard_model->get_todays_total();
         $weeks_total = $this->dashboard_model->get_weeks_total();
@@ -41,7 +42,7 @@ class Dashboard extends MY_Controller{
         $contacts_total = $this->dashboard_model->get_contacts_total();
         $blacklist_total = $this->dashboard_model->get_blacklist_total();
         $groups_total = $this->dashboard_model->get_contact_groups_total();
-        $balance_total = $this->dashboard_model->get_balance_total();
+        $sms_balance = $this->dashboard_model->get_sms_balance();
        // $outbox_total = $this->dashboard_model->get_outbox_total();
 
         //Add dashvboards variables in data array
@@ -52,7 +53,9 @@ class Dashboard extends MY_Controller{
         $data['blacklist_total']=$blacklist_total;
         $data['groups_total']=$groups_total;
         $data['outbox_total']=$outbox_total;
-        $data['balance_total']=$balance_total;
+        $data['sms_balance']=$sms_balance;
+
+        
 
         $last_7days_cummulative = "";
 

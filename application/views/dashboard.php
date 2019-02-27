@@ -131,8 +131,8 @@
                                     <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-money"></i></div>
                                         <div class="stats-info">
-                                            <h4>Account Balance</h4>
-                                            <p id="category_count"> <?= $balance_total; ?></p>    
+                                            <h4>Available SMS Balance</h4>
+                                            <p id="category_count"> <?= $sms_balance; ?></p>    
                                         </div>
                                         <div class="stats-link">
                                             <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
