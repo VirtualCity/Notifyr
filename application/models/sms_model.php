@@ -131,7 +131,7 @@ class Sms_model extends CI_Model{
             'status'=>$status
         );
         $this->db->where('message_id', $messageId);
-        $this->db->where('sent_to', $msisdn);
+        // $this->db->where('sent_to', $msisdn);
         $query = $this->db->update('smsout', $data);
 
         if($query){

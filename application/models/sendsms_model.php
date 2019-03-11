@@ -61,7 +61,7 @@ class Sendsms_model extends CI_Model
             if (count($server_response) > 0)
                 // return 'success';
                 return $server_response;
-            else return 'fail';
+            else return null;
 
             //log_message("info", "SDP response " . var_export($res, true));
 

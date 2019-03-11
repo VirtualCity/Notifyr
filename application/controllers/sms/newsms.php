@@ -40,6 +40,7 @@ class Newsms extends Admin_Controller {
 		if ($this -> input -> post()) {
 			$msisdn = $this -> input -> post('msisdn');
 			$message = $this -> input -> post('message');
+			$userid = $this->session->userdata('id');
 
 			//Does it have valid form info (not empty values)
 			if ($this -> form_validation -> run()) {
@@ -47,20 +48,20 @@ class Newsms extends Admin_Controller {
 				//$recipients = array('tel:' . $msisdn);
 				$recipients = array($msisdn);
 				$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
-
 				log_message("info", "Sending status: " . $msg_sent);
 
-				if ($msg_sent !== 'fail') {
+				if ($msg_sent !== null) {
 					
 					$success = 0;
 					$failed = 0;
 					
 					//loop through the result if it contains more than one object and save each response
 					foreach ($msg_sent as $key => $value) {
-						if ($value->Status == 'Success') {
+						if ($value->status == 'Success') {
 							$success++;
 							$status = 'Sent';
-							$this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId,$status);
+							$phoneNumber = substr($value->number, 1);
+							$this -> sms_model -> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status);
 						}else{
 							$failed++;
 							log_message("info", "Sending status code: " . $value->Status);

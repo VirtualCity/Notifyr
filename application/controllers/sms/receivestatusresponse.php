@@ -29,8 +29,8 @@ class ReceiveStatusResponse extends CI_Controller{
     //Hsenid API
     function index(){
         $this->load->library('sms/SmsResponseReceiver.php');
-        $this->load->library('sms/SmsReceiver.php');
-        $this->load->library('sms/SmsSender.php');
+        // $this->load->library('sms/SmsReceiver.php');
+        // $this->load->library('sms/SmsSender.php');
         $this->load->library('sms/log.php');
 
 
@@ -49,7 +49,8 @@ class ReceiveStatusResponse extends CI_Controller{
             // //log_message("info","[ content=$content, address=$address, requestId=$requestId, applicationId=$applicationId, encoding=$encoding, version=$version ]");
 
             
-            $resp = r$this->sms_model->update_sms_status($msisdn,$messageId,$status);
+            $resp = $this->sms_model->update_sms_status($phoneNumber,$messageId,$status);
+            echo json_encode($resp);
             return $resp;
 
         } catch (SmsException $ex) {

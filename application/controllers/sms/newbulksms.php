@@ -74,7 +74,7 @@ class Newbulksms extends Admin_Controller {
 
                     log_message("info", "Sending status: " . $msg_sent);
 
-                    if ($msg_sent !== 'fail') {
+                    if ($msg_sent !== null) {
 
                         $success = 0;
                         $failed = 0;
@@ -84,8 +84,9 @@ class Newbulksms extends Admin_Controller {
                             if ($value->Status == 'Success') {
                                 $success++;
                                 $status = 'Sent';
+                                $phoneNumber = substr($value->number, 1);
                                 // $this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId);
-                                $this->sms_model->save_bulksms($value->Number, $group_details->name, $message, $this->session->userdata('id'),$value->MessageId,$status);
+                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
                             }else{
                                 $failed++;
                                 log_message("info", "Sending status code: " . $value->Status);
