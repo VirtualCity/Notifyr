@@ -57,8 +57,10 @@ class Sendsms_model extends CI_Model
 
             log_message("info", "SDP response: " . $server_response[0]->statusCode);
             //AFRICASTALKING for success ->statusCode =101, status=success
-            if ($server_response[0]->status == 'Success')
-                return 'success';
+            // if ($server_response[0]->status == 'Success')
+            if (count($server_response) > 0)
+                // return 'success';
+                return $server_response;
             else return 'fail';
 
             //log_message("info", "SDP response " . var_export($res, true));

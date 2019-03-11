@@ -38,6 +38,7 @@
                             <th>Mobile</th>
                             <th>Recipient</th>
                             <th>Message</th>
+                            <th>Status</th>
                             <th>SMS Type</th>
                             <th>Sent By</th>
                             <th>Date</th>
@@ -80,6 +81,7 @@
                 { "data": "sent_to" },
                 { "data": "recipient" },
                 { "data": "message" },
+                { "data": "status" },
                 { "data": "message_type" },
                 { "data": "name"},
                 { "data": "created"}

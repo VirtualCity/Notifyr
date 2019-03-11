@@ -28,7 +28,7 @@ class Outbox extends Admin_Controller{
     }
 
     function datatable(){
-        $this->datatables->select("smsout.id,smsout.sent_to,smsout.recipient,smsout.message,smsout.message_type,CONCAT(users.fname,' ',users.surname,' ',users.oname) AS name,smsout.created",FALSE)
+        $this->datatables->select("smsout.id,smsout.sent_to,smsout.recipient,smsout.status,smsout.message,smsout.message_type,CONCAT(users.fname,' ',users.surname,' ',users.oname) AS name,smsout.created",FALSE)
             ->unset_column('smsout.id')
             ->from('smsout')
 			->join('users','smsout.sent_by = users.id');

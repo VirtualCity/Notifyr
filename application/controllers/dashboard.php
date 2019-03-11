@@ -29,31 +29,43 @@ class Dashboard extends MY_Controller{
         $today_totals =  "";
         $weeks_total =  "";
         $months_total =  "";
+        $today_sent_totals =  "";
+        $weeks_sent_total =  "";
+        $months_sent_total =  "";
         $contacts_total =  "";
         $blacklist_total =  "";
         $groups_total =  "";
         $outbox_total = "";
         $balance_total = "";
         $sms_balance = "";
+        $sms_pending = "";
 
         $today_totals = $this->dashboard_model->get_todays_total();
         $weeks_total = $this->dashboard_model->get_weeks_total();
         $months_total = $this->dashboard_model->get_months_total();
+        $today_sent_totals = $this->dashboard_model->get_todays_sent_total();
+        $weeks_sent_total = $this->dashboard_model->get_weeks_sent_total();
+        $months_sent_total = $this->dashboard_model->get_months_sent_total();
         $contacts_total = $this->dashboard_model->get_contacts_total();
         $blacklist_total = $this->dashboard_model->get_blacklist_total();
         $groups_total = $this->dashboard_model->get_contact_groups_total();
         $sms_balance = $this->dashboard_model->get_sms_balance();
+        $sms_pending = $this->dashboard_model->get_sms_pending_total();
        // $outbox_total = $this->dashboard_model->get_outbox_total();
 
         //Add dashvboards variables in data array
         $data['todays_total']=$today_totals;
         $data['weeks_total']=$weeks_total;
         $data['months_total']=$months_total;
+        $data['today_sent_totals']=$today_sent_totals;
+        $data['weeks_sent_total']=$weeks_sent_total;
+        $data['months_sent_total']=$months_sent_total;
         $data['contacts_total']=$contacts_total;
         $data['blacklist_total']=$blacklist_total;
         $data['groups_total']=$groups_total;
         $data['outbox_total']=$outbox_total;
         $data['sms_balance']=$sms_balance;
+        $data['sms_pending']=$sms_pending;
 
         
 

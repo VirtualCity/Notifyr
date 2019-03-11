@@ -91,9 +91,43 @@ class Dashboard_model extends CI_Model{
         }
     }
 
+    function get_sms_pending_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('sms_received');
+        // $where = "DATE(created)= CURDATE()";
+        // $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
     function get_todays_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('sms_received');
+        $where = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_todays_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
         $where = "DATE(created)= CURDATE()";
         $this -> db -> where($where);
         $result = $this -> db -> get();
@@ -290,9 +324,43 @@ class Dashboard_model extends CI_Model{
         }
     }
 
+    function get_weeks_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
     function get_months_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('sms_received');
+        $where = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_months_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
         $where = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
         $this -> db -> where($where);
         $result = $this -> db -> get();

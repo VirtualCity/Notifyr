@@ -29,9 +29,6 @@
                         <br>
                         <div class="report-widgets">
                             <div class="row">
-
-
-
                                 <div class="col-md-4 col-sm-6">
                                     <div class="widget widget-stats bg-green">
                                         <div class="stats-icon"><i class="fa fa-desktop"></i></div>
@@ -44,10 +41,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-
-
-
                                 
                                 <div class="col-md-4 col-sm-6">
                                     <div class="widget widget-stats bg-purple">
@@ -62,9 +55,6 @@
                                     </div>
                                 </div>
                                 
-
-
-                                
                                 <div class="col-md-4 col-sm-6">
                                     <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-envelope"></i></div>
@@ -78,7 +68,49 @@
                                     </div>
                                 </div>
                                 
-
+                            </div>
+                        </div>
+                        <div class="report-widgets">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-green">
+                                        <div class="stats-icon"><i class="fa fa-desktop"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Sent Today</h4>
+                                            <p id="visitors_count"> <?= $today_sent_totals; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-purple">
+                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Sent last 7 days</h4>
+                                            <p id="today_reports"> <?= $weeks_sent_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Sent Last 30 days</h4>
+                                            <p id="total_reports"> <?= $months_sent_total; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                         <?php //if($user_role !== 'STOCKIST') {?>
@@ -140,16 +172,18 @@
                                     </div>
                                 </div>
 
-                            <!-- <div class="col-md-12">
-                                <h5>Total Group Messages in the Last 7 Days</h5>
-                                <div class="panel blue">
-                                    <div class="panel-body">
-                                        <div class="chart-container">
-                                            <div id="groups_chart" class="mychart"> </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="widget widget-stats bg-blue">
+                                        <div class="stats-icon"><i class="fa fa-money"></i></div>
+                                        <div class="stats-info">
+                                            <h4>Total Pending Messages</h4>
+                                            <p id="category_count"> <?= $sms_pending; ?></p>    
+                                        </div>
+                                        <div class="stats-link">
+                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
                         </div>
 
                     </div>

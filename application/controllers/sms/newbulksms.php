@@ -18,19 +18,21 @@ class Newbulksms extends Admin_Controller {
         $this->load->model('sendsms_model');
         $this->load->model('template_model');
     }
-        public function index()
-        {
-            //check if user and redirect to dashboard
-            $role = $this->session->userdata('role');
-            if ($role === "USER") {
-                // Display message
-                $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
-                $this->session->set_flashdata('alert_type', 'alert-info');
-                redirect('dashboard');
-            }
+
+    public function index()
+    {
+        //check if user and redirect to dashboard
+        $role = $this->session->userdata('role');
+        if ($role === "USER") {
+            // Display message
+            $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+            $this->session->set_flashdata('alert_type', 'alert-info');
+            redirect('dashboard');
+        }
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('group', 'SMS Group', 'required|max_length[50]');
+        $this->form_validation->set_rules('groupcontacts', 'SMS Sub-Group Contacts', 'required');
         $this->form_validation->set_rules('message', 'Message', 'required|max_length[480]');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -42,15 +44,23 @@ class Newbulksms extends Admin_Controller {
             $group_id = $this->input->post('group');
             $message = $this->input->post('message');
             $groupcontacts = $this->input->post('groupcontacts');
+            // print_r($groupcontacts);
+            // if($groupcontacts == null || count($groupcontacts)<=0){
+
+            //     $this->session->set_flashdata('appmsg', 'Please Select the group contacts to sent to.');
+            //     $this->session->set_flashdata('alert_type', 'alert-warning');
+            //     // redirect('sms/newbulksms');
+            // } 
             
 
             //Does it have valid form info (not empty values)
             if ($this->form_validation->run()) {
+                
                 //Get groupname
                 $group_details = $this->groups_model->get_group_by_id($group_id);
 
                 //Retrieve group contacts if group exists and put in an array
-               // $addresses = $this->contacts_model->get_group_contacts($group_id);
+            // $addresses = $this->contacts_model->get_group_contacts($group_id);
 
                 if(count($groupcontacts) > 0){
                     // $recipients= array();
@@ -64,14 +74,32 @@ class Newbulksms extends Admin_Controller {
 
                     log_message("info", "Sending status: " . $msg_sent);
 
-                    if ($msg_sent == 'success') {
+                    if ($msg_sent !== 'fail') {
+
+                        $success = 0;
+                        $failed = 0;
+                        
+                        //loop through the result if it contains more than one object and save each response
+                        foreach ($msg_sent as $key => $value) {
+                            if ($value->Status == 'Success') {
+                                $success++;
+                                $status = 'Sent';
+                                // $this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId);
+                                $this->sms_model->save_bulksms($value->Number, $group_details->name, $message, $this->session->userdata('id'),$value->MessageId,$status);
+                            }else{
+                                $failed++;
+                                log_message("info", "Sending status code: " . $value->Status);
+                            }
+                            
+                        }
+
                         // Display success message
-                        $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' sent successfully!');
-                        $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                        $this->session->set_flashdata('alert_type', 'alert-info');
 
 
                         //save bulk sms
-                        $this->sms_model->save_bulksms($group_details->name, $group_details->name, $message, $this->session->userdata('id'));
+                        // $this->sms_model->save_bulksms($group_details->name, $group_details->name, $message, $this->session->userdata('id'));
                         redirect('sms/newbulksms');
                     } else {
                         // Display fail message

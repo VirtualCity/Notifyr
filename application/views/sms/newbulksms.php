@@ -65,7 +65,6 @@
                        	 <div class="col-md-8">
                         	<label>Type to Compose</label>
                         	 <div >
-
                             <textarea onkeyup="countChars(this);" onkeydown="countChars(this);" maxlength="480" required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
                             
                             <span class="text-danger"> <?php echo form_error('message'); ?> </span>
@@ -158,10 +157,10 @@
                             $('#groupcontacts_').append('<option value="'+ value.msisdn +'"> '+ value.name +'</option>');
                         });
                         $('#groupcontacts_').multipleSelect({
-                            filter: true
+                            filter: true,
                         });
                         $(".ms-parent").removeAttr("style");
-                    }
+                    },
                 });
             }else{
                 $('#groupcontacts_').empty();

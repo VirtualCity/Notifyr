@@ -50,14 +50,31 @@ class Newsms extends Admin_Controller {
 
 				log_message("info", "Sending status: " . $msg_sent);
 
-				if ($msg_sent == 'success') {
+				if ($msg_sent !== 'fail') {
+					
+					$success = 0;
+					$failed = 0;
+					
+					//loop through the result if it contains more than one object and save each response
+					foreach ($msg_sent as $key => $value) {
+						if ($value->Status == 'Success') {
+							$success++;
+							$status = 'Sent';
+							$this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId,$status);
+						}else{
+							$failed++;
+							log_message("info", "Sending status code: " . $value->Status);
+						}
+						
+					}
+
 					// Display success message
 					$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
 					$this -> session -> set_flashdata('alert_type', 'alert-success');
 
 					//save sms
 					$userid = $this -> session -> userdata('id');
-					$this -> sms_model -> save_sms($msisdn, "Individual", $message, $userid);
+					// $this -> sms_model -> save_sms($msisdn, "Individual", $message, $userid);
 
 					redirect('sms/newsms');
 				} else {

@@ -109,12 +109,15 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function save_sms($msisdn,$recipient,$msg,$userid){
+    function save_sms($msisdn,$recipient,$msg,$userid,$messageId,$status){
         $data =  array(
             'sent_to'=>$msisdn,
             'recipient'=>$recipient,
             'message'=>$msg,
-            'sent_by'=>$userid);
+            'sent_by'=>$userid,
+            'message_id'=>$messageId,
+            'status'=>$status
+        );
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();
         if($num_insert>0){
@@ -123,13 +126,31 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function save_bulksms($msisdn,$recipient,$msg,$userid){
+    function update_sms_status($msisdn,$messageId,$status){
+        $data =  array(
+            'status'=>$status
+        );
+        $this->db->where('message_id', $messageId);
+        $this->db->where('sent_to', $msisdn);
+        $query = $this->db->update('smsout', $data);
+
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function save_bulksms($msisdn,$recipient,$msg,$userid,$messageId,$status){
         $data =  array(
             'sent_to'=>$msisdn,
             'recipient'=>$recipient,
             'message'=>$msg,
             'message_type'=>'BULK_SMS',
-            'sent_by'=>$userid);
+            'sent_by'=>$userid,
+            'message_id'=>$messageId,
+            'status'=>$status
+        );
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();
         if($num_insert>0){
