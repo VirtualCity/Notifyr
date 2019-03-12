@@ -141,6 +141,19 @@ class Sms_model extends CI_Model{
         }
     }
 
+    function findByMessageId($messageId){
+        $this->db->select('sent_to');
+        $this->db->from('smsout');
+        $this->db->where('message_id',$messageId);
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     function save_bulksms($msisdn,$recipient,$msg,$userid,$messageId,$status){
         $data =  array(
             'sent_to'=>$msisdn,

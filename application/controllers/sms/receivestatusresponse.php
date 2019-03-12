@@ -48,10 +48,16 @@ class ReceiveStatusResponse extends CI_Controller{
             logFile("[ messageId=$messageId, phonenumber=$phoneNumber, status=$status, networkcode=$networkCode, failurereason=$failureReason, retrycount=$retryCount ]");
             // //log_message("info","[ content=$content, address=$address, requestId=$requestId, applicationId=$applicationId, encoding=$encoding, version=$version ]");
 
-            
-            $resp = $this->sms_model->update_sms_status($phoneNumber,$messageId,$status);
-            echo json_encode($resp);
-            return $resp;
+            $check = $resp = $this->sms_model->findByMessageId($messageId);
+
+            if ($check == true) {
+                $resp = $this->sms_model->update_sms_status($phoneNumber,$messageId,$status);
+                echo json_encode($resp);
+                return $resp;
+            }else{
+                echo json_encode($check);
+                return $check;
+            }
 
         } catch (SmsException $ex) {
             error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
