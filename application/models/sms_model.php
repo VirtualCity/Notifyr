@@ -126,6 +126,58 @@ class Sms_model extends CI_Model{
         return false;
     }
 
+    function save_pending_bulk($groupId,$grpcontacts,$msg,$userid){
+        $data =  array(
+            'group_id'=>$groupId,
+            'contacts'=>$grpcontacts,
+            'message'=>$msg,
+            'created_by'=>$userid
+        );
+        $this->db->insert('pending_sms',$data);
+        $num_insert = $this->db->affected_rows();
+        if($num_insert>0){
+            return true;
+        }
+        return false;
+    }
+
+    function approve_pending_bulk($id,$userid){
+        $data =  array(
+            'status'=>1,
+            'approved_by'=>$userid,
+            'updated'=>'CURDATE()'
+        );
+        $this->db->where('id', $id);
+        $query = $this->db->update('pending_sms', $data);
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function get_pending_bulk_by_id($id){
+        $this->db->select('*');
+        $this->db->from('pending_sms');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return null;
+        }
+    }
+
+    function remove_pending_bulk($id){
+        $this->db->where('id',$id);
+        $query = $this->db->delete('pending_sms');
+        if($query){
+            return true;
+        }
+        return false;
+    }
+
     function update_sms_status($msisdn,$messageId,$status){
         $data =  array(
             'status'=>$status

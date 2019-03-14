@@ -176,7 +176,7 @@
                                     <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-money"></i></div>
                                         <div class="stats-info">
-                                            <h4>Total Pending Messages</h4>
+                                            <h4>Total Messages Pending Approval </h4>
                                             <p id="category_count"> <?= $sms_pending; ?></p>    
                                         </div>
                                         <div class="stats-link">

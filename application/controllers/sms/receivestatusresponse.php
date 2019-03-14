@@ -29,10 +29,7 @@ class ReceiveStatusResponse extends CI_Controller{
     //Hsenid API
     function index(){
         $this->load->library('sms/SmsResponseReceiver.php');
-        // $this->load->library('sms/SmsReceiver.php');
-        // $this->load->library('sms/SmsSender.php');
         $this->load->library('sms/log.php');
-
 
         try {
             $receiver = new SmsResponseReceiver(); // Create the Receiver object

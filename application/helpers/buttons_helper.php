@@ -211,6 +211,18 @@ function get_active_contacts_buttons($id)
     return $html;
 }
 
+function get_pending_sms_buttons($id)
+{
+    $ci = & get_instance();
+    $html = '<span class="actions">';
+    $html .= '<a href="' . base_url() . 'sms/pendingbulksms/approve/' . $id . '">Approve</a>';
+    $html .= '&nbsp; | &nbsp;';
+    $html .= '<a href="' . base_url() . 'sms/pendingbulksms/cancel/' . $id . '">Cancel</a>';
+    $html .= '</span>';
+
+    return $html;
+}
+
 function get_suspended_contacts_buttons($id)
 {
     $ci = & get_instance();

@@ -23,12 +23,12 @@ class Newbulksms extends Admin_Controller {
     {
         //check if user and redirect to dashboard
         $role = $this->session->userdata('role');
-        if ($role === "USER") {
-            // Display message
-            $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
-            $this->session->set_flashdata('alert_type', 'alert-info');
-            redirect('dashboard');
-        }
+        // if ($role === "USER") {
+        //     // Display message
+        //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+        //     $this->session->set_flashdata('alert_type', 'alert-info');
+        //     redirect('dashboard');
+        // }
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('group', 'SMS Group', 'required|max_length[50]');
@@ -69,48 +69,57 @@ class Newbulksms extends Admin_Controller {
                     //     $recipients[]='tel:'.$address->msisdn;
                     // }
 
-                    //Send message to group
-                    $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
-
-                    log_message("info", "Sending status: " . $msg_sent);
-
-                    if ($msg_sent !== null) {
-
-                        $success = 0;
-                        $failed = 0;
-                        
-                        //loop through the result if it contains more than one object and save each response
-                        foreach ($msg_sent as $key => $value) {
-                            if ($value->Status == 'Success') {
-                                $success++;
-                                $status = 'Sent';
-                                $phoneNumber = substr($value->number, 1);
-                                // $this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId);
-                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
-                            }else{
-                                $failed++;
-                                log_message("info", "Sending status code: " . $value->Status);
-                            }
-                            
+                    if ($role === "USER") {
+                        $createdBy = $this->session->userdata('id');
+                        $grpContacts = implode('-',$groupcontacts);
+                        $response = $this->sms_model->save_pending_bulk($group_id,$grpContacts,$message,$createdBy);
+                        if(!$response){
+                            $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' could not be saved!');
+                            $this->session->set_flashdata('alert_type', 'alert-danger');
+                            redirect('sms/newbulksms');
                         }
-
                         // Display success message
-                        $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                        $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' saved successfully');
                         $this->session->set_flashdata('alert_type', 'alert-info');
-
-
-                        //save bulk sms
-                        // $this->sms_model->save_bulksms($group_details->name, $group_details->name, $message, $this->session->userdata('id'));
                         redirect('sms/newbulksms');
-                    } else {
-                        // Display fail message
-                        $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
-                        $this->session->set_flashdata('alert_type', 'alert-warning');
-                        redirect('sms/newbulksms');
+                    }else{
+                        //Send message to group
+                        $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
 
+                        log_message("info", "Sending status: " . $msg_sent);
+
+                        if ($msg_sent !== null) {
+
+                            $success = 0;
+                            $failed = 0;
+                            print_r($msg_sent);
+                            //loop through the result if it contains more than one object and save each response
+                            foreach ($msg_sent as $key => $value) {
+                                if ($value->status == 'Success') {
+                                    $success++;
+                                    $status = 'Sent';
+                                    $phoneNumber = substr($value->number, 1);
+                                    $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                }else{
+                                    $failed++;
+                                    log_message("info", "Sending status code: " . $value->Status);
+                                }
+                                
+                            }
+
+                            // Display success message
+                            $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                            $this->session->set_flashdata('alert_type', 'alert-info');
+                            redirect('sms/newbulksms');
+                        } else {
+                            // Display fail message
+                            $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                            $this->session->set_flashdata('alert_type', 'alert-warning');
+                            redirect('sms/newbulksms');
+
+                        }
                     }
-
-
+                    
                 } else {
                     log_message("info", "No addresses exist for group " . $group_details->name);
                     // Display fail message

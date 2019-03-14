@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.dataTables_themeroller.css">
 
     <link href="<?php echo base_url() ?>assets/css/stylesheet.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>provisioning/assets/links/links.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url() ?>provisioning/assets/links/links.css" rel="stylesheet"> -->
     <link href="<?php echo base_url() ?>assets/icon/font-awesome.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/css/main.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet">
@@ -40,6 +40,6 @@
             src: url("<?=base_url('assets/fonts/futured.ttf')?>") /* TTF file for CSS3 browsers */
         }
     </style>
-    <script src="<?php echo base_url() ?>assets/links/links.js"></script>
+    <!-- <script src="<?php echo base_url() ?>assets/links/links.js"></script> -->
 </head>
 
