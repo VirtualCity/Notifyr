@@ -349,7 +349,7 @@ class Contacts extends MY_Controller{
 
     
 
-function activate($id){
+    function activate($id){
         $contact = $this->contacts_model->get_contact($id);
         $deactivated = $this->contacts_model->activate_contact($id,$contact->msisdn);
         if($deactivated){

@@ -24,12 +24,28 @@
 						<ul class="sub-menu">
 							<li><a href="<?=base_url('sms/newsms')?>">New SMS</a></li>
 							<li><a href="<?=base_url('sms/newbulksms')?>">New Bulk SMS</a></li>
+							<li><a href="<?=base_url('sms/pendingbulksms')?>">Pending SMS</a></li>
 							<li><a href="<?=base_url('sms/newbulksms/uploadexcel')?>">New SMS From Excel</a></li>
  							<li><a href="<?=base_url('sms/newsms/smstemplate')?>">New SMS Template</a></li>
 							<li><a href="<?=base_url('sms/newsms/templates')?>">Template List</a></li>
 
 						</ul>
 					</li>
+				
+				<?php elseif ($this->session->userdata('role')==="USER"): ?>
+
+					<li class="has-sub">
+						<a href="javascript:;">
+							<b class="caret pull-right"></b>
+							<i class="fa fa-envelope"></i>
+							<span>SMS</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="<?=base_url('sms/newbulksms')?>">New Bulk SMS</a></li>
+						</ul>
+					</li>
+
+				<?php else: ?>
 				<?php endif ?>
 				
 <!--				<li><a href="--><?//=base_url('contacts')?><!--"><i class="fa fa-group"></i> <span>Contact List</span></a></li>-->

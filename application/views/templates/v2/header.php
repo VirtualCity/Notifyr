@@ -34,7 +34,7 @@
 	<script src="<?php echo $path;?>assets/v2/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="<?php echo $path;?>assets/js/multiple-select.js"></script>
 
-<link href="<?php echo base_url() ?>assets/links/links.css" rel="stylesheet">
+<!-- <link href="<?php echo base_url() ?>assets/links/links.css" rel="stylesheet"> -->
 </head>
 <body>
 

@@ -93,9 +93,7 @@ class Dashboard_model extends CI_Model{
 
     function get_sms_pending_total(){
         $this -> db-> select('count(*) AS count');
-        $this -> db -> from('sms_received');
-        // $where = "DATE(created)= CURDATE()";
-        // $this -> db -> where($where);
+        $this -> db -> from('pending_sms');
         $result = $this -> db -> get();
 
         if($result->num_rows()>0){
