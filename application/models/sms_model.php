@@ -142,10 +142,11 @@ class Sms_model extends CI_Model{
     }
 
     function approve_pending_bulk($id,$userid){
+        $date = date('Y-m-d H:i:s');
         $data =  array(
             'status'=>1,
             'approved_by'=>$userid,
-            'updated'=>'CURDATE()'
+            'updated'=> $date
         );
         $this->db->where('id', $id);
         $query = $this->db->update('pending_sms', $data);

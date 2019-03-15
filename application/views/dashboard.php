@@ -76,8 +76,17 @@
                                     <div class="widget widget-stats bg-green">
                                         <div class="stats-icon"><i class="fa fa-desktop"></i></div>
                                         <div class="stats-info">
-                                            <h4>Total Sent Today</h4>
-                                            <p id="visitors_count"> <?= $today_sent_totals; ?></p>    
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4>Total Sent Today</h4>
+                                                    <p id="visitors_count"> <?= $today_sent_totals; ?></p>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4> Delivered :  <?= $today_success; ?></h4>
+                                                    <h4> Failed    : <?= $today_failed; ?></h4>
+                                                    <h4> Pending   : <?= $today_pending; ?></h4>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="stats-link">
                                             <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -89,8 +98,17 @@
                                     <div class="widget widget-stats bg-purple">
                                         <div class="stats-icon"><i class="fa fa-envelope"></i></div>
                                         <div class="stats-info">
-                                            <h4>Total Sent last 7 days</h4>
-                                            <p id="today_reports"> <?= $weeks_sent_total; ?></p>    
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4>Total Sent last 7 days</h4>
+                                                    <p id="today_reports"> <?= $weeks_sent_total; ?></p>   
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4> Delivered :  <?= $week_success; ?></h4>
+                                                    <h4> Failed    : <?= $week_failed; ?></h4>
+                                                    <h4> Pending   : <?= $week_pending; ?></h4>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="stats-link">
                                             <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -102,8 +120,18 @@
                                     <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-envelope"></i></div>
                                         <div class="stats-info">
-                                            <h4>Total Sent Last 30 days</h4>
-                                            <p id="total_reports"> <?= $months_sent_total; ?></p>    
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4>Total Sent Last 30 days</h4>
+                                                    <p id="total_reports"> <?= $months_sent_total; ?></p>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4> Delivered :  <?= $month_success; ?></h4>
+                                                    <h4> Failed    : <?= $month_failed; ?></h4>
+                                                    <h4> Pending   : <?= $month_pending; ?></h4>
+                                                </div>
+                                            </div>
+                                                
                                         </div>
                                         <div class="stats-link">
                                             <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -176,8 +204,17 @@
                                     <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-money"></i></div>
                                         <div class="stats-info">
-                                            <h4>Total Messages Pending Approval </h4>
-                                            <p id="category_count"> <?= $sms_pending; ?></p>    
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4>Total Messages Pending Approval </h4>
+                                                    <p id="category_count"> <?= $sms_pending; ?></p> 
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <h4> Delivered :  <?= 4; ?></h4>
+                                                    <h4> Failed    : <?= 5; ?></h4>
+                                                </div>
+                                            </div>
+                                              
                                         </div>
                                         <div class="stats-link">
                                             <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>

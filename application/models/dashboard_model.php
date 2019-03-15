@@ -94,6 +94,8 @@ class Dashboard_model extends CI_Model{
     function get_sms_pending_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('pending_sms');
+        $where = "status = 0";
+        $this -> db -> where($where);
         $result = $this -> db -> get();
 
         if($result->num_rows()>0){
@@ -139,6 +141,182 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+
+    //daily report
+    function get_todays_success_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Success"';
+        $where2 = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_todays_failed_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Failed"';
+        $where2 = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_todays_pending_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Sent"';
+        $where2 = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    //weeks report
+    function get_weeks_success_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Success"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_weeks_failed_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Failed"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_weeks_pending_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Sent"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    //months report
+    function get_months_success_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Success"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_months_failed_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Failed"';
+        $where2 = "created >=(  DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    function get_months_pending_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Sent"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+    
 
     function get_sms_balance(){
 
