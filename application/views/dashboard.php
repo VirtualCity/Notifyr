@@ -146,7 +146,7 @@
                             <div class="row">
 
                              <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
+                                    <div class="widget widget-stats bg-green">
                                         <div class="stats-icon"><i class="fa fa-group"></i></div>
                                         <div class="stats-info">
                                             <h4>Contacts</h4>
@@ -159,7 +159,7 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
+                                    <div class="widget widget-stats bg-purple">
                                         <div class="stats-icon"><i class="fa fa-group"></i></div>
                                         <div class="stats-info">
                                             <h4>Groups</h4>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="row">
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
+                                    <div class="widget widget-stats bg-green">
                                         <div class="stats-icon"><i class="fa fa-money"></i></div>
                                         <div class="stats-info">
                                             <h4>Available SMS Balance</h4>
@@ -201,18 +201,12 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-money"></i></div>
+                                    <div class="widget widget-stats bg-purple">
+                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
                                         <div class="stats-info">
                                             <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4>Total Messages Pending Approval </h4>
-                                                    <p id="category_count"> <?= $sms_pending; ?></p> 
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4> Delivered :  <?= 4; ?></h4>
-                                                    <h4> Failed    : <?= 5; ?></h4>
-                                                </div>
+                                                <h4>Total Bulk Messages Pending Approval </h4>
+                                                <p id="category_count"> <?= $sms_pending; ?></p> 
                                             </div>
                                               
                                         </div>
