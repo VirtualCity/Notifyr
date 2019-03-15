@@ -30,6 +30,15 @@ class Dashboard extends MY_Controller{
         $weeks_total =  "";
         $months_total =  "";
         $today_sent_totals =  "";
+        $today_success = "";
+        $today_failed = "";
+        $today_pending = "";
+        $week_success = "";
+        $week_failed = "";
+        $week_pending = "";
+        $month_success = "";
+        $month_failed = "";
+        $month_pending = "";
         $weeks_sent_total =  "";
         $months_sent_total =  "";
         $contacts_total =  "";
@@ -44,6 +53,19 @@ class Dashboard extends MY_Controller{
         $weeks_total = $this->dashboard_model->get_weeks_total();
         $months_total = $this->dashboard_model->get_months_total();
         $today_sent_totals = $this->dashboard_model->get_todays_sent_total();
+
+        $today_success = $this->dashboard_model->get_todays_success_sent_total();
+        $today_failed = $this->dashboard_model->get_todays_failed_sent_total();
+        $today_pending = $this->dashboard_model->get_todays_pending_sent_total();
+
+        $week_success = $this->dashboard_model->get_weeks_success_sent_total();
+        $week_failed = $this->dashboard_model->get_weeks_failed_sent_total();
+        $week_pending = $this->dashboard_model->get_weeks_pending_sent_total();
+
+        $month_success = $this->dashboard_model->get_months_success_sent_total();
+        $month_failed = $this->dashboard_model->get_months_failed_sent_total();
+        $month_pending = $this->dashboard_model->get_months_pending_sent_total();
+
         $weeks_sent_total = $this->dashboard_model->get_weeks_sent_total();
         $months_sent_total = $this->dashboard_model->get_months_sent_total();
         $contacts_total = $this->dashboard_model->get_contacts_total();
@@ -58,6 +80,19 @@ class Dashboard extends MY_Controller{
         $data['weeks_total']=$weeks_total;
         $data['months_total']=$months_total;
         $data['today_sent_totals']=$today_sent_totals;
+
+        $data['today_success'] = $today_success;
+        $data['today_failed'] = $today_failed;
+        $data['today_pending'] = $today_pending;
+
+        $data['week_success'] = $week_success;
+        $data['week_failed'] = $week_failed;
+        $data['week_pending'] = $week_pending;
+
+        $data['month_success'] = $month_success;
+        $data['month_failed'] = $month_failed;
+        $data['month_pending'] = $month_pending;
+
         $data['weeks_sent_total']=$weeks_sent_total;
         $data['months_sent_total']=$months_sent_total;
         $data['contacts_total']=$contacts_total;
