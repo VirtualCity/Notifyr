@@ -106,9 +106,11 @@
                             <span class="text-danger"> *</span>
                             <select name="role" id="role" class="form-control" >
                                 <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
-                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>User</option>
-                                <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Super User</option>
-                                <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
+                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
+                                <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Enabler</option>
+                                <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Admin</option>
+                                <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
+                                <option value="SUPPLIER" <?php if ($role ==="SUPPLIER"){echo "selected";}?>>Supplier</option>
                             </select> 
                             <span class="text-danger"><?php echo form_error('role'); ?> </span>
                         </div>
