@@ -2,12 +2,14 @@
 <!-- begin #content -->
 <div id="content" class="content">
 
+<?php if ($this->session->userdata('role')==="MANAGER"): ?>
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Suspended Users</li>
         </ol>
     </div>
+<?php endif ?>
 
 
     <div id="alert_placeholder">
@@ -20,24 +22,25 @@
 
 
     <div class="row">
-        <ul class="nav nav-tabs nav-stacked col-md-2">
-          <li ><a href="<?php echo site_url('password') ?>"> Change Password</a></li>
-          <?php if ($this->session->userdata('role')!="USER"): ?>
-              <?php if ($this->session->userdata('role')==="ADMIN"): ?>
-                  <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
-                  <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
-              <?php endif ?>
-              <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
-          <?php endif ?>
-      </ul>
+    <ul class="nav nav-tabs nav-stacked col-md-2">
+        <li ><a href="<?php echo site_url('password') ?>"> Change Password</a></li>
+      
+        <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
+            <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
+            <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+        <?php endif ?>
+        <?php if ($this->session->userdata('role')==="MANAGER"): ?>
+        <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
+        <?php endif ?>
+    </ul>
       <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
-           <ul class="nav nav-tabs">
-            <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
-        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
-        <?php if ($this->session->userdata('role')==="ADMIN"): ?>
-            <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
-        <?php endif ?>
+        <ul class="nav nav-tabs">
+            <?php if ($this->session->userdata('role')==="MANAGER"): ?>
+                <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
+                <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
+                <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
+            <?php endif ?>
         </ul>
 
         <div class="tab-content">

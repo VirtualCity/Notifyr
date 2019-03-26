@@ -51,6 +51,7 @@
                     <li><a href="<?=base_url('logs/autoreplies')?>">Autoreply log</a></li>
                 </ul>
             </li>
+        <?Php if($role==="MANAGER"){ ?>
             <li><a href=""><i class="icon-flag"></i>BlackList</a>
                 <ul class="sub_main">
                     <li><a href="<?=base_url('blacklist')?>">View Blacklist</a></li>
@@ -92,23 +93,23 @@
                     <li><a href="<?=base_url('managers/import')?>">Import Managers</a></li>
                 </ul>
             </li>
-            <?Php
-            if($role==="ADMIN"){
-                ?>
-                <li><a href=""><i class="icon-user"></i> User Management</a>
-                    <ul class="sub_main">
-                        <li><a href="<?=base_url('users/active')?>">View Active Users</a></li>
-                        <li><a href="<?=base_url('users/suspended')?>">View Suspended Users</a></li>
-                        <li><a href="<?=base_url('users/add')?>">Add User</a></li>
-                    </ul>
-                </li>
+            
+            <li><a href=""><i class="icon-user"></i> User Management</a>
+                <ul class="sub_main">
+                    <li><a href="<?=base_url('users/active')?>">View Active Users</a></li>
+                    <li><a href="<?=base_url('users/suspended')?>">View Suspended Users</a></li>
+                    <li><a href="<?=base_url('users/add')?>">Add User</a></li>
+                </ul>
+            </li>
+        <?php endif ?>
+            <?Php if($role==="SUPER_ADMIN"){ ?>
                 <li><a href=""><i class="icon-cogs"></i> App Settings</a>
                     <ul class="sub_main">
                         <li><a href="<?=base_url('settings/configuration')?>">SDP Configuration</a></li>
                         <li><a href="<?=base_url('settings/services')?>">Agrimanagr Services</a></li>
                     </ul>
                 </li>
-            <?Php } ?>
+            <?php endif ?>
         </ul>
     </div>
 </div>
