@@ -154,10 +154,12 @@
                     success:function(data) {
                         $('#groupcontacts_').empty();
                         $.each(data, function(key, value) {
-                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'"> '+ value.name +'</option>');
+                            value.selected=true;
+                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'" selected> '+ value.name +'</option>');
                         });
                         $('#groupcontacts_').multipleSelect({
                             filter: true,
+                            selectAll: true
                         });
                         $(".ms-parent").removeAttr("style");
                     },
