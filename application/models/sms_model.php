@@ -126,12 +126,13 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function save_pending_bulk($groupId,$grpcontacts,$msg,$userid){
+    function save_pending_bulk($groupId,$grpcontacts,$msg,$userid,$smstype){
         $data =  array(
             'group_id'=>$groupId,
             'contacts'=>$grpcontacts,
             'message'=>$msg,
-            'created_by'=>$userid
+            'created_by'=>$userid,
+            'sms_type' =>$smstype
         );
         $this->db->insert('pending_sms',$data);
         $num_insert = $this->db->affected_rows();

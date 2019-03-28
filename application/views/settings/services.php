@@ -22,8 +22,8 @@
     <div class="row">
 <ul class="nav nav-tabs nav-stacked col-md-2">
           <li ><a href="<?php echo site_url('password') ?>"> Change Password</a></li>
-          <?php if ($this->session->userdata('role')!="USER"): ?>
-              <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+          <?php if ($this->session->userdata('role')!=="USER"): ?>
+              <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
                   <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
                   <li class="active"><a data-toggle="tab"  href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
               <?php endif ?>

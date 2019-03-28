@@ -71,8 +71,9 @@ class Newbulksms extends Admin_Controller {
 
                     if ($role === "USER") {
                         $createdBy = $this->session->userdata('id');
+                        $smstype = 'Group';
                         $grpContacts = implode('-',$groupcontacts);
-                        $response = $this->sms_model->save_pending_bulk($group_id,$grpContacts,$message,$createdBy);
+                        $response = $this->sms_model->save_pending_bulk($group_id,$grpContacts,$message,$createdBy,$smstype);
                         if(!$response){
                             $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' could not be saved!');
                             $this->session->set_flashdata('alert_type', 'alert-danger');

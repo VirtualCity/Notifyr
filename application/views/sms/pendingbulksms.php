@@ -86,7 +86,14 @@ jQuery(document).ready(function(){
         },
         
         columns: [
-        { "data": "groupname"},
+        { "data": "groupname",
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+
+                   if (sData == null) {
+                         $(nTd).addClass('text-left').html('None (Individual)');
+                   }
+                }  
+        },
         { "data": "message"},
         { "data": "status",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -99,7 +106,7 @@ jQuery(document).ready(function(){
                 }  
         },
         { "data": "createdby"}
-        <?Php if($user_role==="ADMIN"){ ?>
+        <?Php if($user_role==="MANAGER"){ ?>
             ,
             { "data": "actions","orderable": false,"searchable": false }
             <?Php  } ?>

@@ -8,8 +8,12 @@ if( $user_role === 'ADMIN'){
     $this->load->view('templates/navigation');
 }else if($user_role === 'SUPER_USER'){
     $this->load->view('templates/navigation_super_user');
-}else{
+}else if($user_role === 'USER'){
     $this->load->view('templates/navigation_user');
+}else if($user_role === 'MANAGER'){
+    $this->load->view('templates/navigation_manager');
+}else{
+    $this->load->view('templates/navigation_consumer');
 }
 ?>
 
@@ -111,7 +115,7 @@ if( $user_role === 'ADMIN'){
                                     <option value="">--- Please Select Role ---</option>
                                     <option value="USER" <?php if ($user_role ==="USER"){echo "selected";}?>>User</option>
                                     <option value="STOCKIST" <?php if ($user_role ==="STOCKIST"){echo "selected";}?>>Stockist</option>
-                                    <option value="SUPER_USER" <?php if ($user_role ==="SUPER_USER"){echo "selected";}?>>Super User</option>
+                                    <option value="SUPER_USER" <?php if ($user_role ==="MANAGER"){echo "selected";}?>>Manager</option>
                                     <option value="ADMIN" <?php if ($user_role ==="ADMIN"){echo "selected";}?>>Administrator</option>
                                 </select> <font color="red"> *</font>
                                 <div><font color="red"><?php echo form_error('user_role'); ?> </font></div>

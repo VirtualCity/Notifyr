@@ -29,8 +29,9 @@
                         <br>
                         <div class="report-widgets">
                             <div class="row">
+                            <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="SUPER_USER"): ?>
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-green">
+                                    <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-desktop"></i></div>
                                         <div class="stats-info">
                                             <h4>Total Received Today</h4>
@@ -43,7 +44,7 @@
                                 </div>
                                 
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-purple">
+                                    <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-envelope"></i></div>
                                         <div class="stats-info">
                                             <h4>Total Received last 7 days</h4>
@@ -69,11 +70,14 @@
                                 </div>
                                 
                             </div>
+                            <?php endif ?>
                         </div>
+
                         <div class="report-widgets">
                             <div class="row">
+
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-green">
+                                    <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-desktop"></i></div>
                                         <div class="stats-info">
                                             <div class="row">
@@ -95,7 +99,7 @@
                                 </div>
                                 
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-purple">
+                                    <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-envelope"></i></div>
                                         <div class="stats-info">
                                             <div class="row">
@@ -145,50 +149,32 @@
                         <div class="status-widgets">
                             <div class="row">
 
-                             <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-green">
-                                        <div class="stats-icon"><i class="fa fa-group"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Contacts</h4>
-                                            <p id="surveys_count"> <?= $contacts_total; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-purple">
-                                        <div class="stats-icon"><i class="fa fa-group"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Groups</h4>
-                                            <p id="active_survey"> <?= $groups_total; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                            <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="SUPER_USER"): ?>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="widget widget-stats bg-blue">
+                                            <div class="stats-icon"><i class="fa fa-list"></i>
+                                            </div>
+                                            <div class="stats-info">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h4>List</h4>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <h4> Contacts :  <?= $contacts_total; ?></h4>
+                                                        <h4> Blacklisted : <?= $blacklist_total; ?></h4>
+                                                        <h4> Groups   : <?= $groups_total; ?></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="stats-link">
+                                                <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                <?php endif ?>
+                                <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="SUPER_USER"): ?>
                                 <div class="col-md-4 col-sm-6">
                                     <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-group"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Blacklisted</h4>
-                                            <p id="category_count"> <?= $blacklist_total; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-green">
                                         <div class="stats-icon"><i class="fa fa-money"></i></div>
                                         <div class="stats-info">
                                             <h4>Available SMS Balance</h4>
@@ -199,9 +185,10 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <?php endif ?>
+                                <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="USER"  || $this->session->userdata('role')=="SUPER_USER"): ?>
                                 <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-purple">
+                                    <div class="widget widget-stats bg-blue">
                                         <div class="stats-icon"><i class="fa fa-envelope"></i></div>
                                         <div class="stats-info">
                                             <div class="row">
@@ -215,6 +202,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php endif ?>
+
+                            </div>
                         </div>
 
                     </div>

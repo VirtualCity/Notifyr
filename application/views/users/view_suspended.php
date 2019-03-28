@@ -22,8 +22,8 @@
     <div class="row">
         <ul class="nav nav-tabs nav-stacked col-md-2">
           <li ><a href="<?php echo site_url('password') ?>"> Change Password</a></li>
-          <?php if ($this->session->userdata('role')!="USER"): ?>
-              <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+          <?php if ($this->session->userdata('role')!=="USER"): ?>
+              <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
                   <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
                   <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
               <?php endif ?>
@@ -33,9 +33,9 @@
       <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <ul class="nav nav-tabs">
+           <?php if ($this->session->userdata('role')==="MANAGER"): ?>
             <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
-        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
-        <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+            <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
             <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
         <?php endif ?>
         </ul>
@@ -62,7 +62,7 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Date Created</th>
-                                <?Php if($user_role==="ADMIN"){ ?>
+                                <?Php if($user_role==="MANAGER"){ ?>
                                 <th>Action</th>
                                 <?php } ?>
                             </tr>
@@ -104,7 +104,7 @@
                 { "data": "email"},
                 { "data": "role"},
                 { "data": "created"}
-                <?Php if($user_role==="ADMIN"){ ?>
+                <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

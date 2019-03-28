@@ -16,6 +16,13 @@ class Configuration extends Admin_Controller{
 
 
     function index(){
+        $role = $this->session->userdata('role');
+        if ($role !== "SUPER_USER") {
+            // Display message
+            $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+            $this->session->set_flashdata('alert_type', 'alert-info');
+            redirect('dashboard');
+        }
         // SET VALIDATION RULES
         $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
         $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');

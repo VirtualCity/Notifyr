@@ -23,12 +23,12 @@ class Pendingbulksms extends Admin_Controller {
     public function index()
     {
         $role = $this->session->userdata('role');
-        if ($role === "USER") {
-            // Display message
-            $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
-            $this->session->set_flashdata('alert_type', 'alert-info');
-            redirect('dashboard');
-        }
+        // if ($role === "USER") {
+        //     // Display message
+        //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+        //     $this->session->set_flashdata('alert_type', 'alert-info');
+        //     redirect('dashboard');
+        // }
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Pending SMS";
 

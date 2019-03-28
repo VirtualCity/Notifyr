@@ -1,29 +1,25 @@
-
-
-
 <div id="content" class="content">
 
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
-           <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-           <li class="active">Active Contacts</li>
-       </ol>
-   </div>
+         <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+         <li class="active">Submitted Contacts</li>
+     </ol>
+ </div>
 
-   <div id="alert_placeholder">
+ <div id="alert_placeholder">
     <?php
     $appmsg = $this->session->flashdata('appmsg');
     if(!empty($appmsg)){ ?>
     <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
     <?php } ?>
 </div>
-
 <div class="row">
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Active Contacts</h4></a></li>
+    <ul class="nav nav-tabs ">
+        <li class=""><a href="<?=base_url('contacts')?>" >Active Contacts</a></li>
         <li class=""><a href="<?=base_url('contacts/suspended')?>" >Suspended Contacts</a></li>
-        <li class=""><a href="<?=base_url('contacts/submitted')?>" >Submitted Contacts</a></li>
+        <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Submitted Contacts</h4></a></li>
     </ul>
 
     <div class="panel panel-primary tab-content">
@@ -35,11 +31,11 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>                
-                    <h4>Active Contacts</h4>
+                    <h4>Submitted Contacts</h4>
                 </div>
 
                 <div class="panel-body">
-                 <table class="table table-striped table-bordered table-hover datatable"  id="example">
+                   <table class="table table-striped table-bordered table-hover datatable"  id="example">
                     <thead>
                         <tr>
                             <th>Mobile Number</th>
@@ -49,7 +45,7 @@
                             <th>Address</th>
                             <th>Region</th>
                             <th>Town</th>
-
+                            <th>Date Created</th>
                             <?Php if($user_role==="MANAGER"){ ?>
                             <th>Action</th>
                             <?Php  } ?>
@@ -59,7 +55,7 @@
 
                 </table>
             </div>
-            <div class="panel-footer">Active Contactse</div>
+            <div class="panel-footer">Submitted Contacts</div>
 
 
         </div>
@@ -68,9 +64,10 @@
 </div>
 
 </div>
-</div>
-<!-- end col-6 -->
 
+
+
+</div>
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
@@ -96,7 +93,8 @@
             { "data": "email"},
             { "data": "address"},
             { "data": "region"},
-            { "data": "town"}
+            { "data": "town"},
+            { "data": "created"}
             <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"searchable": false }
@@ -106,13 +104,10 @@
                     "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
                 },
                 "ajax":{
-                    "url": "<?php echo base_url('contacts/datatable')?>",
+                    "url": "<?php echo base_url('contacts/submittedContacts')?>",
                     "type": "POST"
                 }
             });
     });
 
 </script>
-
-
-

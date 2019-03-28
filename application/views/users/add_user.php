@@ -22,8 +22,8 @@
 <div class="row">
     <ul class="nav nav-tabs nav-stacked col-md-2">
       <li ><a href="<?php echo site_url('password') ?>"> Change Password</a></li>
-      <?php if ($this->session->userdata('role')!="USER"): ?>
-          <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+      <?php if ($this->session->userdata('role')!=="USER"): ?>
+          <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
               <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
               <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
           <?php endif ?>
@@ -33,10 +33,10 @@
   <div class="panel tab-content col-md-10">
     <div class="tab-pane active" id="tab_a">
      <ul class="nav nav-tabs">
+     <?php if ($this->session->userdata('role')==="MANAGER"): ?>
         <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
         <li><a href="<?=base_url('users/suspended')?>" >Suspended Users</a></li>
-        <?php if ($this->session->userdata('role')==="ADMIN"): ?>
-            <li class="active"><a href="<?=base_url('users/add')?>" data-toggle="tab"><h4 class="panel-title">Add User</h4></a></li>                    
+        <li class="active"><a href="<?=base_url('users/add')?>" data-toggle="tab"><h4 class="panel-title">Add User</h4></a></li>                    
         <?php endif ?>
     </ul>
 
@@ -108,9 +108,9 @@
                                 <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
                                 <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
                                 <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Enabler</option>
-                                <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Admin</option>
+                                <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
                                 <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
-                                <option value="SUPPLIER" <?php if ($role ==="SUPPLIER"){echo "selected";}?>>Supplier</option>
+                                <option value="MANAGER" <?php if ($role ==="MANAGER"){echo "selected";}?>>Manager</option>
                             </select> 
                             <span class="text-danger"><?php echo form_error('role'); ?> </span>
                         </div>

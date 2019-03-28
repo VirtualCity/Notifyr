@@ -112,7 +112,7 @@ class Contacts_model extends CI_Model{
 
                     $responseMsg='You have subscribed to "'.$group.'" SMS group. To unsubscribe SMS "'.$sourceKeyword.' '.$unsub.' '.$group.'"';
                     log_message("info","Registration for ".$msisdn." successful ");
-                    $this->create_contact($msisdn,$name,$idno,$email,$address,$region_id,$town_id);
+                    $this->create_contact($msisdn,$name,$idno,$email,$address,$region_id,$town_id,"ACTIVE");
                     return $responseMsg;
                 }else{
                     $responseMsg="System error. Please try again ";
@@ -242,10 +242,9 @@ class Contacts_model extends CI_Model{
         }
     }
 
-    function create_contact($msisdn,$name,$idno,$email,$address,$region,$town){
+    function create_contact($msisdn,$name,$idno,$email,$address,$region,$town,$status){
         //Check if user exists for that group
         $contact_exists = $this->check_contact($msisdn);
-
         if(!$contact_exists){
             $data =  array(
                 'msisdn'=>$msisdn,
@@ -254,7 +253,8 @@ class Contacts_model extends CI_Model{
                 'email'=>$email,
                 'address'=>$address,
                 'region_id'=>$region,
-                'town_id'=>$town
+                'town_id'=>$town,
+                'status'=>$status
             );
             $this->db->set('created', 'NOW()', FALSE);
             $this->db->insert('contacts',$data);

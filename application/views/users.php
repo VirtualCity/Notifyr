@@ -8,8 +8,12 @@ if( $user_role === 'ADMIN'){
     $this->load->view('templates/navigation');
 }else if($user_role === 'SUPER_USER'){
     $this->load->view('templates/navigation_super_user');
-}else{
+}else if($user_role === 'USER'){
     $this->load->view('templates/navigation_user');
+}else if($user_role === 'MANAGER'){
+    $this->load->view('templates/navigation_manager');
+}else{
+    $this->load->view('templates/navigation_consumer');
 }
 ?>
 
@@ -54,7 +58,7 @@ if( $user_role === 'ADMIN'){
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Date Created</th>
-                                    <?Php if($user_role==="ADMIN"){ ?>
+                                    <?Php if($user_role==="MANAGER"){ ?>
                                         <th>Action</th>
                                     <?php } ?>
                                 </tr>
@@ -76,7 +80,7 @@ if( $user_role === 'ADMIN'){
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Date Created</th>
-                                    <?Php if($user_role==="ADMIN"){ ?>
+                                    <?Php if($user_role==="MANAGER"){ ?>
                                         <th>Action</th>
                                     <?php } ?>
                                 </tr>

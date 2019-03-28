@@ -15,18 +15,18 @@ class Newsms extends Admin_Controller {
 		$this -> load -> model('sms_model');
 		$this -> load -> model('sendsms_model');
 		$this -> load -> model('template_model');
-		 $this->load->helper('buttons_helper');
+		$this->load->helper('buttons_helper');
 	}
 
 	public function index() {
 		//check if user and redirect to dashboard
 		$role = $this -> session -> userdata('role');
-		if ($role === "USER") {
-			// Display message
-			$this -> session -> set_flashdata('appmsg', 'You are not allowed to access this function');
-			$this -> session -> set_flashdata('alert_type', 'alert-info');
-			redirect('dashboard');
-		}
+		// if ($role === "USER") {
+		// 	// Display message
+		// 	$this -> session -> set_flashdata('appmsg', 'You are not allowed to access this function');
+		// 	$this -> session -> set_flashdata('alert_type', 'alert-info');
+		// 	redirect('dashboard');
+		// }
 
 		// SET VALIDATION RULES
 		$this -> form_validation -> set_rules('msisdn', 'Mobile Number', 'required|numeric|exact_length[12]|callback_msisdn_check');
@@ -44,52 +44,68 @@ class Newsms extends Admin_Controller {
 
 			//Does it have valid form info (not empty values)
 			if ($this -> form_validation -> run()) {
-				//Send message
-				//$recipients = array('tel:' . $msisdn);
-				$recipients = array($msisdn);
-				$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
-				log_message("info", "Sending status: " . $msg_sent);
-
-				if ($msg_sent !== null) {
-					
-					$success = 0;
-					$failed = 0;
-					
-					//loop through the result if it contains more than one object and save each response
-					foreach ($msg_sent as $key => $value) {
-						if ($value->status == 'Success') {
-							$success++;
-							$status = 'Sent';
-							$phoneNumber = substr($value->number, 1);
-							$this -> sms_model -> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status);
-						}else{
-							$failed++;
-							log_message("info", "Sending status code: " . $value->Status);
-						}
-						
+				$smstype = 'Individual';
+				if ($role === "USER") {
+					$createdBy = $this->session->userdata('id');
+					$response = $this->sms_model->save_pending_bulk(null,$msisdn,$message,$createdBy,$smstype);
+					if(!$response){
+						$this->session->set_flashdata('appmsg',' Message to could not be saved!');
+						$this->session->set_flashdata('alert_type', 'alert-danger');
+						redirect('sms/newbulksms');
 					}
-
 					// Display success message
-					$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
-					$this -> session -> set_flashdata('alert_type', 'alert-success');
+					$this->session->set_flashdata('appmsg',' Message to saved successfully');
+					$this->session->set_flashdata('alert_type', 'alert-info');
+					redirect('sms/newbulksms');
+				}else{
 
-					//save sms
-					$userid = $this -> session -> userdata('id');
-					// $this -> sms_model -> save_sms($msisdn, "Individual", $message, $userid);
+					//Send message
+					//$recipients = array('tel:' . $msisdn);
+					$recipients = array($msisdn);
+					$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
+					log_message("info", "Sending status: " . $msg_sent);
 
-					redirect('sms/newsms');
-				} else {
-					// Display fail message
-					$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
-					$this -> session -> set_flashdata('alert_type', 'alert-danger');
-					redirect('sms/newsms');
+					if ($msg_sent !== null) {
+						
+						$success = 0;
+						$failed = 0;
+						
+						//loop through the result if it contains more than one object and save each response
+						foreach ($msg_sent as $key => $value) {
+							if ($value->status == 'Success') {
+								$success++;
+								$status = 'Sent';
+								$phoneNumber = substr($value->number, 1);
+								$this -> sms_model -> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status);
+							}else{
+								$failed++;
+								log_message("info", "Sending status code: " . $value->Status);
+							}
+							
+						}
+
+						// Display success message
+						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
+						$this -> session -> set_flashdata('alert_type', 'alert-success');
+
+						//save sms
+						$userid = $this -> session -> userdata('id');
+						// $this -> sms_model -> save_sms($msisdn, "Individual", $message, $userid);
+
+						redirect('sms/newsms');
+					} else {
+						// Display fail message
+						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
+						$this -> session -> set_flashdata('alert_type', 'alert-danger');
+						redirect('sms/newsms');
+					}
 				}
-
 			}
 		}
 
 		$data['msisdn'] = $msisdn;
 		$data['message'] = $message;
+		$data['templates']= $this->template_model->get_all_templates();
 
 		$data['user_role'] = $this -> session -> userdata('role');
 		$data['title'] = "New SMS";
@@ -123,7 +139,8 @@ public function templates()
 {
 	 $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "SMS Templates";
-         $data['mainContent']='sms/view_templates';
+		 $data['mainContent']='sms/view_templates';
+		//  $data['templates']= $this->template_model->get_all_templates();
         $this->load->view('templates/template', $data);
 }
 	public function smstemplate() {
@@ -135,6 +152,7 @@ public function templates()
 		$data['user_role'] = $this -> session -> userdata('role');
 		$data['title'] = "New SMS Template";
 		$data['is_edit']=false;
+		// $data['templates']= $this->template_model->get_all_templates();
 		
 		$data['mainContent'] = 'sms/smstemplate';
 

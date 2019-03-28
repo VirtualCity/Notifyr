@@ -21,6 +21,8 @@
     <ul class="nav nav-tabs ">
         <li class=""><a href="<?=base_url('contacts')?>" >Active Contacts</a></li>
         <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Contacts</h4></a></li>
+        <li class=""><a href="<?=base_url('contacts/submitted')?>" >Sumitted Contacts</a></li>
+        
     </ul>
 
     <div class="panel panel-primary tab-content">
@@ -47,7 +49,7 @@
                             <th>Region</th>
                             <th>Town</th>
                             <th>Date Created</th>
-                            <?Php if($user_role!=="USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                             <th>Action</th>
                             <?Php  } ?>
 
@@ -96,7 +98,7 @@
             { "data": "region"},
             { "data": "town"},
             { "data": "created"}
-            <?Php if($user_role==="ADMIN"){ ?>
+            <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"searchable": false }
                 <?Php  } ?>

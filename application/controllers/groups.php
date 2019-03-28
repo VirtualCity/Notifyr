@@ -352,7 +352,7 @@ class Groups extends MY_Controller{
                                 $townId = $this->towns_m->getAddTownId($town,$regionId);
                                 //Add to contacts list $msisdn,$name,$idno,$email,$address,$region,$town
                                 $saved = $this->contacts_model->create_contact($mobile,substr($name,0,50),
-                                    substr($idno,0,30),substr($email,0,50),substr($address,0,100),$regionId,$townId);
+                                    substr($idno,0,30),substr($email,0,50),substr($address,0,100),$regionId,$townId,"ACTIVE");
                             }else{
                                 if($notAdded !=""){
                                     $notAdded = $notAdded.' | '.$mobile;

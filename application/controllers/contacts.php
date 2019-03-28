@@ -39,6 +39,17 @@ class Contacts extends MY_Controller{
         echo $this->datatables->generate();
     }
 
+    function submittedContacts(){
+        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region,contacts.created as created')
+            ->unset_column('id')
+            ->add_column('actions', get_suspended_contacts_buttons('$1'), 'id')
+            ->join('regions','contacts.region_id = regions.id','left')
+            ->join('towns','contacts.town_id = towns.id','left')
+            ->from('contacts')
+			->where('status','SUBMITTED');
+        echo $this->datatables->generate();
+    }
+
 	function suspended(){
 
         $data['user_role'] = $this->session->userdata('role');
@@ -46,10 +57,15 @@ class Contacts extends MY_Controller{
 
         $data['mainContent']='contacts/view_suspended_contacts';
         $this->load->view('templates/template',$data);
+    }
 
-    
+    function submitted(){
 
-       
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Submitted Contacts";
+
+        $data['mainContent']='contacts/view_submitted_contacts';
+        $this->load->view('templates/template',$data);
     }
 
     function datatable2(){
@@ -187,6 +203,8 @@ class Contacts extends MY_Controller{
         $idno="";
         $id_number='';
 
+        $role = $this->session->userdata('role');
+
         // has the form been submitted
         if($this->input->post()){
             $msisdn = $this->input->post('msisdn');
@@ -212,7 +230,14 @@ class Contacts extends MY_Controller{
 
                 }else{
                     //Save new contact
-                    $saved = $this->contacts_model->create_contact($msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id);
+                    $status = NULL;
+                    if ($role === "USER") {
+                        $status = "SUBMITTED";
+                    }else{
+                        $status = "ACTIVE";
+                    }
+
+                    $saved = $this->contacts_model->create_contact($msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id,$status);
                    // $saved = $this->contacts_model->add_group_contacts($group_id, $msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id);
 
                     if($saved){
@@ -255,8 +280,6 @@ class Contacts extends MY_Controller{
         $data['mainContent']='contacts/add';
         $this->load->view('templates/template',$data);
     }
-
-   
 
     function edit($id=null){
 
@@ -344,10 +367,6 @@ class Contacts extends MY_Controller{
 
         redirect('contacts');
     }
-
-    
-
-    
 
     function activate($id){
         $contact = $this->contacts_model->get_contact($id);

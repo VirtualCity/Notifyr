@@ -38,6 +38,23 @@
 
                     </div>
 
+                    <div class="col-md-12 col-xs-12">
+                        	<label>Select Template</label>
+                        	<div >
+                                <select name="template" id="template_id" class="form-control" >
+                                    <option value="">---Please Select Template---</option>
+                                    <?php
+                                    if(count($templates)>0){
+                                        foreach($templates as $row) { ?>
+                                        <option value="<?=$row->id?>"  template="<?=$row->template?>"  title="<?=$row->title?>"><?=$row->title?></option>
+                                        <?php   }
+                                    }else{
+                                        echo "No templates found.";
+                                    } ?>
+                                </select>                             
+                            </div>
+                    </div>
+
 
                     <div class="col-md-12 col-xs-12">
                         <label>Message </label><span class="text-danger"> *</span>
@@ -52,6 +69,12 @@
 
                     <p id="msgNum">0 Message(s)</p>
                     <script type="text/JavaScript">
+
+                    $("#template_id").change(function(){
+                        var template= $("#template_id option:selected").attr("template");
+                        $("#message").val(template);
+                    }); 
+
                     function countChars(obj){
                         var maxLength = 480;
                         var singleMessageSize = 160;
@@ -70,6 +93,22 @@
                         }
 
                     }
+
+                    // $(document).ready(function() {
+                    //     $.ajax({
+                    //         url:  <?php echo base_url('contacts/datatable')?>,
+                    //         type: "GET",
+                    //         dataType: "json",
+                    //         success:function(data) {
+                    //             $('#msisdn_').empty();
+                    //             $.each(data, function(key, value) {
+                    //                 $('#msisdn_').append(value.msisdn);
+                    //             });
+                            
+                    //             $(".ms-parent").removeAttr("style");
+                    //         },
+                    //     });
+                    // });
                     </script>
 
                     <!-- ------------------------------------------------------------------ -->
