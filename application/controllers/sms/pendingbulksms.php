@@ -23,7 +23,7 @@ class Pendingbulksms extends Admin_Controller {
     public function index()
     {
         $role = $this->session->userdata('role');
-        // if ($role === "USER") {
+        // if ($role === "SUPER_USER" || $role === "ADMIN") {
         //     // Display message
         //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
         //     $this->session->set_flashdata('alert_type', 'alert-info');
@@ -36,37 +36,63 @@ class Pendingbulksms extends Admin_Controller {
         $this->load->view('templates/template',$data);
     }
 
+    //PENDING BULK
     function datatable(){
-        $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status, users.username as createdby')
-        // $this->datatables->select('id,groups_id as group,status,created_by as createdby')
+        $id = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+        if ($role === "USER") {
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status, users.username as createdby')
+            ->unset_column('id')
+            ->add_column('actions', get_pending_sms_buttons('$1'), 'id')
+            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->join('users','pending_sms.created_by = users.id','left')
+            ->from('pending_sms')
+            ->where('pending_sms.status',0)
+            ->where('pending_sms.created_by',$id);
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status, users.username as createdby')
             ->unset_column('id')
             ->add_column('actions', get_pending_sms_buttons('$1'), 'id')
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.created_by = users.id','left')
             ->from('pending_sms')
 			->where('pending_sms.status',0);
-        echo $this->datatables->generate();
+            echo $this->datatables->generate();
+        }
     }
 
+    //
     function approvedbulk(){
-
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Approved SMS";
-
         $data['mainContent']='sms/approvedbulksms';
         $this->load->view('templates/template',$data);
- 
     }
 
+    //APPROVED BULK
     function datatable2(){
-        $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status,users.username as approvedby')
-        // $this->datatables->select('id,groups_id as group,status,created_by as createdby')
+        $id = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+
+        if ($role === "USER") {
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status,users.username as approvedby')
             ->unset_column('id')
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
-			->where('pending_sms.status',1);
-        echo $this->datatables->generate();
+            ->where('pending_sms.status',1)
+            ->where('pending_sms.created_by',$id);
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status,users.username as approvedby')
+            ->unset_column('id')
+            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->join('users','pending_sms.approved_by = users.id','left')
+            ->from('pending_sms')
+            ->where('pending_sms.status',1);
+            echo $this->datatables->generate();
+        }
     }
 
     //approve the bulk sms
