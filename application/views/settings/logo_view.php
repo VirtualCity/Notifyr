@@ -5,7 +5,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Agrimanagr SMS Services Settings</li>
+            <li class="active">Logo Image Upload</li>
         </ol>
     </div>
 
@@ -25,12 +25,12 @@
           <?php if ($this->session->userdata('role')!=="USER"): ?>
               <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
                   <li ><a  href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
-                  <li class="active"><a data-toggle="tab"  href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
+                  <li ><a data-toggle="tab"  href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
               <?php endif ?>
               <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
           <?php endif ?>
           <?php if ($this->session->userdata('role')==="ADMIN"): ?>
-            <li><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
+            <li class="active"><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
           <?php endif ?>
       </ul>
 
@@ -44,24 +44,17 @@
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                 </div>
-                <h4 class="panel-title">SDP Configuration Settings</h4>
+                <h4 class="panel-title">Logo Upload</h4>
             </div>
             <div class="panel-body">
-             <form action="<?=base_url('settings/services')?>" method="post" class="form-horizontal">
 
-              <div class="col-md-12 col-xs-12">
-                <label > Cummulative Service URL  </label><span class="text-danger"> *</span>
-                <input type="text" name="qservice" id="qservice" placeholder="Service URL" class="form-control" value="<?=$qservice?>"/>
-
-                <span class="text-danger"> <?php echo form_error('qservice'); ?> </span>
-            </div>     
-            <hr class="field-separator">
-            <div class="col-md-12 col-xs-12">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
-
+            <?php echo form_open_multipart('settings/logo/doUpload');?>
+            <?php echo "<label > File to Upload (png not more than 2MB)  </label><span class='text-danger'> *</span>";?>
+            <?php echo "<input class='form-control' type='file' required name='logo' size='20' />"; ?>
+            <?php echo "<input class='btn btn-primary' type='submit' name='submit' value='upload' /> ";?>
+            <?php echo "</form>"?> 
+                
             </div>
-        </form>
-    </div>
 </div>
 </div>
 

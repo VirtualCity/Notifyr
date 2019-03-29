@@ -29,6 +29,9 @@
             <?php endif ?>
             <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
         <?php endif ?>
+        <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+            <li><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
+          <?php endif ?>
     </ul>
 
     <div class="panel tab-content col-md-10">

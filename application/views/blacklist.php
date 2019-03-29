@@ -36,7 +36,7 @@
 
                                 <th>Mobile Number</th>
                                 <th>Date Blacklisted</th>
-                                <?Php if($user_role!=="USER"){ ?>
+                                <?Php if($user_role==="MANAGER"){ ?>
                                 <th>Action</th>
                                 <?Php  } ?>
 
@@ -72,7 +72,7 @@
                 aoColumns: [
                 { "mData": "msisdn","bSearchable": true,"bSortable": true },
                 { "mData": "created","bSearchable": true,"bSortable": true}
-                <?Php if($user_role!=="USER"){ ?>
+                <?Php if($user_role==="MANAGER"){ ?>
                     ,
                     { "mData": "actions","bSearchable": false,"bSearchable": false }
                     <?Php  } ?>

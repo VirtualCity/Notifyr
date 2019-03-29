@@ -14,7 +14,7 @@
 				<li class="nav-header">Navigation</li>
 				<li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
-                <li class="has-sub">
+                 <li class="has-sub">
                     <a href="javascript:;">
                         <b class="caret pull-right"></b>
                         <i class="fa fa-group"></i>
@@ -33,7 +33,6 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('groups')?>">View Groups</a></li>
-                        <li><a href="<?=base_url('groups/import')?>">Import to Group</a></li>
 					</ul>
 				</li>
 
@@ -80,8 +79,6 @@
                     </a>
                     <ul class="sub-menu">
                         <li><a href="<?=base_url('blacklist')?>">View Blacklist</a></li>
-                        <li><a href="<?=base_url('addblacklist')?>">Blacklist Number</a></li>
-
                     </ul>
                 </li>
 
@@ -93,7 +90,6 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('products')?>">View Products</a></li>
-                        <li><a href="<?=base_url('products/import')?>">Import Products</a></li>
 					</ul>
 				</li>
 
@@ -105,7 +101,6 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('towns')?>">View Towns</a></li>
-                        <li><a href="<?=base_url('towns/import')?>">Import Towns</a></li>
 					</ul>
 				</li>
 
@@ -117,50 +112,30 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('regions')?>">View Regions</a></li>
-						<li><a href="<?=base_url('regions/import')?>">Import Regions</a></li>
+					</ul>
+				</li>
+				
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-circle-o"></i>
+						<span>Supervisors</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('supervisors')?>">View Supervisors</a></li>
 					</ul>
 				</li>
 
-				<?php if ($this->session->userdata('role')!=="USER"): ?>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret pull-right"></b>
-							<i class="fa fa-circle-o"></i>
-							<span>Supervisors</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="<?=base_url('supervisors')?>">View Supervisors</a></li>
-							<li><a href="<?=base_url('supervisors/add')?>">Add Supervisor</a></li>
-							<?php if ($this->session->userdata('role')==="MANAGER"): ?>
-
-								<li><a href="<?=base_url('supervisors/import')?>">Import Supervisor</a></li>
-							<?php endif ?>
-
-
-						</ul>
-					</li>
-
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret pull-right"></b>
-							<i class="fa fa-circle"></i>
-							<span>Managers</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="<?=base_url('managers')?>">View Managers</a></li>
-							<li><a href="<?=base_url('managers/add')?>">Add Manager</a></li>
-							<?php if ($this->session->userdata('role')==="MANAGER"): ?>
-
-								<li><a href="<?=base_url('managers/import')?>">Import Managers</a></li>
-							<?php endif ?>
-
-						</ul>
-					</li>
-
-				<?php endif ?>
-
-
-
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-circle"></i>
+						<span>Managers</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('managers')?>">View Managers</a></li>
+					</ul>
+				</li>
 				<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 			</ul>
 		</div>
