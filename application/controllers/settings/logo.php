@@ -26,49 +26,7 @@ class Logo extends MY_Controller{
         // SET VALIDATION RULES
         $this->form_validation->set_rules('logo', 'Logo Upload', 'required');
 
-        // has the form been submitted
-        if($this->input->post()){
-            if($this->form_validation->run()){
-
-            $logoImage = $this->input->post('logo');
-            $config = array(
-                'upload_path' => "./uploads/",//"./assets/v2/img/",//./uploads/
-                'allowed_types' => "gif|jpg|png|jpeg|pdf",
-                'overwrite' => TRUE,
-                'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
-                'max_height' => "54",
-                'max_width' => "230"
-                );
-                $this->load->library('upload', $config);
-                
-                if($this->upload->do_upload())
-                {
-                    
-                    $data = array('upload_data' => $this->upload->data());
-                    // Display success message
-                    print_r($data);
-                    return;
-                    $this->session->set_flashdata('appmsg', 'Logo uploaded successfully! ' + $data);
-                    $this->session->set_flashdata('alert_type', 'alert-success');
-                    redirect('settings/logo');
-                }
-                else
-                {
-                    $error = array('error' => $this->upload->display_errors());
-                    // Display fail message
-                    print_r($error);
-                    return;
-                    $this->session->set_flashdata('appmsg', 'Logo Failed to upload: ');
-                    $this->session->set_flashdata('alert_type', 'alert-danger');
-                    redirect('settings/logo');
-                } 
-            
-            }else{
-                $this->session->set_flashdata('appmsg', 'You did not select any file');
-                $this->session->set_flashdata('alert_type', 'alert-warning');
-                redirect('settings/logo');
-            }
-            }
+    
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Logo Upload";
@@ -101,11 +59,9 @@ class Logo extends MY_Controller{
                 'upload_path' => "./assets/v2/img",
                 'allowed_types' => "png",
                 'overwrite' => TRUE,
-                'max_size' => "2048000" // Can be set to particular file size , here it is 2 MB(2048 Kb)
-                // 'max_height' => "54",
-                // 'max_width' => "230",
-                // 'min_height' => "50",
-                // 'min_width' => "225"
+                'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+                'min_height' => "50",
+                'min_width' => "225"
                 );
                 // $this->upload->initialize($config)
                 $this->load->library('image_lib');
@@ -132,10 +88,6 @@ class Logo extends MY_Controller{
                     $this->image_lib->clear();
                     $this->image_lib->initialize($configer);
                     $this->image_lib->resize();
-
-                    // $data = array('upload_data' => $this->upload->data());
-                    print_r($image_data);
-                    return;
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Logo uploaded successfully! ');
                     $this->session->set_flashdata('alert_type', 'alert-success');
