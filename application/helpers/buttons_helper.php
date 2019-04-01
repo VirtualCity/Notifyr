@@ -11,6 +11,8 @@ function get_view_products_buttons($id){
     $ci = & get_instance();
     $html = '<span class="actions">';
     $html .= '<a href="' . base_url() . 'products/edit/' . $id . '">&nbsp; Edit</a>';
+    $html .= '&nbsp; | &nbsp;';
+    $html .= '<a href="' . base_url() . 'products/delete/' . $id . '"> Delete</a>';
     $html .= '</span>';
 
     return $html;
