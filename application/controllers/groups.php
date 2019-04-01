@@ -416,7 +416,7 @@ class Groups extends MY_Controller{
             
             //file path
             $filePath = 'uploads/templates/';
-            $fileName = 'import_to_group.csv';
+            $fileName = 'contacts_import.xlsx';
             $data = file_get_contents($filePath.$fileName);
             force_download($fileName, $data);
             redirect('groups/import');

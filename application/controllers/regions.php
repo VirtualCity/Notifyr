@@ -320,7 +320,7 @@ class Regions extends Admin_Controller{
         
         //file path
         $filePath = 'uploads/templates/';
-        $fileName = 'import_to_group.csv';
+        $fileName = 'regions_import.xlsx';
         $data = file_get_contents($filePath.$fileName);
         force_download($fileName, $data);
         redirect('regions/import');

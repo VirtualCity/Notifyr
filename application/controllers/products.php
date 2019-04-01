@@ -350,7 +350,7 @@ class Products extends Admin_Controller{
         
         //file path
         $filePath = 'uploads/templates/';
-        $fileName = 'import_to_group.csv';
+        $fileName = 'products_import.xlsx';
         $data = file_get_contents($filePath.$fileName);
         force_download($fileName, $data);
         redirect('products/import');
