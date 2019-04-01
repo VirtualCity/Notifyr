@@ -26,6 +26,9 @@
                          
                     </div>
                     <h4 class="panel-title">View Products</h4>
+                    <?Php if($user_role==="MANAGER"){ ?>
+                    <li><a href="<?=base_url('products/deleteAll')?>" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Delete All Products</a></li>
+                    <?Php  } ?>
                 </div>
                 <div class="panel-body">
                    

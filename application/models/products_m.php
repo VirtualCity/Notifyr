@@ -140,4 +140,30 @@ class Products_m extends CI_Model{
             return false;
         }
     }
+
+    function delete_product($id){
+        $data = array(
+            'status'=>'SUSPENDED'
+        );
+        $this->db->where('id', $id);
+        // $query = $this->db->update('products', $data);
+        $query = $this->db->delete('products');
+
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function truncate_product(){
+        $this->db->from('products'); 
+        $query = $this->db->truncate();
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+        // $this->db->truncate('products');
+    }
 }

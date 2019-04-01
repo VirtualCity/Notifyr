@@ -108,6 +108,51 @@ class Products extends Admin_Controller{
        
     }
 
+    function delete($id=null){
+        if(!empty($id)){
+            //retrieve the msisdn for the recipient
+            $to_delete = $this->products_m->get_product($id);
+
+            //check if resource exist
+            if ($to_delete === false) {
+                $this->session->set_flashdata('appmsg', 'Error encountered! The Resource Was Not Found');
+                $this->session->set_flashdata('alert_type', 'alert-warning');
+                redirect('products');
+            }
+
+            //delete the product (status change)
+            $deleted = $this->products_m->delete_product($id);
+            if($deleted){
+                $this->session->set_flashdata('appmsg', 'Product Deleted successfully');
+                $this->session->set_flashdata('alert_type', 'alert-success');
+                redirect('products');
+            }
+            
+        }else{
+            //return fail. distributor code already in use
+            $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
+            $this->session->set_flashdata('alert_type', 'alert-warning');
+            redirect('products');
+        }
+       
+    }
+
+    function deleteAll(){
+            //retrieve the msisdn for the recipient
+            $truncated = $this->products_m->truncate_product();
+
+            //check if resource exist
+            if ($truncated === false) {
+                $this->session->set_flashdata('appmsg', 'Error encountered! Products Could Not Be Deleted');
+                $this->session->set_flashdata('alert_type', 'alert-warning');
+                redirect('products');
+            }
+            $this->session->set_flashdata('appmsg', 'Products Deleted successfully');
+            $this->session->set_flashdata('alert_type', 'alert-success');
+            redirect('products');
+       
+    }
+
     function modify(){
         // SET VALIDATION RULES
 
