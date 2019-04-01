@@ -113,8 +113,7 @@
 
 				<?php endif ?>
 
-
-
+				<li><a href="<?=base_url('password')?>"><i class="fa fa-cogs"></i> Settings</a></li>
 				<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 			</ul>
 		</div>

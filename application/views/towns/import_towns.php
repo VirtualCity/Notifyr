@@ -33,24 +33,26 @@
                 </div>
                 <div class="panel-body">
                  <form action="<?=base_url('towns/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
-
-                     <div class="col-md-12 col-xs-12">
-                        <label >Select File To Import: </label>
-                        <span class="text-danger"> *</span>
-                        <input type="file" class="form-control" name="userfile" id="userfile"/>
-
-
-                        <span class="text-danger"> <?php echo form_error('town'); ?> </span>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <label >Select File To Import: </label>
+                            <span class="text-danger"> *</span>
+                            <input type="file" required class="form-control" name="userfile" id="userfile"/>
+                            <span class="text-danger"> <?php echo form_error('town'); ?> </span>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <label >Download template to use : </label><br>
+                            <a href="<?php echo base_url().'towns/download'; ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</a>
+                        </div>
                     </div>
-
-                    
-
 
                     <div class="col-md-12 col-xs-12">
                         <br>
                         <br>
                         <br>
                         <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                        <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+
                     </div>
 
                 </form>
@@ -84,7 +86,7 @@
 <!-- end #content -->
 
 
-<div id="importModal" class="modal  fade" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="importTownModal" class="modal  fade" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header blue">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
         <h3 id="myModalLabel">Importing Data</h3>
@@ -106,7 +108,7 @@
 
 <script type="text/javascript">
     function checkFile(){
-        jQuery('#importModal').modal('show');
+            jQuery('#importTownModal').modal('show');
     }
 </script>
 

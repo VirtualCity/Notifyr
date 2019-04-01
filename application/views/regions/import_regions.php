@@ -32,12 +32,16 @@
                     <?php //echo $status->message; ?>
                     <form action="<?=base_url('regions/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
 
-                        <div class="form_row">
-                            <label for="userfile" class="field_name align_right lblBold">Select File To Import:</label>
-                            <div class="field">
-                                <input type="file" name="userfile" id="userfile"/>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <label >Select File To Import: </label>
+                                <span class="text-danger"> *</span>
+                                <input required type="file" class="form-control" name="userfile" id="userfile"/>
                             </div>
-
+                            <div class="col-md-6 col-xs-6">
+                                <label >Download template to use : </label><br>
+                                <a href="<?php echo base_url().'regions/download'; ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</a>
+                            </div>
                         </div>
 
                         <hr class="field-separator">
@@ -50,6 +54,8 @@
                                 <br>
                                 <br>
                                 <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                                <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+
                             </div>
                         </div>
                     </div>
@@ -85,7 +91,7 @@
 </div>
 
 
-<div class="modal fade" id="importModal">
+<div class="modal fade" id="importRegionModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,7 +118,7 @@
 
     <script type="text/javascript">
         function checkFile(){
-            jQuery('#importModal').modal('show');
+            jQuery('#importRegionModal').modal('show');
         }
     </script>
 

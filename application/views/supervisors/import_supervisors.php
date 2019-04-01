@@ -34,13 +34,17 @@
                 <div class="panel-body">
                     <form action="<?=base_url('supervisors/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
 
-                       <div class="col-md-12 col-xs-12">
-                        <label >Select File To Import: </label>
-                        <span class="text-danger"> *</span>
-                        <input type="file" class="form-control" name="userfile" id="userfile"/>
-
-
-                        <span class="text-danger"> <?php echo form_error('town'); ?> </span>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <label >Select File To Import: </label>
+                            <span class="text-danger"> *</span>
+                            <input type="file" required class="form-control" name="userfile" id="userfile"/>
+                            <span class="text-danger"> <?php echo form_error('town'); ?> </span>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <label >Download template to use : </label><br>
+                            <a href="<?php echo base_url().'supervisors/download'; ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</a>
+                        </div>
                     </div>
 
                     
@@ -51,6 +55,8 @@
                         <br>
                         <br>
                         <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                        <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+
                     </div>
                 </form>
 

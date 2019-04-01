@@ -448,5 +448,16 @@ class Supervisors extends Admin_Controller{
         }
     }
 
+    public function download(){
+        //load download helper
+        $this->load->helper('download');
+        
+        //file path
+        $filePath = 'uploads/templates/';
+        $fileName = 'import_to_group.csv';
+        $data = file_get_contents($filePath.$fileName);
+        force_download($fileName, $data);
+        redirect('supervisors/import');
+    }
 
 }

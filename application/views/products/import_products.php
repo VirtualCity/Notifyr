@@ -30,11 +30,16 @@
                 <div class="panel-body">
                  <form action="<?=base_url('products/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
 
-                    <div class="col-md-12 col-xs-12">
-                        <label>Select File To Import:</label><span class= "text-danger"> *</span>
-
-                        <input type="file" class="form-control" name="userfile" id="userfile"/>
-
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <label >Select File To Import: </label>
+                            <span class="text-danger"> *</span>
+                            <input required type="file" class="form-control" name="userfile" id="userfile"/>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <label >Download template to use : </label><br>
+                            <a href="<?php echo base_url().'products/download'; ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</a>
+                        </div>
                     </div>
 
                     <hr class="field-separator">
