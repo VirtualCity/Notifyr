@@ -103,11 +103,11 @@
                                       <select name="town_id" id="town_id" class="form-control" >
                                           <option value="">---Please Select Town---</option>
                                           <?php
-                                          if(!empty($towns)){
-                                              foreach($towns as $row) { ?>
-                                                  <option value="<?=$row->id?>"><?=$row->name?></option>
-                                              <?php   }
-                                          } ?>
+                                          //if(!empty($towns)){
+                                             // foreach($towns as $row) { ?>
+                                                  <!-- <option value="<?//=$row->id?>"><?//=$row->name?></option> -->
+                                              <?php  // }
+                                         // } ?>
                                       </select>
 
                                       <span class="text-danger"> <?php echo form_error('town_id'); ?> </span>
@@ -131,3 +131,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+    $(document).ready(function() {
+        $('select[name="region_id"]').on('change', function() {
+            var regionId = $(this).val();
+            var base='<?php echo base_url(); ?>';
+            if(regionId) {
+                $.ajax({
+                    url:  base + 'towns/getTownByRegion/'+regionId,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('#town_id').empty();
+                        $('#town_id').append('<option value="" selected>---Please Select Town---</option>');
+                        
+                        $.each(data, function(key, value) {
+                            $('#town_id').append('<option value="'+ value.id +'" selected> '+ value.name +'</option>');
+                        });
+                        $(".ms-parent").removeAttr("style");
+                    },
+                });
+            }else{
+                $('#town_id').empty();
+            }
+        });
+
+        
+    });
+    
+</script>

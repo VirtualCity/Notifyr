@@ -439,6 +439,24 @@ class Towns extends Admin_Controller{
         }
     }
 
+    function getTownByRegion($id=null){
+
+        if(!empty($id)){
+            //retrieve town to edit
+            $towns = $this->towns_m->get_towns_by_regionId($id);
+            if ($towns === false) {
+                return null;
+            }
+            echo json_encode($towns);
+        }else{
+            // No town id specified
+            $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
+            $this->session->set_flashdata('alert_type', 'alert-danger');
+            redirect('towns');
+        }
+
+    }
+
     public function download(){
         //load download helper
         $this->load->helper('download');

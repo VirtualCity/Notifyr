@@ -163,6 +163,18 @@ class Towns_m extends CI_Model{
         }
     }
 
+    function get_towns_by_regionId($region){
+        $this->db->select('id,name');
+        $this->db->where('region_id',$region);
+        $this->db->from('towns');
+        $query = $this -> db -> get();
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return false;
+        }
+    }
+
     function get_towns_by_region($region){
         $this->db->select('id,name');
         $this->db->where('region_id',$region);
