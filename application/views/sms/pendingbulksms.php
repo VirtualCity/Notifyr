@@ -99,7 +99,7 @@ jQuery(document).ready(function(){
         { "data": "contacts",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                     if (sData.length > 12) {
-                        $(nTd).addClass('text-left').html('Group Contacts');
+                        $(nTd).addClass('text-left').html('[Group Contacts]');
                     }
                 } 
         },
