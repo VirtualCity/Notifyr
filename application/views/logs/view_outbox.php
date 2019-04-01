@@ -5,7 +5,7 @@
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="javascript:;"><i class="fa fa-comments"></i> SMS Logs</a></li>
-            <li class="active">SMS Outbox Log</li>
+            <li class="active">SMS Sent Log</li>
         </ol>
     </div>
 
@@ -29,7 +29,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>
-                    <h4 class="panel-title">SMS Outbox</h4>
+                    <h4 class="panel-title">SMS Sent</h4>
                 </div>
                 <div class="panel-body">
                  <table class="table table-striped table-bordered table-hover datatable" width="100%" cellspacing="0" id="example">
@@ -48,7 +48,7 @@
 
                 </table>
             </div>
-            <div class="panel-footer">SMS Outbox</div>
+            <div class="panel-footer">SMS Sent</div>
         </div>
     </div>
 </div>

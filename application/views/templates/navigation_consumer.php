@@ -112,7 +112,7 @@
 						</a>
 						<ul class="sub-menu">
 							<li><a href="<?=base_url('logs/inbox')?>">SMS Inbox log</a></li>
-							<li><a href="<?=base_url('logs/outbox')?>">Outbox log</a></li>
+							<li><a href="<?=base_url('logs/outbox')?>">SMS Sent log</a></li>
 							<li><a href="<?=base_url('logs/autoreplies')?>">Autoreply log</a></li>
 
 						</ul>
