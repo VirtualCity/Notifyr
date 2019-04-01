@@ -61,7 +61,7 @@
  
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        jQuery('#example').DataTable({
+    var iTable = jQuery('#example').DataTable({
             "processing": true,
             "serverSide": true,
             "scrollCollapse": true,
@@ -86,7 +86,7 @@
                 { "data": "status" },
                 { "data": "created"}
             ],
-            "order": [[ 5, "desc" ]],
+            "order": [[ 6, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
             },
@@ -95,6 +95,8 @@
                 "type": "POST"
             }
         });
+
+        // iTable.fnSort( [ [6,'desc'] ] );
     });
 
 </script> 

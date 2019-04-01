@@ -36,9 +36,9 @@
                             <th>Group Name</th>
                             <th>Description</th>
                             <th>Date Created</th>
-                            <?Php //if($user_role!=="USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                                 <th>Action</th>
-                            <?Php // } ?>
+                            <?Php  } ?>
 
                         </tr>
                         </thead>
@@ -54,7 +54,7 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        jQuery('#example').dataTable({
+        var gTable = jQuery('#example').dataTable({
             "processing": true,
             "serverSide": true,
             "scrollCollapse": true,
@@ -74,10 +74,10 @@
                 { "data": "name"},
                 { "data": "description"},
                 { "data": "created"}
-                <?Php //if($user_role!=="USER"){ ?>
+                <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"searchable": false }
-                <?Php  //} ?>
+                <?Php  } ?>
             ],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
@@ -87,6 +87,8 @@
                 "type": "POST"
             }
         });
+
+        gTable.fnSort( [ [2,'desc'] ] );
     });
 
 </script> 

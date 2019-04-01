@@ -87,7 +87,7 @@
                 { "data": "created"}
 
                 ],
-                "order": [[ 5, "desc" ]],
+                "order": [[ 6, "desc" ]],
                 "oLanguage": {
                     "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
                 },

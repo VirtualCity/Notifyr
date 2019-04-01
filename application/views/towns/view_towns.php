@@ -83,6 +83,7 @@
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>
             ],
+            "order": [[ 4, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },

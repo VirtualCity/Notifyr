@@ -42,10 +42,12 @@ if(!empty($appmsg)){ ?>
                 <thead>
                     <tr>
                         <th>group</th>
+                        <th>contacts</th>
                         <th>message</th>
                         <th>status</th>
+                        <th>date creted</th>
                         <th>creted by</th>
-                        <?Php if($user_role!=="USER"){ ?>
+                        <?Php if($user_role==="MANAGER"){ ?>
                         <th>Action</th>
                         <?Php  } ?>
 
@@ -69,7 +71,7 @@ if(!empty($appmsg)){ ?>
 
 <script type="text/javascript">
 jQuery(document).ready(function(){
-    jQuery('#example1').dataTable({
+    var oTable = jQuery('#example1').dataTable({
         "processing": true,
         "serverSide": true,
         "scrollCollapse": true,
@@ -90,9 +92,16 @@ jQuery(document).ready(function(){
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
 
                    if (sData == null) {
-                         $(nTd).addClass('text-left').html('None (Individual)');
+                         $(nTd).addClass('text-left').html('Individual');
                    }
                 }  
+        },
+        { "data": "contacts",
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    if (sData.length > 12) {
+                        $(nTd).addClass('text-left').html('Group Contacts');
+                    }
+                } 
         },
         { "data": "message"},
         { "data": "status",
@@ -105,6 +114,7 @@ jQuery(document).ready(function(){
                    }
                 }  
         },
+        { "data": "datecreated"},
         { "data": "createdby"}
         <?Php if($user_role==="MANAGER"){ ?>
             ,
@@ -119,6 +129,8 @@ jQuery(document).ready(function(){
                 "type": "POST"
             }
         });
+
+        oTable.fnSort( [ [4,'desc'] ] );
 });
 
 </script>

@@ -28,8 +28,9 @@ class Contacts extends MY_Controller{
 
     }
 
+    //active contacts
     function datatable(){
-        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region')
+        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region, contacts.created as created')
             ->unset_column('id')
             ->add_column('actions', get_active_contacts_buttons('$1'), 'id')
             ->join('regions','contacts.region_id = regions.id','left')
@@ -39,6 +40,7 @@ class Contacts extends MY_Controller{
         echo $this->datatables->generate();
     }
 
+    // submitted contacts
     function submittedContacts(){
         $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region,contacts.created as created')
             ->unset_column('id')
@@ -215,6 +217,9 @@ class Contacts extends MY_Controller{
             $region_id = $this->input->post('region_id');
             $town_id = $this->input->post('town_id');
             $group_id = $this->input->post('group_id');
+
+            // print_r($this->input->post());
+            // return;
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){

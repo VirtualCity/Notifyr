@@ -41,7 +41,7 @@ class Pendingbulksms extends Admin_Controller {
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
         if ($role === "USER") {
-            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status, users.username as createdby')
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status, users.username as createdby, pending_sms.created as datecreated')
             ->unset_column('id')
             ->add_column('actions', get_pending_sms_buttons('$1'), 'id')
             ->join('groups','pending_sms.group_id = groups.id','left')
@@ -51,7 +51,7 @@ class Pendingbulksms extends Admin_Controller {
             ->where('pending_sms.created_by',$id);
             echo $this->datatables->generate();
         }else{
-            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status, users.username as createdby')
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status, users.username as createdby, pending_sms.created as datecreated')
             ->unset_column('id')
             ->add_column('actions', get_pending_sms_buttons('$1'), 'id')
             ->join('groups','pending_sms.group_id = groups.id','left')
@@ -76,7 +76,7 @@ class Pendingbulksms extends Admin_Controller {
         $role = $this->session->userdata('role');
 
         if ($role === "USER") {
-            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status,users.username as approvedby')
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, pending_sms.updated as dateapproved')
             ->unset_column('id')
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.approved_by = users.id','left')
@@ -85,7 +85,7 @@ class Pendingbulksms extends Admin_Controller {
             ->where('pending_sms.created_by',$id);
             echo $this->datatables->generate();
         }else{
-            $this->datatables->select('pending_sms.id as id,groups.name as groupname,pending_sms.message as message,pending_sms.status as status,users.username as approvedby')
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, , pending_sms.updated as dateapproved')
             ->unset_column('id')
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.approved_by = users.id','left')

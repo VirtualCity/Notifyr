@@ -50,7 +50,7 @@
                                   <div class="col-md-12 col-xs-12">
                                       <label for="name" class="field_name align_right lblBold">ID Number </label>
                                       <div >
-                                          <input  type="text" name="id_number" id="id_number"  class="form-control" value="<?=$id_number?>"/>
+                                          <input  type="text" name="idno" id="id_number"  class="form-control" value="<?=$id_number?>"/>
                                       </div>
                                   </div>
 

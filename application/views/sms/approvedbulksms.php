@@ -42,8 +42,11 @@ if(!empty($appmsg)){ ?>
                 <thead>
                     <tr>
                         <th>group</th>
+                        <th>contacts</th>
                         <th>message</th>
                         <th>status</th>
+                        <th>date created</th>
+                        <th>date approved</th>
                         <th>approved by</th>
                     </tr>
                 </thead>
@@ -65,7 +68,7 @@ if(!empty($appmsg)){ ?>
 
 <script type="text/javascript">
 jQuery(document).ready(function(){
-    jQuery('#example2').dataTable({
+    var oTable1 = jQuery('#example2').dataTable({
         "processing": true,
         "serverSide": true,
         "scrollCollapse": true,
@@ -81,17 +84,27 @@ jQuery(document).ready(function(){
             "aButtons": [ "copy", "csv","xls","pdf" ]
         },
         columns: [
-        { "data": "groupname"},
+        { "data": "groupname",
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+
+                   if (sData == null) {
+                         $(nTd).addClass('text-left').html('Individual');
+                   }
+                }
+        },
+        { "data": "contacts"},
         { "data": "message"},
         { "data": "status",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                   if (sData == 0) {
-                         $(nTd).addClass('text-warning').html('<span class="badge badge-warning">Pending</span>');
-                   }else{
-                         $(nTd).addClass('text-success').html('<span class="badge badge-success">Approved</span>');
-                   }
-                } 
+                if (sData == 0) {
+                        $(nTd).addClass('text-warning').html('<span class="badge badge-warning">Pending</span>');
+                }else{
+                        $(nTd).addClass('text-success').html('<span class="badge badge-success">Approved</span>');
+                }
+            } 
         },
+        { "data": "datecreated"},
+        { "data": "dateapproved"},
         { "data": "approvedby"}
             ],
             "oLanguage": {
@@ -102,6 +115,8 @@ jQuery(document).ready(function(){
                 "type": "POST"
             }
         });
+
+        oTable1.fnSort( [ [4,'desc'] ] );
 });
 
 </script>

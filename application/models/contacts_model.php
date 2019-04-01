@@ -244,6 +244,8 @@ class Contacts_model extends CI_Model{
 
     function create_contact($msisdn,$name,$idno,$email,$address,$region,$town,$status){
         //Check if user exists for that group
+        // print($idno);
+        //     return true;
         $contact_exists = $this->check_contact($msisdn);
         if(!$contact_exists){
             $data =  array(
@@ -256,7 +258,7 @@ class Contacts_model extends CI_Model{
                 'town_id'=>$town,
                 'status'=>$status
             );
-            $this->db->set('created', 'NOW()', FALSE);
+            // $this->db->set('created', 'NOW()', FALSE);
             $this->db->insert('contacts',$data);
             $num_insert = $this->db->affected_rows();
             if($num_insert>0){

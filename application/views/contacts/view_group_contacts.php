@@ -97,6 +97,7 @@ if( $user_role === 'ADMIN'){
                 { "data": "email"},
                 { "data": "created"}
             ],
+            "order": [[ 4, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },

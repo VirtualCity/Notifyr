@@ -49,6 +49,7 @@
                             <th>Address</th>
                             <th>Region</th>
                             <th>Town</th>
+                            <th>Date Created</th>
 
                             <?Php if($user_role==="MANAGER"){ ?>
                             <th>Action</th>
@@ -96,12 +97,14 @@
             { "data": "email"},
             { "data": "address"},
             { "data": "region"},
-            { "data": "town"}
+            { "data": "town"},
+            { "data": "created"}
             <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"searchable": false }
                 <?Php  } ?>
                 ],
+                "order": [[ 7, "desc" ]],
                 "oLanguage": {
                     "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
                 },

@@ -35,14 +35,12 @@
                        <table class="table table-striped table-bordered table-hover datatable" width="100%" cellspacing="0" id="example">
                         <thead>
                         <tr>
-                              <th>Mobile</th>
+                            <th>Mobile</th>
                             <th>Recipient</th>
                             <th>Message</th>
                             <th>Date</th>
-
                         </tr>
                         </thead>
-
                     </table>
                 </div>
                 <div class="panel-footer">Auto-Reply SMS</div>
