@@ -52,8 +52,6 @@
 						<li><a href="<?=base_url('reports/sms')?>">Single Alerts Sent</a></li>
 						<li><a href="<?=base_url('reports/subscribed')?>">Subscribed Contacts</a></li>
 						<li><a href="<?=base_url('reports/subscriptions')?>">Subscription Messages</a></li>
-                        <li><a href="<?=base_url('reports/managers')?>">Managers Reports </a></li>
-                        <li><a href="<?=base_url('reports/supervisors')?>">Supervisors Reports</a></li>
 					</ul>
 				</li>
 

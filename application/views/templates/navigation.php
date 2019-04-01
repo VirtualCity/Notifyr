@@ -58,6 +58,32 @@
 				<li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
+						<i class="fa fa-comments"></i>
+						<span>SMS Logs</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('logs/inbox')?>">SMS Inbox log</a></li>
+						<li><a href="<?=base_url('logs/outbox')?>">SMS Sent log</a></li>
+						<li><a href="<?=base_url('logs/autoreplies')?>">Autoreply log</a></li>
+
+					</ul>
+				</li>
+
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-flag"></i>
+						<span>Blacklist</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('blacklist')?>">View Blacklist</a></li>
+						<li><a href="<?=base_url('addblacklist')?>">Blacklist Number</a></li>
+
+					</ul>
+				</li>
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
 						<i class="fa fa-shopping-cart"></i>
 						<span>Products</span>
 					</a>
