@@ -42,7 +42,7 @@
                             <th>Message</th>
                             <th>Status</th>
                             <th>Date Received</th>
-                            <?Php if($user_role!=="USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                                 <th>Action</th>
                             <?Php  } ?>
 
@@ -85,7 +85,7 @@
                 { "data": "message" },
                 { "data": "status" },
                 { "data": "created"}
-                <?Php  if($user_role!=="USER"){ ?>
+                <?Php  if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"searchable": false }
                 <?Php  } ?>

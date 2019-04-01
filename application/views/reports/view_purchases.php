@@ -92,7 +92,7 @@
                 { "data": "town"},
                 { "data": "created"}
             ],
-            "order": [[ 7, "desc" ]],
+            "order": [[ 8, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
             },
