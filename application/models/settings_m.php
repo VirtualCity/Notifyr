@@ -141,7 +141,7 @@ class Settings_m extends CI_Model{
 
     /* SDP Configuration Section*/
 
-    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl){
+    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl,$approval){
         $configTagExist = $this->check_configuration();
 
         if($configTagExist){
@@ -157,7 +157,8 @@ class Settings_m extends CI_Model{
                 'value8'=>$value8,
                 'value9'=>$value9,
                 'shortcode'=>$shortcode,
-                'balanceurl'=>$balanceurl
+                'balanceurl'=>$balanceurl,
+                'smsapproval'=>$approval
             );
             $this->db->where('title', 'CONFIGURATION');
             $result = $this->db->update('settings',$data);
@@ -182,7 +183,8 @@ class Settings_m extends CI_Model{
                 'value8'=>$value8,
                 'value9'=>$value9,
                 'shortcode'=>$shortcode,
-                'balanceurl'=>$balanceurl
+                'balanceurl'=>$balanceurl,
+                'smsapproval'=>$approval
             );
 
             $this->db->insert('settings',$data);
@@ -207,6 +209,19 @@ class Settings_m extends CI_Model{
 
         if($query -> num_rows() > 0){
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    function get_sms_approval(){
+        $this -> db-> select('smsapproval');
+        $this -> db -> from('settings');
+        $this->db->where('title','CONFIGURATION');
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
         }else{
             return false;
         }

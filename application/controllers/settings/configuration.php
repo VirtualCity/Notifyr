@@ -34,6 +34,7 @@ class Configuration extends Admin_Controller{
         $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
         $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
+        $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         $origin_appid="";
@@ -46,6 +47,7 @@ class Configuration extends Admin_Controller{
         $subscription_word="";
         $unsubscription_word="";
         $productsgroupid="";
+        $smsapproval = "";
 
         // has the form been submitted
         if($this->input->post()){
@@ -61,12 +63,14 @@ class Configuration extends Admin_Controller{
             $subscription_word = $this->input->post('subscription');
             $unsubscription_word = $this->input->post('unsubscription');
             $productsgroupid = $this->input->post('groups');
+            $smsapproval = $this->input->post('smsapproval');
+            
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
 
                 //Save new product
-                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl);
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval);
 
                 if($saved){
                     // Display success message
@@ -95,6 +99,7 @@ class Configuration extends Admin_Controller{
                 $origin_shortcodeName = $configurationData->value9;
                 $originshortcode = $configurationData->shortcode;
                 $origin_balanceurl = $configurationData->balanceurl;
+                $smsapproval = $configurationData->smsapproval;
             }
         }
         $groups = $this->groups_model->get_all_groups();
@@ -111,7 +116,8 @@ class Configuration extends Admin_Controller{
         $data['productsgroupid']=$productsgroupid;
         $data['shortcodeName']=$origin_shortcodeName;
         $data['balanceurl']=$origin_balanceurl;
-
+        $data['smsapproval']=$smsapproval;
+        
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";
         $data['mainContent'] = 'settings/app_config';

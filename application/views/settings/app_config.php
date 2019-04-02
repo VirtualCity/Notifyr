@@ -118,7 +118,16 @@
                 <input type="text" name="shortcodeName" id="shortcodeName" placeholder="Sorce address" class="form-control" value="<?=$shortcodeName?>"/>
 
                 <span class="text-danger"> <?php echo form_error('shortcodeName'); ?> </span>
-            </div>     
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <label title="Select whether sms created by clerks need to be approved by manager or not"> SMS Need Approval ?  </label><span class="text-danger"> *</span><br>
+                <!-- <input type="text" name="smsapproval" id="smsapproval" placeholder="Sorce address" class="form-control" value="<?=$smsapproval?>"/> -->
+                <input type="radio" name="smsapproval" <?php if($smsapproval=='1') echo "checked='checked'"; ?> value="1"> Yes
+                <input type="radio" name="smsapproval" <?php if($smsapproval=='0') echo "checked='checked'"; ?> value="0"> No
+
+                <span class="text-danger"> <?php echo form_error('smsapproval'); ?> </span>
+            </div>  
 
 
             <div class="col-md-12 col-xs-12">
