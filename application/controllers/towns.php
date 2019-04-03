@@ -320,7 +320,7 @@ class Towns extends Admin_Controller{
 
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Assign Supervisors to Town";
+        $data['title'] = "Assign Clerks to Town";
         $data['mainContent']='towns/assign_town_supervisors';
         $this->load->view('templates/template',$data); 
     }
@@ -360,7 +360,7 @@ class Towns extends Admin_Controller{
                 }
 
                 // Display success message
-                $this->session->set_flashdata('appmsg', $count.' Supervisor(s) have being  successfully assigned to '.$town_details->name.' Town!');
+                $this->session->set_flashdata('appmsg', $count.' Clerk(s) have being  successfully assigned to '.$town_details->name.' Town!');
                 $this->session->set_flashdata('alert_type', 'alert-success');
                 redirect('towns');
 
@@ -398,7 +398,7 @@ class Towns extends Admin_Controller{
         }
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Town Supervisors";
+        $data['title'] = "Town Clerks";
         $data['mainContent']='towns/view_town_supervisors';
         $this->load->view('templates/template',$data); 
 
@@ -425,7 +425,7 @@ class Towns extends Admin_Controller{
             $deleted = $this->supervisors_m->remove_supervisor_from_town($id,$town_id);
             if($deleted){
                 //return success.
-                $this->session->set_flashdata('appmsg', 'Supervisor has being removed from town');
+                $this->session->set_flashdata('appmsg', 'Clerk has being removed from town');
                 $this->session->set_flashdata('alert_type', 'alert-success');
                 redirect('towns/supervisors/'.$town_id);
             } else{

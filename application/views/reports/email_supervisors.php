@@ -6,7 +6,7 @@
         <ol class="breadcrumb pull-left ">
          <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
          <li><a><i class="fa fa-bar-chart"></i> SMS Reports</a></li>
-         <li class="active">Email Supervisors</li>
+         <li class="active">Email Clerks</li>
      </ol>
  </div>
 
@@ -30,7 +30,7 @@
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                 </div>
-                <h4 class="panel-title">Email Weekly Report to Supervisors</h4>
+                <h4 class="panel-title">Email Weekly Report to Clerks</h4>
             </div>
             <div class="panel-body">
                 <form action="<?=base_url('reports/supervisors/mail')?>" method="post"  class="form-horizontal">
@@ -58,7 +58,7 @@
             </div>
             <?php } ?>
         </div>
-        <div class="panel-footer">Email Weekly Report to Supervisors</div>
+        <div class="panel-footer">Email Weekly Report to Clerks</div>
     </div>
 </div>
 </div>

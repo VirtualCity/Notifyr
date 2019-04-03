@@ -5,7 +5,7 @@
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="<?php echo site_url('towns') ?>"><i class="fa fa-map-marker"></i> Towns</a></li>
-            <li class="active">Supervisors</li>
+            <li class="active">Clerks</li>
         </ol>
     </div>
 
@@ -44,13 +44,13 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>
-                    <h4 class="panel-title">Town Supervisors</h4>
+                    <h4 class="panel-title">Town Clerks</h4>
                 </div>
                 <div class="panel-body">
                  <table class="table table-bordered table-hover display responsive nowrap" width="100%" cellspacing="0" id="example">
                     <thead>
                         <tr>
-                            <th>Supervisor</th>
+                            <th>Clerk</th>
                             <th>Mobile</th>
                             <th>Email</th>
                             <th>Hub</th>
@@ -64,7 +64,7 @@
 
                 </table>
             </div>
-            <div class="panel-footer">Town Supervisors</div>
+            <div class="panel-footer">Town Clerks</div>
         </div>
     </div>
 </div>

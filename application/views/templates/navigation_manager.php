@@ -71,7 +71,7 @@
 						<li><a href="<?=base_url('reports/subscribed')?>">Subscribed Contacts</a></li>
 						<li><a href="<?=base_url('reports/subscriptions')?>">Subscription Messages</a></li>
 						<li><a href="<?=base_url('reports/managers')?>">Managers Reports </a></li>
-						<li><a href="<?=base_url('reports/supervisors')?>">Supervisors Reports</a></li>
+						<li><a href="<?=base_url('reports/supervisors')?>">Clerks Reports</a></li>
 					</ul>
 				</li>
 
@@ -146,12 +146,12 @@
 						<a href="javascript:;">
 							<b class="caret pull-right"></b>
 							<i class="fa fa-circle-o"></i>
-							<span>Supervisors</span>
+							<span>Clerks</span>
 						</a>
 						<ul class="sub-menu">
-							<li><a href="<?=base_url('supervisors')?>">View Supervisors</a></li>
-							<li><a href="<?=base_url('supervisors/add')?>">Add Supervisor</a></li>
-							<li><a href="<?=base_url('supervisors/import')?>">Import Supervisor</a></li>
+							<li><a href="<?=base_url('supervisors')?>">View Clerks</a></li>
+							<li><a href="<?=base_url('supervisors/add')?>">Add Clerk</a></li>
+							<li><a href="<?=base_url('supervisors/import')?>">Import Clerk</a></li>
 						</ul>
 					</li>
 

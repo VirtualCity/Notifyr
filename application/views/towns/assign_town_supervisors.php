@@ -5,7 +5,7 @@
         <ol class="breadcrumb pull-left ">
            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
            <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-map-marker"></i> Towns</a></li>
-           <li class="active">Assign Supervisor</li>
+           <li class="active">Assign Clerk</li>
        </ol>
    </div>
 
@@ -46,7 +46,7 @@
                     </div>     
 
                     <div class="col-md-12 col-xs-12">
-                        <label>Supervisors </label>
+                        <label>Clerks </label>
                         <select class="form-control" id="myduallistbox" multiple="multiple" name="supervisor[]" size="15">
                             <?php
                             if(!empty($supervisors)){

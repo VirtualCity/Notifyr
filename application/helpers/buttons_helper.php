@@ -139,9 +139,9 @@ function get_towns_buttons($id)
     $html = '<span class="actions">';
     $html .= '<a href="' . base_url() . 'towns/edit/' . $id . '">&nbsp; Edit</a>';
     $html .= '&nbsp; | &nbsp;';
-    $html .= '<a href="' . base_url() . 'towns/supervisors/' . $id . '">&nbsp; Supervisors</a>';
+    $html .= '<a href="' . base_url() . 'towns/supervisors/' . $id . '">&nbsp; Clerks</a>';
     $html .= '&nbsp; | &nbsp;';
-    $html .= '<a href="' . base_url() . 'towns/assign/' . $id . '">&nbsp; Add Supervisor</a>';
+    $html .= '<a href="' . base_url() . 'towns/assign/' . $id . '">&nbsp; Add Clerk</a>';
     $html .= '</span>';
 
     return $html;

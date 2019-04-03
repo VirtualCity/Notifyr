@@ -117,10 +117,10 @@
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-circle-o"></i>
-						<span>Supervisors</span>
+						<span>Clerks</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('supervisors')?>">View Supervisors</a></li>
+						<li><a href="<?=base_url('supervisors')?>">View Clerks</a></li>
 					</ul>
 				</li>
 
