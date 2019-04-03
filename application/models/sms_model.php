@@ -158,6 +158,38 @@ class Sms_model extends CI_Model{
         }
     }
 
+    function cancel_pending_bulk($id,$userid){
+        $date = date('Y-m-d H:i:s');
+        $data =  array(
+            'status'=>2,
+            'approved_by'=>$userid,
+            'updated'=> $date
+        );
+        $this->db->where('id', $id);
+        $query = $this->db->update('pending_sms', $data);
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function reject_pending_bulk($id,$userid){
+        $date = date('Y-m-d H:i:s');
+        $data =  array(
+            'status'=>3,
+            'approved_by'=>$userid,
+            'updated'=> $date
+        );
+        $this->db->where('id', $id);
+        $query = $this->db->update('pending_sms', $data);
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     function get_pending_bulk_by_id($id){
         $this->db->select('*');
         $this->db->from('pending_sms');

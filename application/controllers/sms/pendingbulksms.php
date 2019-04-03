@@ -36,8 +36,35 @@ class Pendingbulksms extends Admin_Controller {
         $this->load->view('templates/template',$data);
     }
 
+    
+
+    //load ui for approved
+    function approvedbulk(){
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Approved SMS";
+        $data['mainContent']='sms/approvedbulksms';
+        $this->load->view('templates/template',$data);
+    }
+
+    //load ui for cancelled
+    function cancelledbulk(){
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Cancelled SMS";
+        $data['mainContent']='sms/cancelledbulksms';
+        $this->load->view('templates/template',$data);
+    }
+
+    //load ui for rejected
+    function rejectedbulk(){
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Rejected SMS";
+        $data['mainContent']='sms/rejectedbulksms';
+        $this->load->view('templates/template',$data);
+    }
+
+
     //PENDING BULK
-    function datatable(){
+    function pending(){
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
         if ($role === "USER") {
@@ -61,17 +88,8 @@ class Pendingbulksms extends Admin_Controller {
             echo $this->datatables->generate();
         }
     }
-
-    //
-    function approvedbulk(){
-        $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Approved SMS";
-        $data['mainContent']='sms/approvedbulksms';
-        $this->load->view('templates/template',$data);
-    }
-
     //APPROVED BULK
-    function datatable2(){
+    function approved(){
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
 
@@ -95,6 +113,57 @@ class Pendingbulksms extends Admin_Controller {
         }
     }
 
+    //CANCELLED BULK
+    function cancelled(){
+        $id = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+
+        if ($role === "USER") {
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as cancelledby, pending_sms.created as datecreated, pending_sms.updated as datecancelled')
+            ->unset_column('id')
+            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->join('users','pending_sms.approved_by = users.id','left')
+            ->from('pending_sms')
+            ->where('pending_sms.status',2)
+            ->where('pending_sms.created_by',$id);
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as cancelledby, pending_sms.created as datecreated, , pending_sms.updated as datecancelled')
+            ->unset_column('id')
+            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->join('users','pending_sms.approved_by = users.id','left')
+            ->from('pending_sms')
+            ->where('pending_sms.status',2);
+            echo $this->datatables->generate();
+        }
+    }
+
+
+    //REJECTED BULK
+    function rejected(){
+        $id = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+
+        if ($role === "USER") {
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, pending_sms.updated as dateapproved')
+            ->unset_column('id')
+            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->join('users','pending_sms.approved_by = users.id','left')
+            ->from('pending_sms')
+            ->where('pending_sms.status',3)
+            ->where('pending_sms.created_by',$id);
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, , pending_sms.updated as dateapproved')
+            ->unset_column('id')
+            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->join('users','pending_sms.approved_by = users.id','left')
+            ->from('pending_sms')
+            ->where('pending_sms.status',3);
+            echo $this->datatables->generate();
+        }
+    }
+
     //approve the bulk sms
     function approve($id=null){
         if(!empty($id)){
@@ -110,44 +179,149 @@ class Pendingbulksms extends Admin_Controller {
                 $approvedBy = $this->session->userdata('id');
                 $grpContacts = explode('-',$groupcontacts);
                 //initiate the send function
-                
-                $msg_sent= $this->sendsms_model->send_sms($grpContacts,$message);
 
-                if ($msg_sent !== null) {
+                //check if the message body is a template
+                $hasOSBracket = strpos($message, '[') !== false;
+                $hasCSBracket = strpos($message, ']') !== false;
 
-                    $success = 0;
-                    $failed = 0;
+                if($hasCSBracket && $hasOSBracket){
+                    $isTemplate = true;
+                    $success2 = 0;
+                    $failed2 = 0;
                     
-                    //loop through the result if it contains more than one object and save each response
-                    foreach ($msg_sent as $key => $value) {
-                        if ($value->status == 'Success') {
-                            $success++;
-                            $status = 'Sent';
-                            $phoneNumber = substr($value->number, 1);
-                            // $this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId);
-                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
-                        }else{
-                            $failed++;
-                            log_message("info", "Sending status code: " . $value->Status);
-                        }
-                        
-                    }
+                    foreach ($grpContacts as $key => $value) {
+                        $recipient = $this->contacts_model->get_contact_by_msisdn($value);
+                        if($recipient === false){
 
+                        }else{
+                            foreach($recipient as $key1 => $value1){
+                                $message = str_replace('['.$key1.']', $value1, $message);
+                            }
+                        }
+
+                        //send sms
+                        $msg_sent1= $this->sendsms_model->send_sms($value,$message);
+                        if ($msg_sent1 !== null) {
+                            //loop through the result if it contains more than one object and save each response
+                            foreach ($msg_sent1 as $key => $value) {
+                                if ($value->status == 'Success') {
+                                    $success2++;
+                                    $status = 'Sent';
+                                    $phoneNumber = substr($value->number, 1);
+                                    $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                }else{
+                                    $failed2++;
+                                    log_message("info", "Sending status code: " . $value->Status);
+                                }
+                                
+                            }
+                            
+                        } else {
+                            //message failed
+                            // Display fail message
+                            $this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
+                            $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                            redirect('sms/pendingbulksms');
+                        }
+                    }
                     //call approve function
                     $approvalCheck = $this->sms_model->approve_pending_bulk($id,$aprrovedBy);
-                
-                    if($approvalCheck){
-                        $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed.'.' Approval is successfull ');
-                        $this->session->set_flashdata('alert_type', 'alert-success');
-                    }else{
-                        $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be approved ');
-                        $this->session->set_flashdata('alert_type', 'alert-danger');
+                    if (!$approvalCheck) {
+                            // Display fail message
+                            $this -> session -> set_flashdata('appmsg', 'Could no update the approved sms');
+                            $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                            redirect('sms/pendingbulksms');
                     }
+                    // Display success message
+                    $this->session->set_flashdata('appmsg', $success2 . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed2 . ' messages failed');
+                    $this->session->set_flashdata('alert_type', 'alert-info');
+                    redirect('sms/pendingbulksms');
+                    
                 }else{
-                    $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be sent ');
-                    $this->session->set_flashdata('alert_type', 'alert-danger');
+                     //Send message to group
+                    $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
+
+                    log_message("info", "Sending status: " . $msg_sent);
+
+                    if ($msg_sent !== null) {
+
+                        $success = 0;
+                        $failed = 0;
+                        //loop through the result if it contains more than one object and save each response
+                        foreach ($msg_sent as $key => $value) {
+                            if ($value->status == 'Success') {
+                                $success++;
+                                $status = 'Sent';
+                                $phoneNumber = substr($value->number, 1);
+                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                            }else{
+                                $failed++;
+                                log_message("info", "Sending status code: " . $value->Status);
+                            }
+                            
+                        }
+                        //call approve function
+                        $approvalCheck = $this->sms_model->approve_pending_bulk($id,$aprrovedBy);
+                        if (!$approvalCheck) {
+                                // Display fail message
+                                $this -> session -> set_flashdata('appmsg', 'Could no update the approved sms');
+                                $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                                redirect('sms/pendingbulksms');
+                        }
+                        // Display success message
+                        $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                        $this->session->set_flashdata('alert_type', 'alert-info');
+                        redirect('sms/pendingbulksms');
+                    } else {
+                        // Display fail message
+                        $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                        $this->session->set_flashdata('alert_type', 'alert-warning');
+                        redirect('sms/pendingbulksms');
+
+                    }
                 }
-           
+
+
+
+
+                // =====================================================================
+                // $msg_sent= $this->sendsms_model->send_sms($grpContacts,$message);
+
+                // if ($msg_sent !== null) {
+
+                //     $success = 0;
+                //     $failed = 0;
+                    
+                //     //loop through the result if it contains more than one object and save each response
+                //     foreach ($msg_sent as $key => $value) {
+                //         if ($value->status == 'Success') {
+                //             $success++;
+                //             $status = 'Sent';
+                //             $phoneNumber = substr($value->number, 1);
+                //             // $this -> sms_model -> save_sms($value->Number, "Individual", $message, $userid, $value->MessageId);
+                //             $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                //         }else{
+                //             $failed++;
+                //             log_message("info", "Sending status code: " . $value->Status);
+                //         }
+                        
+                //     }
+
+                //     //call approve function
+                //     $approvalCheck = $this->sms_model->approve_pending_bulk($id,$aprrovedBy);
+                
+                //     if($approvalCheck){
+                //         $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed.'.' Approval is successfull ');
+                //         $this->session->set_flashdata('alert_type', 'alert-success');
+                //     }else{
+                //         $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be approved ');
+                //         $this->session->set_flashdata('alert_type', 'alert-danger');
+                //     }
+                // }else{
+                //     $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be sent ');
+                //     $this->session->set_flashdata('alert_type', 'alert-danger');
+                // }
+        //    ==========================================================================
             
 
             }else{
@@ -170,8 +344,33 @@ class Pendingbulksms extends Admin_Controller {
         if(!empty($id)){
 
             //pull the sms to be approved
-            $to_remove = $this->sms_model->remove_pending_bulk($id);
-            if ($to_remove) {
+            $cancelledBy = $this->session->userdata('id');
+            $to_cancel = $this->sms_model->cancel_pending_bulk($id,$cancelledBy);
+            if ($to_cancel) {
+                $this->session->set_flashdata('appmsg', 'The bulk sms cancelled successfully ');
+                $this->session->set_flashdata('alert_type', 'alert-success');
+                // redirect('sms/pendingbulksms/approvedbulk');
+            }else{
+                $this->session->set_flashdata('appmsg', 'The bulk sms could not be cancelled ');
+                $this->session->set_flashdata('alert_type', 'alert-warning');
+            }
+        }else{
+            // No contact id specified
+            $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
+            $this->session->set_flashdata('alert_type', 'alert-danger');
+            // redirect('sms/pendingbulksms');
+        }
+        redirect('sms/pendingbulksms');
+    }
+
+    //cancel pending bulk 
+    function reject($id=null){
+        if(!empty($id)){
+
+            //pull the sms to be approved
+            $rejectedBy = $this->session->userdata('id');
+            $to_reject = $this->sms_model->reject_pending_bulk($id,$rejectedBy);
+            if ($to_reject) {
                 $this->session->set_flashdata('appmsg', 'The bulk sms cancelled successfully ');
                 $this->session->set_flashdata('alert_type', 'alert-success');
                 // redirect('sms/pendingbulksms/approvedbulk');

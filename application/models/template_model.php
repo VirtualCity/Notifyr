@@ -4,7 +4,7 @@ class Template_model extends CI_Model {
 	public function create_template($title, $template, $type) {
 		$data = array('title' => ucfirst($title), 'template' => trim($template), 'type' => strtoupper($type));
 
-		$this -> db -> insert('sms_template', $data);
+		$this -> db -> insert('sms_templates', $data);
 		$num_insert = $this -> db -> affected_rows();
 		if ($num_insert > 0) {
 			return true;

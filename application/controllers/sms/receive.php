@@ -264,7 +264,7 @@ class Receive extends CI_Controller{
                                                     */
                                                         log_message("info","Curl Status Code".$status);
 
-                                                            $statusCode= $service_response['StatusCode'];
+                                                        $statusCode= $service_response['StatusCode'];
                                                         $statusDetail = $service_response['StatusDetail'];
                                                         $farmerCode = $service_response['Code'];
                                                         $farmerName = $service_response['Name'];

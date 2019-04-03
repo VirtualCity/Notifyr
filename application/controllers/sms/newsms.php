@@ -14,6 +14,7 @@ class Newsms extends Admin_Controller {
 		$this->load->library('sms/SmsSender.php');
 		$this->load->model('sms_model');
 		$this->load->model('sendsms_model');
+		$this->load->model('contacts_model');
 		$this->load->model('template_model');
 		$this->load->model('settings_m');
 		$this->load->helper('buttons_helper');
@@ -36,7 +37,11 @@ class Newsms extends Admin_Controller {
 
 		$msisdn = "";
 		$message = "";
-		$approval = "";
+		$sms_approval = "";
+		$isTemplate = false;
+		$variables = false;
+
+		
 
 		// has the form been submitted
 		if ($this -> input -> post()) {
@@ -48,12 +53,32 @@ class Newsms extends Admin_Controller {
 			if ($this->form_validation->run()) {
 				$smstype = 'Individual';
 				$config = $this->settings_m->get_configuration();
+
+				//check if the message body is a template
+				$hasOSBracket = strpos($message, '[') !== false;
+				$hasCSBracket = strpos($message, ']') !== false;
+
+				if($hasCSBracket && $hasOSBracket){
+					$isTemplate = true;
+					$variables = $this->contacts_model->get_contact_by_msisdn($msisdn);
+					if($variables === false){
+
+					}else{
+						foreach($variables as $key => $value){
+							$message = str_replace('['.$key.']', $value, $message);
+						}
+					}
+				}else{
+
+				}
+
+
 				if($config){
 					$approval = $config->smsapproval;
 				}
-				$converted_res = ($approval ? 'true' : 'false');
+				$sms_approval = ($approval ? 'true' : 'false');
 				if ($role === "USER") {
-					if ($converted_res === 'true') {
+					if ($sms_approval === 'true') {
 						$createdBy = $this->session->userdata('id');
 						$response = $this->sms_model->save_pending_bulk(null,$msisdn,$message,$createdBy,$smstype);
 						
@@ -72,6 +97,7 @@ class Newsms extends Admin_Controller {
 						//Send message
 						//$recipients = array('tel:' . $msisdn);
 						$recipients = array($msisdn);
+
 						$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
 						log_message("info", "Sending status: " . $msg_sent);
 
@@ -115,7 +141,7 @@ class Newsms extends Admin_Controller {
 					//Send message
 					//$recipients = array('tel:' . $msisdn);
 					$recipients = array($msisdn);
-					$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
+					$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
 					log_message("info", "Sending status: " . $msg_sent);
 
 					if ($msg_sent !== null) {

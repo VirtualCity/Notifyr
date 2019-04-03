@@ -151,7 +151,7 @@ class ReceiveCallback extends CI_Controller{
 
                                 //Check if service code exists
                                 $service_word = trim(strtoupper($part2));
-                                if($service_word =='TOTAL') {
+                                if($service_word === 'TOTAL') {
 
 
                                     /*Service Types Defined in Agrimanagr
@@ -267,7 +267,7 @@ class ReceiveCallback extends CI_Controller{
                                                     */
                                                         //log_message("info","Curl Status Code".$status);
 
-                                                            $statusCode= $service_response['StatusCode'];
+                                                        $statusCode= $service_response['StatusCode'];
                                                         $statusDetail = $service_response['StatusDetail'];
                                                         $farmerCode = $service_response['Code'];
                                                         $farmerName = $service_response['Name'];

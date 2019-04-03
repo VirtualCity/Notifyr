@@ -39,7 +39,9 @@ class Newbulksms extends Admin_Controller {
 
         $group_id = "";
         $message = "";
-        $approval = "";
+        $sms_approval = "";
+        $isTemplate = false;
+        $variables = false;
 
         // has the form been submitted
         if ($this->input->post()) {
@@ -61,7 +63,7 @@ class Newbulksms extends Admin_Controller {
 				if($config){
                     $approval = $config->smsapproval;
                 }
-                $converted_res = ($approval ? 'true' : 'false');
+                $sms_approval = ($approval ? 'true' : 'false');
                 //Get groupname
                 $group_details = $this->groups_model->get_group_by_id($group_id);
 
@@ -69,14 +71,9 @@ class Newbulksms extends Admin_Controller {
             // $addresses = $this->contacts_model->get_group_contacts($group_id);
 
                 if(count($groupcontacts) > 0){
-                    // $recipients= array();
-                    // //Create an array with recipients
-                    // foreach($addresses as $address){
-                    //     $recipients[]='tel:'.$address->msisdn;
-                    // }
 
                     if ($role === "USER") {
-                        if ($converted_res === 'true') {
+                        if ($sms_approval === 'true') {
                             $createdBy = $this->session->userdata('id');
                             $smstype = 'Group';
                             $grpContacts = implode('-',$groupcontacts);
@@ -91,7 +88,157 @@ class Newbulksms extends Admin_Controller {
                             $this->session->set_flashdata('alert_type', 'alert-info');
                             redirect('sms/newbulksms');
                         }else{
-                            //Send message to group
+
+
+                            //check if the message body is a template
+                            $hasOSBracket = strpos($message, '[') !== false;
+                            $hasCSBracket = strpos($message, ']') !== false;
+
+                            if($hasCSBracket && $hasOSBracket){
+                                $isTemplate = true;
+                                $success1 = 0;
+                                $failed1 = 0;
+                                
+                                foreach ($groupcontacts as $key => $value) {
+                                    $recipient = $this->contacts_model->get_contact_by_msisdn($value);
+                                    if($recipient === false){
+
+                                    }else{
+                                        foreach($recipient as $key1 => $value1){
+                                            $message = str_replace('['.$key1.']', $value1, $message);
+                                        }
+                                    }
+
+                                    // echo "xxxxxx";
+                                    // return;
+
+                                    //send sms
+                                    $msg_sent1= $this->sendsms_model->send_sms($value,$message);
+                                    if ($msg_sent1 !== null) {
+                                        //loop through the result if it contains more than one object and save each response
+                                        foreach ($msg_sent1 as $key => $value) {
+                                            if ($value->status == 'Success') {
+                                                $success1++;
+                                                $status = 'Sent';
+                                                $phoneNumber = substr($value->number, 1);
+                                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                            }else{
+                                                $failed1++;
+                                                log_message("info", "Sending status code: " . $value->Status);
+                                            }
+                                            
+                                        }
+    
+                                        
+                                    } else {
+                                        //message failed
+                                        // Display fail message
+                                        $this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
+                                        $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                                        redirect('sms/newsms');
+                                    }
+                                }
+                                // Display success message
+                                $this->session->set_flashdata('appmsg', $success1 . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed1 . ' messages failed');
+                                $this->session->set_flashdata('alert_type', 'alert-info');
+                                redirect('sms/newbulksms');
+                                
+                            }else{
+                                 //Send message to group
+                                $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
+
+                                log_message("info", "Sending status: " . $msg_sent);
+
+                                if ($msg_sent !== null) {
+
+                                    $success = 0;
+                                    $failed = 0;
+                                    //loop through the result if it contains more than one object and save each response
+                                    foreach ($msg_sent as $key => $value) {
+                                        if ($value->status == 'Success') {
+                                            $success++;
+                                            $status = 'Sent';
+                                            $phoneNumber = substr($value->number, 1);
+                                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                        }else{
+                                            $failed++;
+                                            log_message("info", "Sending status code: " . $value->Status);
+                                        }
+                                        
+                                    }
+
+                                    // Display success message
+                                    $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                                    $this->session->set_flashdata('alert_type', 'alert-info');
+                                    redirect('sms/newbulksms');
+                                } else {
+                                    // Display fail message
+                                    $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                                    $this->session->set_flashdata('alert_type', 'alert-warning');
+                                    redirect('sms/newbulksms');
+
+                                }
+                            }
+                           
+                        }
+                        
+                    }else{
+
+                        //check if the message body is a template
+                        $hasOSBracket = strpos($message, '[') !== false;
+                        $hasCSBracket = strpos($message, ']') !== false;
+
+                        if($hasCSBracket && $hasOSBracket){
+                            $isTemplate = true;
+                            $success1 = 0;
+                            $failed1 = 0;
+                            
+                            foreach ($groupcontacts as $key => $value) {
+                                $recipient = $this->contacts_model->get_contact_by_msisdn($value);
+                                if($recipient === false){
+
+                                }else{
+                                    foreach($recipient as $key1 => $value1){
+                                        $message = str_replace('['.$key1.']', $value1, $message);
+                                    }
+                                }
+
+                                // echo "xxxxxx";
+                                // return;
+
+                                //send sms
+                                $msg_sent1= $this->sendsms_model->send_sms($value,$message);
+                                if ($msg_sent1 !== null) {
+                                    //loop through the result if it contains more than one object and save each response
+                                    foreach ($msg_sent1 as $key => $value) {
+                                        if ($value->status == 'Success') {
+                                            $success1++;
+                                            $status = 'Sent';
+                                            $phoneNumber = substr($value->number, 1);
+                                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                        }else{
+                                            $failed1++;
+                                            log_message("info", "Sending status code: " . $value->Status);
+                                        }
+                                        
+                                    }
+
+                                    
+                                } else {
+                                    //message failed
+                                    // Display fail message
+                                    $this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
+                                    $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                                    redirect('sms/newsms');
+                                }
+                            }
+                            // Display success message
+                            $this->session->set_flashdata('appmsg', $success1 . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed1 . ' messages failed');
+                            $this->session->set_flashdata('alert_type', 'alert-info');
+                            redirect('sms/newbulksms');
+                            
+                        }else{
+                             //Send message to group
                             $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
 
                             log_message("info", "Sending status: " . $msg_sent);
@@ -100,7 +247,6 @@ class Newbulksms extends Admin_Controller {
 
                                 $success = 0;
                                 $failed = 0;
-                                print_r($msg_sent);
                                 //loop through the result if it contains more than one object and save each response
                                 foreach ($msg_sent as $key => $value) {
                                     if ($value->status == 'Success') {
@@ -127,43 +273,41 @@ class Newbulksms extends Admin_Controller {
 
                             }
                         }
-                        
-                    }else{
-                        //Send message to group
-                        $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
+                        // //Send message to group
+                        // $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
 
-                        log_message("info", "Sending status: " . $msg_sent);
+                        // log_message("info", "Sending status: " . $msg_sent);
 
-                        if ($msg_sent !== null) {
+                        // if ($msg_sent !== null) {
 
-                            $success = 0;
-                            $failed = 0;
-                            print_r($msg_sent);
-                            //loop through the result if it contains more than one object and save each response
-                            foreach ($msg_sent as $key => $value) {
-                                if ($value->status == 'Success') {
-                                    $success++;
-                                    $status = 'Sent';
-                                    $phoneNumber = substr($value->number, 1);
-                                    $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
-                                }else{
-                                    $failed++;
-                                    log_message("info", "Sending status code: " . $value->Status);
-                                }
+                        //     $success = 0;
+                        //     $failed = 0;
+                        //     print_r($msg_sent);
+                        //     //loop through the result if it contains more than one object and save each response
+                        //     foreach ($msg_sent as $key => $value) {
+                        //         if ($value->status == 'Success') {
+                        //             $success++;
+                        //             $status = 'Sent';
+                        //             $phoneNumber = substr($value->number, 1);
+                        //             $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                        //         }else{
+                        //             $failed++;
+                        //             log_message("info", "Sending status code: " . $value->Status);
+                        //         }
                                 
-                            }
+                        //     }
 
-                            // Display success message
-                            $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
-                            $this->session->set_flashdata('alert_type', 'alert-info');
-                            redirect('sms/newbulksms');
-                        } else {
-                            // Display fail message
-                            $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
-                            $this->session->set_flashdata('alert_type', 'alert-warning');
-                            redirect('sms/newbulksms');
+                        //     // Display success message
+                        //     $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                        //     $this->session->set_flashdata('alert_type', 'alert-info');
+                        //     redirect('sms/newbulksms');
+                        // } else {
+                        //     // Display fail message
+                        //     $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                        //     $this->session->set_flashdata('alert_type', 'alert-warning');
+                        //     redirect('sms/newbulksms');
 
-                        }
+                        // }
                     }
                     
                 } else {

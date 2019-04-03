@@ -21,7 +21,7 @@ class Contacts_model extends CI_Model{
     }
 
     function get_contact_by_msisdn($msisdn){
-        $this->db->select('contacts.name as name,id_number,email,address,towns.name as town, regions.name as region');
+        $this->db->select('contacts.name as name,id_number,email,address,towns.name as town, msisdn, regions.name as region');
         $this->db->from('contacts');
         $this->db->where('msisdn',$msisdn);
         $this->db->join('towns','contacts.town_id = towns.id');
