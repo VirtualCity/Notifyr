@@ -106,12 +106,12 @@
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-shopping-cart"></i>
-						<span>Products</span>
+						<span>Services</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('products')?>">View Products</a></li>
-						<li><a href="<?=base_url('products/add')?>">Add Product</a></li>
-						<li><a href="<?=base_url('products/import')?>">Import Products</a></li>
+						<li><a href="<?=base_url('products')?>">View Services</a></li>
+						<li><a href="<?=base_url('products/add')?>">Add Service</a></li>
+						<li><a href="<?=base_url('products/import')?>">Import Service</a></li>
 					</ul>
 				</li>
 

@@ -6,7 +6,7 @@
  * Time: 9:30 AM
  */
 
-class Products extends Admin_Controller{
+class Services extends Admin_Controller{
 
     function __construct(){
         parent::__construct();
@@ -17,7 +17,7 @@ class Products extends Admin_Controller{
     function index(){
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Products";
+        $data['title'] = "Services";
          $data['mainContent']='products/view_products';
         $this->load->view('templates/template', $data);
 
@@ -34,9 +34,9 @@ class Products extends Admin_Controller{
 
     function add(){
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('code', 'Product Code', 'required|max_length[50]|is_unique[products.code]');
-        $this->form_validation->set_rules('name', 'Product Name', 'required|max_length[50]');
-        $this->form_validation->set_rules('description', 'Product Description', 'required|max_length[100]|is_unique[products.description]');
+        $this->form_validation->set_rules('code', 'Services Code', 'required|max_length[50]|is_unique[products.code]');
+        $this->form_validation->set_rules('name', 'Services Name', 'required|max_length[50]');
+        $this->form_validation->set_rules('description', 'Services Description', 'required|max_length[100]|is_unique[products.description]');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -59,13 +59,13 @@ class Products extends Admin_Controller{
 
                 if($saved){
                     // Display success message
-                    $this->session->set_flashdata('appmsg', 'New Product added successfully!');
+                    $this->session->set_flashdata('appmsg', 'New Services added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
                     redirect('products/add');
 
                 }else{
                     // Display fail message
-                    $this->session->set_flashdata('appmsg', 'New Product NOT added! Check logs');
+                    $this->session->set_flashdata('appmsg', 'New Services NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     redirect('products/add');
                 }
@@ -76,7 +76,7 @@ class Products extends Admin_Controller{
         $data['name']=$name;
         $data['description']=$description;
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Add Product";
+        $data['title'] = "Add Services";
         $data['mainContent']='products/add_product';
 
         $this->load->view('templates/template', $data);
@@ -102,7 +102,7 @@ class Products extends Admin_Controller{
         }
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Edit Product";
+        $data['title'] = "Edit Services";
        $data['mainContent']='products/edit_product';
         $this->load->view('templates/template', $data);
        
@@ -123,7 +123,7 @@ class Products extends Admin_Controller{
             //delete the product (status change)
             $deleted = $this->products_m->delete_product($id);
             if($deleted){
-                $this->session->set_flashdata('appmsg', 'Product Deleted successfully');
+                $this->session->set_flashdata('appmsg', 'Services Deleted successfully');
                 $this->session->set_flashdata('alert_type', 'alert-success');
                 redirect('products');
             }
@@ -143,11 +143,11 @@ class Products extends Admin_Controller{
 
             //check if resource exist
             if ($truncated === false) {
-                $this->session->set_flashdata('appmsg', 'Error encountered! Products Could Not Be Deleted');
+                $this->session->set_flashdata('appmsg', 'Error encountered! Services Could Not Be Deleted');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
                 redirect('products');
             }
-            $this->session->set_flashdata('appmsg', 'Products Deleted successfully');
+            $this->session->set_flashdata('appmsg', 'Services Deleted successfully');
             $this->session->set_flashdata('alert_type', 'alert-success');
             redirect('products');
        
@@ -157,8 +157,8 @@ class Products extends Admin_Controller{
         // SET VALIDATION RULES
 
 
-        $this->form_validation->set_rules('code', 'Product Code', 'required|max_length[50]');
-        $this->form_validation->set_rules('name', 'Product Name', 'required|max_length[50]');
+        $this->form_validation->set_rules('code', 'Services Code', 'required|max_length[50]');
+        $this->form_validation->set_rules('name', 'Services Name', 'required|max_length[50]');
         $this->form_validation->set_rules('description', 'Description', 'required|max_length[100]');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -171,23 +171,23 @@ class Products extends Admin_Controller{
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
 
-                //verify Product Code if it exists other than modified record
+                //verify Services Code if it exists other than modified record
                 $code_exists = $this->products_m->verify_code($id,$code);
 
                 if($code_exists){
                     //return fail. product code already in use
-                    $this->session->set_flashdata('appmsg', 'This Product Code "'.$code.'" is already in assigned by a different product');
+                    $this->session->set_flashdata('appmsg', 'This Services Code "'.$code.'" is already in assigned by a different product');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     redirect('products/edit/'.$id);
                 }else{
-                    //Product Code is unique to edited field
+                    //Services Code is unique to edited field
 
-                    //verify if Product Name exists other than edited record
+                    //verify if Services Name exists other than edited record
                     /*$name_exists = $this->products_m->verify_name($id,$name);
 
                     if($name_exists){
                         //return fail. product name already in use
-                        $this->session->set_flashdata('appmsg', 'This Product Name "'.$name.'" is already in assigned by a different product');
+                        $this->session->set_flashdata('appmsg', 'This Services Name "'.$name.'" is already in assigned by a different product');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
                         redirect('products/edit/'.$id);
                     }else{*/
@@ -196,7 +196,7 @@ class Products extends Admin_Controller{
 
                         if($description_exists){
                             //return fail. product name already in use
-                            $this->session->set_flashdata('appmsg', 'This Product description "'.strtoupper($description).'" is already exists for a different product');
+                            $this->session->set_flashdata('appmsg', 'This Services description "'.strtoupper($description).'" is already exists for a different product');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
                             redirect('products/edit/'.$id);
                         }else{
@@ -205,13 +205,13 @@ class Products extends Admin_Controller{
 
                             if($saved){
                                 // Display success message
-                                $this->session->set_flashdata('appmsg', 'Product modified successfully!');
+                                $this->session->set_flashdata('appmsg', 'Services modified successfully!');
                                 $this->session->set_flashdata('alert_type', 'alert-success');
                                 redirect('products');
 
                             }else{
                                 // Display fail message
-                                $this->session->set_flashdata('appmsg', 'Product NOT modified! Check logs');
+                                $this->session->set_flashdata('appmsg', 'Services NOT modified! Check logs');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
                                 redirect('products');
                             }
@@ -235,7 +235,7 @@ class Products extends Admin_Controller{
 
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Import Products";
+        $data['title'] = "Import Services";
         $data['mainContent']='products/import_products';
         $this->load->view('templates/template', $data);
        
@@ -279,7 +279,7 @@ class Products extends Admin_Controller{
             // Display success message
             $this->session->set_flashdata('existing', $existing_regions);
             $this->session->set_flashdata('notimported', $notImported);
-            $this->session->set_flashdata('appmsg', 'Products imported: '.$importedNo);
+            $this->session->set_flashdata('appmsg', 'Services imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
             redirect('products/import');
         }
@@ -327,21 +327,21 @@ class Products extends Admin_Controller{
             //Check if all fields are not null
             if($productCode!=null AND $productDescription != null AND $productName != null){
 
-                //Check if Product Name already exists
+                //Check if Services Name already exists
                 $itemCodeExists = $this->products_m->check_code($productCode);
                 if($itemCodeExists){
                     $existingCodes =$existingCodes.' | '.$productCode;
                     //log the region as not added
                     log_message('debug',$productCode.' EXISTS! ');
                 }else{
-                    //Check if Product Description already exists
+                    //Check if Services Description already exists
                     $descriptionExists = $this->products_m->check_description($productDescription);
                     if($descriptionExists){
                         $existingDescriptions =$existingDescriptions.' | '.$productDescription;
                         //log the region as not added
                         log_message('debug',$productDescription.' EXISTS! ');
                     }else{
-                        //Check if Product Name already exists
+                        //Check if Services Name already exists
                         /*$skuExists = $this->products_m->check_name($productName);
                         if($skuExists){
                             $existingNames =$existingSkus.' | '.$productName;
@@ -372,7 +372,7 @@ class Products extends Admin_Controller{
 
         $existingVariables ="";
         if(!empty($existingCodes)){
-            $existingVariables = 'Product Codes: ('.$existingCodes.') ';
+            $existingVariables = 'Services Codes: ('.$existingCodes.') ';
         }
 
         if(!empty($existingDescriptions)){
@@ -380,7 +380,7 @@ class Products extends Admin_Controller{
         }
 
         /*if(!empty($existingNames)){
-            $existingVariables =$existingVariables .'Product Names: ('.$existingNames.') ';
+            $existingVariables =$existingVariables .'Services Names: ('.$existingNames.') ';
         }*/
 
 
