@@ -38,7 +38,7 @@
                             <th>Name</th>
                             <th>Mobile</th>
                             <th>Email</th>
-                            <th>Division</th>
+                            <th>Hub</th>
                             <th>Last Modified</th>
                             <th>Date Created</th>
                             <?Php if($user_role==="MANAGER"){ ?>

@@ -57,8 +57,8 @@
 
 
                         <div class="col-md-12 col-xs-12">
-                            <label > Division</label><span class="text-danger"> *</span>
-                            <input required type="text" name="division" id="division" placeholder="Division" class="form-control" value="<?php echo $division ?>"/>
+                            <label > Hub</label><span class="text-danger"> *</span>
+                            <input required type="text" name="division" id="division" placeholder="Hub" class="form-control" value="<?php echo $division ?>"/>
                             <span class="text-danger"> <?php echo form_error('division'); ?> </span>
                         </div> 
 

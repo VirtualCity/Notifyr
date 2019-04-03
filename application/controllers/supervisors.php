@@ -38,7 +38,7 @@ class Supervisors extends Admin_Controller{
         $this->form_validation->set_rules('name', "Supervisor Name", 'required|max_length[60]|is_unique[supervisors.name]');
         $this->form_validation->set_rules('mobile', 'Mobile Number', 'required|numeric|exact_length[12]|is_unique[supervisors.mobile]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[100]|is_unique[supervisors.email]');
-        $this->form_validation->set_rules('division', 'Supervisor Division', 'required|max_length[40]');
+        $this->form_validation->set_rules('division', 'Supervisor Hub', 'required|max_length[40]');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -129,7 +129,7 @@ class Supervisors extends Admin_Controller{
         $this->form_validation->set_rules('name', "TA's Name", 'required|max_length[60]');
         $this->form_validation->set_rules('mobile', 'Mobile Number', 'required|numeric|exact_length[12]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[100]');
-        $this->form_validation->set_rules('division', 'Division', 'required|max_length[40]');
+        $this->form_validation->set_rules('division', 'Hub', 'required|max_length[40]');
         /*$this->form_validation->set_rules('region_id', 'region', 'required');
         $this->form_validation->set_rules('town_id', 'town', 'required');*/
 
@@ -333,7 +333,7 @@ class Supervisors extends Admin_Controller{
 
 
             if ( $supervisorName!=null AND $mobile!=null AND $email!=null AND $division!=null AND  $region!=null AND $town!=null ) {
-                //log_message('info', 'TA Name: ' . $supervisorName .'. Mobile: ' . $mobile. '. Email: ' . $email.'. Division: ' . $division. '. Region: ' . $region. '. Town: ' . $town);
+                //log_message('info', 'TA Name: ' . $supervisorName .'. Mobile: ' . $mobile. '. Email: ' . $email.'. Hub: ' . $division. '. Region: ' . $region. '. Town: ' . $town);
                 $regionId = $this->regions_m->getAddRegionId($region);
                 $townId = $this->towns_m->getAddTownId($town,$regionId);
 

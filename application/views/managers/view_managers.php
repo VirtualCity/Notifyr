@@ -38,7 +38,7 @@
                             <th>Manager Name</th>
                             <th>Mobile</th>
                             <th>Email</th>
-                            <th>Division</th>
+                            <th>Hub</th>
                             <th>Region</th>
                             <th>Last Modified</th>
                             <th>Date Created</th>
