@@ -4,7 +4,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
         <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">View Products</li>
+        <li class="active">View Services</li>
     </ol>
     </div>
  
@@ -25,9 +25,9 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                          
                     </div>
-                    <h4 class="panel-title">View Products</h4>
+                    <h4 class="panel-title">View Services</h4>
                     <?Php if($user_role==="MANAGER"){ ?>
-                    <li><a href="<?=base_url('products/deleteAll')?>" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Delete All Products</a></li>
+                    <li><a href="<?=base_url('products/deleteAll')?>" class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Delete All Services</a></li>
                     <?Php  } ?>
                 </div>
                 <div class="panel-body">
@@ -50,7 +50,7 @@
                     </table>
                    
                 </div>
-                <div class="panel-footer">View Products</div>
+                <div class="panel-footer">View Services</div>
             </div>
         </div>
     </div>

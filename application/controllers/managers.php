@@ -40,7 +40,7 @@ class Managers extends Admin_Controller{
         $this->form_validation->set_rules('mobile', 'Manager Mobile', 'required|numeric|max_length[12]|is_unique[managers.mobile]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[100]|is_unique[managers.email]');
         $this->form_validation->set_rules('region', 'Manager Region', 'required');
-        $this->form_validation->set_rules('division', 'Managers Division', 'required|max_length[40]');
+        $this->form_validation->set_rules('division', 'Managers Hub', 'required|max_length[40]');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -136,7 +136,7 @@ class Managers extends Admin_Controller{
         $this->form_validation->set_rules('mobile', 'Manager Mobile', 'required|numeric|max_length[12]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[100]');
         $this->form_validation->set_rules('region', 'Manager Region', 'required');
-        $this->form_validation->set_rules('division', 'Manager Division', 'required|max_length[40]');
+        $this->form_validation->set_rules('division', 'Manager Hub', 'required|max_length[40]');
 
         // has the form been submitted
         if($this->input->post()){
@@ -302,7 +302,7 @@ class Managers extends Admin_Controller{
             $managerRegion = trim($managersData[4]);
 
             if ($managerDivision != null AND $managerName!=null AND $managerMobile!=null AND $managerRegion!=null AND $managerEmail !=null) {
-                log_message('info', 'Manager Division: ' .$managerDivision .' Manager Name: ' . $managerName .'. Mobile: ' . $managerMobile. '. Email: ' . $managerEmail. '. Region: ' . $managerRegion);
+                log_message('info', 'Manager Hub: ' .$managerDivision .' Manager Name: ' . $managerName .'. Mobile: ' . $managerMobile. '. Email: ' . $managerEmail. '. Region: ' . $managerRegion);
 
                 // Check region if it exists
 

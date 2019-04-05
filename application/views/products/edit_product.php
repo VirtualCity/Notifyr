@@ -4,7 +4,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
        <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Edit Product</li>
+        <li class="active">Edit Service</li>
     </ol>
     </div>
 
@@ -26,17 +26,17 @@
                          
                     </div>
 
-                    <h4 class="panel-title">Edit Product</h4>
+                    <h4 class="panel-title">Edit Service</h4>
                 </div>
                 <div class="panel-body">
                     <form action="<?=base_url('products/modify')?>" method="post" class="form-horizontal">
                         <input type="hidden" name="id" value="<?=$id?>"/>
                         
                         <div class="col-md-12 col-xs-12">
-                        <label>Product Code </label><span class="text-danger"> *</span>
+                        <label>Service Code </label><span class="text-danger"> *</span>
                             
                             <div class="field">
-                                <input type="text" name="code" id="code" placeholder="Product Code" class="form-control" value="<?=$code?>"/>
+                                <input type="text" name="code" id="code" placeholder="Service Code" class="form-control" value="<?=$code?>"/>
                                <span class="text-danger"><?php echo form_error('code'); ?> </span>
                              
                             </div>
@@ -44,10 +44,10 @@
 
                         <hr class="field-separator">
                         <div class= "col-md-12 col-xs-12">
-                        <label>Product Name</label><span class ="text-danger"> *</span>
+                        <label>Service Name</label><span class ="text-danger"> *</span>
                             
                             <div class="field">
-                                <input type="text" name="name" id="name" placeholder="Product Name" class="form-control" value="<?=$name?>"/>
+                                <input type="text" name="name" id="name" placeholder="Service Name" class="form-control" value="<?=$name?>"/>
                                 <span class="text-danger"><?php echo form_error('name'); ?></span>
                                 
                             </div>
@@ -78,7 +78,7 @@
 
                     
                 </div>
-                <div class="panel-footer">Edit Product</div>
+                <div class="panel-footer">Edit Service</div>
             </div>
         </div>
     </div>
