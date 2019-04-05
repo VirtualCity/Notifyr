@@ -6,7 +6,7 @@
 <div class="breadcrumb-container ">
     <ol class="breadcrumb pull-left ">
        <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-       <li class="active">Pending SMS</li>
+       <li class="active">Cancelled SMS</li>
    </ol>
 </div>
 
@@ -21,9 +21,9 @@ if(!empty($appmsg)){ ?>
 <div class="row">
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Pending SMS</h4></a></li>
-    <li class=""><a href="<?=base_url('sms/pendingbulksms/approvedbulk')?>" >Approved SMS</a></li>
-    <li class=""><a href="<?=base_url('sms/pendingbulksms/cancelledbulk')?>">Cancelled SMS</a></li>
+    <li class=""><a href="<?=base_url('sms/pendingbulksms')?>" >Pending SMS</a></li>
+    <li class=""><a href="<?=base_url('sms/pendingbulksms/approvedbulk')?>">Approved SMS</a></li>
+    <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Cancelled SMS</h4></a></li>
     <li class=""><a href="<?=base_url('sms/pendingbulksms/rejectedbulk')?>">Rejected SMS</a></li>
 </ul>
 
@@ -36,29 +36,26 @@ if(!empty($appmsg)){ ?>
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                 </div>                
-                <h4>Pending SMS</h4>
+                <h4>Cancelled SMS</h4>
             </div>
 
             <div class="panel-body">
-             <table class="table table-striped table-bordered table-hover datatable"  id="example1">
+             <table class="table table-striped table-bordered table-hover datatable"  id="example2">
                 <thead>
                     <tr>
                         <th>group</th>
                         <th>contacts</th>
                         <th>message</th>
                         <th>status</th>
-                        <th>date creted</th>
-                        <th>creted by</th>
-                        <?Php if($user_role==="MANAGER"){ ?>
-                        <th>Action</th>
-                        <?Php  } ?>
-
+                        <th>date created</th>
+                        <th>date cancelled</th>
+                        <th>cancelled by</th>
                     </tr>
                 </thead>
 
             </table>
         </div>
-        <div class="panel-footer">Pending SMS</div>
+        <div class="panel-footer">Cancelled SMS</div>
 
 
     </div>
@@ -73,7 +70,7 @@ if(!empty($appmsg)){ ?>
 
 <script type="text/javascript">
 jQuery(document).ready(function(){
-    var oTable = jQuery('#example1').dataTable({
+    var oTable1 = jQuery('#example2').dataTable({
         "processing": true,
         "serverSide": true,
         "scrollCollapse": true,
@@ -88,7 +85,6 @@ jQuery(document).ready(function(){
             "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>",
             "aButtons": [ "copy", "csv","xls","pdf" ]
         },
-        
         columns: [
         { "data": "groupname",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -96,7 +92,7 @@ jQuery(document).ready(function(){
                    if (sData == null) {
                          $(nTd).addClass('text-left').html('Individual');
                    }
-                }  
+                }
         },
         { "data": "contacts",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -108,8 +104,7 @@ jQuery(document).ready(function(){
         { "data": "message"},
         { "data": "status",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-
-                   if (sData == 0) {
+                if (sData == 0) {
                          $(nTd).addClass('text-warning').html('<span class="badge badge-warning">Pending</span>');
                    }else if (sData == 1){
                          $(nTd).addClass('text-primary').html('<span class="badge badge-primary">Approved</span>'); 
@@ -120,25 +115,22 @@ jQuery(document).ready(function(){
                    }else{
                         // $(nTd).addClass('text-danger').html('<span class="badge badge-danger">Unknown</span>');
                    }
-                }  
+            } 
         },
         { "data": "datecreated"},
-        { "data": "createdby"}
-        <?Php if($user_role==="MANAGER"){ ?>
-            ,
-            { "data": "actions","orderable": false,"searchable": false }
-            <?Php  } ?>
+        { "data": "datecancelled"},
+        { "data": "cancelledby"}
             ],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },
             "ajax":{
-                "url": "<?php echo base_url('sms/pendingbulksms/pending')?>",
+                "url": "<?php echo base_url('sms/pendingbulksms/cancelled')?>",
                 "type": "POST"
             }
         });
 
-        oTable.fnSort( [ [4,'desc'] ] );
+        oTable1.fnSort( [ [4,'desc'] ] );
 });
 
 </script>

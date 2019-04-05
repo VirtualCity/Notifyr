@@ -23,6 +23,8 @@ if(!empty($appmsg)){ ?>
 <ul class="nav nav-tabs">
     <li class=""><a href="<?=base_url('sms/pendingbulksms')?>" >Pending SMS</a></li>
     <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Approved SMS</h4></a></li>
+    <li class=""><a href="<?=base_url('sms/pendingbulksms/cancelledbulk')?>">Cancelled SMS</a></li>
+    <li class=""><a href="<?=base_url('sms/pendingbulksms/rejectedbulk')?>">Rejected SMS</a></li>
 </ul>
 
 <div class="panel panel-primary tab-content">
@@ -92,14 +94,26 @@ jQuery(document).ready(function(){
                    }
                 }
         },
-        { "data": "contacts"},
+        { "data": "contacts",
+            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    if (sData.length > 12) {
+                        $(nTd).addClass('text-left').html('[Group Contacts]');
+                    }
+                } 
+        },
         { "data": "message"},
         { "data": "status",
             "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                 if (sData == 0) {
                         $(nTd).addClass('text-warning').html('<span class="badge badge-warning">Pending</span>');
+                }else if (sData == 1){
+                        $(nTd).addClass('text-primary').html('<span class="badge badge-primary">Approved</span>'); 
+                }else if (sData == 2){
+                        $(nTd).addClass('text-success').html('<span class="badge badge-success">Cancelled</span>'); 
+                }else if (sData == 3){
+                        $(nTd).addClass('text-danger').html('<span class="badge badge-danger">Rejected</span>'); 
                 }else{
-                        $(nTd).addClass('text-success').html('<span class="badge badge-success">Approved</span>');
+                        // $(nTd).addClass('text-danger').html('<span class="badge badge-danger">Unknown</span>');
                 }
             } 
         },
@@ -111,7 +125,7 @@ jQuery(document).ready(function(){
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },
             "ajax":{
-                "url": "<?php echo base_url('sms/pendingbulksms/datatable2')?>",
+                "url": "<?php echo base_url('sms/pendingbulksms/approved')?>",
                 "type": "POST"
             }
         });
