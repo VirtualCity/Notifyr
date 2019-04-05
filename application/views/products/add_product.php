@@ -3,7 +3,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
            <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Add Product </li>
+            <li class="active">Add Service </li>
         </ol>
     </div>
 
@@ -24,25 +24,25 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>
-                    <h4 class="panel-title">Add Product</h4>
+                    <h4 class="panel-title">Add Service</h4>
                 </div>
                 <div class="panel-body">
 
                     <form action="<?=base_url('products/add')?>" method="post" class="form-horizontal">
 
                         <div class="col-md-12 col-xs-12">
-                            <label>Product Code </label><span class="text-danger"> *</span>
+                            <label>Service Code </label><span class="text-danger"> *</span>
 
-                            <input required type="text" name="code" id="code" placeholder="Product Code" class="form-control" value="<?=$code?>"/>
+                            <input required type="text" name="code" id="code" placeholder="Service Code" class="form-control" value="<?=$code?>"/>
                             <span class="text-danger">  <?<?php echo form_error('code'); ?> </span>
 
                         </div>
 
                         <hr class="field-separator">
                         <div class="col-md-12 col-xs-12">
-                            <label>Product Name</label><span class="text-danger"> *</span>
+                            <label>Service Name</label><span class="text-danger"> *</span>
                             
-                            <input required type="text" name="name" id="name" placeholder="Product Name" class="form-control" value="<?=$name?>"/>
+                            <input required type="text" name="name" id="name" placeholder="Service Name" class="form-control" value="<?=$name?>"/>
                             <span class="text-danger">  <?php echo form_error('name'); ?> </span>
 
                         </div>
@@ -67,7 +67,7 @@
                     </form>
 
                 </div>
-                <div class="panel-footer">Add Product</div>
+                <div class="panel-footer">Add Service</div>
             </div>
         </div>
     </div>

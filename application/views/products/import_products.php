@@ -4,7 +4,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Import Products</li>
+            <li class="active">Import Services</li>
         </ol>
     </div>
 
@@ -25,7 +25,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                     </div>
-                    <h4 class="panel-title">Import Products</h4>
+                    <h4 class="panel-title">Import Services</h4>
                 </div>
                 <div class="panel-body">
                  <form action="<?=base_url('products/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -53,7 +53,7 @@
 
 
             </div>
-            <div class="panel-footer">Import Products</div>
+            <div class="panel-footer">Import Services</div>
         </div>
     </div>
 </div>

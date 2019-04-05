@@ -19,7 +19,7 @@ class Supervisors extends Admin_Controller{
     function index(){
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Supervisors";
+        $data['title'] = "Clerks";
         $data['mainContent']='supervisors/view_supervisors';
         $this->load->view('templates/template',$data); 
 
@@ -35,10 +35,10 @@ class Supervisors extends Admin_Controller{
 
     function add(){
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('name', "Supervisor Name", 'required|max_length[60]|is_unique[supervisors.name]');
+        $this->form_validation->set_rules('name', "Clerk Name", 'required|max_length[60]|is_unique[supervisors.name]');
         $this->form_validation->set_rules('mobile', 'Mobile Number', 'required|numeric|exact_length[12]|is_unique[supervisors.mobile]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[100]|is_unique[supervisors.email]');
-        $this->form_validation->set_rules('division', 'Supervisor Division', 'required|max_length[40]');
+        $this->form_validation->set_rules('division', 'Clerk Hub', 'required|max_length[40]');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -69,7 +69,7 @@ class Supervisors extends Admin_Controller{
 
                 }else{
                     // Display fail message
-                    $this->session->set_flashdata('appmsg', 'Supervisor NOT added! Check logs');
+                    $this->session->set_flashdata('appmsg', 'Clerk NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     redirect('supervisors/add');
                 }
@@ -83,7 +83,7 @@ class Supervisors extends Admin_Controller{
         $data['email']=$email;
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Add Supervisor";
+        $data['title'] = "Add Clerk";
         $data['mainContent']='supervisors/add_supervisor';
         $this->load->view('templates/template',$data); 
 
@@ -118,7 +118,7 @@ class Supervisors extends Admin_Controller{
         }
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Edit Supervisor";
+        $data['title'] = "Edit Clerk";
         $data['mainContent']='supervisors/edit_supervisor';
         $this->load->view('templates/template',$data); 
 
@@ -129,7 +129,7 @@ class Supervisors extends Admin_Controller{
         $this->form_validation->set_rules('name', "TA's Name", 'required|max_length[60]');
         $this->form_validation->set_rules('mobile', 'Mobile Number', 'required|numeric|exact_length[12]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[100]');
-        $this->form_validation->set_rules('division', 'Division', 'required|max_length[40]');
+        $this->form_validation->set_rules('division', 'Hub', 'required|max_length[40]');
         /*$this->form_validation->set_rules('region_id', 'region', 'required');
         $this->form_validation->set_rules('town_id', 'town', 'required');*/
 
@@ -149,7 +149,7 @@ class Supervisors extends Admin_Controller{
 
                 if($name_exists){
                     //return fail. supervisor name already in use
-                    $this->session->set_flashdata('appmsg', 'This Supervisor  Name "'.$name.'" is already in use by a different TA');
+                    $this->session->set_flashdata('appmsg', 'This Clerk  Name "'.$name.'" is already in use by a different TA');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     redirect('supervisors/edit/'.$id);
                 }else{*/
@@ -166,7 +166,7 @@ class Supervisors extends Admin_Controller{
                         $email_exists = $this->supervisors_m->verify_supervisor_email($id,$email);
                         if($email_exists){
                             //return fail. supervisor email already in use
-                            $this->session->set_flashdata('appmsg', 'This Supervisor Email "'.$email.'" is already in use by a different Supervisor');
+                            $this->session->set_flashdata('appmsg', 'This Clerk Email "'.$email.'" is already in use by a different Clerk');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
                             redirect('supervisors/edit/'.$id);
                         }else{
@@ -175,13 +175,13 @@ class Supervisors extends Admin_Controller{
 
                             if($saved){
                                 // Display success message
-                                $this->session->set_flashdata('appmsg', 'Supervisor modified successfully!');
+                                $this->session->set_flashdata('appmsg', 'Clerk modified successfully!');
                                 $this->session->set_flashdata('alert_type', 'alert-success');
                                 redirect('supervisors');
 
                             }else{
                                 // Display fail message
-                                $this->session->set_flashdata('appmsg', 'Supervisor NOT modified! Check logs');
+                                $this->session->set_flashdata('appmsg', 'Clerk NOT modified! Check logs');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
                                 redirect('supervisors');
                             }
@@ -208,10 +208,10 @@ class Supervisors extends Admin_Controller{
         if(!empty($id)){
             $deleted = $this-> supervisors_m -> delete($id);
             if($deleted){
-                $this->session->set_flashdata('appmsg', 'Supervisor successfully deleted!');
+                $this->session->set_flashdata('appmsg', 'Clerk successfully deleted!');
                 $this->session->set_flashdata('alert_type', 'alert-success');
             }else{
-                $this->session->set_flashdata('appmsg', 'Failed to delete Supervisor! Check logs.');
+                $this->session->set_flashdata('appmsg', 'Failed to delete Clerk! Check logs.');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
             }
         }else{
@@ -232,7 +232,7 @@ class Supervisors extends Admin_Controller{
 
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Import Supervisors";
+        $data['title'] = "Import Clerks";
         $data['mainContent']='supervisors/import_supervisors';
         $this->load->view('templates/template',$data); 
     }
@@ -275,7 +275,7 @@ class Supervisors extends Admin_Controller{
             // Display success message
             $this->session->set_flashdata('existing', $existing_supervisor);
             $this->session->set_flashdata('notimported', $notImported);
-            $this->session->set_flashdata('appmsg', 'Supervisors imported: '.$importedNo);
+            $this->session->set_flashdata('appmsg', 'Clerks imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
             redirect('supervisors/import');
         }
@@ -333,7 +333,7 @@ class Supervisors extends Admin_Controller{
 
 
             if ( $supervisorName!=null AND $mobile!=null AND $email!=null AND $division!=null AND  $region!=null AND $town!=null ) {
-                //log_message('info', 'TA Name: ' . $supervisorName .'. Mobile: ' . $mobile. '. Email: ' . $email.'. Division: ' . $division. '. Region: ' . $region. '. Town: ' . $town);
+                //log_message('info', 'TA Name: ' . $supervisorName .'. Mobile: ' . $mobile. '. Email: ' . $email.'. Hub: ' . $division. '. Region: ' . $region. '. Town: ' . $town);
                 $regionId = $this->regions_m->getAddRegionId($region);
                 $townId = $this->towns_m->getAddTownId($town,$regionId);
 
@@ -341,7 +341,7 @@ class Supervisors extends Admin_Controller{
                 $existsEmail = $this->supervisors_m->check_supervisor_email(strtolower($email));
 
                 if($existsEmail){
-                    //Get id of Supervisor
+                    //Get id of Clerk
                     $supervisor = $this->supervisors_m->get_supervisor_by_email(strtolower($email));
 
                     //check if supervisor exists in town
@@ -411,7 +411,7 @@ class Supervisors extends Admin_Controller{
         }
         $existingVariables ="";
         if(!empty($existingsupervisorNames)){
-            $existingVariables =$existingVariables .'Supervisor: ('.$existingsupervisorNames.') ';
+            $existingVariables =$existingVariables .'Clerk: ('.$existingsupervisorNames.') ';
         }
 
         if(!empty($existingMobiles)){

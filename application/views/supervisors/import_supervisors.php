@@ -4,8 +4,8 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="<?php echo site_url('supervisors') ?>"><i class="fa fa-circle-o"></i> Supervisors</a></li>
-            <li class="active">Import Supervisors</li>
+            <li><a href="<?php echo site_url('supervisors') ?>"><i class="fa fa-circle-o"></i> Clerks</a></li>
+            <li class="active">Import Clerks</li>
         </ol>
     </div>
 
@@ -29,7 +29,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                         
                     </div>
-                    <h4 class="panel-title">Import Supervisors</h4>
+                    <h4 class="panel-title">Import Clerks</h4>
                 </div>
                 <div class="panel-body">
                     <form action="<?=base_url('supervisors/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -81,7 +81,7 @@
                 </div>
                 <?php } ?>
             </div>
-            <div class="panel-footer">Import Supervisors</div>
+            <div class="panel-footer">Import Clerks</div>
         </div>
     </div>
 </div>

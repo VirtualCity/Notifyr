@@ -4,8 +4,8 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
                 <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="<?php echo site_url('supervisors') ?>"><i class="fa fa-circle-o"></i> Supervisors</a></li>
-            <li class="active">Edit Supervisor</li>
+            <li><a href="<?php echo site_url('supervisors') ?>"><i class="fa fa-circle-o"></i> Clerks</a></li>
+            <li class="active">Edit Clerk</li>
         </ol>
     </div>
 
@@ -29,7 +29,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                         
                     </div>
-                    <h4 class="panel-title">Edit Supervisor: <?php echo $name ?></h4>
+                    <h4 class="panel-title">Edit Clerk: <?php echo $name ?></h4>
                 </div>
                 <div class="panel-body">
                     <form action="<?=base_url('supervisors/modify')?>" method="post" class="form-horizontal">
@@ -37,7 +37,7 @@
 
                         <div class="col-md-12 col-xs-12">
                             <label > Name </label><span class="text-danger"> *</span>
-                            <input required type="text" name="name" id="name" placeholder="Supervisor Name" class="form-control" value="<?php echo $name ?>"/>
+                            <input required type="text" name="name" id="name" placeholder="Clerk Name" class="form-control" value="<?php echo $name ?>"/>
 
                             <span class="text-danger"> <?php echo form_error('name'); ?> </span>
                         </div>   
@@ -56,8 +56,8 @@
                         </div> 
 
                         <div class="col-md-12 col-xs-12">
-                            <label > Division</label><span class="text-danger"> *</span>
-                            <input required type="text" name="division" id="division" placeholder="Division" class="form-control" value="<?php echo $division ?>"/>
+                            <label > Hub</label><span class="text-danger"> *</span>
+                            <input required type="text" name="division" id="division" placeholder="Hub" class="form-control" value="<?php echo $division ?>"/>
                             <span class="text-danger"> <?php echo form_error('division'); ?> </span>
                         </div> 
 
@@ -72,7 +72,7 @@
 
                     </form>
                 </div>
-                <div class="panel-footer">Edit Supervisor</div>
+                <div class="panel-footer">Edit Clerk</div>
             </div>
         </div>
     </div>

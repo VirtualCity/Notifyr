@@ -5,7 +5,7 @@
         <ol class="breadcrumb pull-left ">
                 <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
              
-            <li class="active">Supervisors</li>
+            <li class="active">Clerks</li>
         </ol>
     </div>
 
@@ -29,7 +29,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                         
                     </div>
-                    <h4 class="panel-title">Supervisors</h4>
+                    <h4 class="panel-title">Clerks</h4>
                 </div>
                 <div class="panel-body">
                             <table class="table table-striped table-bordered table-hover datatable"  id="example">
@@ -38,7 +38,7 @@
                             <th>Name</th>
                             <th>Mobile</th>
                             <th>Email</th>
-                            <th>Division</th>
+                            <th>Hub</th>
                             <th>Last Modified</th>
                             <th>Date Created</th>
                             <?Php if($user_role==="MANAGER"){ ?>
@@ -50,7 +50,7 @@
 
                     </table>
                 </div>
-                <div class="panel-footer">Supervisors</div>
+                <div class="panel-footer">Clerks</div>
             </div>
         </div>
     </div>

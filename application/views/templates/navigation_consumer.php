@@ -134,14 +134,14 @@
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-shopping-cart"></i>
-						<span>Products</span>
+						<span>Services</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('products')?>">View Products</a></li>
+						<li><a href="<?=base_url('products')?>">View Services</a></li>
 						<?php if ($this->session->userdata('role')!=="USER"): ?>
-							<li><a href="<?=base_url('products/add')?>">Add Product</a></li>
+							<li><a href="<?=base_url('products/add')?>">Add Service</a></li>
 							<?php if ($this->session->userdata('role')==="MANAGER"): ?>
-								<li><a href="<?=base_url('products/import')?>">Import Products</a></li>
+								<li><a href="<?=base_url('products/import')?>">Import Services</a></li>
 							<?php endif ?>
 						<?php endif ?>
 
@@ -187,14 +187,14 @@
 						<a href="javascript:;">
 							<b class="caret pull-right"></b>
 							<i class="fa fa-circle-o"></i>
-							<span>Supervisors</span>
+							<span>Clerks</span>
 						</a>
 						<ul class="sub-menu">
-							<li><a href="<?=base_url('supervisors')?>">View Supervisors</a></li>
-							<li><a href="<?=base_url('supervisors/add')?>">Add Supervisor</a></li>
+							<li><a href="<?=base_url('supervisors')?>">View Clerks</a></li>
+							<li><a href="<?=base_url('supervisors/add')?>">Add Clerk</a></li>
 							<?php if ($this->session->userdata('role')==="MANAGER"): ?>
 
-								<li><a href="<?=base_url('supervisors/import')?>">Import Supervisor</a></li>
+								<li><a href="<?=base_url('supervisors/import')?>">Import Clerk</a></li>
 							<?php endif ?>
 
 
