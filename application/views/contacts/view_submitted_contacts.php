@@ -44,7 +44,7 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Region</th>
-                            <th>Town</th>
+                            <th>Factory</th>
                             <th>Date Created</th>
                             <?Php if($user_role==="MANAGER"){ ?>
                             <th>Action</th>

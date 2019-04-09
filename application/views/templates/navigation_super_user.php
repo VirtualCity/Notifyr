@@ -23,7 +23,22 @@
                     <ul class="sub-menu">
                         <li><a href="<?=base_url('contacts')?>">View Contacts</a></li>
                     </ul>
-                </li>
+				</li>
+				
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-envelope"></i>
+						<span>SMS</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('sms/pendingbulksms')?>">Pending SMS</a></li>
+						<li><a href="<?=base_url('sms/newbulksms/uploadexcel')?>">New SMS From Excel</a></li>
+						<li><a href="<?=base_url('sms/newsms/smstemplate')?>">New SMS Template</a></li>
+						<li><a href="<?=base_url('sms/newsms/templates')?>">Template List</a></li>
+
+					</ul>
+				</li>
 
 				<li class="has-sub">
 					<a href="javascript:;">
@@ -94,16 +109,16 @@
 					</ul>
 				</li> -->
 
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-map-marker"></i>
 						<span>Towns</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('towns')?>">View Towns</a></li>
+						<li><a href="<?//=base_url('towns')?>">View Towns</a></li>
 					</ul>
-				</li>
+				</li> -->
 
 				<li class="has-sub">
 					<a href="javascript:;">
@@ -133,27 +148,27 @@
 					</ul>
 				</li>
 				
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-circle-o"></i>
 						<span>Clerks</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('supervisors')?>">View Clerks</a></li>
+						<li><a href="<?//=base_url('supervisors')?>">View Clerks</a></li>
 					</ul>
-				</li>
+				</li> -->
 
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-circle"></i>
 						<span>Managers</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('managers')?>">View Managers</a></li>
+						<li><a href="<?//=base_url('managers')?>">View Managers</a></li>
 					</ul>
-				</li>
+				</li> -->
 				<li><a href="<?=base_url('password')?>"><i class="fa fa-cogs"></i> Settings</a></li>
 				<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 			</ul>
