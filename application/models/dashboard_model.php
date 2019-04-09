@@ -13,8 +13,15 @@ class Dashboard_model extends CI_Model{
     var $server;
 
     public function __construct(){
-       
-        $settings = $this->getSettings();
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if ($role === "SUPER_USER") {
+            $settings = $this->getSettings();
+        } else {
+            $settings = $this->getSettings_by_factory($userfactory);
+        }
+        
+        
         if(!empty($settings[0]->balanceurl)){
             $this->server = $settings[0]->balanceurl;
             // $this->server = "http://localhost:4200/api/africastalking/balance";
@@ -39,11 +46,43 @@ class Dashboard_model extends CI_Model{
         }
     }
 
+    private function getSettings_by_factory($factory){
+        $CI =& get_instance();
+        $CI->db->select('*');
+        $CI->db->from('settings');
+        $CI->db->where('title','CONFIGURATION');
+        $CI->db->where('factory_id',$factory);
+        $query  =   $CI->db->get();
+        return $query->result();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
+
+
     function get_configuration()
     {
         $this->db->select('*');
         $this->db->from('settings');
         $this->db->where('title', 'CONFIGURATION');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
+    function get_configuration_by_factory($factory)
+    {
+        $this->db->select('*');
+        $this->db->from('settings');
+        $this->db->where('title', 'CONFIGURATION');
+        $this->db->where('factory_id',$factory);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -61,7 +100,12 @@ class Dashboard_model extends CI_Model{
         );
         $jsonObjectFields = json_encode($arrayField);
         log_message("info",$jsonObjectFields );
-        return $this->sendRequest($jsonObjectFields);
+        try {
+            return $this->sendRequest($jsonObjectFields);
+        } catch (\Throwable $th) {
+           return "failed";
+        }
+        
     }
 
     function sendRequest($jsonObjectFields){
@@ -86,7 +130,9 @@ class Dashboard_model extends CI_Model{
         if ($resp == "") {
             throw new SmsException
             ("Server URL is invalid", '500');
-        } else {
+        } else if($resp == 0){
+            return "failed";
+        }else {
             return $resp;
         }
     }
@@ -108,11 +154,12 @@ class Dashboard_model extends CI_Model{
         }
     }
 
-    function get_todays_total(){
+    function get_sms_pending_total_by_factory($factory){
         $this -> db-> select('count(*) AS count');
-        $this -> db -> from('sms_received');
-        $where = "DATE(created)= CURDATE()";
+        $this -> db -> from('pending_sms');
+        $where = "status = 0";
         $this -> db -> where($where);
+        $this -> db -> where('factory_id',$factory);
         $result = $this -> db -> get();
 
         if($result->num_rows()>0){
@@ -125,20 +172,57 @@ class Dashboard_model extends CI_Model{
         }
     }
 
+    function get_todays_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('sms_received');
+        $where = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+        }
+    }
+
+    function get_todays_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('sms_received');
+        $where = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+        }
+    }
+
     function get_todays_sent_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('smsout');
         $where = "DATE(created)= CURDATE()";
         $this -> db -> where($where);
         $result = $this -> db -> get();
-
         if($result->num_rows()>0){
             $row = $result->row();
-
             $count = $row->count;
-
             return $count;
+        }
+    }
 
+    function get_todays_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
         }
     }
 
@@ -151,16 +235,29 @@ class Dashboard_model extends CI_Model{
         $this -> db -> where($where);
         $this -> db -> where($where2);
         $result = $this -> db -> get();
-
         if($result->num_rows()>0){
             $row = $result->row();
-
             $count = $row->count;
-
             return $count;
-
         }
     }
+    function get_todays_success_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Success"';
+        $where2 = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+        }
+    }
+
+    
 
     function get_todays_failed_sent_total(){
         $this -> db-> select('count(*) AS count');
@@ -180,6 +277,21 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_todays_failed_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Failed"';
+        $where2 = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+        }
+    }
 
     function get_todays_pending_sent_total(){
         $this -> db-> select('count(*) AS count');
@@ -189,14 +301,25 @@ class Dashboard_model extends CI_Model{
         $this -> db -> where($where);
         $this -> db -> where($where2);
         $result = $this -> db -> get();
-
         if($result->num_rows()>0){
             $row = $result->row();
-
             $count = $row->count;
-
             return $count;
-
+        }
+    }
+    function get_todays_pending_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Sent"';
+        $where2 = "DATE(created)= CURDATE()";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
         }
     }
 
@@ -212,11 +335,23 @@ class Dashboard_model extends CI_Model{
 
         if($result->num_rows()>0){
             $row = $result->row();
-
             $count = $row->count;
-
             return $count;
-
+        }
+    }
+    function get_weeks_success_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Success"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
         }
     }
 
@@ -228,14 +363,25 @@ class Dashboard_model extends CI_Model{
         $this -> db -> where($where);
         $this -> db -> where($where2);
         $result = $this -> db -> get();
-
         if($result->num_rows()>0){
             $row = $result->row();
-
             $count = $row->count;
-
             return $count;
-
+        }
+    }
+    function get_weeks_failed_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Failed"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
         }
     }
 
@@ -247,14 +393,25 @@ class Dashboard_model extends CI_Model{
         $this -> db -> where($where);
         $this -> db -> where($where2);
         $result = $this -> db -> get();
-
         if($result->num_rows()>0){
             $row = $result->row();
-
             $count = $row->count;
-
             return $count;
-
+        }
+    }
+    function get_weeks_pending_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
+        $where = 'status = "Sent"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
         }
     }
 
@@ -267,6 +424,36 @@ class Dashboard_model extends CI_Model{
         $this -> db -> where($where);
         $this -> db -> where($where2);
         $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+        }
+    }
+    function get_months_success_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
+        $where = 'status = "Success"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+        }
+    }
+
+    function get_months_failed_sent_total(){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $where = 'status = "Failed"';
+        $where2 = "created >=(  DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
 
         if($result->num_rows()>0){
             $row = $result->row();
@@ -277,10 +464,10 @@ class Dashboard_model extends CI_Model{
 
         }
     }
-
-    function get_months_failed_sent_total(){
+    function get_months_failed_sent_total_by_factory($factory){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
         $where = 'status = "Failed"';
         $where2 = "created >=(  DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
         $this -> db -> where($where);
@@ -315,9 +502,38 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_months_pending_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
+        $where = 'status = "Sent"';
+        $where2 = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $this -> db -> where($where2);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+
+
+    function get_factory_sms_balance($username,$password){
+        if ($username !== "" || $username !==null || $password !== "" || $password!== null) {
+            $res = $this->getSmsBalance($password, $username);
+            return $res;
+        }else{
+            return "failed";
+        }
+    }
 
     
-
+//
     function get_sms_balance(){
 
         $password = "";
@@ -327,21 +543,53 @@ class Dashboard_model extends CI_Model{
         if ($configurationData) {
             $password = $configurationData->value2;
             $sourceAddress = $configurationData->value9;
+
+            try {
+                $encoding = "0";
+                $version = "1.0";
+                $deliveryStatusRequest = "0";
+                $charging_amount = "0";
+                $binary_header = "";
+                $res = $this->getSmsBalance($password, $sourceAddress);
+                return $res;
+    
+            } catch (SmsException $ex) {
+                log_message("info", "Status code error: " . $ex->getStatusCode());
+                log_message("info", "Status message error: " . $ex->getStatusMessage());
+                error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+                return "fail";
+            }
+        }else{
+            return "fail";
         }
+    }
 
-        try {
-            $encoding = "0";
-            $version = "1.0";
-            $deliveryStatusRequest = "0";
-            $charging_amount = "0";
-            $binary_header = "";
-            $res = $this->getSmsBalance($password, $sourceAddress);
-            return $res;
+    function get_sms_balance_by_factory($factory){
 
-        } catch (SmsException $ex) {
-            log_message("info", "Status code error: " . $ex->getStatusCode());
-            log_message("info", "Status message error: " . $ex->getStatusMessage());
-            error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+        $password = "";
+        $sourceAddress = "";
+
+        $configurationData = $this->get_configuration_by_factory($factory);
+        if ($configurationData) {
+            $password = $configurationData->value2;
+            $sourceAddress = $configurationData->value9;
+
+            try {
+                $encoding = "0";
+                $version = "1.0";
+                $deliveryStatusRequest = "0";
+                $charging_amount = "0";
+                $binary_header = "";
+                $res = $this->getSmsBalance($password, $sourceAddress);
+                return $res;
+    
+            } catch (SmsException $ex) {
+                log_message("info", "Status code error: " . $ex->getStatusCode());
+                log_message("info", "Status message error: " . $ex->getStatusMessage());
+                error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+                return "fail";
+            }
+        }else{
             return "fail";
         }
     }
@@ -499,10 +747,44 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_weeks_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('sms_received');
+        $this -> db -> where('factory_id',$factory);
+        $where = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
 
     function get_weeks_sent_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('smsout');
+        $where = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+    function get_weeks_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
         $where = "created >=( DATE(NOW()) - INTERVAL 7 DAY + INTERVAL 0 SECOND )";
         $this -> db -> where($where);
         $result = $this -> db -> get();
@@ -533,6 +815,23 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_months_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('sms_received');
+        $this -> db -> where('factory_id',$factory);
+        $where = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
 
     function get_months_sent_total(){
         $this -> db-> select('count(*) AS count');
@@ -550,10 +849,40 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_months_sent_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
+        $where = "created >=( DATE(NOW()) - INTERVAL 30 DAY + INTERVAL 0 SECOND )";
+        $this -> db -> where($where);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+            $count = $row->count;
+            return $count;
+
+        }
+    }
 
     function get_contacts_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('contacts');
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+    function get_contacts_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('contacts');
+        $this -> db -> where('factory_id',$factory);
         $result = $this -> db -> get();
 
         if($result->num_rows()>0){
@@ -580,6 +909,22 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_blacklist_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('blacklist');
+        $this -> db -> join('contacts','blacklist.msisdn=contacts.msisdn');
+        $this -> db -> where('contacts.factory_id',$factory);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
 
     function get_contact_groups_total(){
         $this -> db-> select('count(*) AS count');
@@ -595,10 +940,40 @@ class Dashboard_model extends CI_Model{
 
         }
     }
+    function get_contact_groups_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('groups');
+        $this -> db -> where('factory_id',$factory);
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
 
     function get_outbox_total(){
         $this -> db-> select('count(*) AS count');
         $this -> db -> from('smsout');
+        $result = $this -> db -> get();
+
+        if($result->num_rows()>0){
+            $row = $result->row();
+
+            $count = $row->count;
+
+            return $count;
+
+        }
+    }
+    function get_outbox_total_by_factory($factory){
+        $this -> db-> select('count(*) AS count');
+        $this -> db -> from('smsout');
+        $this -> db -> where('factory_id',$factory);
         $result = $this -> db -> get();
 
         if($result->num_rows()>0){

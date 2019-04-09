@@ -16,13 +16,19 @@ class Dashboard extends MY_Controller{
 
     function index(){
 
+        $role = $this->session->userdata('role');
+        $user_factory = $this->session->userdata('factory');
+        $userfactory = $user_factory;
+
+       
+
+
         if(!$this->session->userdata('logged_in')){
             redirect('/login');
             //echo("You are NOT logged in");
         }
         log_message("info", "Role: ". $this->session->userdata('role'));
-
-        $role = $this->session->userdata('role');
+        
 
 
         //Retrieve Dashboard variables
@@ -49,30 +55,63 @@ class Dashboard extends MY_Controller{
         $sms_balance = "";
         $sms_pending = "";
 
-        $today_totals = $this->dashboard_model->get_todays_total();
-        $weeks_total = $this->dashboard_model->get_weeks_total();
-        $months_total = $this->dashboard_model->get_months_total();
-        $today_sent_totals = $this->dashboard_model->get_todays_sent_total();
+        if($role === "SUPER_USER"){
+            $today_totals = $this->dashboard_model->get_todays_total();
+            $weeks_total = $this->dashboard_model->get_weeks_total();
+            $months_total = $this->dashboard_model->get_months_total();
+            $today_sent_totals = $this->dashboard_model->get_todays_sent_total();
 
-        $today_success = $this->dashboard_model->get_todays_success_sent_total();
-        $today_failed = $this->dashboard_model->get_todays_failed_sent_total();
-        $today_pending = $this->dashboard_model->get_todays_pending_sent_total();
+            $today_success = $this->dashboard_model->get_todays_success_sent_total();
+            $today_failed = $this->dashboard_model->get_todays_failed_sent_total();
+            $today_pending = $this->dashboard_model->get_todays_pending_sent_total();
 
-        $week_success = $this->dashboard_model->get_weeks_success_sent_total();
-        $week_failed = $this->dashboard_model->get_weeks_failed_sent_total();
-        $week_pending = $this->dashboard_model->get_weeks_pending_sent_total();
+            $week_success = $this->dashboard_model->get_weeks_success_sent_total();
+            $week_failed = $this->dashboard_model->get_weeks_failed_sent_total();
+            $week_pending = $this->dashboard_model->get_weeks_pending_sent_total();
 
-        $month_success = $this->dashboard_model->get_months_success_sent_total();
-        $month_failed = $this->dashboard_model->get_months_failed_sent_total();
-        $month_pending = $this->dashboard_model->get_months_pending_sent_total();
+            $month_success = $this->dashboard_model->get_months_success_sent_total();
+            $month_failed = $this->dashboard_model->get_months_failed_sent_total();
+            $month_pending = $this->dashboard_model->get_months_pending_sent_total();
 
-        $weeks_sent_total = $this->dashboard_model->get_weeks_sent_total();
-        $months_sent_total = $this->dashboard_model->get_months_sent_total();
-        $contacts_total = $this->dashboard_model->get_contacts_total();
-        $blacklist_total = $this->dashboard_model->get_blacklist_total();
-        $groups_total = $this->dashboard_model->get_contact_groups_total();
-        $sms_balance = $this->dashboard_model->get_sms_balance();
-        $sms_pending = $this->dashboard_model->get_sms_pending_total();
+            $weeks_sent_total = $this->dashboard_model->get_weeks_sent_total();
+            $months_sent_total = $this->dashboard_model->get_months_sent_total();
+            $contacts_total = $this->dashboard_model->get_contacts_total();
+            $blacklist_total = $this->dashboard_model->get_blacklist_total();
+            $groups_total = $this->dashboard_model->get_contact_groups_total();
+            $sms_balance = $this->dashboard_model->get_sms_balance();
+            $sms_pending = $this->dashboard_model->get_sms_pending_total();
+        }else{
+
+           
+            $today_totals = $this->dashboard_model->get_todays_total_by_factory($userfactory);
+            $weeks_total = $this->dashboard_model->get_weeks_total_by_factory($userfactory);
+            $months_total = $this->dashboard_model->get_months_total_by_factory($userfactory);
+            $today_sent_totals = $this->dashboard_model->get_todays_sent_total_by_factory($userfactory);
+
+           
+
+            $today_success = $this->dashboard_model->get_todays_success_sent_total_by_factory($userfactory);
+            $today_failed = $this->dashboard_model->get_todays_failed_sent_total_by_factory($userfactory);
+            $today_pending = $this->dashboard_model->get_todays_pending_sent_total_by_factory($userfactory);
+
+       
+            $week_success = $this->dashboard_model->get_weeks_success_sent_total_by_factory($userfactory);
+            $week_failed = $this->dashboard_model->get_weeks_failed_sent_total_by_factory($userfactory);
+            $week_pending = $this->dashboard_model->get_weeks_pending_sent_total_by_factory($userfactory);
+
+            $month_success = $this->dashboard_model->get_months_success_sent_total_by_factory($userfactory);
+            $month_failed = $this->dashboard_model->get_months_failed_sent_total_by_factory($userfactory);
+            $month_pending = $this->dashboard_model->get_months_pending_sent_total_by_factory($userfactory);
+
+            $weeks_sent_total = $this->dashboard_model->get_weeks_sent_total_by_factory($userfactory);
+            $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($userfactory);
+            $contacts_total = $this->dashboard_model->get_contacts_total_by_factory($userfactory);
+            $blacklist_total = $this->dashboard_model->get_blacklist_total_by_factory($userfactory);
+            $groups_total = $this->dashboard_model->get_contact_groups_total_by_factory($userfactory);
+            $sms_balance = $this->dashboard_model->get_sms_balance_by_factory($userfactory);
+            $sms_pending = $this->dashboard_model->get_sms_pending_total_by_factory($userfactory);
+            
+        }
        // $outbox_total = $this->dashboard_model->get_outbox_total();
 
         //Add dashvboards variables in data array
