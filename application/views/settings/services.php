@@ -29,7 +29,7 @@
               <?php endif ?>
               <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
           <?php endif ?>
-          <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+          <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
             <li><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
           <?php endif ?>
       </ul>

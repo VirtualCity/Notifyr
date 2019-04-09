@@ -29,15 +29,14 @@
               <?php endif ?>
               <li class="active"><a data-toggle="tab" href="<?php echo site_url('users/active') ?>" >Users</a></li>
           <?php endif ?>
-          <?php if ($this->session->userdata('role')==="ADMIN"): ?>
+          <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
             <li><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
           <?php endif ?>
       </ul>
       <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <ul class="nav nav-tabs">
-        <!-- <?php// if (($this->session->userdata('role')==="MANAGER")||($this->session->userdata('role')==="SUPER_USER")): ?> -->
-        <?php if ($this->session->userdata('role')==="MANAGER"): ?>
+        <?php if (($this->session->userdata('role')==="MANAGER")||($this->session->userdata('role')==="SUPER_USER")): ?>
             <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
             <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
             <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
