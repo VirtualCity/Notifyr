@@ -36,7 +36,7 @@
                             <th>Factory Code</th>
                             <th>Sender Id</div>
                             <th>Region</th>
-                            <th>Last Modified</th>
+                            <!-- <th>Last Modified</th> -->
                             <th>Date Created</th>
                             <?Php if($user_role==="SUPER_USER"){ ?>
                                 <th>Action</th>
@@ -78,14 +78,14 @@
                 { "data": "factoryCode"},
                 { "data": "senderid"},
                 { "data": "region"},
-                { "data": "modified"},
+                // { "data": "modified"},
                 { "data": "created"}
                 <?Php if($user_role==="SUPER_USER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>
             ],
-            "order": [[ 5, "desc" ]],
+            "order": [[ 4, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },

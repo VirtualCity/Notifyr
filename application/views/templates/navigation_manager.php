@@ -102,16 +102,16 @@
 					</ul>
 				</li>
 
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-shopping-cart"></i>
 						<span>Services</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('products')?>">View Services</a></li>
-						<li><a href="<?=base_url('products/add')?>">Add Service</a></li>
-						<li><a href="<?=base_url('products/import')?>">Import Service</a></li>
+						<li><a href="<//?=base_url('products')?>">View Services</a></li>
+						<li><a href="<?//=base_url('products/add')?>">Add Service</a></li>
+						<li><a href="<?//=base_url('products/import')?>">Import Service</a></li>
 					</ul>
 				</li>
 
@@ -122,9 +122,20 @@
 						<span>Towns</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('towns')?>">View Towns</a></li>
-						<li><a href="<?=base_url('towns/add')?>">Add Town</a></li>
-						<li><a href="<?=base_url('towns/import')?>">Import Towns</a></li>
+						<li><a href="<?//=base_url('towns')?>">View Towns</a></li>
+						<li><a href="<?//=base_url('towns/add')?>">Add Town</a></li>
+						<li><a href="<?//=base_url('towns/import')?>">Import Towns</a></li>
+					</ul>
+				</li> -->
+
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-globe"></i>
+						<span>Factories</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('factories')?>">View Factories</a></li>
 					</ul>
 				</li>
 
@@ -138,36 +149,6 @@
 						<li><a href="<?=base_url('regions')?>">View Regions</a></li>
 					</ul>
 				</li>
-
-				<?php if ($this->session->userdata('role')!=="USER"): ?>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret pull-right"></b>
-							<i class="fa fa-circle-o"></i>
-							<span>Clerks</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="<?=base_url('supervisors')?>">View Clerks</a></li>
-							<li><a href="<?=base_url('supervisors/add')?>">Add Clerk</a></li>
-							<li><a href="<?=base_url('supervisors/import')?>">Import Clerk</a></li>
-						</ul>
-					</li>
-
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret pull-right"></b>
-							<i class="fa fa-circle"></i>
-							<span>Managers</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="<?=base_url('managers')?>">View Managers</a></li>
-							<li><a href="<?=base_url('managers/add')?>">Add Manager</a></li>
-							<li><a href="<?=base_url('managers/import')?>">Import Managers</a></li>
-
-						</ul>
-					</li>
-
-				<?php endif ?>
 
 				<li><a href="<?=base_url('password')?>"><i class="fa fa-cogs"></i> Settings</a></li>
 

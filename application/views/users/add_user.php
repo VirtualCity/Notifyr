@@ -99,7 +99,7 @@
 
                         <div class="col-md-6 col-xs-12">
                             <label  >Password</label><span class="text-danger"> *</span>
-                            <input required type="text" name="password" id="password" placeholder="password" class="form-control" value="<?=$password?>"/>
+                            <input required type="password" name="password" id="password" placeholder="password" class="form-control" value="<?=$password?>"/>
                             <span class="text-danger"> <?php echo form_error('password'); ?> </span>
                         </div>
 
@@ -125,6 +125,7 @@
                                 <span class="text-danger"> *</span>
                                 <select name="role" id="role" class="form-control" >
                                     <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
+                                    <option value="MANAGER" <?php if ($role ==="MANAGER"){echo "selected";}?>>Manager</option>
                                     <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
                                     <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
                                 </select> 

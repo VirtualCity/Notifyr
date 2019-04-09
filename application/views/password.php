@@ -31,7 +31,7 @@
         <?php endif ?>
         <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
             <li><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
-          <?php endif ?>
+        <?php endif ?>
     </ul>
 
     <div class="panel tab-content col-md-10">
