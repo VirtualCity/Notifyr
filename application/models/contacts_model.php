@@ -21,7 +21,7 @@ class Contacts_model extends CI_Model{
     }
 
     function get_contact_by_msisdn($msisdn){
-        $this->db->select('contacts.name as name,id_number,email,address,towns.name as town, msisdn, regions.name as region');
+        $this->db->select('contacts.name as name,id_number,email,address,towns.name as town, msisdn, regions.name as region, contacts.factory_id as factory');
         $this->db->from('contacts');
         $this->db->where('msisdn',$msisdn);
         $this->db->join('towns','contacts.town_id = towns.id');
@@ -29,7 +29,8 @@ class Contacts_model extends CI_Model{
         $query = $this -> db -> get();
 
         if($query -> num_rows() > 0){
-            return $query -> row();
+            // return $query -> row();
+            return $query -> result();
         }else{
             return false;
         }
@@ -81,7 +82,7 @@ class Contacts_model extends CI_Model{
 
     }
 
-    function add_group_contacts($group,$msisdn,$name,$idno,$email,$address,$region_id,$town_id){
+    function add_group_contacts($group,$msisdn,$name,$idno,$email,$address,$region_id,$town_id,$factory){
         log_message("info","Adding to SMS groups");
         $groupid = $this->get_groupid($group);
 
@@ -112,7 +113,7 @@ class Contacts_model extends CI_Model{
 
                     $responseMsg='You have subscribed to "'.$group.'" SMS group. To unsubscribe SMS "'.$sourceKeyword.' '.$unsub.' '.$group.'"';
                     log_message("info","Registration for ".$msisdn." successful ");
-                    $this->create_contact($msisdn,$name,$idno,$email,$address,$region_id,$town_id,"ACTIVE");
+                    $this->create_contact($msisdn,$name,$idno,$email,$address,$region_id,$town_id,"ACTIVE",$factory,$group);
                     return $responseMsg;
                 }else{
                     $responseMsg="System error. Please try again ";
@@ -242,7 +243,7 @@ class Contacts_model extends CI_Model{
         }
     }
 
-    function create_contact($msisdn,$name,$idno,$email,$address,$region,$town,$status){
+    function create_contact($msisdn,$name,$idno,$email,$address,$region,$town,$status,$factory,$group){
         //Check if user exists for that group
         // print($idno);
         //     return true;
@@ -256,7 +257,9 @@ class Contacts_model extends CI_Model{
                 'address'=>$address,
                 'region_id'=>$region,
                 'town_id'=>$town,
-                'status'=>$status
+                'status'=>$status,
+                'factory_id'=>$factory,
+                'group_id'=>$group
             );
             // $this->db->set('created', 'NOW()', FALSE);
             $this->db->insert('contacts',$data);

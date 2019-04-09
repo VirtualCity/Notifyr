@@ -53,7 +53,7 @@
                         <div class="col-md-6 col-xs-12">
                         <label for="code" class="field_name align_right lblBold"> Region Code</label><span class="text-danger"> *</span>
                         <div >
-                            <input required type="text" name="code" id="code" placeholder="Region Code" class="form-control" value="<?=$region?>"/>
+                            <input required type="text" name="code" id="code" placeholder="Region Code" class="form-control" value="<?=$code?>"/>
                             
                             <span class="text-danger"> <?php echo form_error('code'); ?> </span>
                         </div>
@@ -62,9 +62,9 @@
                         <div class="col-md-6 col-xs-12">
                         <label for="description" class="field_name align_right lblBold">Description</label><span class="text-danger"> *</span>
                        <div class="field">
-                                <textarea  id="description" required="textarea" name="description" placeholder="Description" class="form-control" rows="4" value=""></textarea>
-                                <span class="text-danger"> <?php echo form_error('description'); ?> </span>
-                                </div>
+                            <textarea  id="description" required="textarea" name="description" class="form-control" rows="4" value="<?=$description?>"></textarea>
+                            <span class="text-danger"> <?php echo form_error('description'); ?> </span>
+                        </div>
                     </div>
                     <hr class="field-separator">
                      <div class="col-md-6 col-xs-12">

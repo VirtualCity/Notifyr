@@ -9,7 +9,8 @@ if (!defined('BASEPATH'))
  */
 
 class Newsms extends Admin_Controller {
-	function __construct() {
+	function __construct() 
+	{
 		parent::__construct();
 		$this->load->library('sms/SmsSender.php');
 		$this->load->model('sms_model');
@@ -20,9 +21,11 @@ class Newsms extends Admin_Controller {
 		$this->load->helper('buttons_helper');
 	}
 
-	public function index() {
+	public function index() 
+	{
 		//check if user and redirect to dashboard
 		$role = $this->session->userdata('role');
+		$userfactory = $this->session->userdata('factory');
 		// if ($role === "USER") {
 		// 	// Display message
 		// 	$this -> session -> set_flashdata('appmsg', 'You are not allowed to access this function');
@@ -40,6 +43,7 @@ class Newsms extends Admin_Controller {
 		$sms_approval = "";
 		$isTemplate = false;
 		$variables = false;
+		$config = "";
 
 		
 
@@ -52,7 +56,14 @@ class Newsms extends Admin_Controller {
 			//Does it have valid form info (not empty values)
 			if ($this->form_validation->run()) {
 				$smstype = 'Individual';
-				$config = $this->settings_m->get_configuration();
+
+				if ($role === 'SUPER_ADMIN') {
+					$config = $this->settings_m->get_configuration();
+				} else {
+					$config = $this->settings_m->get_configuration($userfactory);
+				}
+				
+				
 
 				//check if the message body is a template
 				$hasOSBracket = strpos($message, '[') !== false;
@@ -80,7 +91,7 @@ class Newsms extends Admin_Controller {
 				if ($role === "USER") {
 					if ($sms_approval === 'true') {
 						$createdBy = $this->session->userdata('id');
-						$response = $this->sms_model->save_pending_bulk(null,$msisdn,$message,$createdBy,$smstype);
+						$response = $this->sms_model->save_pending_bulk(null,$msisdn,$message,$createdBy,$smstype,$userfactory);
 						
 						if(!$response){
 							$this->session->set_flashdata('appmsg',' Message to could not be saved!');
@@ -98,7 +109,7 @@ class Newsms extends Admin_Controller {
 						//$recipients = array('tel:' . $msisdn);
 						$recipients = array($msisdn);
 
-						$msg_sent = $this -> sendsms_model -> send_sms($recipients, $message);
+						$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
 						log_message("info", "Sending status: " . $msg_sent);
 
 						if ($msg_sent !== null) {
@@ -112,7 +123,7 @@ class Newsms extends Admin_Controller {
 									$success++;
 									$status = 'Sent';
 									$phoneNumber = substr($value->number, 1);
-									$this -> sms_model -> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status);
+									$this->sms_model->save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status,$userfactory);
 								}else{
 									$failed++;
 									log_message("info", "Sending status code: " . $value->Status);
@@ -155,7 +166,7 @@ class Newsms extends Admin_Controller {
 								$success++;
 								$status = 'Sent';
 								$phoneNumber = substr($value->number, 1);
-								$this -> sms_model -> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status);
+								$this->sms_model-> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status,$userfactory);
 							}else{
 								$failed++;
 								log_message("info", "Sending status code: " . $value->Status);
@@ -164,8 +175,8 @@ class Newsms extends Admin_Controller {
 						}
 
 						// Display success message
-						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
-						$this -> session -> set_flashdata('alert_type', 'alert-success');
+						$this->session->set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
+						$this->session->set_flashdata('alert_type', 'alert-success');
 
 						//save sms
 						$userid = $this -> session -> userdata('id');
@@ -194,7 +205,8 @@ class Newsms extends Admin_Controller {
 
 	}
 
-	function msisdn_check($str) {
+	function msisdn_check($str) 
+	{
 		$pos = strpos($str, '254');
 
 		if ($pos !== 0) {
@@ -206,23 +218,41 @@ class Newsms extends Admin_Controller {
 		}
 	}
 
-  function datatable(){
-        $this->datatables->select('id,title,template,type,modified')
+	function datatable()
+	{
+		$this->datatables->select('id,title,template,type,modified')
             ->unset_column('id')
             ->add_column('actions', get_view_templates_buttons('$1'), 'id')
             ->from('sms_templates');
         echo $this->datatables->generate();
+		// $role = $this->session->userdata('role');
+		// $userfactory = $this->session->userdata('factory');
+		// if($role === 'SUPER_USER'){
+		// 	$this->datatables->select('id,title,template,type,modified')
+        //     ->unset_column('id')
+        //     ->add_column('actions', get_view_templates_buttons('$1'), 'id')
+        //     ->from('sms_templates');
+		// 	echo $this->datatables->generate();
+		// }else {
+		// 	$this->datatables->select('id,title,template,type,modified')
+        //     ->unset_column('id')
+        //     ->add_column('actions', get_view_templates_buttons('$1'), 'id')
+        //     ->from('sms_templates');
+		// 	echo $this->datatables->generate();
+		// }
+        
     }
 
-public function templates()
-{
-	 $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "SMS Templates";
-		 $data['mainContent']='sms/view_templates';
-		//  $data['templates']= $this->template_model->get_all_templates();
-        $this->load->view('templates/template', $data);
-}
-	public function smstemplate() {
+	public function templates()
+	{
+		$data['user_role'] = $this->session->userdata('role');
+			$data['title'] = "SMS Templates";
+			$data['mainContent']='sms/view_templates';
+			//  $data['templates']= $this->template_model->get_all_templates();
+			$this->load->view('templates/template', $data);
+	}
+	public function smstemplate() 
+	{
 
 		$data['type'] = "";
 		$data['template'] = "";
@@ -242,7 +272,7 @@ public function templates()
 
 		if (!empty($id)) {
 			//retrieve template to edit
-			$to_edit = $this -> template_model -> get_template(trim($id));
+			$to_edit = $this->template_model->get_template(trim($id));
  
 			$data['id'] = $id;
 			$data['title_'] = $to_edit -> title;
@@ -263,7 +293,8 @@ public function templates()
 		}
 	}
 
-	function savetemplate() {
+	function savetemplate() 
+	{
 
 		// SET VALIDATION RULES
 		$this -> form_validation -> set_rules('title_', 'Title', 'required|max_length[140]|is_unique[sms_templates.title]');
@@ -279,7 +310,7 @@ public function templates()
 			//Does it have valid form info (not empty values)
 			if ($this -> form_validation -> run()) {
 
-				$saved = $this -> template_model -> create_template($title, $template, $type);
+				$saved = $this->template_model->create_template($title, $template, $type);
 				log_message("info", "saving template: " . $title);
 
 				if ($saved) {
@@ -297,8 +328,10 @@ public function templates()
 
 			}
 		}
-	}function updatetemplate() {
+	}
 
+	function updatetemplate() 
+	{
 		// SET VALIDATION RULES
 		$this -> form_validation -> set_rules('title_', 'Title', 'required|max_length[140]');
 		$this -> form_validation -> set_rules('template', 'Template Name', '|max_length[200]');
@@ -315,7 +348,7 @@ public function templates()
 			//Does it have valid form info (not empty values)
 			if ($this -> form_validation -> run()) {
 
-				$saved = $this -> template_model ->  update_template($id, $title, $template, $type);
+				$saved = $this->template_model->update_template($id, $title, $template, $type);
 				log_message("info", "updating template: " . $title);
 
 				if ($saved) {

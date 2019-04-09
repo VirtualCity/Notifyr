@@ -59,26 +59,42 @@ class ReceiveCallback extends CI_Controller{
             $unsubscriptionKeyword="";
             $allowedPurchaseGroup="";
 
-            $configurationData = $this->settings_m->get_configuration();
+            // $configurationData = $this->settings_m->get_configuration();
             
-            if($configurationData){
-                $applicationId = $configurationData->value1;
-                $password = $configurationData->value2;
-             // $sourceAddress = $configurationData->value9;
-                $sourceKeyword = $configurationData->value4;
-                $subscriptionKeyword = $configurationData->value6;
-                $unsubscriptionKeyword = $configurationData->value7;
-                $allowedPurchaseGroup = $configurationData->value8;
-            }
+            // if($configurationData){
+            //     $applicationId = $configurationData->value1;
+            //     $password = $configurationData->value2;
+            //  // $sourceAddress = $configurationData->value9;
+            //     $sourceKeyword = $configurationData->value4;
+            //     $subscriptionKeyword = $configurationData->value6;
+            //     $unsubscriptionKeyword = $configurationData->value7;
+            //     $allowedPurchaseGroup = $configurationData->value8;
+            // }
             
 
 
             $responseMsg="";
-
+            $factoryId = "";
             $msg_group="";
             $message="";
             $msisdn = $address;
 
+            $contact1 = $this->contacts_model->get_contact_by_msisdn($msisdn);
+            if($contact1){
+                $factoryId = $contact1->factory;
+                $configurationData = $this->settings_m->get_configuration_by_factory($factoryId);
+            
+                if($configurationData){
+                    $applicationId = $configurationData->value1;
+                    $password = $configurationData->value2;
+                    $sourceAddress = $configurationData->value9;
+                    $sourceKeyword = $configurationData->value4;
+                    $subscriptionKeyword = $configurationData->value6;
+                    $unsubscriptionKeyword = $configurationData->value7;
+                    $allowedPurchaseGroup = $configurationData->value8;
+                }
+
+            }
             //check if number is in blacklist
             $blacklisted = $this->blacklist_model->check_contact($msisdn);
 
@@ -117,7 +133,7 @@ class ReceiveCallback extends CI_Controller{
                                             $active = $this->contacts_model->check_active_contact($allowedPurchaseGroup,$msisdn);
                                            
                                             if($subscribed && $active){
-                                                $product_saved = $this->sms_model->save_purchase_report($part2,$productCode,$msisdn,$contact);
+                                                $product_saved = $this->sms_model->save_purchase_report($part2,$productCode,$msisdn,$contact,$factoryId);
 
                                                 if($product_saved){
 													//log_message("info","Report Saved");
@@ -333,9 +349,9 @@ class ReceiveCallback extends CI_Controller{
                                     }
 
                                     //Save received cummulative query
-                                    $saved = $this->sms_model->save_received_sms($msisdn, trim($content), "TOTAL","NONE", "AUTO-REPLIED");
+                                    $saved = $this->sms_model->save_received_sms($msisdn, trim($content), "TOTAL","NONE", "AUTO-REPLIED",$factoryId);
                                     if (!$saved) {
-                                        //log_message("info", 'Failed to save received Cummulative total query.');
+                                        log_message("info", 'Failed to save received Cummulative total query.');
                                     }
 
                                 }else{
@@ -353,7 +369,7 @@ class ReceiveCallback extends CI_Controller{
 
                                         //save received message for the group
 
-                                        $saved = $this->sms_model->save_received_sms($msisdn, trim($message), "GROUP",trim($part2), "PENDING");
+                                        $saved = $this->sms_model->save_received_sms($msisdn, trim($message), "GROUP",trim($part2), "PENDING",$factoryId);
                                         if ($saved) {
                                             //log_message("info", 'Group Message: "' . $content . '" From: "' . $msisdn . '"., Contact');
                                             $responseMsg = "Your message has been received. Thank you";
@@ -407,7 +423,7 @@ class ReceiveCallback extends CI_Controller{
                                                 $message = substr($content,$minus);
 
                                                 //save received message for the group
-                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'SUBSCRIPTION','NONE',"AUTO-REPLIED");
+                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'SUBSCRIPTION','NONE',"AUTO-REPLIED",$factoryId);
                                                 if($saved){
                                                     $responseMsg="Subscription failed. Kindly subscribe to an existing group ";
                                                     //log_message("info",$responseMsg);
@@ -424,7 +440,7 @@ class ReceiveCallback extends CI_Controller{
                                                 $message = substr($content,$minus);
 
                                                 //save received message for the group
-                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'UNSUBSCRIPTION',trim($part3),"AUTO-REPLIED");
+                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'UNSUBSCRIPTION',trim($part3),"AUTO-REPLIED",$factoryId);
                                                 if($saved){
                                                     $responseMsg = $this->contacts_model->remove_group_contact($part3,$msisdn);
                                                     //log_message("info",$responseMsg);
@@ -438,7 +454,7 @@ class ReceiveCallback extends CI_Controller{
                                                 $message = substr($content,$minus);
 
                                                 //save received message for the group
-                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'UNSUBSCRIPTION',"NONE","AUTO-REPLIED");
+                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'UNSUBSCRIPTION',"NONE","AUTO-REPLIED",$factoryId);
                                                 if($saved){
                                                     $responseMsg="Subscription failed. Kindly unsubscribe from existing groups ";
                                                     //log_message("info",$responseMsg);
@@ -447,7 +463,7 @@ class ReceiveCallback extends CI_Controller{
                                         }else{
                                             //Wrong format used
                                             //save received message to table for wrong format
-                                            $this->sms_model->save_received_sms($msisdn,$content,'UNKNOWN',"NONE","AUTO-REPLIED");
+                                            $this->sms_model->save_received_sms($msisdn,$content,'UNKNOWN',"NONE","AUTO-REPLIED",$factoryId);
 
                                             //Service code doesn't exist. Group doesnt Exist
                                             //log_message("info", 'Neither Service Code nor Group exists in message: "' . $content . '" From: "' . $msisdn . '"');

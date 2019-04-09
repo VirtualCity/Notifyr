@@ -33,6 +33,8 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('groups')?>">View Groups</a></li>
+						<li><a href="<?=base_url('groups/add')?>">Add Group</a></li>
+						<li><a href="<?=base_url('groups/import')?>">Import to Group</a></li>
 					</ul>
 				</li>
 
@@ -43,8 +45,8 @@
 						<span>SMS Reports</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
-						<li><a href="<?=base_url('reports/purchases')?>">Purchase Report</a></li>
+						<!-- <li><a href="<?//=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
+						<li><a href="<?//=base_url('reports/purchases')?>">Purchase Report</a></li> -->
 						<li><a href="<?=base_url('reports/received')?>">Group Messages Received</a></li>
 						<li><a href="<?=base_url('reports/replied')?>">Group Messages Replied</a></li>
 						<li><a href="<?=base_url('reports/pending')?>">Group Messages Pending</a></li>
@@ -77,19 +79,20 @@
                     </a>
                     <ul class="sub-menu">
                         <li><a href="<?=base_url('blacklist')?>">View Blacklist</a></li>
+						<li><a href="<?=base_url('addblacklist')?>">Blacklist Number</a></li>
                     </ul>
                 </li>
 
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-shopping-cart"></i>
 						<span>Services</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('products')?>">View Services</a></li>
+						<li><a href="<?//=base_url('products')?>">View Services</a></li>
 					</ul>
-				</li>
+				</li> -->
 
 				<li class="has-sub">
 					<a href="javascript:;">
@@ -106,10 +109,27 @@
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-globe"></i>
+						<span>Factories</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('factories')?>">View Factories</a></li>
+						<li><a href="<?=base_url('factories/add')?>">Add Factory</a></li>
+						<li><a href="<?=base_url('factories/import')?>">Import Factories</a></li>
+						<li><a href="<?=base_url('factories/factory_usage_report')?>">Factories Balance</a></li>
+					</ul>
+				</li>
+
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-globe"></i>
 						<span>Regions</span>
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('regions')?>">View Regions</a></li>
+						
+						<li><a href="<?=base_url('regions/add')?>">Add Region</a></li>
+						<li><a href="<?=base_url('regions/import')?>">Import Regions</a></li>
 					</ul>
 				</li>
 				

@@ -14,6 +14,7 @@ class Active extends Admin_Controller{
 
         $this->load->model('user_model');
         $this->load->database();
+
     }
 
     function index(){
@@ -22,19 +23,31 @@ class Active extends Admin_Controller{
 
          $data['mainContent']='users/view_active';
         $this->load->view('templates/template',$data);
-        
     }
-    //return activated users
+        
     function datatable(){
-        $this->datatables->select("id,username,CONCAT(fname,' ',surname,' ',oname) as name,mobile,email,role,created",false)
-            ->unset_column('id')
-            ->add_column('actions', get_active_users_buttons('$1'), 'id')
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select("users.id as id,users.username as username,CONCAT(users.fname,' ',users.surname,' ',users.oname) as name,users.mobile,users.email,factories.name as factory,users.role,users.created",false)
+            ->unset_column('users.id')
+            ->add_column('actions', get_active_users_buttons('$1'), 'users.id')
             ->from('users')
+            ->join('factories','users.factory_id=factories.id')
             ->where('status','active');
-
-         $result= $this->datatables->generate();
-        echo $result;
-
+            $result= $this->datatables->generate();
+            echo $result;
+        }else{
+            $this->datatables->select("users.id as id,users.username as username,CONCAT(users.fname,' ',users.surname,' ',users.oname) as name,users.mobile,users.email,factories.name as factory,users.role,users.created",false)
+            ->unset_column('users.id')
+            ->add_column('actions', get_active_users_buttons('$1'), 'users.id')
+            ->from('users')
+            ->join('factories','users.factory_id=factories.id')
+            ->where('users.factory_id',$userfactory)
+            ->where('status','active');                
+            $result= $this->datatables->generate();
+            echo $result;
+        }
     }
 
     function suspend($id){

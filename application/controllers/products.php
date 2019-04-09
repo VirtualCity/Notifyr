@@ -20,8 +20,6 @@ class Services extends Admin_Controller{
         $data['title'] = "Services";
          $data['mainContent']='products/view_products';
         $this->load->view('templates/template', $data);
-
-
     }
 
     function datatable(){

@@ -36,7 +36,8 @@
       <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <ul class="nav nav-tabs">
-           <?php if ($this->session->userdata('role')==="MANAGER"): ?>
+        <!-- <?php// if (($this->session->userdata('role')==="MANAGER")||($this->session->userdata('role')==="SUPER_USER")): ?> -->
+        <?php if ($this->session->userdata('role')==="MANAGER"): ?>
             <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
             <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Users</h4></a></li>
             <li><a href="<?=base_url('users/add')?>">Add User</a></li>                    
@@ -63,6 +64,7 @@
                                 <th>Full Names</th>
                                 <th>Mobile No</th>
                                 <th>Email</th>
+                                <th>Factory</th>
                                 <th>Role</th>
                                 <th>Date Created</th>
                                 <?Php if($user_role==="MANAGER"){ ?>
@@ -105,6 +107,7 @@
                 { "data": "name"},
                 { "data": "mobile"},
                 { "data": "email"},
+                { "data": "factory"},
                 { "data": "role"},
                 { "data": "created"}
                 <?Php if($user_role==="MANAGER"){ ?>

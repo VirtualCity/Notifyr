@@ -36,7 +36,7 @@
                             <th>Code</th>
                             <th>Description</th>
                             <th>Date Created</th>
-                            <?Php if($user_role==="MANAGER"){ ?>
+                            <?Php if($user_role==="SUPER_USER"){ ?>
                                 <th>Action</th>
                             <?Php  } ?>
 
@@ -86,7 +86,7 @@
                 { "data": "code"},
                 { "data": "description"},
                 { "data": "created"}
-                <?Php if($user_role==="MANAGER"){ ?>
+                <?Php if($user_role==="SUPER_USER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

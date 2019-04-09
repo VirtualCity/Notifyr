@@ -35,6 +35,7 @@
                         <tr>
                             <th>Group Name</th>
                             <th>Description</th>
+                            <th>Factory</th>
                             <th>Date Created</th>
                             <?Php if($user_role==="MANAGER"){ ?>
                                 <th>Action</th>
@@ -73,6 +74,7 @@
             columns: [
                 { "data": "name"},
                 { "data": "description"},
+                { "data": "factory"},
                 { "data": "created"}
                 <?Php if($user_role==="MANAGER"){ ?>
                 ,

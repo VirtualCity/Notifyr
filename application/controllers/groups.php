@@ -14,6 +14,7 @@ class Groups extends MY_Controller{
         $this->load->model('contacts_model');
         $this->load->model('regions_m');
         $this->load->model('towns_m');
+        $this->load->model('factories_model');
     }
 
     function index(){
@@ -25,36 +26,61 @@ class Groups extends MY_Controller{
     }
 
     function datatable(){
-        $this->datatables->select('id,name,description,created')
-        ->unset_column('id')
-        ->add_column('actions', get_groups_buttons('$1'), 'id')
-        ->from('groups');
-
-        echo $this->datatables->generate();
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select('groups.id,groups.name,groups.description,factories.name as factory,groups.created')
+            ->unset_column('id')
+            ->add_column('actions', get_groups_buttons('$1'), 'id')
+            ->from('groups')
+            ->join('factories','groups.factory_id=factories.id');
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('groups.id,groups.name,groups.description,factories.name as factory,groups.created')
+            ->unset_column('id')
+            ->add_column('actions', get_groups_buttons('$1'), 'id')
+            ->from('groups')
+            ->join('factories','groups.factory_id=factories.id')
+            ->where('groups.factory_id',$userfactory);              
+            $result= $this->datatables->generate();
+            echo $result;
+        }
     }
 
     function add(){
 
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
 
         $group="";
         $description ="";
+        $factories = "";
+        $factory_id = "";
 
+        if ($role === "SUPER_USER") {
+            $factories = $this->factories_model->get_all_factories();
+        }else {
+            $factories = $this->factories_model->get_factory($userfactory);
+        }
+        
         // SET VALIDATION RULES
         $this->form_validation->set_rules('group', 'Group Name', 'required|alpha_numeric|min_length[2]|max_length[30]|is_unique[groups.name]');
         $this->form_validation->set_message('is_unique', 'This Group name already exists!');
         $this->form_validation->set_rules('description', 'Description', 'max_length[100]');
+        $this->form_validation->set_rules('factory_id', 'Factory', 'required|numeric');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         // has the form been submitted
         if($this->input->post()){
             $group = trim($this->input->post('group'));
             $description = trim($this->input->post('description'));
+            $factory_id = trim($this->input->post('factory_id'));
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
 
                 //Save new town
-                $saved =  $this->groups_model->add_group(ucfirst($group),$description);
+                $saved =  $this->groups_model->add_group(ucfirst($group),$description,$factory_id);
 
                 if($saved){
                     // Display success message
@@ -76,6 +102,9 @@ class Groups extends MY_Controller{
 
         $data['group'] =$group;
         $data['description'] =$description;
+        $data['factory_id'] =$description;
+        $data['factories'] =$factories;
+        $data['userfactory'] = $userfactory;
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add SMS Group";

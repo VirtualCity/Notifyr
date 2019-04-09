@@ -29,14 +29,28 @@ class Pending extends MY_Controller{
     }
 
     function datatable(){
-        $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message,  sms_received.status As status, sms_received.created AS created')
+
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+
+        if ($role === 'SUPER_USER') {
+            $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message,  sms_received.status As status, sms_received.created AS created')
             ->unset_column('id')
             ->add_column('actions', get_pending_messages_buttons('$1'), 'id')
             ->from('sms_received LEFT JOIN contacts USING (msisdn)')
             ->where('message_type','GROUP')
             ->where('sms_received.status ','PENDING');
-
-        echo $this->datatables->generate();
+            echo $this->datatables->generate();
+        } else {
+            $this->datatables->select('sms_received.id AS id, sms_received.group as groupname, name,sms_received.msisdn AS msisdn, message,  sms_received.status As status, sms_received.created AS created')
+            ->unset_column('id')
+            ->add_column('actions', get_pending_messages_buttons('$1'), 'id')
+            ->from('sms_received LEFT JOIN contacts USING (msisdn)')
+            ->where('sms_received.factory_id',$userfactory)
+            ->where('message_type','GROUP')
+            ->where('sms_received.status ','PENDING');
+            echo $this->datatables->generate();
+        }
     }
 
     function reply($id=null){

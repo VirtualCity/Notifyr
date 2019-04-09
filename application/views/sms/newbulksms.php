@@ -37,7 +37,7 @@
                         <select name="group" id="group" class="form-control"  >
                             <option value="">---Please Select SMS Group---</option>
                             <?php foreach($groups as $row) { ?>
-                            <option value="<?=$row->id?>" <?php if ($row->id ===$group_id){echo "selected";}?>><?=$row->name?></option>
+                            <option value="<?=$row->id?>"><?=$row->name?></option> <!-- <?php// if ($row->id ===$group_id){echo "selected";}?>-->
                             <?php } ?>
                         </select>
 

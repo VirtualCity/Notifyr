@@ -136,8 +136,6 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="<?=base_url('regions')?>">View Regions</a></li>
-						<li><a href="<?=base_url('regions/add')?>">Add Region</a></li>
-						<li><a href="<?=base_url('regions/import')?>">Import Regions</a></li>
 					</ul>
 				</li>
 

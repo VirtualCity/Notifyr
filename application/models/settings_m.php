@@ -141,8 +141,8 @@ class Settings_m extends CI_Model{
 
     /* SDP Configuration Section*/
 
-    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl,$approval){
-        $configTagExist = $this->check_configuration();
+    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl,$approval,$factoryid){
+        $configTagExist = $this->check_configuration_by_factory($factoryid);
 
         if($configTagExist){
             //Update
@@ -158,8 +158,10 @@ class Settings_m extends CI_Model{
                 'value9'=>$value9,
                 'shortcode'=>$shortcode,
                 'balanceurl'=>$balanceurl,
-                'smsapproval'=>$approval
+                'smsapproval'=>$approval,
+                'factory_id'=>$factoryid
             );
+            $this->db->where('factory_id', $factoryid);
             $this->db->where('title', 'CONFIGURATION');
             $result = $this->db->update('settings',$data);
             if($result){
@@ -184,7 +186,8 @@ class Settings_m extends CI_Model{
                 'value9'=>$value9,
                 'shortcode'=>$shortcode,
                 'balanceurl'=>$balanceurl,
-                'smsapproval'=>$approval
+                'smsapproval'=>$approval,
+                'factory_id'=>$factoryid
             );
 
             $this->db->insert('settings',$data);
@@ -214,6 +217,20 @@ class Settings_m extends CI_Model{
         }
     }
 
+    function check_configuration_by_factory($factoryid){
+        $this -> db-> select('*');
+        $this -> db -> from('settings');
+        $this->db->where('factory_id', $factoryid);
+        $this->db->where('title', 'CONFIGURATION');
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     function get_sms_approval(){
         $this -> db-> select('smsapproval');
         $this -> db -> from('settings');
@@ -227,10 +244,37 @@ class Settings_m extends CI_Model{
         }
     }
 
+    function get_sms_approval_by_factory($factoryid){
+        $this -> db-> select('smsapproval');
+        $this -> db -> from('settings');
+        $this->db->where('factory_id', $factoryid);
+        $this->db->where('title', 'CONFIGURATION');
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
+
     function get_configuration(){
         $this -> db-> select('*');
         $this -> db -> from('settings');
         $this->db->where('title','CONFIGURATION');
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
+
+    function get_configuration_by_factory($factoryid){
+        $this -> db-> select('*');
+        $this -> db -> from('settings');
+        $this->db->where('factory_id',$factoryid);
         $query = $this -> db -> get();
 
         if($query -> num_rows() > 0){

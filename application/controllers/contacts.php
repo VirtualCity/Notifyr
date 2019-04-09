@@ -15,6 +15,7 @@ class Contacts extends MY_Controller{
         $this->load->model('contacts_model');
         $this->load->model('towns_m');
         $this->load->model('regions_m');
+        $this->load->model('factories_model');
 
     }
 
@@ -189,23 +190,31 @@ class Contacts extends MY_Controller{
         $this->form_validation->set_rules('msisdn', 'Mobile Number', 'required|numeric|is_unique[contacts.msisdn]|exact_length[12]');
         $this->form_validation->set_rules('name', 'Name', 'max_length[50]');
         $this->form_validation->set_rules('idno', 'Id Number', 'max_length[30]|numeric');
-        $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
-        $this->form_validation->set_rules('town_id', 'Town', 'required|numeric');
-        $this->form_validation->set_rules('group_id', 'Group', 'required|numeric');
+        // $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
+        // $this->form_validation->set_rules('town_id', 'Town', 'required|numeric');
+        // $this->form_validation->set_rules('group_id', 'Group', 'required|numeric');
         $this->form_validation->set_rules('email', 'Email', 'max_length[50]|valid_email');
         $this->form_validation->set_rules('address', 'Address', 'max_length[100]');
+
+        $this->form_validation->set_rules('factory_id', 'Factory', 'required|numeric');
+        $this->form_validation->set_rules('group_id', 'Group', 'required|numeric');
+        $this->form_validation->set_rules('code', 'Code', 'max_length[50]');
 
         $this->form_validation->set_message('is_unique', 'This mobile number already exists in contacts');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         $msisdn ="";
         $name="";
+        $code = "";
         $email="";
         $address="";
         $idno="";
         $id_number='';
-
+        $groups="";
+        $factories="";
         $role = $this->session->userdata('role');
+
+        $userfactory = $this->session->userdata('factory');
 
         // has the form been submitted
         if($this->input->post()){
@@ -214,9 +223,14 @@ class Contacts extends MY_Controller{
             $idno = $this->input->post('idno');
             $email = $this->input->post('email');
             $address = $this->input->post('address');
-            $region_id = $this->input->post('region_id');
-            $town_id = $this->input->post('town_id');
+            // $region_id = $this->input->post('region_id');
+            // $town_id = $this->input->post('town_id');
+            // $group_id = $this->input->post('group_id');
+
+            $factory_id = $this->input->post('factory_id');
             $group_id = $this->input->post('group_id');
+            $code = $this->input->post('code');
+
 
             // print_r($this->input->post());
             // return;
@@ -242,7 +256,7 @@ class Contacts extends MY_Controller{
                         $status = "ACTIVE";
                     }
 
-                    $saved = $this->contacts_model->create_contact($msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id,$status);
+                    $saved = $this->contacts_model->create_contact($msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id,$status,$factory_id,$group_id);
                    // $saved = $this->contacts_model->add_group_contacts($group_id, $msisdn,ucfirst($name),$idno,strtolower($email),ucwords($address),$region_id,$town_id);
 
                     if($saved){
@@ -267,16 +281,31 @@ class Contacts extends MY_Controller{
         $data['msisdn']=$msisdn;
         $data['name']=$name;
         $data['idno']=$idno;
+        $data['code']=$code;
         $data['email']=$email;
         $data['address']=$address;
         $data['id_number']=$id_number;
+        $data['userfactory']=$userfactory;
 
         $regions = $this->regions_m->get_all_regions();
         $data['regions'] = $regions;
         $towns= $this->towns_m-> get_all_towns();
         $data['towns']=$towns;
-        $groups= $this->groups_model-> get_all_groups();
+        if ($role === "SUPER_USER") {
+            $groups= $this->groups_model-> get_all_groups();
+        } else {
+            $groups= $this->groups_model-> get_group_by_factory($userfactory);
+        }
+        
         $data['groups']=$groups;
+
+        if ($role === "SUPER_USER") {
+            $factories= $this->factories_model->get_all_factories();
+        } else {
+            $factories= $this->factories_model->get_factory($userfactory);
+        }
+        
+        $data['factories']=$factories;
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Contact";
@@ -296,6 +325,7 @@ class Contacts extends MY_Controller{
             //display edit view
             $data['id']=$id;
             $data['msisdn']=$to_edit->msisdn;
+            $data['code']=$to_edit->code;
             $data['name']=$to_edit->name;
             $data['email']=$to_edit->email;
             $data['address']=$to_edit->address;
@@ -325,6 +355,7 @@ class Contacts extends MY_Controller{
         $this->form_validation->set_rules('id', 'Id', 'required|numeric');
         $this->form_validation->set_rules('msisdn', 'Mobile Number', 'required|numeric|exact_length[12]');
         $this->form_validation->set_rules('name', 'Name', 'max_length[50]');
+        // $this->form_validation->set_rules('code', 'Code', 'max_length[50]');
         $this->form_validation->set_rules('idno', 'Id Number', 'max_length[30]|numeric');
         $this->form_validation->set_rules('email', 'Email', 'max_length[50]|valid_email');
         $this->form_validation->set_rules('address', 'Address', 'max_length[100]');
@@ -336,6 +367,7 @@ class Contacts extends MY_Controller{
             $id = $this->input->post('id');
             $msisdn = $this->input->post('msisdn');
             $name = $this->input->post('name');
+            // $code = $this->input->post('code');
             $idno = $this->input->post('idno');
             $email = $this->input->post('email');
             $address = $this->input->post('address');

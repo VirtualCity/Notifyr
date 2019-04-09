@@ -62,7 +62,7 @@ class Login extends CI_Controller{
 					if($user_active){
 						//compare passwords
 						$retrieved_user = $this->user_model->compare_password($uname,$pwd);
-						if(is_array($retrieved_user) && count($retrieved_user)==8){
+						if(is_array($retrieved_user) && count($retrieved_user)==9){
 							// echo("Login success");
 
 							// echo $retrieved_user['oname'];

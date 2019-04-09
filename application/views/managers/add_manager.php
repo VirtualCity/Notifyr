@@ -69,7 +69,7 @@
                                 <?php
                                 if(!empty($areas)){
                                     foreach($areas as $row) { ?>
-                                    <option value="<?=$row->id?>" <?php if ($row->id ===$region_id){echo "selected";}?>><?=$row->name?></option>
+                                    <option value="<?=$row->id?>"><?=$row->name?></option>
                                     <?php   }
                                 } ?>
                             </select> 

@@ -39,7 +39,8 @@ class Pendingbulksms extends Admin_Controller {
     
 
     //load ui for approved
-    function approvedbulk(){
+    function approvedbulk()
+    {
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Approved SMS";
         $data['mainContent']='sms/approvedbulksms';
@@ -47,7 +48,8 @@ class Pendingbulksms extends Admin_Controller {
     }
 
     //load ui for cancelled
-    function cancelledbulk(){
+    function cancelledbulk()
+    {
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Cancelled SMS";
         $data['mainContent']='sms/cancelledbulksms';
@@ -55,7 +57,8 @@ class Pendingbulksms extends Admin_Controller {
     }
 
     //load ui for rejected
-    function rejectedbulk(){
+    function rejectedbulk()
+    {
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Rejected SMS";
         $data['mainContent']='sms/rejectedbulksms';
@@ -64,9 +67,11 @@ class Pendingbulksms extends Admin_Controller {
 
 
     //PENDING BULK
-    function pending(){
+    function pending()
+    {
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
         if ($role === "USER") {
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status, users.username as createdby, pending_sms.created as datecreated')
             ->unset_column('id')
@@ -75,7 +80,8 @@ class Pendingbulksms extends Admin_Controller {
             ->join('users','pending_sms.created_by = users.id','left')
             ->from('pending_sms')
             ->where('pending_sms.status',0)
-            ->where('pending_sms.created_by',$id);
+            ->where('pending_sms.created_by',$id)
+            ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }else{
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status, users.username as createdby, pending_sms.created as datecreated')
@@ -84,7 +90,8 @@ class Pendingbulksms extends Admin_Controller {
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.created_by = users.id','left')
             ->from('pending_sms')
-			->where('pending_sms.status',0);
+            ->where('pending_sms.status',0)
+            ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }
     }
@@ -92,6 +99,7 @@ class Pendingbulksms extends Admin_Controller {
     function approved(){
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
 
         if ($role === "USER") {
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, pending_sms.updated as dateapproved')
@@ -100,7 +108,8 @@ class Pendingbulksms extends Admin_Controller {
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
             ->where('pending_sms.status',1)
-            ->where('pending_sms.created_by',$id);
+            ->where('pending_sms.created_by',$id)
+            ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }else{
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, , pending_sms.updated as dateapproved')
@@ -108,15 +117,18 @@ class Pendingbulksms extends Admin_Controller {
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
-            ->where('pending_sms.status',1);
+            ->where('pending_sms.status',1)
+            ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }
     }
 
     //CANCELLED BULK
-    function cancelled(){
+    function cancelled()
+    {
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
 
         if ($role === "USER") {
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as cancelledby, pending_sms.created as datecreated, pending_sms.updated as datecancelled')
@@ -125,7 +137,8 @@ class Pendingbulksms extends Admin_Controller {
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
             ->where('pending_sms.status',2)
-            ->where('pending_sms.created_by',$id);
+            ->where('pending_sms.created_by',$id)
+            ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }else{
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as cancelledby, pending_sms.created as datecreated, , pending_sms.updated as datecancelled')
@@ -133,16 +146,20 @@ class Pendingbulksms extends Admin_Controller {
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
+            ->where('pending_sms.factory_id',$userfactory)
             ->where('pending_sms.status',2);
+
             echo $this->datatables->generate();
         }
     }
 
 
     //REJECTED BULK
-    function rejected(){
+    function rejected()
+    {
         $id = $this->session->userdata('id');
         $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
 
         if ($role === "USER") {
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, pending_sms.updated as dateapproved')
@@ -151,7 +168,8 @@ class Pendingbulksms extends Admin_Controller {
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
             ->where('pending_sms.status',3)
-            ->where('pending_sms.created_by',$id);
+            ->where('pending_sms.created_by',$id)
+            ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }else{
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status,users.username as approvedby, pending_sms.created as datecreated, , pending_sms.updated as dateapproved')
@@ -159,13 +177,19 @@ class Pendingbulksms extends Admin_Controller {
             ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.approved_by = users.id','left')
             ->from('pending_sms')
+            ->where('pending_sms.factory_id',$userfactory)
             ->where('pending_sms.status',3);
             echo $this->datatables->generate();
         }
     }
 
     //approve the bulk sms
-    function approve($id=null){
+    function approve($id=null)
+    {
+        $id = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+
         if(!empty($id)){
             //pull the sms to be approved
             $to_approve = $this->sms_model->get_pending_bulk_by_id($id);
@@ -208,7 +232,7 @@ class Pendingbulksms extends Admin_Controller {
                                     $success2++;
                                     $status = 'Sent';
                                     $phoneNumber = substr($value->number, 1);
-                                    $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                    $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                                 }else{
                                     $failed2++;
                                     log_message("info", "Sending status code: " . $value->Status);
@@ -253,7 +277,7 @@ class Pendingbulksms extends Admin_Controller {
                                 $success++;
                                 $status = 'Sent';
                                 $phoneNumber = substr($value->number, 1);
-                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                             }else{
                                 $failed++;
                                 log_message("info", "Sending status code: " . $value->Status);
@@ -340,7 +364,8 @@ class Pendingbulksms extends Admin_Controller {
     }
 
     //cancel pending bulk 
-    function cancel($id=null){
+    function cancel($id=null)
+    {
         if(!empty($id)){
 
             //pull the sms to be approved
@@ -364,7 +389,8 @@ class Pendingbulksms extends Admin_Controller {
     }
 
     //cancel pending bulk 
-    function reject($id=null){
+    function reject($id=null)
+    {
         if(!empty($id)){
 
             //pull the sms to be approved

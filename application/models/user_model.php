@@ -73,13 +73,14 @@ class User_model extends CI_Model{
 
             //Compare passwords
             if($plaintext_password === $password){
-                $id = $row-> id;
-                $fname = $row-> fname;
-                $sname = $row-> surname;
-                $oname = $row-> oname;
-                $role = $row-> role;
-                $code = $row-> code;
-                $status = $row-> status;
+                $id = $row->id;
+                $fname = $row->fname;
+                $sname = $row->surname;
+                $oname = $row->oname;
+                $role = $row->role;
+                $code = $row->code;
+                $status = $row->status;
+                $factory = $row->factory_id;
 
                 $userinfo = array(
                     'id' => $id,
@@ -89,7 +90,8 @@ class User_model extends CI_Model{
                     'role' => $role,
                     'code' => $code,
                     'status' => $status,
-                    'logged_in' => TRUE
+                    'logged_in' => TRUE,
+                    'factory' => $factory
                 );
 
                 return $userinfo;
@@ -101,8 +103,30 @@ class User_model extends CI_Model{
 
 
     function get_active_users(){
-        $this -> db-> select('*');
-        $this -> db -> from('users');
+        $this->db->select('users.id, users.username,users.password,users.fname,users.surname,users.oname,users.mobile,users.email,users.role,factories.name as factory,users.code,users.status,users.modified,created');
+        $this->db->from('users');
+        $this->db->join('factories','factories.id=users.factory_id');
+
+        // $this -> db-> select('*');
+        // $this -> db -> from('users');
+        $this -> db -> where('users.status','Active');
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> result();
+        }else{
+            return false;
+        }
+    }
+
+    function get_active_users_by_factory(){
+
+        $this->db->select('users.id, users.username,users.password,users.fname,users.surname,users.oname,users.mobile,users.email,users.role,factories.name,users.code,users.status,users.modified,created');
+        $this->db->from('users');
+        $this->db->join('factories','factories.id=users.factory_id');
+
+        // $this -> db-> select('*');
+        // $this -> db -> from('users');
         $this -> db -> where('status','Active');
         $query = $this -> db -> get();
 
@@ -152,7 +176,7 @@ class User_model extends CI_Model{
         }
     }
 
-    function add_user($fname,$sname,$oname,$email,$mobile,$username,$user_role,$password,$status){
+    function add_user($fname,$sname,$oname,$email,$mobile,$username,$user_role,$password,$status,$factory){
 
         $encrypted_string = $this->encrypt->encode($password);
         $data =  array(
@@ -163,8 +187,10 @@ class User_model extends CI_Model{
             'mobile'=>$mobile,
             'username'=>$username,
             'role'=>$user_role,
+            'factory_id'=>$factory,
             'password'=>$encrypted_string,
             'status'=>$status);
+            // return $data;
         $this->db->insert('users',$data);
         $num_insert = $this->db->affected_rows();
         if($num_insert>0){

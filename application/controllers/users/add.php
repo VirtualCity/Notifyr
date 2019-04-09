@@ -10,9 +10,12 @@ class Add extends Admin_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('factories_model');
     }
 
     function index(){
+
+        
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('fname', 'First Name', 'required|alpha|max_length[30]');
@@ -22,6 +25,7 @@ class Add extends Admin_Controller{
         $this->form_validation->set_rules('email', 'Email Address', 'max_length[150]|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('mobile', 'Mobile', 'exact_length[12]');
         $this->form_validation->set_rules('role', 'User Role', 'required');
+        $this->form_validation->set_rules('factorys', 'factory', 'required|numeric');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|max_length[50]');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
@@ -33,8 +37,24 @@ class Add extends Admin_Controller{
         $mobile ="";
         $role ="";
         $password ="";
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        // $factorys ="";
+        $factorys ="";
+        
+        if ($role === 'SUPER_USER') {
+            $factorys = $this->factories_model->get_all_factories();
+        }else {
+            $factorys = $this->factories_model->get_factory($userfactory);
+        }
+        $data['factorys']=$factorys;
 
-
+        // print_r($factorys);
+        // echo '<br>';
+        // print($userfactory);
+        // echo '<br>';
+        // echo $role;
+        // return;
         // has the form been submitted
         if($this->input->post()){
             $fname = $this->input->post('fname');
@@ -45,6 +65,9 @@ class Add extends Admin_Controller{
             $mobile = $this->input->post('mobile');
             $role = $this->input->post('role');
             $password = $this->input->post('password');
+            $selectedfactory = $this->input->post('factorys');
+
+            
 
             log_message('INFO','fname:'.$fname.' sname'.$sname);
 
@@ -52,11 +75,13 @@ class Add extends Admin_Controller{
             if($this->form_validation->run()){
 
                 //Save new user
-                $saved = $this->user_model->add_user($fname,$sname,$oname,$email,$mobile,$username,$role,$password,'Active');
+                $saved = $this->user_model->add_user($fname,$sname,$oname,$email,$mobile,$username,$role,$password,"Active",$selectedfactory);
+                // print_r($saved);
+                // return;
 
                 if($saved){
-                    //   log_message('info','User Saved');
-                    // Display success message
+                    //log_message('info','User Saved');
+                    //Display success message
                     $this->session->set_flashdata('appmsg', 'User account added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
                     redirect('users/add');
@@ -79,6 +104,9 @@ class Add extends Admin_Controller{
         $data['mobile']=$mobile;
         $data['role']=$role;
         $data['password']=$password;
+        $data['factorys']=$factorys;
+        $data['userfactory']=$userfactory;
+        
 
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');

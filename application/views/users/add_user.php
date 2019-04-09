@@ -36,7 +36,7 @@
   <div class="panel tab-content col-md-10">
     <div class="tab-pane active" id="tab_a">
      <ul class="nav nav-tabs">
-     <?php if ($this->session->userdata('role')==="MANAGER"): ?>
+     <?php if (($this->session->userdata('role')==="MANAGER")||($this->session->userdata('role')==="SUPER_USER")): ?>
         <li class=""><a href="<?=base_url('users/active')?>" >Active Users</a></li>
         <li><a href="<?=base_url('users/suspended')?>" >Suspended Users</a></li>
         <li class="active"><a href="<?=base_url('users/add')?>" data-toggle="tab"><h4 class="panel-title">Add User</h4></a></li>                    
@@ -104,21 +104,51 @@
                         </div>
 
 
+                        <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
+                            <div class="col-md-6 col-xs-12">
+                                <label for="role" >Select Role </label>
+                                <span class="text-danger"> *</span>
+                                <select name="role" id="role" class="form-control" >
+                                    <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
+                                    <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
+                                    <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Enabler</option>
+                                    <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
+                                    <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
+                                    <option value="MANAGER" <?php if ($role ==="MANAGER"){echo "selected";}?>>Manager</option>
+                                </select> 
+                                <span class="text-danger"><?php echo form_error('role'); ?> </span>
+                            </div>                   
+                        <?php endif ?>
+                        <?php if ($this->session->userdata('role')==="MANAGER"): ?>
+                            <div class="col-md-6 col-xs-12">
+                                <label for="role" >Select Role </label>
+                                <span class="text-danger"> *</span>
+                                <select name="role" id="role" class="form-control" >
+                                    <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
+                                    <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
+                                    <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
+                                </select> 
+                                <span class="text-danger"><?php echo form_error('role'); ?> </span>
+                            </div>   
+                        <?php endif ?>
+                        
+
+                        
+
                         <div class="col-md-6 col-xs-12">
-                            <label for="role" >Select Role </label>
-                            <span class="text-danger"> *</span>
-                            <select name="role" id="role" class="form-control" >
-                                <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
-                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
-                                <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Enabler</option>
-                                <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
-                                <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
-                                <option value="MANAGER" <?php if ($role ==="MANAGER"){echo "selected";}?>>Manager</option>
-                            </select> 
-                            <span class="text-danger"><?php echo form_error('role'); ?> </span>
+                            <label > Factory  </label><span class="text-danger"></span>
+                            <select name="factorys" id="factorys" class="form-control" >
+                                <option value="">-- Select Factory --</option>
+                                <?php
+                                if(!empty($factorys)){
+                                    foreach($factorys as $row) { ?>
+                                    <option value="<?=$row->id?>" ><?=$row->name?></option>  <!--<?php// if ($row->id ===$userfactory){echo "selected";}?>-->
+                                    <?php   }
+                                } ?>
+                            </select>
+
+                            <span class="text-danger"> <?php echo form_error('factorys'); ?> </span>
                         </div>
-
-
 
                         <hr class="field-separator">
                         <div class="col-md-6 col-xs-12">

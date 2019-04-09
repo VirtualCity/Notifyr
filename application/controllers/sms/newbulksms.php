@@ -24,6 +24,7 @@ class Newbulksms extends Admin_Controller {
     {
         //check if user and redirect to dashboard
         $role = $this->session->userdata('role');
+		$userfactory = $this->session->userdata('factory');
         // if ($role === "USER") {
         //     // Display message
         //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
@@ -42,6 +43,7 @@ class Newbulksms extends Admin_Controller {
         $sms_approval = "";
         $isTemplate = false;
         $variables = false;
+        $config = "";
 
         // has the form been submitted
         if ($this->input->post()) {
@@ -59,7 +61,13 @@ class Newbulksms extends Admin_Controller {
 
             //Does it have valid form info (not empty values)
             if ($this->form_validation->run()) {
-                $config = $this->settings_m->get_configuration();
+                if ($role === 'SUPER_USER') {
+                    $config = $this->settings_m->get_configuration();
+                } else {
+                    $config = $this->settings_m->get_configuration__by_factory($userfactory);
+                }
+                
+                
 				if($config){
                     $approval = $config->smsapproval;
                 }
@@ -77,7 +85,7 @@ class Newbulksms extends Admin_Controller {
                             $createdBy = $this->session->userdata('id');
                             $smstype = 'Group';
                             $grpContacts = implode('-',$groupcontacts);
-                            $response = $this->sms_model->save_pending_bulk($group_id,$grpContacts,$message,$createdBy,$smstype);
+                            $response = $this->sms_model->save_pending_bulk($group_id,$grpContacts,$message,$createdBy,$smstype,$userfactory);
                             if(!$response){
                                 $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' could not be saved!');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
@@ -121,7 +129,7 @@ class Newbulksms extends Admin_Controller {
                                                 $success1++;
                                                 $status = 'Sent';
                                                 $phoneNumber = substr($value->number, 1);
-                                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                                             }else{
                                                 $failed1++;
                                                 log_message("info", "Sending status code: " . $value->Status);
@@ -159,7 +167,7 @@ class Newbulksms extends Admin_Controller {
                                             $success++;
                                             $status = 'Sent';
                                             $phoneNumber = substr($value->number, 1);
-                                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                                         }else{
                                             $failed++;
                                             log_message("info", "Sending status code: " . $value->Status);
@@ -215,7 +223,7 @@ class Newbulksms extends Admin_Controller {
                                             $success1++;
                                             $status = 'Sent';
                                             $phoneNumber = substr($value->number, 1);
-                                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                            $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                                         }else{
                                             $failed1++;
                                             log_message("info", "Sending status code: " . $value->Status);
@@ -253,7 +261,7 @@ class Newbulksms extends Admin_Controller {
                                         $success++;
                                         $status = 'Sent';
                                         $phoneNumber = substr($value->number, 1);
-                                        $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status);
+                                        $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                                     }else{
                                         $failed++;
                                         log_message("info", "Sending status code: " . $value->Status);

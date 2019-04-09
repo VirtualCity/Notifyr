@@ -60,6 +60,8 @@ class Receive extends CI_Controller{
             $unsubscriptionKeyword="";
             $allowedPurchaseGroup="";
 
+            
+
             $configurationData = $this->settings_m->get_configuration();
             if($configurationData){
                 $applicationId = $configurationData->value1;
@@ -77,7 +79,7 @@ class Receive extends CI_Controller{
             $msg_group="";
             $message="";
             $msisdn = substr($address,4);
-
+            
             //check if number is in blacklist
             $blacklisted = $this->blacklist_model->check_contact($msisdn);
 

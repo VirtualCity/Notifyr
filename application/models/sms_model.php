@@ -24,7 +24,7 @@ class Sms_model extends CI_Model{
 
 
     //Save purchase report from stockist
-    function save_purchase_report($carton_code,$product_code,$msisdn,$contact){
+    function save_purchase_report($carton_code,$product_code,$msisdn,$contact,$factory){
 
         $data =  array(
             'msisdn'=>$msisdn,
@@ -35,7 +35,8 @@ class Sms_model extends CI_Model{
             'email'=>$contact->email,
             'address'=>$contact->address,
             'region'=>$contact->region,
-            'town'=>$contact->town
+            'town'=>$contact->town,
+            'factory_id'=>$factory
         );
         $this->db->insert('purchase_report',$data);
        // $num_insert = $this->db->affected_rows();
@@ -62,13 +63,14 @@ class Sms_model extends CI_Model{
     }*/
 
 
-    function save_received_sms($msisdn,$message,$message_type,$group,$status){
+    function save_received_sms($msisdn,$message,$message_type,$group,$status,$factory){
 
         $data =  array(
             'msisdn'=>$msisdn,
             'message'=>$message,
             'message_type'=>$message_type,
             'group'=>$group,
+            'factory_id'=>$factory,
             'status'=>$status);
 
         $this->db->insert('sms_received',$data);
@@ -79,12 +81,13 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function log_reply($msisdn,$recipient,$msg,$userid){
+    function log_reply($msisdn,$recipient,$msg,$userid,$factory){
         $data =  array(
             'sent_to'=>$msisdn,
             'recipient'=>$recipient,
             'message'=>$msg,
             'message_type'=>'REPLY_SMS',
+            'factory_id'=>$factory,
             'sent_by'=>$userid);
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();
@@ -94,12 +97,13 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function log_auto_reply($msisdn,$recipient,$msg,$userid){
+    function log_auto_reply($msisdn,$recipient,$msg,$userid,$factory){
         $data =  array(
             'sent_to'=>$msisdn,
             'recipient'=>$recipient,
             'message'=>$msg,
             'message_type'=>'AUTO_REPLY_SMS',
+            'factory_id'=>$factory,
             'sent_by'=>$userid);
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();
@@ -109,14 +113,15 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function save_sms($msisdn,$recipient,$msg,$userid,$messageId,$status){
+    function save_sms($msisdn,$recipient,$msg,$userid,$messageId,$status,$factory){
         $data =  array(
             'sent_to'=>$msisdn,
             'recipient'=>$recipient,
             'message'=>$msg,
             'sent_by'=>$userid,
             'message_id'=>$messageId,
-            'status'=>$status
+            'status'=>$status,
+            'factory_id'=>$factory
         );
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();
@@ -126,13 +131,14 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function save_pending_bulk($groupId,$grpcontacts,$msg,$userid,$smstype){
+    function save_pending_bulk($groupId,$grpcontacts,$msg,$userid,$smstype,$factory){
         $data =  array(
             'group_id'=>$groupId,
             'contacts'=>$grpcontacts,
             'message'=>$msg,
             'created_by'=>$userid,
-            'sms_type' =>$smstype
+            'sms_type' =>$smstype,
+            'factory_id'=>$factory
         );
         $this->db->insert('pending_sms',$data);
         $num_insert = $this->db->affected_rows();
@@ -240,7 +246,7 @@ class Sms_model extends CI_Model{
         }
     }
 
-    function save_bulksms($msisdn,$recipient,$msg,$userid,$messageId,$status){
+    function save_bulksms($msisdn,$recipient,$msg,$userid,$messageId,$status,$factory){
         $data =  array(
             'sent_to'=>$msisdn,
             'recipient'=>$recipient,
@@ -248,7 +254,8 @@ class Sms_model extends CI_Model{
             'message_type'=>'BULK_SMS',
             'sent_by'=>$userid,
             'message_id'=>$messageId,
-            'status'=>$status
+            'status'=>$status,
+            'factory'=>$factory
         );
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();
@@ -319,6 +326,20 @@ class Sms_model extends CI_Model{
         }
     }
 
+    function get_received_sms_by_factory($factory){
+        $this -> db-> select('*');
+        $this -> db -> from('sms_received');
+        $this->db->order_by('id','desc');
+        $this->db->where("factory_id", $factory);
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> result();
+        }else{
+            return false;
+        }
+    }
+
 
 
     function get_bulk_sms(){
@@ -326,6 +347,20 @@ class Sms_model extends CI_Model{
         $this -> db -> from('smsout');
         $this->db->join('users','smsout.sent_by = users.user_id');
         $this->db->order_by("smsout.created", "desc");
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> result();
+        }else{
+            return false;
+        }
+    }
+    function get_bulk_sms_by_factory($factory){
+        $this -> db-> select('id,sent_to, message,fname,surname,smsout.created as created');
+        $this -> db -> from('smsout');
+        $this->db->join('users','smsout.sent_by = users.user_id');
+        $this->db->order_by("smsout.created", "desc");
+        $this->db->where("factory_id", $factory);
         $query = $this -> db -> get();
 
         if($query -> num_rows() > 0){

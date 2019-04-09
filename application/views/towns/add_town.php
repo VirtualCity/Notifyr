@@ -55,7 +55,7 @@
                             <?php
                             if(!empty($regions)){
                                 foreach($regions as $row) { ?>
-                                <option value="<?=$row->id?>" <?php if ($row->id ===$region_id){echo "selected";}?>><?=$row->name?></option>
+                                <option value="<?=$row->id?>" ><?=$row->name?></option> <!--<?php// if ($row->id ===$region_id){echo "selected";}?>-->
                                 <?php   }
                             } ?>
                         </select>

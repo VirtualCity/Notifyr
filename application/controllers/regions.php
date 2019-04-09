@@ -91,7 +91,8 @@ class Regions extends Admin_Controller{
 
     function edit($id=null){
 
-        if(!empty($id)){
+        if(!empty($id))
+        {
             //retrieve the msisdn for the recipient
             $to_edit = $this->regions_m->get_region($id);
 
@@ -111,12 +112,6 @@ class Regions extends Admin_Controller{
         $data['title'] = "Edit Region";
         $data['mainContent']='regions/edit_region';
         $this->load->view('templates/template',$data);
-
-
-       
-
-
-
     }
 
     function modify(){

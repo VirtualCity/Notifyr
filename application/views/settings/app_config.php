@@ -145,6 +145,21 @@
                 <span class="text-danger"> <?php echo form_error('groups'); ?> </span>
             </div>
 
+            <div class="col-md-12 col-xs-12">
+                <label > Factory  </label><span class="text-danger"></span>
+                <select name="factory" id="factory" class="form-control" >
+                    <option value="">-- Select Factory --</option>
+                    <?php
+                    if(!empty($factories)){
+                        foreach($factories as $row) { ?>
+                        <option value="<?=$row->id?>" <?php if ($row->id ===$factoryid){echo "selected";}?>><?=$row->name?></option>
+                        <?php   }
+                    } ?>
+                </select>
+
+                <span class="text-danger"> <?php echo form_error('factory'); ?> </span>
+            </div>
+
 
 
             <hr class="field-separator">
