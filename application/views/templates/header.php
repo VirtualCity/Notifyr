@@ -1,45 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="<?php echo base_url() ?>favicon.ico">
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="<?php echo base_url() ?>favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Notifyr |  <?php echo $title ?></title>
+	<title>Notifyr | <?php echo $title ?> </title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<!-- Canonical SEO -->
+    <!-- <link rel="canonical" href="../../../../www.creative-tim.com/product/paper-dashboard-pro.html"/> -->
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="<?=base_url('assets/css/jquery.dataTables.css')?>">
-    <link rel="stylesheet" href="<?=base_url('assets/datatables/css/colVis.css')?>">
-    <link rel="stylesheet" href="<?=base_url('assets/datatables/css/responsive.css')?>">
-
-    <!--Datatable styling-->
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/tabletools/css/daTatables.tableTools.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.dataTables_themeroller.css">
-
-    <link href="<?php echo base_url() ?>assets/css/stylesheet.css" rel="stylesheet">
-    <!-- <link href="<?php echo base_url() ?>provisioning/assets/links/links.css" rel="stylesheet"> -->
-    <link href="<?php echo base_url() ?>assets/icon/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>assets/css/main.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet">
-    <link href='<?php echo base_url() ?>assets/fonts.googleapis.com/css4c5c.css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
 
-    <style type="text/css">
-        @font-face {
-            font-family: myLogoFont;
-            src: url("<?=base_url('assets/fonts/futured.eot')?>") /* EOT file for IE */
-        }
-        @font-face {
-            font-family: myLogoFont;
-            src: url("<?=base_url('assets/fonts/futured.ttf')?>") /* TTF file for CSS3 browsers */
-        }
-    </style>
-    <!-- <script src="<?php echo base_url() ?>assets/links/links.js"></script> -->
+     <!-- Bootstrap core CSS     -->
+    <link href="<?php echo base_url()?>assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--  Paper Dashboard core CSS    -->
+    <link href="<?php echo base_url()?>assets/css/paper-dashboard.css" rel="stylesheet"/>
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="<?php echo base_url()?>assets/css/demo.css" rel="stylesheet" />
+
+
+    <!--  Fonts and icons     -->
+    <link href="<?php echo base_url()?>assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href='<?php echo base_url()?>assets/fonts.googleapis.com/cssbba8.css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="<?php echo base_url()?>assets/css/themify-icons.css" rel="stylesheet">
+
 </head>
 

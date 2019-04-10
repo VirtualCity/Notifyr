@@ -1,392 +1,157 @@
- 
-<div id="content" class="content">
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="card">
+					<div class="card-content">
+						<div class="row">
+							<div class="col-xs-5">
+								<div class="icon-big icon-warning text-center">
 
-    <div class="breadcrumb-container ">
-        <ol class="breadcrumb pull-left ">
+									<i class="ti-wallet"></i>
+								</div>
+							</div>
+							<div class="col-xs-7">
+								<div class="numbers">
+									<p>Available SMS Balance</p>
+									<?= $sms_balance; ?>
+								</div>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+							&nbsp;<br>
+							</div>
+							<div class="col-md-6">
+							&nbsp;<br>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+				<hr />
+				<div class="stats">
+				<i class="ti-clipboard"></i><div class="my-inline-block" id="campaign-name4"></div>
+				</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="card">
+					<div class="card-content">
+						<div class="row">
+							<div class="col-xs-5">
+								<div class="icon-big icon-success text-center">
+									<i class="ti-user"></i>
+								</div>
+							</div>
+							<div class="col-xs-7">
+								<div class="numbers">
+									<p>List</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+							<span class="pull-left text-primary">Groups : <?= $groups_total; ?></span>
+							<span class="pull-right text-primary">Contacts : <?= $contacts_total; ?><span>
+							</div>
+							<div class="col-md-6">
+							<span class="pull-right text-danger">Blacklisted : <?= $blacklist_total; ?></span>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<hr />
+						<div class="stats">
+							<i class="ti-calendar"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 
-            <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-        </ol>
-    </div>
+		<div class="col-lg-6 col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">SMS Analytics</h4>
+					<!-- <p class="category">Plain text tabs</p> -->
+				</div>
+				<div class="card-content">
+					<div class="nav-tabs-navigation">
+						<div class="nav-tabs-wrapper">
+							<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+								<li class="active"><a href="#home" data-toggle="tab">Sent</a></li>
+								<li><a href="#profile" data-toggle="tab">Received</a></li>
+								<li><a href="#messages" data-toggle="tab">Messages</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="my-tab-content" class="tab-content text-center">
+						<div class="tab-pane active" id="home">
+							<div class="card ">
+								<div class="card-header">
+									<h4 class="card-title">2015 Sales</h4>
+									<p class="category">All products including Taxes</p>
+								</div>
+								<div class="card-content">
+									<div id="chartActivity" class="ct-chart"></div>
+								</div>
+								<div class="card-footer">
+									<div class="chart-legend">
+										<i class="fa fa-circle text-info"></i> Tesla Model S
+										<i class="fa fa-circle text-warning"></i> BMW 5 Series
+									</div>
+									<hr>
+									<div class="stats">
+										<i class="ti-check"></i> Data information certified
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="profile">
+							<p>Here is your profile.</p>
+						</div>
+						<div class="tab-pane" id="messages">
+							<p>Here are your messages.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+			<!-- <div class="col-md-12">
+				<div class="card ">
+					<div class="card-header">
+						<h4 class="card-title">2015 Sales</h4>
+						<p class="category">All products including Taxes</p>
+					</div>
+					<div class="card-content">
+						<div id="chartActivity" class="ct-chart"></div>
+					</div>
+					<div class="card-footer">
+						<div class="chart-legend">
+							<i class="fa fa-circle text-info"></i> Tesla Model S
+							<i class="fa fa-circle text-warning"></i> BMW 5 Series
+						</div>
+						<hr>
+						<div class="stats">
+							<i class="ti-check"></i> Data information certified
+						</div>
+					</div>
+				</div>
+			</div> -->
 
-                    </div>
-                    <h4 class="panel-title">Dashboard</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="statistic widget-stats">
-                            <div class="current_page pull-left">
-                                <span><i class="fa fa-dashboard"></i> Dashboard</span> <span class="hidden-480 quote">- SMS Portal</span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="report-widgets">
-                            <div class="row">
-                            <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="SUPER_USER"): ?>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-desktop"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Total Received Today</h4>
-                                            <p id="visitors_count"> <?= $todays_total; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Total Received last 7 days</h4>
-                                            <p id="today_reports"> <?= $weeks_total; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Total Received Last 30 days</h4>
-                                            <p id="total_reports"> <?= $months_total; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <?php endif ?>
-                        </div>
-
-                        <div class="report-widgets">
-                            <div class="row">
-
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-desktop"></i></div>
-                                        <div class="stats-info">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4>Total Sent Today</h4>
-                                                    <p id="visitors_count"> <?= $today_sent_totals; ?></p>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4> Delivered :  <?= $today_success; ?></h4>
-                                                    <h4> Failed    : <?= $today_failed; ?></h4>
-                                                    <h4> Pending   : <?= $today_pending; ?></h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
-                                        <div class="stats-info">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4>Total Sent last 7 days</h4>
-                                                    <p id="today_reports"> <?= $weeks_sent_total; ?></p>   
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4> Delivered :  <?= $week_success; ?></h4>
-                                                    <h4> Failed    : <?= $week_failed; ?></h4>
-                                                    <h4> Pending   : <?= $week_pending; ?></h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
-                                        <div class="stats-info">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4>Total Sent Last 30 days</h4>
-                                                    <p id="total_reports"> <?= $months_sent_total; ?></p>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h4> Delivered :  <?= $month_success; ?></h4>
-                                                    <h4> Failed    : <?= $month_failed; ?></h4>
-                                                    <h4> Pending   : <?= $month_pending; ?></h4>
-                                                </div>
-                                            </div>
-                                                
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <?php //if($user_role !== 'STOCKIST') {?>
-                        <div class="status-widgets">
-                            <div class="row">
-
-                            <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="SUPER_USER"): ?>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="widget widget-stats bg-blue">
-                                            <div class="stats-icon"><i class="fa fa-list"></i>
-                                            </div>
-                                            <div class="stats-info">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-6">
-                                                        <h4>List</h4>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6">
-                                                        <h4> Contacts :  <?= $contacts_total; ?></h4>
-                                                        <h4> Blacklisted : <?= $blacklist_total; ?></h4>
-                                                        <h4> Groups   : <?= $groups_total; ?></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="stats-link">
-                                                <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif ?>
-                                <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="SUPER_USER"): ?>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-money"></i></div>
-                                        <div class="stats-info">
-                                            <h4>Available SMS Balance</h4>
-                                            <p id="category_count"> <?= $sms_balance; ?></p>    
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endif ?>
-                                <?php if ($this->session->userdata('role')=="MANAGER" || $this->session->userdata('role')=="USER"  || $this->session->userdata('role')=="SUPER_USER"): ?>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="widget widget-stats bg-blue">
-                                        <div class="stats-icon"><i class="fa fa-envelope"></i></div>
-                                        <div class="stats-info">
-                                            <div class="row">
-                                                <h4>Total Bulk Messages Pending Approval </h4>
-                                                <p id="category_count"> <?= $sms_pending; ?></p> 
-                                            </div>
-                                              
-                                        </div>
-                                        <div class="stats-link">
-                                            <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endif ?>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
-<!-- end #content -->
 
-<!-- <script type="text/javascript">
-     jQuery(document).ready(function(){
-        /*Cummulative Query Chart*/
-        var data2 = [<?php echo $last_7days_cummulative; ?>];
+<script type="text/javascript">
+	$(document).ready(function(){
+		demo.initStatsDashboard();
+		demo.initVectorMap();
+		demo.initCirclePercentage();
 
-        var dataset2 = [
-            {
-                label: "Cummulative Queries",
-                data: data2
-            }
-        ];
-
-        var options2 = {
-            series: {
-
-                lines: {
-                    show: true,
-                    fill: true,
-                    fillColor: { colors: [{opacity: 0.25}, {opacity: 0}] }
-                },
-                points: {
-                    radius: 4,
-                    lineWidth: 1,fill: true,
-
-                    show: true
-                },
-                shadowSize: 5
-            },
-            tooltip: true,
-
-            grid: {
-                hoverable: true,
-                borderWidth: {
-                    top: 0,
-                    right: 0,
-                    bottom: 1,
-                    left: 1
-                },
-                mouseActiveRadius: 50,
-
-                labelMargin:10,
-                margin: {
-                    top: 20,
-                    left: 10,
-                    bottom: 10,
-                    right: 20
-                }
-            },
-            xaxis: {
-                // position: "bottom",
-                mode: "time",
-
-                /*axisLabel:"Days",*/
-                tickSize: [1, "day"],
-                tickLength: 1,
-                axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 11,
-                axisLabelPadding: 5
-            },
-            yaxis: {
-                min: 0,
-                minTickSize: 1,
-                tickDecimals: 0,
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-                axisLabelPadding: 5
-                /*axisLabel:"Messages"*/
-                //tickFormatter: function(val, axis) { return val < axis.max ? val.toFixed(2) : "Messages";}
-            }
-        };
-
-        jQuery.plot($("#totals_chart"), dataset2, options2);
-            });
-</script> -->
-
-<!-- <script type="text/javascript">
-    jQuery(document).ready(function(){
-
-        /*Groups Message Chart*/
-        var dq1 = [<?php echo $last_7days_received; ?>];
-        var dq2 = [<?php echo $last_7days_replied; ?>];
-
-        var ordersData = [
-            {
-                label: "Received Messages",
-                data: dq1,
-                bars: {
-                    show: true,
-                    barWidth: 24 * 60 * 60 * 250,
-                    fill: true,
-                    lineWidth: 0.5,
-                    order: 1,
-                    fillColor:  "#4572A7"
-                },
-                color: "#4572A7"
-            },
-            {
-                label: "Reply Messages",
-                data: dq2,
-                bars: {
-                    show: true,
-                    barWidth: 24 * 60 * 60 * 250,
-                    fill: true,
-                    lineWidth: 0.5,
-                    order: 2,
-                    fillColor:  "#89A54E"
-                },
-                color: "#89A54E"
-            }
-        ];
-
-        var ordersOptions = {
-            series: {
-                shadowSize: 5
-            },
-            tooltip: true,
-
-            grid: {
-                hoverable: true,
-                borderWidth: {
-                    top: 0,
-                    right: 0,
-                    bottom: 1,
-                    left: 1
-                }
-
-            },
-            xaxis: {
-
-                mode: "time",
-                tickSize: [1, "day"],
-                tickLength: 0,
-                // axisLabel:"Days",
-                axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 11,
-                axisLabelPadding: 15
-            },
-            yaxis: {
-                min: 0,
-                minTickSize: 1,
-                tickDecimals: 0,
-                //axisLabel:"No of SMS",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-                axisLabelPadding: 5
-                //tickFormatter: function(val, axis) { return val < axis.max ? val.toFixed(2) : "Messages";}
-            },
-            legend: {
-                labelBoxBorderColor: "#777777",
-                position: "left"
-            }
-        };
-
-
-
-        jQuery(".mychart").resizable({
-            maxWidth: 900,
-            maxHeight: 500,
-            minWidth: 450,
-            minHeight: 250
-        });
-
-
-
-        jQuery.plot(jQuery("#groups_chart"), ordersData, ordersOptions);
-    });
-</script> -->
-
-
-
- 
+	});
+</script>

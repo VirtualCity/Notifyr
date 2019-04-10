@@ -1,90 +1,91 @@
 <?php $path=base_url(); ?>
 <!DOCTYPE html>
 <html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 	<meta charset="utf-8" />
-	<link rel="shortcut icon" href="<?php echo base_url() ?>favicon.ico">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="<?php echo base_url() ?>favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Notifyr |  <?php echo $title ?></title>
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
-	
-	<!-- ================== BEGIN BASE CSS STYLE ================== -->
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<link href="<?php echo $path;?>assets/v2/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
-	<link href="<?php echo $path;?>assets/v2/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-	<link href="<?php echo $path;?>assets/v2/css/animate.min.css" rel="stylesheet" />
-	<link href="<?php echo $path;?>assets/v2/css/style.min.css" rel="stylesheet" />
-	<link href="<?php echo $path;?>assets/v2/css/style-responsive.min.css" rel="stylesheet" />
-	<link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet">
+	<title>Notifyr | <?php echo $title ?></title>
+
+	<!-- Canonical SEO -->
+    <!-- <link rel="canonical" href="../../../../www.creative-tim.com/product/paper-dashboard-pro.html"/> -->
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
 
-	<link rel="stylesheet" href="<?=base_url('assets/css/jquery.dataTables.css')?>">
+     <!-- Bootstrap core CSS     -->
+    <link href="<?php echo base_url()?>assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--  Paper Dashboard core CSS    -->
+    <link href="<?php echo base_url()?>assets/css/paper-dashboard.css" rel="stylesheet"/>
 
 
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="<?php echo base_url()?>assets/css/demo.css" rel="stylesheet" />
 
-	<link href="<?php echo $path;?>assets/v2/css/custom.css" rel="stylesheet"  />
-	<!-- ================== END BASE CSS STYLE ================== -->
-	
-	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="<?php echo $path;?>assets/v2/plugins/pace/pace.min.js"></script>
-	<!-- ================== END BASE JS ================== -->
-	<script src="<?php echo $path;?>assets/v2/plugins/jquery/jquery-1.9.1.min.js"></script>
-	<script src="<?php echo $path;?>assets/js/multiple-select.js"></script>
 
-<!-- <link href="<?php echo base_url() ?>assets/links/links.css" rel="stylesheet"> -->
+    <!--  Fonts and icons     -->
+    <link href="<?php echo base_url()?>assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href='<?php echo base_url()?>assets/fonts.googleapis.com/cssbba8.css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="<?php echo base_url()?>assets/css/themify-icons.css" rel="stylesheet">
+
 </head>
+
 <body>
 
-	
-	<div id="page-container" class="page-container fade page-sidebar-fixed ">
+	<div class="wrapper">
 
-		<div id="header" class="header navbar navbar-inverse ">
-
-			<div class="container-fluid topbar">
-				<div class="navbar-header">
-					
-					
-					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<a href="" class="navbar-brand">
-					<span class="navbar-logo"> Notifyr</a>
-
-						<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown">
-								<a title="All Apps" class="dropdown-toggle" href="#" onclick="getLinks()" data-toggle="dropdown">
-									<i class="fa fa-th"></i> All Apps
-								</a>
-								<div class="dropdown-menu hdropdown bigmenu dropdown-menu-right ">
-									<table class="table">
-										<tbody id="links-panel"></tbody>
-									</table>
-								</div>
-							</li>
-
-							<li class="dropdown navbar-user">
-								<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-
-									<i class="fa fa-user"></i><span class="hidden-xs"> <?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?></span> <b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu animated fadeInLeft">
-									<li class="arrow"></li>
-								
-									<!-- <li><a href="<?=base_url('password')?>"><i class="fa fa-cogs"></i> Settings</a></li> -->
-									<li><a href="<?=base_url('logout')?>"><i class="fa fa-remove"></i> Log Out</a></li>
-
-								</ul>
-							</li>
-						</ul>
-						<!-- end header navigation right -->
+	    <div class="main-panel">
+			<nav class="navbar navbar-default">
+	            <div class="container-fluid">
+					<div class="navbar-minimize">
+						<button id="minimizeSidebar" class="btn btn-fill btn-icon"><i class="ti-more-alt"></i></button>
 					</div>
-					<!-- end container-fluid -->
-				</div>
-				<!-- end #header -->
+	                <div class="navbar-header">
+	                    <button type="button" class="navbar-toggle">
+	                        <span class="sr-only">Toggle navigation</span>
+	                        <span class="icon-bar bar1"></span>
+	                        <span class="icon-bar bar2"></span>
+	                        <span class="icon-bar bar3"></span>
+	                    </button>
+	                    <a class="navbar-brand" href="<?php echo base_url('dashboard')?>"><?php echo $title ?></a>
+	                </div>
+	                <div class="collapse navbar-collapse">
 
+	                    <ul class="nav navbar-nav navbar-right">
+	                        <li>
+	                            <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
+	                                <i class="ti-panel"></i>
+									<p>Stats</p>
+	                            </a>
+	                        </li>
+	                        <li class="dropdown">
+	                            <a href="#notigfications" class="dropdown-toggle" data-toggle="dropdown">
+
+									<?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?>
+									<i class="ti-caret"></i>
+	                            </a>
+	                        	<ul class="dropdown-menu">
+	                                <li><a href="#not1">My Profile</a></li>
+	                                
+	                                <li><a href="<?=base_url('logout')?>">Logout</a></li>
+	                            </ul>
+	                        </li>
+							<li>
+	                            <a href="#settings" class="btn-rotate">
+									<i class="ti-settings"></i>
+									<p class="hidden-md hidden-lg">
+										Settings
+									</p>
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+            </nav>
+            

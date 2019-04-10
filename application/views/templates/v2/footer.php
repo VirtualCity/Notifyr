@@ -1,73 +1,118 @@
 <?php $path=base_url(); ?>
-<div id="footer" class="footer">
-<div >
-        <img height="10px" src="<?php echo $path;?>assets/v2/img/hd-vc-logo.png" class="img-responsive">
+	        <footer class="footer">
+	            <div class="container-fluid">
+	                <nav class="pull-left">
+	                    <ul>
+	                        <li>
+	                            <a href="https://www.creative-tim.com/">
+	                                Virtualcity
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </nav>
+					<div class="copyright pull-right">
+	                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="https://www.virtualcity.co.ke/">VirtualCity</a>
+	                </div>
+	            </div>
+	        </footer>
+	    </div>
+	</div>
 
-</div>
-</div>
 
-<div class="modal fade" data-backdrop="static" id="importModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Processing</h4>
-            </div>
-            <div class="modal-body">
-                <div id="loading-div-background">
-                    <div id="loading-div" class="ui-corner-all align_center">
-                        <img  src="<?php echo base_url('assets/img/import_loader.gif'); ?>" alt="Importing.."/>
-                        <br>PROCESSING. PLEASE WAIT...
-                    </div>
-                </div>
-            </div>
+    <!-- ===============================right color plugin starts================================= -->
+	<div class="fixed-plugin">
+        <div class="dropdown">
+            <a href="#" data-toggle="dropdown">
+            <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title">Sidebar Background</li>
+                <li class="adjustments-line text-center">
+                    <a href="javascript:void(0)" class="switch-trigger background-color">
+                        <span class="badge filter badge-brown" data-color="brown"></span>
+                        <span class="badge filter badge-white active" data-color="white"></span>
+                    </a>
+                </li>
 
+    			<li class="header-title">Sidebar Active Color</li>
+                <li class="adjustments-line text-center">
+                    <a href="javascript:void(0)" class="switch-trigger active-color">
+                            <span class="badge filter badge-primary" data-color="primary"></span>
+                            <span class="badge filter badge-info" data-color="info"></span>
+                            <span class="badge filter badge-success" data-color="success"></span>
+                            <span class="badge filter badge-warning" data-color="warning"></span>
+                            <span class="badge filter badge-danger active" data-color="danger"></span>
+                    </a>
+                </li>
+
+            </ul>
         </div>
     </div>
-</div>
-
-
-<!-- begin scroll to top btn -->
-<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
-<!-- end scroll to top btn -->
-</div>
-<!-- end page container -->
-
-<!-- ================== BEGIN BASE JS ================== -->
-<script src="<?php echo $path;?>assets/v2/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-<script src="<?php echo $path;?>assets/v2/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
-<script src="<?php echo $path;?>assets/v2/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="<?php echo $path;?>assets/v2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="<?php echo $path;?>assets/v2/plugins/jquery-cookie/jquery.cookie.js"></script>
-<!-- ================== END BASE JS ================== -->
-<script src="<?=base_url('assets/charts/jquery.flot.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.time.min.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.axislabels.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.orderBars.js')?>"></script>
-<script src="<?=base_url('assets/charts/jquery.flot.resize.js')?>"></script>
-<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-<script src="<?php echo $path;?>assets/v2/js/apps.min.js"></script>
-<!-- ================== END PAGE LEVEL JS ================== -->
-<!-- <script src="<?=base_url('assets/links/links.js')?>"></script> -->
-
-<!-- <script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
- -->	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/tabletools/js/datatables.tableTools.js'); ?>"></script>
-    <script src="<?php echo $path;?>assets/js/multiple-select.js"></script>
-	
-<script>
-	$(document).ready(function() {
-		App.init();
-	});
-</script>
-
-<script type="text/javascript">
-    function checkFile(){
-        jQuery('#importModal').modal('show');
-    }
-
-</script>
+    <!-- ====================================right color plugin ends============================== -->
 
 </body>
+
+	<!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
+	<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url()?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url()?>assets/js/perfect-scrollbar.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url()?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Forms Validations Plugin -->
+	<script src="<?php echo base_url()?>assets/js/jquery.validate.min.js"></script>
+
+	<!-- Promise Library for SweetAlert2 working on IE -->
+	<script src="<?php echo base_url()?>assets/js/es6-promise-auto.min.js"></script>
+
+	<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+	<script src="<?php echo base_url()?>assets/js/moment.min.js"></script>
+
+	<!--  Date Time Picker Plugin is included in this js file -->
+	<script src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.js"></script>
+
+	<!--  Select Picker Plugin -->
+	<script src="<?php echo base_url()?>assets/js/bootstrap-selectpicker.js"></script>
+
+	<!--  Switch and Tags Input Plugins -->
+	<script src="<?php echo base_url()?>assets/js/bootstrap-switch-tags.js"></script>
+
+	<!-- Circle Percentage-chart -->
+	<script src="<?php echo base_url()?>assets/js/jquery.easypiechart.min.js"></script>
+
+	<!--  Charts Plugin -->
+	<script src="<?php echo base_url()?>assets/js/chartist.min.js"></script>
+
+	<!--  Notifications Plugin    -->
+	<script src="<?php echo base_url()?>assets/js/bootstrap-notify.js"></script>
+
+	<!-- Sweet Alert 2 plugin -->
+	<script src="<?php echo base_url()?>assets/js/sweetalert2.js"></script>
+
+	<!-- Vector Map plugin -->
+	<script src="<?php echo base_url()?>assets/js/jquery-jvectormap.js"></script>
+
+	<!--  Google Maps Plugin    -->
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPQibxeDaLIUHsC6_KqDdFaUdhrbhZ3M"></script> -->
+
+	<!-- Wizard Plugin    -->
+	<script src="<?php echo base_url()?>assets/js/jquery.bootstrap.wizard.min.js"></script>
+
+	<!--  Bootstrap Table Plugin    -->
+	<script src="<?php echo base_url()?>assets/js/bootstrap-table.js"></script>
+
+	<!--  Plugin for DataTables.net  -->
+	<script src="<?php echo base_url()?>assets/js/jquery.datatables.js"></script>
+
+	<!--  Full Calendar Plugin    -->
+	<script src="<?php echo base_url()?>assets/js/fullcalendar.min.js"></script>
+
+	<!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->
+	<script src="<?php echo base_url()?>assets/js/paper-dashboard.js"></script>
+
+	<!--   Sharrre Library    -->
+	<script src="<?php echo base_url()?>assets/js/jquery.sharrre.js"></script>
+
+	<!-- Paper Dashboard PRO DEMO methods, don't include it in your project! -->
+	<script src="<?php echo base_url()?>assets/js/demo.js"></script>
 
 </html>
