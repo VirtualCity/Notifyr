@@ -255,7 +255,7 @@ class Sms_model extends CI_Model{
             'sent_by'=>$userid,
             'message_id'=>$messageId,
             'status'=>$status,
-            'factory'=>$factory
+            'factory_id '=>$factory
         );
         $this->db->insert('smsout',$data);
         $num_insert = $this->db->affected_rows();

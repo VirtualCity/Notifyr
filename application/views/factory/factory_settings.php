@@ -5,7 +5,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">SDP Configuration Settings</li>
+            <li class="active">Factory SDP Configuration Settings</li>
         </ol>
     </div>
 
@@ -20,19 +20,7 @@
 
 
     <div class="row">
-        <ul class="nav nav-tabs nav-stacked col-md-2">
-          <li ><a href="<?php echo site_url('password') ?>" > Change Password</a></li>
-          <?php if ($this->session->userdata('role')!=="USER"): ?>
-              <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
-                  <li class="active"><a data-toggle="tab" href="<?php echo site_url('settings/configuration') ?>" >SDP Configuration</a></li>
-                  <li><a href="<?php echo site_url('settings/services') ?>" >Agrimanagr SMS</a></li>
-              <?php endif ?>
-              <li><a href="<?php echo site_url('users/active') ?>" >Users</a></li>
-          <?php endif ?>
-          <?php if ($this->session->userdata('role')==="SUPER_USER"): ?>
-            <li><a href="<?php echo site_url('settings/logo') ?>" >Logo</a></li>
-          <?php endif ?>
-      </ul>
+       
       <div class="panel tab-content col-md-10">
         <div class="tab-pane active" id="tab_a">
            <div class="panel">
@@ -42,10 +30,10 @@
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 
                 </div>
-                <h4 class="panel-title">SDP Configuration Settings</h4>
+                <h4 class="panel-title">Factory SDP Configuration Settings</h4>
             </div>
             <div class="panel-body">
-             <form action="<?=base_url('settings/configuration')?>" method="post" class="form-horizontal">
+        <form action="<?=base_url('factories/update_settings')?>" method="post" class="form-horizontal">
 
               <div class="col-md-12 col-xs-12">
                 <label > Application ID  </label><span class="text-danger"> *</span>
@@ -145,22 +133,7 @@
                 <span class="text-danger"> <?php echo form_error('groups'); ?> </span>
             </div>
 
-            <div class="col-md-12 col-xs-12">
-                <label > Factory  </label><span class="text-danger"></span>
-                <select name="factorye" id="factorye" class="form-control" >
-                    <option value="">-- Select Factory --</option>
-                    <?php
-                    if(!empty($factories)){
-                        foreach($factories as $row) { ?>
-                        <option value="<?=$row->id?>" <?php if ($row->id ===$factoryid){echo "selected";}?>><?=$row->name?></option><!---->
-                        <?php   }
-                    } ?>
-                </select>
-
-                <span class="text-danger"> <?php echo form_error('factorye'); ?> </span>
-            </div>
-
-
+            <input type="hidden" name="factoryid" id="factoryid" value="<?=$factoryid?>"/>
 
             <hr class="field-separator">
             <div class="col-md-12 col-xs-12">

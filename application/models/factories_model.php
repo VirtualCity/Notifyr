@@ -30,6 +30,20 @@ class Factories_model extends CI_Model{
         }
     }
 
+    function get_all_factories_and_balance_settings(){
+        $this->db->select('factories.id AS id,factories.name AS factoryName,factories.code as factoryCode, settings.value2 as apiKey,settings.value9 as username,factories.senderId as senderid,regions.name AS region, factories.updated AS modified,factories.created AS created');
+        $this->db->from('factories');
+        $this->db->join('regions','factories.region_id = regions.id');
+        $this->db->join('settings','factories.id = settings.factory_id');
+        $this->db->where('settings.title','CONFIGURATION');
+        $query = $this -> db -> get();
+        if ($query->num_rows() > 0){
+            return $query -> result();
+        }else{
+            return false;
+        }
+    }
+
     function get_factory($id){
         $this->db->select('*');
         $this->db->from('factories');

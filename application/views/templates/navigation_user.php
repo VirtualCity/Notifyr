@@ -57,8 +57,8 @@
 						<span>SMS Reports</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
-						<li><a href="<?=base_url('reports/purchases')?>">Purchase Report</a></li>
+						<!-- <li><a href="<?//=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
+						<li><a href="<?//=base_url('reports/purchases')?>">Purchase Report</a></li> -->
 						<li><a href="<?=base_url('reports/received')?>">Group Messages Received</a></li>
 						<li><a href="<?=base_url('reports/replied')?>">Group Messages Replied</a></li>
 						<li><a href="<?=base_url('reports/pending')?>">Group Messages Pending</a></li>
@@ -69,25 +69,35 @@
 					</ul>
 				</li>
 
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-shopping-cart"></i>
 						<span>Services</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('products')?>">View Services</a></li>
+						<li><a href="<?//=base_url('products')?>">View Services</a></li>
 					</ul>
-				</li>
+				</li> -->
 
-				<li class="has-sub">
+				<!-- <li class="has-sub">
 					<a href="javascript:;">
 						<b class="caret pull-right"></b>
 						<i class="fa fa-map-marker"></i>
 						<span>Towns</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('towns')?>">View Towns</a></li>
+						<li><a href="<?//=base_url('towns')?>">View Towns</a></li>
+					</ul>
+				</li> -->
+				<li class="has-sub">
+					<a href="javascript:;">
+						<b class="caret pull-right"></b>
+						<i class="fa fa-globe"></i>
+						<span>Factories</span>
+					</a>
+					<ul class="sub-menu">
+						<li><a href="<?=base_url('factories')?>">View Factories</a></li>
 					</ul>
 				</li>
 

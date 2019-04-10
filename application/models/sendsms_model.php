@@ -15,13 +15,24 @@ class Sendsms_model extends CI_Model
         /* $this->load->library('sms/SmsSender.php');
          $this->load->library('sms/log.php');*/
 
+          // $userid = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+
         //SDP Configuration
 
         $applicationId = "";
         $password = "";
         $sourceAddress = "";
+        $configurationData ="";
 
-        $configurationData = $this->get_configuration();
+        if ($role === 'SUPER_USER') {
+            $configurationData = $this->get_configuration();
+        } else {
+            $configurationData = $this->get_configuration_by_factory($userfactory);
+        }
+        
+        
         if ($configurationData) {
             $applicationId = $configurationData->value1;
             $senderId = $configurationData->value3;
@@ -80,6 +91,20 @@ class Sendsms_model extends CI_Model
         $this->db->select('*');
         $this->db->from('settings');
         $this->db->where('title', 'CONFIGURATION');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+    function get_configuration_by_factory($factory)
+    {
+        $this->db->select('*');
+        $this->db->from('settings');
+        $this->db->where('title', 'CONFIGURATION');
+        $this->db->where('factory_id', $factory);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {

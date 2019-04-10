@@ -20,6 +20,8 @@ class Configuration extends Admin_Controller{
         $role = $this->session->userdata('role');
         $userfactory = $this->session->userdata('factory');
         $factory = $this->session->userdata('factory');
+
+        
         // if ($role !== "SUPER_USER" || $role !== "ADMIN") {
         //     // Display message
         //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
@@ -35,7 +37,7 @@ class Configuration extends Admin_Controller{
         $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
-        $this->form_validation->set_rules('factory', 'Factory', 'numeric');
+        $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
         $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
@@ -69,11 +71,13 @@ class Configuration extends Admin_Controller{
             $unsubscription_word = $this->input->post('unsubscription');
             $productsgroupid = $this->input->post('groups');
             $smsapproval = $this->input->post('smsapproval');
-            $factoryid = $this->input->post('fatcory');
+            $factoryid = $this->input->post('factorye');
             
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
 
+                // print($factoryid);
+                // return;
                 //Save new product
                 $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid);
 

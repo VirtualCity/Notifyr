@@ -30,13 +30,14 @@
                     <h4 class="panel-title">View Factories Usage Report</h4>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-striped table-bordered table-hover datatable"  id="example">
+                    <table class="table table-striped table-bordered table-hover datatable display"  id="example">
                         <thead>
                         <tr>
                             <!-- <th>id</th> -->
                             <th>Factory</th>
                             <th>Factory Code</th>
                             <th>Sender Id</div>
+                            <th>Sent</div>
                             <th>Balance</div>
                             <th>Region</th>
                             <th>Last Modified</th>
@@ -78,22 +79,25 @@
                 { "data": "factoryName"},
                 { "data": "factoryCode"},
                 { "data": "senderid"},
+                { "data": "sent"},
                 { "data": "balance"},
                 { "data": "region"},
                 { "data": "modified"},
                 { "data": "created"}
             ],
-            "order": [[ 6, "desc" ]],
+            "order": [[ 7, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },
-            // processing: true,
-            //       serverSide: true,
-            //       ajax:{url:"pos.json",dataSrc:""}
             "ajax":{
-                "url": "<?php echo base_url('factories/usageBalance')?>",
+                "url": "<?php echo base_url('factories/usageBalance_period'); //echo ('/30');?>",//usageBalance
                 "type": "POST",
-                "dataSrc":""
+                error: function(){  // error handling
+                    $(".example-error").html("");
+                    $("#example").append('<tbody class="example-error"><tr><th colspan="8">No data found in the server</th></tr></tbody>');
+                    $("#example_processing").css("display","none");
+ 
+                }
             }
         });
     });

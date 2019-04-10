@@ -152,8 +152,8 @@ function get_factories_buttons($id)
     $ci = & get_instance();
     $html = '<span class="actions">';
     $html .= '<a href="' . base_url() . 'factories/edit/' . $id . '">&nbsp; Edit</a>';
-    // $html .= '&nbsp; | &nbsp;';
-    // $html .= '<a href="' . base_url() . 'factories/supervisors/' . $id . '">&nbsp; Clerks</a>';
+    $html .= '&nbsp; | &nbsp;';
+    $html .= '<a href="' . base_url() . 'factories/settings/' . $id . '">&nbsp; Settings</a>';
     // $html .= '&nbsp; | &nbsp;';
     // $html .= '<a href="' . base_url() . 'factories/assign/' . $id . '">&nbsp; Add Clerk</a>';
     $html .= '</span>';

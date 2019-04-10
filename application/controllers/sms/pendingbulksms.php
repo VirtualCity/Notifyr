@@ -69,26 +69,26 @@ class Pendingbulksms extends Admin_Controller {
     //PENDING BULK
     function pending()
     {
-        $id = $this->session->userdata('id');
+        $userid = $this->session->userdata('id');
         $role = $this->session->userdata('role');
         $userfactory = $this->session->userdata('factory');
         if ($role === "USER") {
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status, users.username as createdby, pending_sms.created as datecreated')
             ->unset_column('id')
-            ->add_column('actions', get_pending_sms_buttons('$1'), 'id')
-            ->join('groups','pending_sms.group_id = groups.id','left')
+            ->add_column('actions', get_pending_sms_buttons('$1'), 'pending_sms.id')
             ->join('users','pending_sms.created_by = users.id','left')
+            ->join('groups','pending_sms.group_id = groups.id','left')
             ->from('pending_sms')
             ->where('pending_sms.status',0)
-            ->where('pending_sms.created_by',$id)
+            ->where('pending_sms.created_by',$userid)
             ->where('pending_sms.factory_id',$userfactory);
             echo $this->datatables->generate();
         }else{
             $this->datatables->select('pending_sms.id as id,groups.name as groupname, pending_sms.contacts as contacts,pending_sms.message as message,pending_sms.status as status, users.username as createdby, pending_sms.created as datecreated')
             ->unset_column('id')
             ->add_column('actions', get_pending_sms_buttons('$1'), 'id')
-            ->join('groups','pending_sms.group_id = groups.id','left')
             ->join('users','pending_sms.created_by = users.id','left')
+            ->join('groups','pending_sms.group_id = groups.id','left')
             ->from('pending_sms')
             ->where('pending_sms.status',0)
             ->where('pending_sms.factory_id',$userfactory);
@@ -186,18 +186,23 @@ class Pendingbulksms extends Admin_Controller {
     //approve the bulk sms
     function approve($id=null)
     {
-        $id = $this->session->userdata('id');
+        // $userid = $this->session->userdata('id');
         $role = $this->session->userdata('role');
         $userfactory = $this->session->userdata('factory');
-
+        $groupName = "";
         if(!empty($id)){
             //pull the sms to be approved
             $to_approve = $this->sms_model->get_pending_bulk_by_id($id);
-            if ($to_approve != null) {
+            if ($to_approve !== null) {
 
                 $aprrovedBy = $this->session->userdata('id');
                 //extract the required info
                 $group_details = $this->groups_model->get_group_by_id($to_approve->group_id);
+                if(!$group_details){
+                    $groupName = "Indivudual";
+                }else{
+                    $groupName = $group_details->name;
+                }
                 $groupcontacts = $to_approve->contacts;
                 $message = $to_approve->message;
                 $approvedBy = $this->session->userdata('id');
@@ -232,7 +237,7 @@ class Pendingbulksms extends Admin_Controller {
                                     $success2++;
                                     $status = 'Sent';
                                     $phoneNumber = substr($value->number, 1);
-                                    $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
+                                    $this->sms_model->save_bulksms($phoneNumber, $groupName, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                                 }else{
                                     $failed2++;
                                     log_message("info", "Sending status code: " . $value->Status);
@@ -257,7 +262,7 @@ class Pendingbulksms extends Admin_Controller {
                             redirect('sms/pendingbulksms');
                     }
                     // Display success message
-                    $this->session->set_flashdata('appmsg', $success2 . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed2 . ' messages failed');
+                    $this->session->set_flashdata('appmsg', $success2 . ' Message to ' . $groupName . ' sent successfully and ' . $failed2 . ' messages failed');
                     $this->session->set_flashdata('alert_type', 'alert-info');
                     redirect('sms/pendingbulksms');
                     
@@ -265,7 +270,7 @@ class Pendingbulksms extends Admin_Controller {
                      //Send message to group
                     $msg_sent= $this->sendsms_model->send_sms($groupcontacts,$message);
 
-                    log_message("info", "Sending status: " . $msg_sent);
+                    // log_message("info", "Sending status: " . $msg_sent);
 
                     if ($msg_sent !== null) {
 
@@ -277,7 +282,7 @@ class Pendingbulksms extends Admin_Controller {
                                 $success++;
                                 $status = 'Sent';
                                 $phoneNumber = substr($value->number, 1);
-                                $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
+                                $this->sms_model->save_bulksms($phoneNumber, $groupName, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
                             }else{
                                 $failed++;
                                 log_message("info", "Sending status code: " . $value->Status);
@@ -293,12 +298,12 @@ class Pendingbulksms extends Admin_Controller {
                                 redirect('sms/pendingbulksms');
                         }
                         // Display success message
-                        $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
+                        $this->session->set_flashdata('appmsg', $success . ' Message to ' . $groupName . ' sent successfully and ' . $failed . ' messages failed');
                         $this->session->set_flashdata('alert_type', 'alert-info');
                         redirect('sms/pendingbulksms');
                     } else {
                         // Display fail message
-                        $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                        $this->session->set_flashdata('appmsg', 'Message to ' . $groupName . ' failed.');
                         $this->session->set_flashdata('alert_type', 'alert-warning');
                         redirect('sms/pendingbulksms');
 

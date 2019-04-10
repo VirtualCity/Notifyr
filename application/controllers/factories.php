@@ -14,6 +14,9 @@ class Factories extends Admin_Controller{
         $this->load->model('regions_m');
         $this->load->model('supervisors_m');
         $this->load->model('dashboard_model');
+
+        $this->load->model('settings_m');
+        $this->load->model('groups_model');
     }
 
     function index(){
@@ -46,14 +49,58 @@ class Factories extends Admin_Controller{
     }
 
     function usageBalance(){
-        $factories = $this->factories_model->get_all_factories_balance();
+        // $factories = $this->factories_model->get_all_factories_balance();
+        $factories = $this->factories_model->get_all_factories_and_balance_settings();
         if(count($factories)>0){
+
             foreach ($factories as $key => $value) {
-                $bal = $this->dashboard_model->get_factory_sms_balance("virtualapp", $value->apiKey);
+                $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                $bal = $this->dashboard_model->get_factory_sms_balance($value->username, $value->apiKey);
                 $value->balance = $bal;
+                $value->sent = $months_sent_total;
             }
         }
-        echo json_encode($factories);
+
+        $json_data = array(
+            "draw"            => intval( $_REQUEST['draw'] ),
+            "recordsTotal"    => intval( count($factories) ),
+            "recordsFiltered" => intval( count($factories) ),
+            "data"            => $factories
+        );
+        // print(intval( $_REQUEST['draw'] ))
+        echo json_encode($json_data);
+    }
+
+    function usageBalance_period($period = null){
+        // $factories = $this->factories_model->get_all_factories_balance();
+        $factories = $this->factories_model->get_all_factories_and_balance_settings();
+        if(count($factories)>0){
+
+            foreach ($factories as $key => $value) {
+                if ($period == 30) {
+                    $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                } else if($period == 7) {
+                    $months_sent_total = $this->dashboard_model->get_weeks_sent_total_by_factory($value->id);
+                }else if($period == 1) {
+                    $months_sent_total = $this->dashboard_model->get_todays_sent_total($value->id);
+                }else{
+                    $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                }
+                
+                $bal = $this->dashboard_model->get_factory_sms_balance($value->username, $value->apiKey);
+                $value->balance = $bal;
+                $value->sent = $months_sent_total;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval( $_REQUEST['draw'] ),
+            "recordsTotal"    => intval( count($factories) ),
+            "recordsFiltered" => intval( count($factories) ),
+            "data"            => $factories
+        );
+        // print(intval( $_REQUEST['draw'] ))
+        echo json_encode($json_data);
     }
 
     function add(){
@@ -494,7 +541,201 @@ class Factories extends Admin_Controller{
 
     }
 
-    public function download(){
+    function settings($selectedfactory)
+    {
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        $factory = $this->session->userdata('factory');
+
+        
+        // if ($role !== "SUPER_USER" || $role !== "ADMIN") {
+        //     // Display message
+        //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+        //     $this->session->set_flashdata('alert_type', 'alert-info');
+        //     redirect('dashboard');
+        // }
+        // SET VALIDATION RULES
+        $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
+        $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
+        $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[20]|alpha_dash');
+        $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('shortcodeName', 'Source Address', 'required|max_length[60]|alpha_numeric');
+        $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
+        // $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
+        $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
+        $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
+        $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+        $origin_appid="";
+        $origin_password="";
+        $origin_shortcode="";
+        $origin_shortcodeName="";
+        $origin_keyword="";
+        $origin_smsurl="";
+        $origin_balanceurl="";
+        $subscription_word="";
+        $unsubscription_word="";
+        $productsgroupid="";
+        $smsapproval = "";
+        $factoryid = "";
+        $originshortcode = "";
+        
+            // $configurationData = $this->settings_m->get_configuration();
+            $configurationData = $this->settings_m->get_configuration_by_factory($selectedfactory);
+            // print_r($configurationData);
+            //     return;
+            if($configurationData){
+                $origin_appid = $configurationData->value1;
+                $origin_password = $configurationData->value2;
+                $origin_shortcode = $configurationData->value3;
+                $origin_keyword = $configurationData->value4;
+                $origin_smsurl = $configurationData->value5;
+                $subscription_word = $configurationData->value6;
+                $unsubscription_word = $configurationData->value7;
+                $productsgroupid = $configurationData->value8;
+                $origin_shortcodeName = $configurationData->value9;
+                $originshortcode = $configurationData->shortcode;
+                $origin_balanceurl = $configurationData->balanceurl;
+                $smsapproval = $configurationData->smsapproval;
+                $factoryid = $configurationData->factory_id;
+            }
+        $groups = $this->groups_model->get_all_groups();
+        $factories = $this->factories_model->get_all_factories();
+
+        $data['groups']=$groups;
+        $data['factories']=$factories;
+        $data['appid']=$origin_appid;
+        $data['password']=$origin_password;
+        $data['shortcode']=$origin_shortcode;
+        $data['shortcodeNumber']=$originshortcode;
+        $data['keyword']=$origin_keyword;
+        $data['smsurl']=$origin_smsurl;
+        $data['subscription']=$subscription_word;
+        $data['unsubscription']=$unsubscription_word;
+        $data['productsgroupid']=$productsgroupid;
+        $data['factoryid']=$factoryid;
+        $data['shortcodeName']=$origin_shortcodeName;
+        $data['balanceurl']=$origin_balanceurl;
+        $data['smsapproval']=$smsapproval;
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Configuration Settings";
+        $data['mainContent'] = 'factory/factory_settings';
+        $this->load->view('templates/template', $data);
+    }
+
+    function update_settings()
+    {
+
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        $factory = $this->session->userdata('factory');
+
+        
+        // if ($role !== "SUPER_USER" ) {
+        //     // Display message
+        //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
+        //     $this->session->set_flashdata('alert_type', 'alert-info');
+        //     redirect('dashboard');
+        // }
+        // SET VALIDATION RULES
+        $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
+        $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
+        $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[20]|alpha_dash');
+        $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('shortcodeName', 'Source Address', 'required|max_length[60]|alpha_numeric');
+        $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
+        $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
+        // $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
+        $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
+        $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
+        $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+        $origin_appid="";
+        $origin_password="";
+        $origin_shortcode="";
+        $origin_shortcodeName="";
+        $origin_keyword="";
+        $origin_smsurl="";
+        $origin_balanceurl="";
+        $subscription_word="";
+        $unsubscription_word="";
+        $productsgroupid="";
+        $smsapproval = "";
+        $factoryid = "";
+        $originshortcode = "";
+
+        // has the form been submitted
+        if($this->input->post())
+        {
+
+            $origin_appid = $this->input->post('appid');
+            $origin_password = $this->input->post('password');
+            $origin_shortcode = $this->input->post('shortcode');
+            $originshortcode = $this->input->post('shortcodeNumber');
+            $origin_shortcodeName = $this->input->post('shortcodeName');
+            $origin_keyword = $this->input->post('keyword');
+            $origin_smsurl = $this->input->post('smsurl');
+            $origin_balanceurl = $this->input->post('balanceurl');
+            $subscription_word = $this->input->post('subscription');
+            $unsubscription_word = $this->input->post('unsubscription');
+            $productsgroupid = $this->input->post('groups');
+            $smsapproval = $this->input->post('smsapproval');
+            $factoryid = $this->input->post('factoryid');
+
+            
+            
+            //Does it have valid form info (not empty values)
+            if($this->form_validation->run()){
+                //Save new product
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid);
+                // print($saved);
+                // return;
+                if($saved){
+                    // Display success message
+                    $this->session->set_flashdata('appmsg', 'Configuration settings saved successfully!');
+                    $this->session->set_flashdata('alert_type', 'alert-success');
+                    redirect('factories');
+
+                }else{
+                    // Display fail message
+                    $this->session->set_flashdata('appmsg', 'Configuration settings Not saved! Check logs');
+                    $this->session->set_flashdata('alert_type', 'alert-danger');
+                    redirect('factories');
+                }
+            }
+        }
+        // $groups = $this->groups_model->get_all_groups();
+        // $factories = $this->factories_model->get_all_factories();
+
+        // $data['groups']=$groups;
+        // $data['factories']=$factories;
+        // $data['appid']=$origin_appid;
+        // $data['password']=$origin_password;
+        // $data['shortcode']=$origin_shortcode;
+        // $data['shortcodeNumber']=$originshortcode;
+        // $data['keyword']=$origin_keyword;
+        // $data['smsurl']=$origin_smsurl;
+        // $data['subscription']=$subscription_word;
+        // $data['unsubscription']=$unsubscription_word;
+        // $data['productsgroupid']=$productsgroupid;
+        // $data['factoryid']=$factoryid;
+        // $data['shortcodeName']=$origin_shortcodeName;
+        // $data['balanceurl']=$origin_balanceurl;
+        // $data['smsapproval']=$smsapproval;
+        // $data['user_role'] = $this->session->userdata('role');
+        // $data['title'] = "Factory Configuration Settings";
+        // $data['mainContent'] = 'factory/factory_settings';
+        // $this->load->view('templates/template', $data);
+    }
+    
+
+    public function download()
+    {
         //load download helper
         $this->load->helper('download');
         

@@ -61,8 +61,8 @@
 						<span>SMS Reports</span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="<?=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
-						<li><a href="<?=base_url('reports/purchases')?>">Purchase Report</a></li>
+						<!-- <li><a href="<?//=base_url('reports/cummulative')?>">Cumulative Queries</a></li>
+						<li><a href="<?//=base_url('reports/purchases')?>">Purchase Report</a></li> -->
 						<li><a href="<?=base_url('reports/received')?>">Group Messages Received</a></li>
 						<li><a href="<?=base_url('reports/replied')?>">Group Messages Replied</a></li>
 						<li><a href="<?=base_url('reports/pending')?>">Group Messages Pending</a></li>
@@ -70,8 +70,8 @@
 						<li><a href="<?=base_url('reports/sms')?>">Single Alerts Sent</a></li>
 						<li><a href="<?=base_url('reports/subscribed')?>">Subscribed Contacts</a></li>
 						<li><a href="<?=base_url('reports/subscriptions')?>">Subscription Messages</a></li>
-						<li><a href="<?=base_url('reports/managers')?>">Managers Reports </a></li>
-						<li><a href="<?=base_url('reports/supervisors')?>">Clerks Reports</a></li>
+						<!-- <li><a href="<?//=base_url('reports/managers')?>">Managers Reports </a></li>
+						<li><a href="<?//=base_url('reports/supervisors')?>">Clerks Reports</a></li> -->
 					</ul>
 				</li>
 
