@@ -60,62 +60,133 @@
 	                    <a href="<?php echo base_url('dashboard');?>">
 						<i class="ti-panel"></i>
 						<p>Dashboard</p>
+						</a>
+					</li>
+					<li>
+	                    <a href="<?=base_url('contacts')?>">
+						<i class="ti-list"></i>
+						<p>Contacts</p>
+						</a>
 	                </li>
 					
 	                <li>
-	                    <a data-toggle="collapse" href="#componentsExamples">
+	                    <a data-toggle="collapse" href="#groups">
 	                        <i class="ti-package"></i>
-	                        <p>Components
+	                        <p>Groups
 	                           <b class="caret"></b>
 	                        </p>
 	                    </a>
-	                    <div class="collapse" id="componentsExamples">
+	                    <div class="collapse" id="groups">
 							<ul class="nav">
 	                            <li>
-									<a href="../components/buttons.html">
-										<span class="sidebar-mini">B</span>
-										<span class="sidebar-normal">Buttons</span>
+									<a href="<?=base_url('groups')?>">
+										<span class="sidebar-mini">G</span>
+										<span class="sidebar-normal">View Groups</span>
 									</a>
 								</li>
 	                            <li>
-									<a href="../components/grid.html">
-										<span class="sidebar-mini">GS</span>
-										<span class="sidebar-normal">Grid System</span>
+									<a href="<?=base_url('groups/add')?>">
+										<span class="sidebar-mini">AG</span>
+										<span class="sidebar-normal">Add Group</span>
 									</a>
 								</li>
 	                            <li>
-									<a href="../components/panels.html">
-										<span class="sidebar-mini">P</span>
-										<span class="sidebar-normal">Panels</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/sweet-alert.html">
-										<span class="sidebar-mini">SA</span>
-										<span class="sidebar-normal">Sweet Alert</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/notifications.html">
-										<span class="sidebar-mini">N</span>
-										<span class="sidebar-normal">Notifications</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/icons.html">
-										<span class="sidebar-mini">I</span>
-										<span class="sidebar-normal">Icons</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/typography.html">
-										<span class="sidebar-mini"><i class="ti-panel"></i></span>
-										<span class="sidebar-normal">Typography</span>
+									<a href="<?=base_url('groups/import')?>">
+										<span class="sidebar-mini">IG</span>
+										<span class="sidebar-normal">Import to Group</span>
 									</a>
 								</li>
 	                        </ul>
 	                    </div>
-	                </li>
+					</li>
+					
+					<li>
+	                    <a data-toggle="collapse" href="#smslogs">
+	                        <i class="ti-email"></i>
+	                        <p>SMS Logs
+	                           <b class="caret"></b>
+	                        </p>
+	                    </a>
+	                    <div class="collapse" id="smslogs">
+							<ul class="nav">
+	                            <li>
+									<a href="<?=base_url('logs/inbox')?>">
+										<span class="sidebar-mini">IL</span>
+										<span class="sidebar-normal">SMS Inbox log</span>
+									</a>
+								</li>
+	                            <li>
+									<a href="<?=base_url('logs/outbox')?>">
+										<span class="sidebar-mini">SL</span>
+										<span class="sidebar-normal">SMS Sent log</span>
+									</a>
+								</li>
+	                            <li>
+									<a href="<?=base_url('logs/autoreplies')?>">
+										<span class="sidebar-mini">AL</span>
+										<span class="sidebar-normal">Autoreply log</span>
+									</a>
+								</li>
+	                        </ul>
+	                    </div>
+					</li>
+					
+					<li>
+	                    <a data-toggle="collapse" href="#factories">
+	                        <i class="ti-home"></i>
+	                        <p>Factories
+	                           <b class="caret"></b>
+	                        </p>
+	                    </a>
+	                    <div class="collapse" id="factories">
+							<ul class="nav">
+	                            <li>
+									<a href="<?=base_url('factories')?>">
+										<span class="sidebar-mini">VF</span>
+										<span class="sidebar-normal">View Factories</span>
+									</a>
+								</li>
+	                            <li>
+									<a href="<?=base_url('factories/import')?>">
+										<span class="sidebar-mini">IF</span>
+										<span class="sidebar-normal">Import Factory</span>
+									</a>
+								</li>
+								<li>
+									<a href="<?=base_url('factories/factory_usage_report')?>">
+										<span class="sidebar-mini">UR</span>
+										<span class="sidebar-normal">Usage Report</span>
+									</a>
+								</li>
+	                        </ul>
+	                    </div>
+					</li>
+
+					<li>
+	                    <a data-toggle="collapse" href="#region">
+	                        <i class="ti-layout-column3"></i>
+	                        <p>Regions
+	                           <b class="caret"></b>
+	                        </p>
+	                    </a>
+	                    <div class="collapse" id="region">
+							<ul class="nav">
+	                            <li>
+									<a href="<?=base_url('regions')?>">
+										<span class="sidebar-mini">VR</span>
+										<span class="sidebar-normal">View Regions</span>
+									</a>
+								</li>
+	                            <li>
+									<a href="<?=base_url('regions/import')?>">
+										<span class="sidebar-mini">IR</span>
+										<span class="sidebar-normal">Import Regions</span>
+									</a>
+								</li>
+	                        </ul>
+	                    </div>
+					</li>
+
 	                <li>
 						<a data-toggle="collapse" href="#formsExamples">
 	                        <i class="ti-clipboard"></i>
@@ -153,43 +224,7 @@
 	                        </ul>
 	                    </div>
 	                </li>
-					<li>
-						<a data-toggle="collapse" href="#tablesExamples">
-	                        <i class="ti-view-list-alt"></i>
-	                        <p>
-								Table list
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse in" id="tablesExamples">
-							<ul class="nav">
-								<li>
-									<a href="regular.html">
-										<span class="sidebar-mini">RT</span>
-										<span class="sidebar-normal">Regular Tables</span>
-									</a>
-								</li>
-								<li>
-									<a href="extended.html">
-										<span class="sidebar-mini">ET</span>
-										<span class="sidebar-normal">Extended Tables</span>
-									</a>
-								</li>
-								<li>
-									<a href="bootstrap-table.html">
-										<span class="sidebar-mini">BT</span>
-										<span class="sidebar-normal">Bootstrap Table</span>
-									</a>
-								</li>
-								<li>
-									<a href="datatables.net.html">
-										<span class="sidebar-mini">DT</span>
-										<span class="sidebar-normal">DataTables.net</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
+					
 	                <li>
 						<a data-toggle="collapse" href="#mapsExamples">
 	                        <i class="ti-map"></i>

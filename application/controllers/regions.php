@@ -62,9 +62,12 @@ class Regions extends Admin_Controller{
                 $saved = $this->regions_m->add_region($region,$code,$description);
 
                 if($saved){
+
+
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'New Region added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('regions/add');
 
                 }else{
@@ -146,6 +149,7 @@ class Regions extends Admin_Controller{
                         //return fail. region name already in use
                         $this->session->set_flashdata('appmsg', 'This Region code "'.$code.'" already exists');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('regions/edit/'.$id);
                     }else{
                         //Save new region
@@ -155,12 +159,14 @@ class Regions extends Admin_Controller{
                             // Display success message
                             $this->session->set_flashdata('appmsg', 'Region updated successfully!');
                             $this->session->set_flashdata('alert_type', 'alert-success');
+                            $this->session->set_flashdata('alert_type_', 'success');
                             redirect('regions');
 
                         }else{
                             // Display fail message
                             $this->session->set_flashdata('appmsg', 'Region NOT updated! Check logs');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
+                            $this->session->set_flashdata('alert_type_', 'danger');
                             redirect('regions');
                         }
                     }

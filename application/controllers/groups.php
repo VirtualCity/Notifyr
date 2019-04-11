@@ -113,6 +113,31 @@ class Groups extends MY_Controller{
         $this->load->view('templates/template',$data);
     }
 
+    function getGroupsByFactoryId($id = null){
+        if(!empty($id)){
+            //check if group already has contacts
+            $groups = $this->groups_model->get_group_by_factory($id);
+
+            if(!$groups){
+                //retrieve group to edit
+               echo json_encode($groups);
+
+            }else{
+                // No group id specified
+                $this->session->set_flashdata('appmsg', 'No Groups were found');
+                $this->session->set_flashdata('alert_type', 'alert-info');
+                redirect('groups/add');
+            }
+
+
+        }else{
+            // No group id specified
+            $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Factory identifier provided ');
+            $this->session->set_flashdata('alert_type', 'alert-danger');
+            redirect('groups');
+        }
+    }
+
     function contacts($id=null){
         if(!empty($id)){
 

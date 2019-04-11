@@ -22,6 +22,7 @@
         <li class=""><a href="<?=base_url('contacts')?>" >Active Contacts</a></li>
         <li class="active"><a href="#default-tab-1" data-toggle="tab"><h4 class="panel-title">Suspended Contacts</h4></a></li>
         <li class=""><a href="<?=base_url('contacts/submitted')?>" >Sumitted Contacts</a></li>
+        <li class=""><a href="<?=base_url('contacts/blacklistedlist')?>" >Blacklisted Contacts</a></li>
         
     </ul>
 
@@ -30,9 +31,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-
                     </div>                
                     <h4>Suspended Contacts</h4>
                 </div>
@@ -69,8 +67,6 @@
 </div>
 
 
-
-</div>
 
 <script type="text/javascript">
     jQuery(document).ready(function(){

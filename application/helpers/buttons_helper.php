@@ -92,7 +92,7 @@ function get_blacklist_buttons($id)
 {
     $ci = & get_instance();
     $html = '<span class="actions">';
-    $html .= '<a href="' . base_url() . 'blacklist/remove/' . $id . '">&nbsp; Re-instate</a>';
+    $html .= '<a href="' . base_url() . 'contacts/remove/' . $id . '">&nbsp; Re-instate</a>';
     $html .= '</span>';
 
     return $html;
@@ -213,19 +213,40 @@ function get_supervisors_buttons($id){
     return $html;
 }
 
+
 function get_active_contacts_buttons($id)
 {
     $ci = & get_instance();
-    $html = '<span class="actions">';
-    $html .= '<a href="' . base_url() . 'contacts/sms/' . $id . '">SMS</a>';
-    $html .= '&nbsp; | &nbsp;';
-    $html .= '<a href="' . base_url() . 'contacts/edit/' . $id . '">Edit</a>';
-    $html .= '&nbsp; | &nbsp;';
-    $html .= '<a href="' . base_url() . 'contacts/suspend/' . $id . '">Suspend</a>';
-    $html .= '</span>';
+    $html = '<li class="dropdown">';
+    $html .= '<a href="#notigfications" class="dropdown-toggle" data-toggle="dropdown">';
+    $html .= '<span><i class="ti-more-alt"></i></span>';
+    $html .= '</a>';
+    $html .= '<ul class="dropdown-menu">';
+    $html .= '<li><a href="' . base_url() . 'contacts/sms/' . $id . '">SMS</a></li>';
+    $html .= '<li><a href="' . base_url() . 'contacts/edit/' . $id . '">Edit</a></li>';
+    $html .= '<li><a href="' . base_url() . 'contacts/suspend/' . $id . '">Suspend</a></li>';
+    $html .= '<li><a href="' . base_url() . 'contacts/black_list_contact/' . $id . '">blacklist</a></li>';
+    $html .= '</ul>';
+    $html .= '</li>';
 
     return $html;
 }
+
+// function get_active_contacts_buttons($id)
+// {
+//     $ci = & get_instance();
+//     $html = '<span class="actions">';
+//     $html .= '<a href="' . base_url() . 'contacts/sms/' . $id . '">SMS</a>';
+//     $html .= '&nbsp; | &nbsp;';
+//     $html .= '<a href="' . base_url() . 'contacts/edit/' . $id . '">Edit</a>';
+//     $html .= '&nbsp; | &nbsp;';
+//     $html .= '<a href="' . base_url() . 'contacts/suspend/' . $id . '">Suspend</a>';
+//     $html .= '&nbsp; | &nbsp;';
+//     $html .= '<a href="' . base_url() . 'contacts/black_list_contact/' . $id . '">blacklist</a>';
+//     $html .= '</span>';
+
+//     return $html;
+// }
 
 function get_pending_sms_buttons($id)
 {

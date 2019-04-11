@@ -19,14 +19,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-
-                    </div>
-                    <h4 class="panel-title">Add Contact</h4>
-                </div>
                 <div class="panel-body">
                     <div class="well-content no_search">
 
@@ -135,12 +127,15 @@
 
                               </div>
                           </div>
-                            <div class="form_row col-md-offset-6">
+                        <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
                                 <label class="field_name align_right"></label>
                                 <div class="field">
                                     <button type="submit" class="btn btn-large btn-primary"><i class="fa fa-save"></i> Save Contact</button>
+                                    <button type="reset" class="btn btn-large btn-default"><i class="fa fa-save"></i> Reset</button>
                                 </div>
                             </div>
+                        </div>
 
                         </form>
                     </div>
@@ -151,6 +146,13 @@
         </div>
     </div>
 </div>
+
+<!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url()?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url()?>assets/js/perfect-scrollbar.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="<?php echo base_url() ?>assets/css/sweetalert.min.css" rel="stylesheet" type="text/css" />
 
 <script>
     
@@ -177,6 +179,31 @@
                 $('#town_id').empty();
             }
         });
+
+        
+        // $('select[name="factory_id"]').on('change', function() {
+        //     var factoryId = $(this).val();
+        //     var base='<?php //echo base_url(); ?>';
+        //     if(factoryId) {
+        //         $.ajax({
+        //             url:  base + 'groups/getGroupsByFactoryId/'+factoryId,
+        //             type: "GET",
+        //             dataType: "json",
+        //             success:function(data) {
+        //                 $('#group_id').empty();
+        //                 $('#group_id').append('<option value="" selected>---Please Select Group---</option>');
+                        
+        //                 $.each(data, function(key, value) {
+        //                     $('#group_id').append('<option value="'+ value.id +'" selected> '+ value.name +'</option>');
+        //                 });
+        //                 $(".ms-parent").removeAttr("style");
+        //             },
+        //         });
+        //     }else{
+        //         $('#group_id').empty();
+        //     }
+        // });
+
 
         
     });

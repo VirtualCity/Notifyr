@@ -22,9 +22,6 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-
                     </div>
                     <h4 class="panel-title">Blacklisted Numbers</h4>
                 </div>
@@ -60,7 +57,7 @@
             jQuery('#example').dataTable({
                 "processing": true,
                 "bServerSide": true,
-                "sAjaxSource": "<?=base_url('blacklist/datatable')?>",
+                "sAjaxSource": "<?=base_url('contacts/blacklisted')?>",
                 "bJQueryUI": true,
                 "sPaginationType": "full_numbers",
                 "iDisplayStart ": 20,

@@ -44,6 +44,19 @@ class Blacklist_model extends CI_Model{
         }
     }
 
+    function check_contact_by_id($id){
+        $this->db->select('*');
+        $this->db->from('blacklist');
+        $this->db->where('id',$id);
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query->row();
+        }else{
+            return false;
+        }
+    }
+
     function remove_contact($id){
         $this->db->where('id',$id);
         $query =$this->db->delete('blacklist');

@@ -21,14 +21,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <!-- <div class="panel-heading">
                     <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                         
                     </div>
                     <h4 class="panel-title">View Groups</h4>
-                </div>
+                </div> -->
                 <div class="panel-body">
                     <table class="table table-striped table-bordered table-hover datatable"  id="example">
                         <thead>

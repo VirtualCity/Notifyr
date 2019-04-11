@@ -4,7 +4,7 @@
 	                <nav class="pull-left">
 	                    <ul>
 	                        <li>
-	                            <a href="https://www.creative-tim.com/">
+	                            <a href="https://www.virtualcity.co.ke">
 	                                Virtualcity
 	                            </a>
 	                        </li>
@@ -20,7 +20,7 @@
 
 
     <!-- ===============================right color plugin starts================================= -->
-	<div class="fixed-plugin">
+	<!-- <div class="fixed-plugin">
         <div class="dropdown">
             <a href="#" data-toggle="dropdown">
             <i class="fa fa-cog fa-2x"> </i>
@@ -47,7 +47,7 @@
 
             </ul>
         </div>
-    </div>
+    </div> -->
     <!-- ====================================right color plugin ends============================== -->
 
 </body>

@@ -121,37 +121,8 @@
 			</div>
 		</div>
 
-			<!-- <div class="col-md-12">
-				<div class="card ">
-					<div class="card-header">
-						<h4 class="card-title">2015 Sales</h4>
-						<p class="category">All products including Taxes</p>
-					</div>
-					<div class="card-content">
-						<div id="chartActivity" class="ct-chart"></div>
-					</div>
-					<div class="card-footer">
-						<div class="chart-legend">
-							<i class="fa fa-circle text-info"></i> Tesla Model S
-							<i class="fa fa-circle text-warning"></i> BMW 5 Series
-						</div>
-						<hr>
-						<div class="stats">
-							<i class="ti-check"></i> Data information certified
-						</div>
-					</div>
-				</div>
-			</div> -->
+			
 
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		demo.initStatsDashboard();
-		demo.initVectorMap();
-		demo.initCirclePercentage();
-
-	});
-</script>

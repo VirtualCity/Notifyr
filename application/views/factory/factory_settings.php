@@ -25,12 +25,6 @@
         <div class="tab-pane active" id="tab_a">
            <div class="panel">
             <div class="panel-heading">
-                <div class="panel-heading-btn">
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-
-                </div>
-                <h4 class="panel-title">Factory SDP Configuration Settings</h4>
             </div>
             <div class="panel-body">
         <form action="<?=base_url('factories/update_settings')?>" method="post" class="form-horizontal">

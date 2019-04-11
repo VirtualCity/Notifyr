@@ -21,14 +21,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                         
-                    </div>
-                    <h4 class="panel-title">View Factories Usage Report</h4>
-                </div>
                 <div class="panel-body">
                     <table class="table table-striped table-bordered table-hover datatable display"  id="example">
                         <thead>
@@ -40,7 +32,6 @@
                             <th>Sent</div>
                             <th>Balance</div>
                             <th>Region</th>
-                            <th>Last Modified</th>
                             <th>Date Created</th>
 
                         </tr>
@@ -82,10 +73,9 @@
                 { "data": "sent"},
                 { "data": "balance"},
                 { "data": "region"},
-                { "data": "modified"},
                 { "data": "created"}
             ],
-            "order": [[ 7, "desc" ]],
+            "order": [[ 6, "desc" ]],
             "oLanguage": {
                 "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
             },

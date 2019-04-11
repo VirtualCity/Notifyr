@@ -32,7 +32,8 @@
     <!--  Fonts and icons     -->
     <link href="<?php echo base_url()?>assets/css/font-awesome.min.css" rel="stylesheet">
     <link href='<?php echo base_url()?>assets/fonts.googleapis.com/cssbba8.css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="<?php echo base_url()?>assets/css/themify-icons.css" rel="stylesheet">
+	<link href="<?php echo base_url()?>assets/css/themify-icons.css" rel="stylesheet">
+	<link href="<?php echo base_url() ?>assets/css/sweetalert.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -58,17 +59,12 @@
 	                <div class="collapse navbar-collapse">
 
 	                    <ul class="nav navbar-nav navbar-right">
-	                        <li>
-	                            <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
-	                                <i class="ti-panel"></i>
-									<p>Stats</p>
-	                            </a>
-	                        </li>
+	                        
 	                        <li class="dropdown">
 	                            <a href="#notigfications" class="dropdown-toggle" data-toggle="dropdown">
 
 									<?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?>
-									<i class="ti-caret"></i>
+									<span><i class="ti-arrow-circle-down"></i></span>
 	                            </a>
 	                        	<ul class="dropdown-menu">
 	                                <li><a href="#not1">My Profile</a></li>
@@ -76,14 +72,7 @@
 	                                <li><a href="<?=base_url('logout')?>">Logout</a></li>
 	                            </ul>
 	                        </li>
-							<li>
-	                            <a href="#settings" class="btn-rotate">
-									<i class="ti-settings"></i>
-									<p class="hidden-md hidden-lg">
-										Settings
-									</p>
-	                            </a>
-	                        </li>
+							
 	                    </ul>
 	                </div>
 	            </div>

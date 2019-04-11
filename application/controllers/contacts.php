@@ -17,6 +17,9 @@ class Contacts extends MY_Controller{
         $this->load->model('regions_m');
         $this->load->model('factories_model');
 
+        $this->load->model('blacklist_model');
+        $this->load->database();
+
     }
 
     function index(){
@@ -184,6 +187,87 @@ class Contacts extends MY_Controller{
         redirect('contacts');
     }
 
+    // ==========================blacklist starts===========================
+
+    function blacklisted(){
+        $this->datatables->select('id,msisdn,created')
+            ->unset_column('id')
+            ->add_column('actions', get_blacklist_buttons('$1'), 'id')
+            ->from('blacklist');
+
+        echo $this->datatables->generate();
+    }
+
+    function blacklistedlist(){
+        if(!$this->session->userdata('logged_in')){
+            redirect('login');
+            //echo("You are NOT logged in");
+        }
+
+
+        $data['base']=$this->config->item('base_url');
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Blacklisted Numbers";
+        $data['mainContent']='blacklist';
+        $data['mainContent']='contacts/view_blacklisted_contacts';
+        $this->load->view('templates/template',$data);
+    }
+
+    function remove($id){
+
+        if(!empty($id)){
+            //retrieve the msisdn for the recipient
+            $this->blacklist_model->remove_contact($id);
+            redirect('contacts');
+
+        }
+    }
+
+    function black_list_contact($id)
+    {
+        if(!empty($id)){
+            $contact = "";
+
+            $contact = $this->contacts_model->get_contact($id);
+            if (!$contact) {
+                $exists= $this->blacklist_model->check_contact($contact->msisdn);
+
+                if(!$exists){
+                    $saved= $this->blacklist_model->blacklist($msisdn);
+
+                    if($saved){
+                        // Display success message
+                        $this->session->set_flashdata('appmsg', 'Mobile Number '.$msisdn.' successfully added to blacklist.!');
+                        $this->session->set_flashdata('alert_type', 'alert-success');
+                        redirect('contacts');
+
+                    }else{
+                        // Display fail message
+                        $this->session->set_flashdata('appmsg', 'Problem encountered while blacklisting number. Check logs');
+                        $this->session->set_flashdata('alert_type', 'alert-warning');
+                        redirect('contacts');
+                    }
+
+                }else{
+                    // Display fail message
+                    $this->session->set_flashdata('appmsg', 'This Mobile Number: '.$msisdn.' already exists in blacklist. ');
+                    $this->session->set_flashdata('alert_type', 'alert-warning');
+                    redirect('contacts');
+                }
+            } else {
+                // Display fail message
+                $this->session->set_flashdata('appmsg', 'This Mobile Number does not exist. ');
+                $this->session->set_flashdata('alert_type', 'alert-warning');
+                redirect('contacts');
+            }
+            
+
+            
+
+        }
+        
+    }
+   // ==========================blacklist ends===========================
     function add(){
 
         // SET VALIDATION RULES
