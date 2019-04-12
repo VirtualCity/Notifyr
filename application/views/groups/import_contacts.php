@@ -18,7 +18,7 @@
                         <div class="col-md-6 col-xs-6">
                             <label >Select File To Import: </label>
                             <span class="text-danger"> *</span>
-                            <input type="file" class="form-control" name="userfile" id="userfile"/>
+                            <input required type="file" class="form-control" name="userfile" id="userfile"/>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <label >Download template to use : </label><br>

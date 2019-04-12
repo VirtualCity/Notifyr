@@ -6,7 +6,6 @@
             <li><a href="<?=base_url("dashboard")?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="<?=base_url("groups")?>"><i class="fa fa-file"></i> Groups</a></li>
             <li class="active"><?=$group?> Edit</li>
-            <li class="active"><?=$description?> Edit</li>
         </ol>
     </div>
 
