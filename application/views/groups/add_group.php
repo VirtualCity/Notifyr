@@ -13,23 +13,10 @@
         </div>
     </div>
 
-   <div id="alert_placeholder">
-    <?php
-    $appmsg = $this->session->flashdata('appmsg');
-    if(!empty($appmsg)){ ?>
-    <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-    <?php } ?>
-</div>
-
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
-            <!-- <div class="panel-heading">
-                <div class="panel-heading-btn">
-                </div>
-                <h4 class="panel-title">Add Group</h4>
-            </div> -->
             <div class="panel-body">
                 <form action="<?php echo base_url('groups/add');?>" method="post" class="form-horizontal">
 
@@ -86,3 +73,22 @@
 </div>
 </div>
 <!-- end #content -->
+
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+
+ 
+<script type="text/javascript">
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>
+    });
+
+</script> 
