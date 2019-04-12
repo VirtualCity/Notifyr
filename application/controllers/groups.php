@@ -86,12 +86,14 @@ class Groups extends MY_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Group has been successfully added!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('groups/add');
 
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Group has NOT added. Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('groups/add');
                 }
 
@@ -126,6 +128,7 @@ class Groups extends MY_Controller{
                 // No group id specified
                 $this->session->set_flashdata('appmsg', 'No Groups were found');
                 $this->session->set_flashdata('alert_type', 'alert-info');
+                $this->session->set_flashdata('alert_type_', 'info');
                 redirect('groups/add');
             }
 
@@ -134,6 +137,7 @@ class Groups extends MY_Controller{
             // No group id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Factory identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('groups');
         }
     }
@@ -156,6 +160,7 @@ class Groups extends MY_Controller{
             // No group id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Group identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('groups');
         }
 
@@ -191,6 +196,7 @@ class Groups extends MY_Controller{
                 // No group id specified
                 $this->session->set_flashdata('appmsg', 'Group cannot be edited because it already contains subscribed numbers');
                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                $this->session->set_flashdata('alert_type_', 'danger');
                 redirect('groups');
             }
 
@@ -199,6 +205,7 @@ class Groups extends MY_Controller{
             // No group id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Group identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('groups');
         }
 
@@ -234,6 +241,7 @@ class Groups extends MY_Controller{
                     //return fail. group name already in use
                     $this->session->set_flashdata('appmsg', 'This group "'.$group.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('groups/edit/'.$id);
                 }else{
                     //Save new group
@@ -243,12 +251,14 @@ class Groups extends MY_Controller{
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'Group updated successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
                         redirect('groups');
 
                     }else{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Group NOT updated! Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('groups');
                     }
                 }
@@ -257,6 +267,7 @@ class Groups extends MY_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('groups/edit/'.$id);
         }
 
@@ -299,6 +310,7 @@ class Groups extends MY_Controller{
                     // Display fail message
                 $this->session->set_flashdata('appmsg', $error['error']);
                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                $this->session->set_flashdata('alert_type_', 'danger');
                 redirect('groups/import');
             }else{
                 $data = array('upload_data' => $this->upload->data());
@@ -323,6 +335,7 @@ class Groups extends MY_Controller{
                 $this->session->set_flashdata('unregistered', $unregistered);
                 $this->session->set_flashdata('appmsg', 'Contacts imported: '.$importedNo);
                 $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'success');
                 redirect('groups/import');
             }
 
@@ -331,6 +344,7 @@ class Groups extends MY_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg','Import Failed! Browse and select file to import then choose a target group');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('groups/import');
         }
 

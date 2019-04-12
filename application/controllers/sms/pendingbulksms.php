@@ -27,6 +27,7 @@ class Pendingbulksms extends Admin_Controller {
         //     // Display message
         //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
         //     $this->session->set_flashdata('alert_type', 'alert-info');
+        // $this->session->set_flashdata('alert_type_', 'info');
         //     redirect('dashboard');
         // }
         $data['user_role'] = $this->session->userdata('role');
@@ -264,6 +265,7 @@ class Pendingbulksms extends Admin_Controller {
                     // Display success message
                     $this->session->set_flashdata('appmsg', $success2 . ' Message to ' . $groupName . ' sent successfully and ' . $failed2 . ' messages failed');
                     $this->session->set_flashdata('alert_type', 'alert-info');
+                    $this->session->set_flashdata('alert_type_', 'info');
                     redirect('sms/pendingbulksms');
                     
                 }else{
@@ -300,11 +302,13 @@ class Pendingbulksms extends Admin_Controller {
                         // Display success message
                         $this->session->set_flashdata('appmsg', $success . ' Message to ' . $groupName . ' sent successfully and ' . $failed . ' messages failed');
                         $this->session->set_flashdata('alert_type', 'alert-info');
+                        $this->session->set_flashdata('alert_type_', 'info');
                         redirect('sms/pendingbulksms');
                     } else {
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Message to ' . $groupName . ' failed.');
                         $this->session->set_flashdata('alert_type', 'alert-warning');
+                        $this->session->set_flashdata('alert_type_', 'warning');
                         redirect('sms/pendingbulksms');
 
                     }
@@ -342,13 +346,16 @@ class Pendingbulksms extends Admin_Controller {
                 //     if($approvalCheck){
                 //         $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed.'.' Approval is successfull ');
                 //         $this->session->set_flashdata('alert_type', 'alert-success');
+                // $this->session->set_flashdata('alert_type_', 'sucess');
                 //     }else{
                 //         $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be approved ');
                 //         $this->session->set_flashdata('alert_type', 'alert-danger');
+                // $this->session->set_flashdata('alert_type_', 'danger');
                 //     }
                 // }else{
                 //     $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be sent ');
                 //     $this->session->set_flashdata('alert_type', 'alert-danger');
+                // $this->session->set_flashdata('alert_type_', 'danger');
                 // }
         //    ==========================================================================
             
@@ -357,12 +364,14 @@ class Pendingbulksms extends Admin_Controller {
                 // No contact id specified
                 $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                $this->session->set_flashdata('alert_type_', 'danger');
             }
 
         }else{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The record you are tryng to approve was found ');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             // redirect('sms/pendingbulksms');
         }
         redirect('sms/pendingbulksms');
@@ -379,15 +388,18 @@ class Pendingbulksms extends Admin_Controller {
             if ($to_cancel) {
                 $this->session->set_flashdata('appmsg', 'The bulk sms cancelled successfully ');
                 $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'sucess');
                 // redirect('sms/pendingbulksms/approvedbulk');
             }else{
                 $this->session->set_flashdata('appmsg', 'The bulk sms could not be cancelled ');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
             }
         }else{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             // redirect('sms/pendingbulksms');
         }
         redirect('sms/pendingbulksms');
@@ -404,15 +416,18 @@ class Pendingbulksms extends Admin_Controller {
             if ($to_reject) {
                 $this->session->set_flashdata('appmsg', 'The bulk sms cancelled successfully ');
                 $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'success');
                 // redirect('sms/pendingbulksms/approvedbulk');
             }else{
                 $this->session->set_flashdata('appmsg', 'The bulk sms could not be cancelled ');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
             }
         }else{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             // redirect('sms/pendingbulksms');
         }
         redirect('sms/pendingbulksms');

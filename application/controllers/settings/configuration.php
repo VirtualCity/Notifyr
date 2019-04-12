@@ -85,12 +85,14 @@ class Configuration extends Admin_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Configuration settings saved successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('settings/configuration');
 
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Configuration settings Not saved! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('settings/configuration');
                 }
             }

@@ -29,6 +29,7 @@ class Newbulksms extends Admin_Controller {
         //     // Display message
         //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
         //     $this->session->set_flashdata('alert_type', 'alert-info');
+        //     $this->session->set_flashdata('alert_type_', 'info');
         //     redirect('dashboard');
         // }
 
@@ -55,6 +56,7 @@ class Newbulksms extends Admin_Controller {
 
             //     $this->session->set_flashdata('appmsg', 'Please Select the group contacts to sent to.');
             //     $this->session->set_flashdata('alert_type', 'alert-warning');
+            // $this->session->set_flashdata('alert_type_', 'warning');
             //     // redirect('sms/newbulksms');
             // } 
             
@@ -89,11 +91,13 @@ class Newbulksms extends Admin_Controller {
                             if(!$response){
                                 $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' could not be saved!');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                                $this->session->set_flashdata('alert_type_', 'danger');
                                 redirect('sms/newbulksms');
                             }
                             // Display success message
                             $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' saved successfully');
                             $this->session->set_flashdata('alert_type', 'alert-info');
+                            $this->session->set_flashdata('alert_type_', 'info');
                             redirect('sms/newbulksms');
                         }else{
 
@@ -149,6 +153,7 @@ class Newbulksms extends Admin_Controller {
                                 // Display success message
                                 $this->session->set_flashdata('appmsg', $success1 . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed1 . ' messages failed');
                                 $this->session->set_flashdata('alert_type', 'alert-info');
+                                $this->session->set_flashdata('alert_type_', 'info');
                                 redirect('sms/newbulksms');
                                 
                             }else{
@@ -178,11 +183,13 @@ class Newbulksms extends Admin_Controller {
                                     // Display success message
                                     $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
                                     $this->session->set_flashdata('alert_type', 'alert-info');
+                                    $this->session->set_flashdata('alert_type_', 'info');
                                     redirect('sms/newbulksms');
                                 } else {
                                     // Display fail message
                                     $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
                                     $this->session->set_flashdata('alert_type', 'alert-warning');
+                                    $this->session->set_flashdata('alert_type_', 'warning');
                                     redirect('sms/newbulksms');
 
                                 }
@@ -243,6 +250,7 @@ class Newbulksms extends Admin_Controller {
                             // Display success message
                             $this->session->set_flashdata('appmsg', $success1 . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed1 . ' messages failed');
                             $this->session->set_flashdata('alert_type', 'alert-info');
+                            $this->session->set_flashdata('alert_type_', 'info');
                             redirect('sms/newbulksms');
                             
                         }else{
@@ -272,11 +280,13 @@ class Newbulksms extends Admin_Controller {
                                 // Display success message
                                 $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
                                 $this->session->set_flashdata('alert_type', 'alert-info');
+                                $this->session->set_flashdata('alert_type_', 'info');
                                 redirect('sms/newbulksms');
                             } else {
                                 // Display fail message
                                 $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
                                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                                $this->session->set_flashdata('alert_type_', 'warning');
                                 redirect('sms/newbulksms');
 
                             }
@@ -308,11 +318,13 @@ class Newbulksms extends Admin_Controller {
                         //     // Display success message
                         //     $this->session->set_flashdata('appmsg', $success . ' Message to ' . $group_details->name . ' sent successfully and ' . $failed . ' messages failed');
                         //     $this->session->set_flashdata('alert_type', 'alert-info');
+                        // $this->session->set_flashdata('alert_type_', 'info');
                         //     redirect('sms/newbulksms');
                         // } else {
                         //     // Display fail message
                         //     $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
                         //     $this->session->set_flashdata('alert_type', 'alert-warning');
+                        // $this->session->set_flashdata('alert_type_', 'warning');
                         //     redirect('sms/newbulksms');
 
                         // }
@@ -323,6 +335,7 @@ class Newbulksms extends Admin_Controller {
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'This group' . $group_details->name . ' has no contacts subscribed.');
                     $this->session->set_flashdata('alert_type', 'alert-warning');
+                    $this->session->set_flashdata('alert_type_', 'warning');
                     redirect('sms/newbulksms');
                 }
 
@@ -350,6 +363,7 @@ class Newbulksms extends Admin_Controller {
             // Display message
             $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
             $this->session->set_flashdata('alert_type', 'alert-info');
+            $this->session->set_flashdata('alert_type_', 'info');
             redirect('dashboard');
         }
 
@@ -385,6 +399,7 @@ class Newbulksms extends Admin_Controller {
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('sms/newbulksms/uploadexcel');
 
         } else {
@@ -408,6 +423,7 @@ class Newbulksms extends Admin_Controller {
             $this->session->set_flashdata('unregistered', $unregistered);
             $this->session->set_flashdata('appmsg', 'Total SMS Sent: ' . $importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
             redirect('sms/newbulksms/uploadexcel');
         }
 

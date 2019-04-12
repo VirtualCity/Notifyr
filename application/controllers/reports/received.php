@@ -55,6 +55,7 @@ class Received extends MY_Controller{
             //return fail. distributor code already in use
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             redirect('reports/received');
         }
 
@@ -94,6 +95,7 @@ class Received extends MY_Controller{
                         // Display success message
                         $this->session->set_flashdata('appmsg', '"Message to "'.$msisdn.'" sent successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
 
                         //get initial message from stockist
                         $msg = $this->reports_m->get_received_sms($id);
@@ -115,24 +117,28 @@ class Received extends MY_Controller{
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'Message sent successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
                         redirect('reports/received');
 
                     }else{
                         $msg_error = var_export($msg_sent,true);
                         $this->session->set_flashdata('appmsg', "Message to ".$msisdn." failed to send. ");
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('reports/received');
 
                     }
                 }else{
                     $this->session->set_flashdata('appmsg', "Message to ".$msisdn." not sent. Stockist Identifier not included");
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('reports/received');
                 }
             }
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('reports/received/reply/'.$id);
         }
 

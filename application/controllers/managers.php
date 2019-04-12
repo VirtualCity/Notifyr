@@ -71,12 +71,14 @@ class Managers extends Admin_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Area Manager added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('managers/add');
 
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Area Manager NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('managers/add');
                 }
             }
@@ -119,6 +121,7 @@ class Managers extends Admin_Controller{
             //return fail.
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             redirect('managers');
         }
 
@@ -158,6 +161,7 @@ class Managers extends Admin_Controller{
                     //return fail. manager name already in use
                     $this->session->set_flashdata('appmsg', 'This Manager Name "'.$name.'" is already in use by a different Area Manager');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('managers/edit/'.$id);
                 }else{
                     //Verify mobile number1
@@ -166,6 +170,7 @@ class Managers extends Admin_Controller{
                         //return fail. manager mobile already in use
                         $this->session->set_flashdata('appmsg', 'This Manager Mobile "'.$mobile.'" is already in use by a different Area Manager');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('managers/edit/'.$id);
                     }else{
                         //Verify Email
@@ -174,6 +179,7 @@ class Managers extends Admin_Controller{
                             //return fail. Manager email already in use
                             $this->session->set_flashdata('appmsg', 'This Manager Email "'.$email.'" is already in use by a different Area Manager');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
+                            $this->session->set_flashdata('alert_type_', 'danger');
                             redirect('managers/edit/'.$id);
                         }else{
                             //Save new Manager
@@ -183,12 +189,14 @@ class Managers extends Admin_Controller{
                                 // Display success message
                                 $this->session->set_flashdata('appmsg', 'Area Manager modified successfully!');
                                 $this->session->set_flashdata('alert_type', 'alert-success');
+                                $this->session->set_flashdata('alert_type_', 'success');
                                 redirect('managers');
 
                             }else{
                                 // Display fail message
                                 $this->session->set_flashdata('appmsg', 'Area Manager NOT modified! Check logs');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                                $this->session->set_flashdata('alert_type_', 'danger');
                                 redirect('managers');
                             }
                         }
@@ -201,6 +209,7 @@ class Managers extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('managers/edit/'.$id);
         }
 
@@ -234,6 +243,7 @@ class Managers extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('managers/import');
         }else{
             $data = array('upload_data' => $this->upload->data());
@@ -256,6 +266,7 @@ class Managers extends Admin_Controller{
             $this->session->set_flashdata('notimported', $notImported);
             $this->session->set_flashdata('appmsg', 'Area Managers imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
             redirect('managers/import');
         }
     }

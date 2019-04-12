@@ -96,12 +96,14 @@ class Newsms extends Admin_Controller {
 						if(!$response){
 							$this->session->set_flashdata('appmsg',' Message to could not be saved!');
 							$this->session->set_flashdata('alert_type', 'alert-danger');
+							$this->session->set_flashdata('alert_type_', 'danger');
 							redirect('sms/newbulksms');
 						}
 						
 						// Display success message
 						$this->session->set_flashdata('appmsg',' Message to saved successfully');
 						$this->session->set_flashdata('alert_type', 'alert-info');
+						$this->session->set_flashdata('alert_type_', 'info');
 						
 						redirect('sms/newbulksms');
 					}else{
@@ -177,6 +179,7 @@ class Newsms extends Admin_Controller {
 						// Display success message
 						$this->session->set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
 						$this->session->set_flashdata('alert_type', 'alert-success');
+						$this->session->set_flashdata('alert_type_', 'success');
 
 						//save sms
 						$userid = $this -> session -> userdata('id');

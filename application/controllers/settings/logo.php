@@ -71,6 +71,7 @@ class Logo extends MY_Controller{
                 {
                     $this->session->set_flashdata('appmsg', 'Logo Failed to upload: '. $this->upload->display_errors());
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('settings/logo');                    
                 }
                 else
@@ -91,6 +92,7 @@ class Logo extends MY_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Logo uploaded successfully! ');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('settings/logo');
 
                 

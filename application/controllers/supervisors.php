@@ -65,12 +65,14 @@ class Supervisors extends Admin_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'New supervisor added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('supervisors/add');
 
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Clerk NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('supervisors/add');
                 }
             }
@@ -107,6 +109,7 @@ class Supervisors extends Admin_Controller{
                 //return to supervisor. no id specified
                 $this->session->set_flashdata('appmsg', 'Error encountered! No record found');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
                 redirect('supervisors');
             }
 
@@ -114,6 +117,7 @@ class Supervisors extends Admin_Controller{
             //return to supervisor. no id specified
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             redirect('supervisors');
         }
 
@@ -151,6 +155,7 @@ class Supervisors extends Admin_Controller{
                     //return fail. supervisor name already in use
                     $this->session->set_flashdata('appmsg', 'This Clerk  Name "'.$name.'" is already in use by a different TA');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    // $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('supervisors/edit/'.$id);
                 }else{*/
                     //Verify mobile number1
@@ -160,6 +165,7 @@ class Supervisors extends Admin_Controller{
                         //return fail. supervisor mobile already in use
                         $this->session->set_flashdata('appmsg', 'Invalid Mobile Number format: "'.$mobile.'". Use this format: "2547xxxxxxxx"  e.g. 254712345678');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('supervisors/edit/'.$id);
                     }else{
                         //Verify Email
@@ -168,6 +174,7 @@ class Supervisors extends Admin_Controller{
                             //return fail. supervisor email already in use
                             $this->session->set_flashdata('appmsg', 'This Clerk Email "'.$email.'" is already in use by a different Clerk');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
+                            $this->session->set_flashdata('alert_type_', 'danger');
                             redirect('supervisors/edit/'.$id);
                         }else{
                             //update supervisor
@@ -177,12 +184,14 @@ class Supervisors extends Admin_Controller{
                                 // Display success message
                                 $this->session->set_flashdata('appmsg', 'Clerk modified successfully!');
                                 $this->session->set_flashdata('alert_type', 'alert-success');
+                                $this->session->set_flashdata('alert_type_', 'success');
                                 redirect('supervisors');
 
                             }else{
                                 // Display fail message
                                 $this->session->set_flashdata('appmsg', 'Clerk NOT modified! Check logs');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                                $this->session->set_flashdata('alert_type_', 'danger');
                                 redirect('supervisors');
                             }
                         }
@@ -198,6 +207,7 @@ class Supervisors extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('supervisors/edit/'.$id);
         }
 
@@ -210,14 +220,17 @@ class Supervisors extends Admin_Controller{
             if($deleted){
                 $this->session->set_flashdata('appmsg', 'Clerk successfully deleted!');
                 $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'success');
             }else{
                 $this->session->set_flashdata('appmsg', 'Failed to delete Clerk! Check logs.');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
             }
         }else{
             //return to supervisor. no id specified
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
 
         }
         redirect('supervisors');
@@ -255,6 +268,7 @@ class Supervisors extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('supervisors/import');
         }else{
             $data = array('upload_data' => $this->upload->data());
@@ -277,6 +291,7 @@ class Supervisors extends Admin_Controller{
             $this->session->set_flashdata('notimported', $notImported);
             $this->session->set_flashdata('appmsg', 'Clerks imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
             redirect('supervisors/import');
         }
     }

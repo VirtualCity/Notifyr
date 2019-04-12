@@ -62,6 +62,7 @@ class Purchases extends My_Controller{
             //return fail. distributor code already in use
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             redirect('reports/purchases');
         }
 

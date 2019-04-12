@@ -59,12 +59,14 @@ class Services extends Admin_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'New Services added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('products/add');
 
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'New Services NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('products/add');
                 }
             }
@@ -96,6 +98,7 @@ class Services extends Admin_Controller{
             //return fail. distributor code already in use
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             redirect('products');
         }
 
@@ -115,6 +118,7 @@ class Services extends Admin_Controller{
             if ($to_delete === false) {
                 $this->session->set_flashdata('appmsg', 'Error encountered! The Resource Was Not Found');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
                 redirect('products');
             }
 
@@ -123,6 +127,7 @@ class Services extends Admin_Controller{
             if($deleted){
                 $this->session->set_flashdata('appmsg', 'Services Deleted successfully');
                 $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'success');
                 redirect('products');
             }
             
@@ -130,6 +135,7 @@ class Services extends Admin_Controller{
             //return fail. distributor code already in use
             $this->session->set_flashdata('appmsg', 'Error encountered! No identifier specified');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
             redirect('products');
         }
        
@@ -143,10 +149,12 @@ class Services extends Admin_Controller{
             if ($truncated === false) {
                 $this->session->set_flashdata('appmsg', 'Error encountered! Services Could Not Be Deleted');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
                 redirect('products');
             }
             $this->session->set_flashdata('appmsg', 'Services Deleted successfully');
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
             redirect('products');
        
     }
@@ -176,6 +184,7 @@ class Services extends Admin_Controller{
                     //return fail. product code already in use
                     $this->session->set_flashdata('appmsg', 'This Services Code "'.$code.'" is already in assigned by a different product');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('products/edit/'.$id);
                 }else{
                     //Services Code is unique to edited field
@@ -196,6 +205,7 @@ class Services extends Admin_Controller{
                             //return fail. product name already in use
                             $this->session->set_flashdata('appmsg', 'This Services description "'.strtoupper($description).'" is already exists for a different product');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
+                            $this->session->set_flashdata('alert_type_', 'danger');
                             redirect('products/edit/'.$id);
                         }else{
                             //Save new product
@@ -205,12 +215,14 @@ class Services extends Admin_Controller{
                                 // Display success message
                                 $this->session->set_flashdata('appmsg', 'Services modified successfully!');
                                 $this->session->set_flashdata('alert_type', 'alert-success');
+                                $this->session->set_flashdata('alert_type_', 'success');
                                 redirect('products');
 
                             }else{
                                 // Display fail message
                                 $this->session->set_flashdata('appmsg', 'Services NOT modified! Check logs');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
+                                $this->session->set_flashdata('alert_type_', 'danger');
                                 redirect('products');
                             }
 
@@ -223,6 +235,7 @@ class Services extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('products/edit/'.$id);
         }
 
@@ -257,6 +270,7 @@ class Services extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('products/import');
         }else{
             $data = array('upload_data' => $this->upload->data());
@@ -279,6 +293,7 @@ class Services extends Admin_Controller{
             $this->session->set_flashdata('notimported', $notImported);
             $this->session->set_flashdata('appmsg', 'Services imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
             redirect('products/import');
         }
     }

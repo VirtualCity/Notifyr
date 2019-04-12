@@ -39,8 +39,10 @@ class Blacklist_model extends CI_Model{
 
         if($query -> num_rows() > 0){
             return true;
+            // return "xxx";
         }else{
             return false;
+            // return "yyy";
         }
     }
 
@@ -59,12 +61,12 @@ class Blacklist_model extends CI_Model{
 
     function remove_contact($id){
         $this->db->where('id',$id);
-        $query =$this->db->delete('blacklist');
-
-        /*if($query -> affected_rows() > 0){
+        $this->db->delete('blacklist');
+        $num_insert = $this->db->affected_rows();
+        if($num_insert > 0){
             return true;
         }else{
             return false;
-        }*/
+        }
     }
 }

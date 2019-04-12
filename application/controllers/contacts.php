@@ -101,6 +101,7 @@ class Contacts extends MY_Controller{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Contact identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('contacts');
         }
 
@@ -214,11 +215,21 @@ class Contacts extends MY_Controller{
     }
 
     function remove($id){
-
+        $result = "";
         if(!empty($id)){
             //retrieve the msisdn for the recipient
-            $this->blacklist_model->remove_contact($id);
-            redirect('contacts');
+            $result = $this->blacklist_model->remove_contact($id);
+            if ($result) {
+                $this->session->set_flashdata('appmsg', 'Mobile Number '.$msisdn.' successfully reinstated from blacklist.!');
+                $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'success');
+            } else {
+                $this->session->set_flashdata('appmsg', 'Mobile Number '.$msisdn.' Could not be reinstated from blacklist.!');
+                $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
+                
+            }
+            redirect('contacts');          
 
         }
     }
@@ -227,24 +238,28 @@ class Contacts extends MY_Controller{
     {
         if(!empty($id)){
             $contact = "";
+            $exists = "";
 
             $contact = $this->contacts_model->get_contact($id);
-            if (!$contact) {
+            
+            if ($contact !== false) {
                 $exists= $this->blacklist_model->check_contact($contact->msisdn);
 
                 if(!$exists){
-                    $saved= $this->blacklist_model->blacklist($msisdn);
+                    $saved= $this->blacklist_model->blacklist($contact->msisdn);
 
                     if($saved){
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'Mobile Number '.$msisdn.' successfully added to blacklist.!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
                         redirect('contacts');
 
                     }else{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Problem encountered while blacklisting number. Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-warning');
+                        $this->session->set_flashdata('alert_type_', 'warning');
                         redirect('contacts');
                     }
 
@@ -252,12 +267,14 @@ class Contacts extends MY_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'This Mobile Number: '.$msisdn.' already exists in blacklist. ');
                     $this->session->set_flashdata('alert_type', 'alert-warning');
+                    $this->session->set_flashdata('alert_type_', 'warning');
                     redirect('contacts');
                 }
             } else {
                 // Display fail message
                 $this->session->set_flashdata('appmsg', 'This Mobile Number does not exist. ');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
                 redirect('contacts');
             }
             
@@ -329,6 +346,7 @@ class Contacts extends MY_Controller{
                     // Notify Contact already exists
                     $this->session->set_flashdata('appmsg', 'A contact with this mobile number "'.$msisdn.'" already Exists!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('contacts/add');
 
                 }else{
@@ -348,12 +366,14 @@ class Contacts extends MY_Controller{
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'New contact added successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
                         redirect('contacts/add');
 
                     }else{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Failed to add New contact. Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('contacts/add');
                     }
                 }
@@ -419,6 +439,7 @@ class Contacts extends MY_Controller{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Contact identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('contacts');
         }
 
@@ -470,11 +491,13 @@ class Contacts extends MY_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Contact updated successfully');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('contacts');
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Failed to update contact! Check logs.');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('contacts');
                 }
 
@@ -483,6 +506,7 @@ class Contacts extends MY_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             redirect('contacts/edit/'.$id);
         }
 
@@ -495,9 +519,11 @@ class Contacts extends MY_Controller{
         if($deactivated){
             $this->session->set_flashdata('appmsg', 'Contact successfully activated!');
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
         }else{
             $this->session->set_flashdata('appmsg', 'Failed to activate contact!');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
         }
         redirect("contacts");
     }
@@ -508,9 +534,11 @@ class Contacts extends MY_Controller{
         if($deactivated){
             $this->session->set_flashdata('appmsg', 'Contact successfully suspended from all groups!');
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
         }else{
             $this->session->set_flashdata('appmsg', 'Failed to suspend contact!');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
         }
         redirect("contacts");
     }

@@ -8,14 +8,7 @@
          <li class="active">Suspended Contacts</li>
      </ol>
  </div>
-
- <div id="alert_placeholder">
-    <?php
-    $appmsg = $this->session->flashdata('appmsg');
-    if(!empty($appmsg)){ ?>
-    <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-    <?php } ?>
-</div>
+ 
 <div class="row">
 
     <ul class="nav nav-tabs ">
@@ -30,13 +23,11 @@
         <div class="tab-pane fade active in" id="default-tab-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                    </div>                
-                    <h4>Suspended Contacts</h4>
                 </div>
 
                 <div class="panel-body">
-                   <table class="table table-striped table-bordered table-hover datatable"  id="example">
+
+                <table id="suspendedcontactsdatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Mobile Number</th>
@@ -47,13 +38,27 @@
                             <th>Region</th>
                             <th>Factory</th>
                             <th>Date Created</th>
-                            <?Php if($user_role==="MANAGER"){ ?>
-                            <th>Action</th>
+                            <?Php if($user_role==="SUPER_USER"){ ?>
+                                <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
-
                         </tr>
                     </thead>
-
+                    <tfoot>
+                        <tr>
+                            <th>Mobile Number</th>
+                            <th>Contact Name</th>
+                            <th>Id Number</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Region</th>
+                            <th>Factory</th>
+                            <th>Date Created</th>
+                            <?Php if($user_role==="SUPER_USER"){ ?>
+                                <th class="disabled-sorting">Actions</th>
+                            <?Php  } ?>
+                        </tr>
+                    </tfoot>
+                        
                 </table>
             </div>
             <div class="panel-footer">Suspended Contacts</div>
@@ -67,47 +72,59 @@
 </div>
 
 
+ <!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
+ <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
 
+ 
 <script type="text/javascript">
-    jQuery(document).ready(function(){
-        jQuery('#example').dataTable({
-            "processing": true,
-            "serverSide": true,
-            "scrollCollapse": true,
-            "jQueryUI": true,
-            "scrollX": true,
-            "scrollY": 400,
-            "pagingType": "full_numbers",
-            "pageLength": 50,
-            "lengthMenu": [[50, 100,200,500,-1], [50, 100,200,500,"All"]],
-            "dom": 'T<"clear">lfrtip',
-            "tableTools": {
-                "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>",
-                "aButtons": [ "copy", "csv","xls","pdf" ]
-            },
-            columns: [
-            { "data": "msisdn"},
-            { "data": "name"},
-            { "data": "id_number"},
-            { "data": "email"},
-            { "data": "address"},
-            { "data": "region"},
-            { "data": "town"},
-            { "data": "created"}
-            <?Php if($user_role==="MANAGER"){ ?>
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>
+        $('#suspendedcontactsdatatables').DataTable({
+                "processing": true,
+                "serverSide": false,
+                "scrollCollapse": true,
+                "scrollX": true,
+                "scrollY": 400,
+                "pageLength": 10,
+	            "pagingType": "full_numbers",
+	            "lengthMenu": [[10, 50, 100,200,-1], [10, 50, 100,200,"All"]],
+	            responsive: true,
+	            language: {
+	            search: "_INPUT_",
+		            searchPlaceholder: "Search records",
+                },
+                ajax: {
+                    url: '<?php echo base_url('contacts/datatable2')?>',
+                    type:'POST'
+                },
+                columns: [
+                    { "data": "msisdn"},
+                    { "data": "name"},
+                    { "data": "id_number"},
+                    { "data": "email"},
+                    { "data": "address"},
+                    { "data": "region"},
+                    { "data": "town"},
+                    { "data": "created"}
+                <?Php if($user_role==="SUPER_USER"){ ?>
                 ,
-                { "data": "actions","orderable": false,"searchable": false }
+                { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>
                 ],
                 "order": [[ 7, "desc" ]],
                 "oLanguage": {
                     "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
-                },
-                "ajax":{
-                    "url": "<?php echo base_url('contacts/datatable2')?>",
-                    "type": "POST"
                 }
-            });
+	        });
+        
     });
-
-</script>
+</script> 

@@ -7,13 +7,6 @@
             <li class="active">Add Contact</li>
         </ol>
     </div>
-    <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-            <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
 
 
     <div class="row">
@@ -149,14 +142,22 @@
 
 <!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
 <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
-	<script src="<?php echo base_url()?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="<?php echo base_url()?>assets/js/perfect-scrollbar.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <link href="<?php echo base_url() ?>assets/css/sweetalert.min.css" rel="stylesheet" type="text/css" />
 
 <script>
     
     $(document).ready(function() {
+
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>
+
         $('select[name="region_id"]').on('change', function() {
             var regionId = $(this).val();
             var base='<?php echo base_url(); ?>';

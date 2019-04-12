@@ -46,11 +46,13 @@ class Password extends MY_Controller{
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'Password updated successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
                         redirect('password');
                     }else{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Failed to change password. Check log file');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'danger');
                         redirect('password');
                     }
 
@@ -58,6 +60,7 @@ class Password extends MY_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'The provided Current Password is incorrect');
                     $this->session->set_flashdata('alert_type', 'alert-warning');
+                    $this->session->set_flashdata('alert_type_', 'warning');
                     redirect('password');
                 }
 

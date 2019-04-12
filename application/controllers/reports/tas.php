@@ -125,11 +125,13 @@ class Tas extends Admin_Controller
             $this->session->set_flashdata('appmsg', 'Exporting & emailing process complete');
             $this->session->set_flashdata('mailed', '('.$townsMailed.')');
             $this->session->set_flashdata('alert_type', 'alert-info');
+            $this->session->set_flashdata('alert_type_', 'info');
         }else{
             //Towns dont exist
             log_message('info','Towns dont exist. Data wont be exported and Email wont be sent');
             $this->session->set_flashdata('appmsg', 'There are currently no towns existing. Data cant be exported.');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
             $this->session->set_flashdata('mailed', '');
         }
 

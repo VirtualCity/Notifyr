@@ -61,15 +61,18 @@ class Users extends Admin_Controller{
 
             $this->session->set_flashdata('appmsg', 'You cannot suspend your own account!');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
 
         }else{
             $suspended = $this-> user_model -> suspend_user($id);
             if($suspended){
                 $this->session->set_flashdata('appmsg', 'User account successfully suspended!');
                 $this->session->set_flashdata('alert_type', 'alert-success');
+                $this->session->set_flashdata('alert_type_', 'success');
             }else{
                 $this->session->set_flashdata('appmsg', 'Failed to suspend user account! Check logs.');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
             }
         }
 
@@ -87,10 +90,12 @@ class Users extends Admin_Controller{
             log_message('info', 'User account: '.$id.' has been activated');
             $this->session->set_flashdata('appmsg', 'User account successfully activated!');
             $this->session->set_flashdata('alert_type', 'alert-success');
+            $this->session->set_flashdata('alert_type_', 'success');
         }else{
             log_message('info', 'User account: '.$id.' failed to activate');
             $this->session->set_flashdata('appmsg', 'Failed to activate user account! Check logs.');
             $this->session->set_flashdata('alert_type', 'alert-warning');
+            $this->session->set_flashdata('alert_type_', 'warning');
         }
         redirect("users");
     }
@@ -118,15 +123,18 @@ class Users extends Admin_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'User account has been reset successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                 }else{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'User account failed to reset!');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                 }
 
             }else{
                 $this->session->set_flashdata('appmsg', 'Reset Password invalid! Required password must be between 8 to 50 characters.');
                 $this->session->set_flashdata('alert_type', 'alert-warning');
+                $this->session->set_flashdata('alert_type_', 'warning');
             }
 
             redirect("users");
@@ -181,6 +189,7 @@ class Users extends Admin_Controller{
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'User account added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
                     redirect('users/add');
 
                 }else{
@@ -188,6 +197,7 @@ class Users extends Admin_Controller{
                     //log_message('info','User NOT Saved');
                     $this->session->set_flashdata('appmsg', 'User account NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'danger');
                     redirect('users/add');
                 }
             }

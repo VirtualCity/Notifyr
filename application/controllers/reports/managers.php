@@ -111,11 +111,13 @@ class Managers extends Admin_Controller
             log_message('info','Exporting & Email process complete,');
             $this->session->set_flashdata('appmsg', 'Exporting & emailing process complete. View logs for details');
             $this->session->set_flashdata('alert_type', 'alert-info');
+            $this->session->set_flashdata('alert_type_', 'info');
         }else{
             //Regions dont exist
             log_message('info','Regions dont exist. Data wont be exported and Email wont be sent');
             $this->session->set_flashdata('appmsg', 'There are currently no regions existing. Data cant be exported.');
             $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'danger');
         }
 
         redirect('reports/managers');

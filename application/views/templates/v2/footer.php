@@ -57,6 +57,7 @@
 	<script src="<?php echo base_url()?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="<?php echo base_url()?>assets/js/perfect-scrollbar.min.js" type="text/javascript"></script>
 	<script src="<?php echo base_url()?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url()?>assets/js/sweetalert.min.js" type="text/javascript"></script>
 
 	<!--  Forms Validations Plugin -->
 	<script src="<?php echo base_url()?>assets/js/jquery.validate.min.js"></script>

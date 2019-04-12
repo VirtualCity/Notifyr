@@ -69,7 +69,7 @@
 	                        	<ul class="dropdown-menu">
 	                                <li><a href="#not1">My Profile</a></li>
 	                                
-	                                <li><a href="<?=base_url('logout')?>">Logout</a></li>
+	                                <li><a href="<?=base_url('logout')?>"><span><i class="ti-power-off"></i></span>  Logout</a></li>
 	                            </ul>
 	                        </li>
 							

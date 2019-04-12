@@ -47,12 +47,14 @@ class Addblacklist extends Admin_Controller{
                         // Display success message
                         $this->session->set_flashdata('appmsg', 'Mobile Number '.$msisdn.' successfully added to blacklist.!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
+                        $this->session->set_flashdata('alert_type_', 'success');
                         redirect('addblacklist');
 
                     }else{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Problem encountered while blacklisting number. Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-warning');
+                        $this->session->set_flashdata('alert_type_', 'warning');
                         redirect('addblacklist');
                     }
 
@@ -60,6 +62,7 @@ class Addblacklist extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'This Mobile Number: '.$msisdn.' already exists in blacklist. ');
                     $this->session->set_flashdata('alert_type', 'alert-warning');
+                    $this->session->set_flashdata('alert_type_', 'warning');
                     redirect('addblacklist');
                 }
 
