@@ -24,7 +24,7 @@ class Regions_m extends CI_Model{
         $this->db->where('id',$id);
         $query = $this -> db -> get();
         if($query -> num_rows() > 0){
-            return $query -> row();
+            return $query->row();
         }else{
             return false;
         }

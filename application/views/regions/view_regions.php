@@ -6,13 +6,6 @@
         <li class="active">View Regions</li>
     </ol>
     </div>
-     <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
         <a  href="<?=base_url('regions/add')?>"><div class="btn btn-success btn-fill pull-right">Add Region</div></a>

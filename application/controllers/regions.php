@@ -43,7 +43,7 @@ class Regions extends Admin_Controller{
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('region', 'Region Name', 'required|max_length[50]|is_unique[regions.name]');
-        $this->form_validation->set_rules('code', 'Region Code', 'max_length[20]|is_unique[regions.name]');
+        $this->form_validation->set_rules('code', 'Region Code', 'max_length[20]|is_unique[regions.code]');
         $this->form_validation->set_rules('description', 'Region Description', 'max_length[200]');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -99,12 +99,21 @@ class Regions extends Admin_Controller{
         {
             //retrieve the msisdn for the recipient
             $to_edit = $this->regions_m->get_region($id);
-
-            //display reply view
-            $data['id']=$id;
-            $data['region']=$to_edit->name;
-            $data['code']=$to_edit->code;
-            $data['description']=$to_edit->description;
+            
+           if ($to_edit) {
+                //display reply view
+                $data['id']=$id;
+                $data['region']=$to_edit->name;
+                $data['code']=$to_edit->code;
+                $data['description']=$to_edit->description;
+               
+           } else {
+                $this->session->set_flashdata('appmsg', 'An Error Was Encountered while fetching the Region ');
+                $this->session->set_flashdata('alert_type', 'alert-danger');
+                $this->session->set_flashdata('alert_type_', 'error');
+                redirect('regions');
+           }
+           
         }else{
             // No region id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');

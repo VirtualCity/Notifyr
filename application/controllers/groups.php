@@ -187,7 +187,7 @@ class Groups extends MY_Controller{
             if(!$contacts){
                 //retrieve group to edit
                 $to_edit = $this->groups_model->get_group_by_id($id);
-
+                
                 //display reply view
                 $data['id']=$id;
                 $data['group']=$to_edit->name;
