@@ -9,30 +9,28 @@
         </ol>
     </div>
 
-
-    <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
-
-
-
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                       <table class="table table-striped table-bordered table-hover datatable" width="100%" cellspacing="0" id="example">
+                    <table id="autoreplydatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
-                        <tr>
-                            <th>Mobile</th>
-                            <th>Recipient</th>
-                            <th>Message</th>
-                            <th>Date</th>
-                        </tr>
+                            <tr>
+                                <th>Mobile</th>
+                                <th>Recipient</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                            </tr>
                         </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Mobile</th>
+                                <th>Recipient</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                            </tr>
+                        </tfoot>
+                            
                     </table>
                 </div>
                 <div class="panel-footer">Auto-Reply SMS</div>
@@ -42,43 +40,52 @@
 </div>
 <!-- end #content -->
 
+<!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+
  
 <script type="text/javascript">
-    jQuery(document).ready(function(){
-        jQuery('#example').dataTable({
-            "processing": true,
-            "serverSide": true,
-            "scrollCollapse": true,
-            "jQueryUI": true,
-            "scrollX": true,
-            "scrollY": 400,
-            "pagingType": "full_numbers",
-            "pageLength": 50,
-            "lengthMenu": [[50, 100,250,500,-1], [50, 100,250,500,"All"]],
-            "dom": 'T<"clearfix"><"margin-b"lf<"clearfix">>trip',
-
-            "tableTools": {
-                "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>",
-                "aButtons": [ "copy", "csv","xls","pdf" ]
-            },
-
-            columns: [
-
-                { "data": "sent_to" },
-                { "data": "recipient" },
-                { "data": "message" },
-                { "data": "created"}
-
-            ],
-            "order": [[ 3, "desc" ]],
-            "oLanguage": {
-                "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
-            },
-            "ajax":{
-                "url": "<?=base_url('logs/autoreplies/datatable')?>",
-                "type": "POST"
-            }
-        });
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>
+        $('#autoreplydatatables').DataTable({
+                "processing": true,
+                "serverSide": false,
+                "scrollCollapse": true,
+                "scrollX": true,
+                "scrollY": 400,
+                "pageLength": 10,
+	            "pagingType": "full_numbers",
+	            "lengthMenu": [[10, 50, 100,200,-1], [10, 50, 100,200,"All"]],
+	            responsive: true,
+	            language: {
+	            search: "_INPUT_",
+		            searchPlaceholder: "Search records",
+                },
+                ajax: {
+                    url: '<?=base_url('logs/autoreplies/datatable')?>',
+                    type:'POST'
+                },
+                columns: [
+                    { "data": "sent_to" },
+                    { "data": "recipient" },
+                    { "data": "message" },
+                    { "data": "created"}
+                ],
+                "order": [[ 3, "desc" ]],
+                "oLanguage": {
+                    "sProcessing": "<img src='<?php echo base_url('assets/img/loading.gif'); ?>'>"
+                }
+	        });
+        
     });
 
 </script> 
