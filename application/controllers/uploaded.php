@@ -53,7 +53,7 @@ class Uploaded extends CI_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('uploaded');
         }else{
             $data = array('upload_data' => $this->upload->data());

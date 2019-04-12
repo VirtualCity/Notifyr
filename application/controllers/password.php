@@ -52,7 +52,7 @@ class Password extends MY_Controller{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Failed to change password. Check log file');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
-                        $this->session->set_flashdata('alert_type_', 'danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
                         redirect('password');
                     }
 

@@ -48,7 +48,7 @@ class Email extends MY_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Email Not saved! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('settings/email');
                 }
             }

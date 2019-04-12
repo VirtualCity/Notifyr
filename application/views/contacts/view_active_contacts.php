@@ -27,50 +27,45 @@
     <div class="panel panel-primary tab-content">
         <div class="tab-pane fade active in" id="default-tab-1">
             <div class="panel panel-default">
-
                 <div class="panel-body">
-
-                <table id="contactsdatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Mobile Number</th>
-                            <th>Contact Name</th>
-                            <th>Id Number</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Region</th>
-                            <th>Factory</th>
-                            <th>Date Created</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
-                                <th class="disabled-sorting">Actions</th>
-                            <?Php  } ?>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Mobile Number</th>
-                            <th>Contact Name</th>
-                            <th>Id Number</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Region</th>
-                            <th>Factory</th>
-                            <th>Date Created</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
-                                <th class="disabled-sorting">Actions</th>
-                            <?Php  } ?>
-                        </tr>
-                    </tfoot>
-                        
-                </table>
+                    <table id="contactsdatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Mobile Number</th>
+                                <th>Contact Name</th>
+                                <th>Id Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Region</th>
+                                <th>Factory</th>
+                                <th>Date Created</th>
+                                <?Php if($user_role==="SUPER_USER"){ ?>
+                                    <th class="disabled-sorting">Actions</th>
+                                <?Php  } ?>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Mobile Number</th>
+                                <th>Contact Name</th>
+                                <th>Id Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Region</th>
+                                <th>Factory</th>
+                                <th>Date Created</th>
+                                <?Php if($user_role==="SUPER_USER"){ ?>
+                                    <th class="disabled-sorting">Actions</th>
+                                <?Php  } ?>
+                            </tr>
+                        </tfoot>
+                            
+                    </table>
+                </div>
+                <div class="panel-footer">Active Contacts</div>
             </div>
-            <div class="panel-footer">Active Contacts</div>
-
-
         </div>
     </div>
-
-</div>
 
 </div>
 

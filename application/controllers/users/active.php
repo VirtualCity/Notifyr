@@ -105,7 +105,7 @@ class Active extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'User account failed to reset!');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                 }
 
             }else{
@@ -174,7 +174,7 @@ class Active extends Admin_Controller{
                     //log_message('info','User NOT Saved');
                     $this->session->set_flashdata('appmsg', 'User account NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('users/add');
                 }
             }

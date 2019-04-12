@@ -91,7 +91,7 @@ class Newbulksms extends Admin_Controller {
                             if(!$response){
                                 $this->session->set_flashdata('appmsg',' Message to ' . $group_details->name . ' could not be saved!');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
-                                $this->session->set_flashdata('alert_type_', 'danger');
+                                $this->session->set_flashdata('alert_type_', 'error');
                                 redirect('sms/newbulksms');
                             }
                             // Display success message
@@ -399,7 +399,7 @@ class Newbulksms extends Admin_Controller {
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('sms/newbulksms/uploadexcel');
 
         } else {

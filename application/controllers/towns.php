@@ -69,7 +69,7 @@ class Towns extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Town NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('towns/add');
                 }
 
@@ -105,7 +105,7 @@ class Towns extends Admin_Controller{
             // No town id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('towns');
         }
 
@@ -143,13 +143,13 @@ class Towns extends Admin_Controller{
                     //return fail. town name already in use
                     $this->session->set_flashdata('appmsg', 'This Town "'.$town.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('towns/edit/'.$id);
                 }elseif($code_exists){
                     //return fail. town name already in use
                     $this->session->set_flashdata('appmsg', 'This Town Code"'.$code.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('towns/edit/'.$id);
                 }else{
                     //Save new town
@@ -166,7 +166,7 @@ class Towns extends Admin_Controller{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Town NOT updated! Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
-                        $this->session->set_flashdata('alert_type_', 'danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
                         redirect('towns');
                     }
                 }
@@ -178,7 +178,7 @@ class Towns extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('towns/edit/'.$id);
         }
 
@@ -213,7 +213,7 @@ class Towns extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('towns/import');
         }else{
             $data = array('upload_data' => $this->upload->data());
@@ -325,7 +325,7 @@ class Towns extends Admin_Controller{
             // No town id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('towns');
         }
 
@@ -382,7 +382,7 @@ class Towns extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('towns/addsupervisor/'.$town_id);
         }
 
@@ -468,7 +468,7 @@ class Towns extends Admin_Controller{
             // No town id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('towns');
         }
 

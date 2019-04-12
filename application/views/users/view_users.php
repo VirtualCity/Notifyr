@@ -47,7 +47,7 @@ if( $user_role === 'ADMIN'){
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane active" id="left-tab1">
-                            <table id="example" class="table table-striped table-bordered table-hover datatable">
+                            <table id="usersdatatable" class="table table-striped table-bordered table-hover datatable">
                                 <thead>
                                 <tr>
                                     <th>Username</th>

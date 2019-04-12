@@ -124,21 +124,21 @@ class Received extends MY_Controller{
                         $msg_error = var_export($msg_sent,true);
                         $this->session->set_flashdata('appmsg', "Message to ".$msisdn." failed to send. ");
                         $this->session->set_flashdata('alert_type', 'alert-danger');
-                        $this->session->set_flashdata('alert_type_', 'danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
                         redirect('reports/received');
 
                     }
                 }else{
                     $this->session->set_flashdata('appmsg', "Message to ".$msisdn." not sent. Stockist Identifier not included");
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('reports/received');
                 }
             }
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('reports/received/reply/'.$id);
         }
 

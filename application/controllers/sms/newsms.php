@@ -96,7 +96,7 @@ class Newsms extends Admin_Controller {
 						if(!$response){
 							$this->session->set_flashdata('appmsg',' Message to could not be saved!');
 							$this->session->set_flashdata('alert_type', 'alert-danger');
-							$this->session->set_flashdata('alert_type_', 'danger');
+							$this->session->set_flashdata('alert_type_', 'error');
 							redirect('sms/newbulksms');
 						}
 						

@@ -74,7 +74,7 @@ class Regions extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'New Region NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('regions/add');
                 }
 
@@ -109,7 +109,7 @@ class Regions extends Admin_Controller{
             // No region id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('regions');
         }
 
@@ -144,7 +144,7 @@ class Regions extends Admin_Controller{
                     //return fail. region name already in use
                     $this->session->set_flashdata('appmsg', 'This Region name "'.$region.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('regions/edit/'.$id);
                 }else{
                     $code_exists = $this->regions_m->verify_code($id,$code);
@@ -152,7 +152,7 @@ class Regions extends Admin_Controller{
                         //return fail. region name already in use
                         $this->session->set_flashdata('appmsg', 'This Region code "'.$code.'" already exists');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
-                        $this->session->set_flashdata('alert_type_', 'danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
                         redirect('regions/edit/'.$id);
                     }else{
                         //Save new region
@@ -169,7 +169,7 @@ class Regions extends Admin_Controller{
                             // Display fail message
                             $this->session->set_flashdata('appmsg', 'Region NOT updated! Check logs');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
-                            $this->session->set_flashdata('alert_type_', 'danger');
+                            $this->session->set_flashdata('alert_type_', 'error');
                             redirect('regions');
                         }
                     }
@@ -183,7 +183,7 @@ class Regions extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('regions/edit/'.$id);
         }
 
@@ -219,7 +219,7 @@ class Regions extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('regions/import');
         }else{
            $data = array('upload_data' => $this->upload->data());
@@ -242,7 +242,7 @@ class Regions extends Admin_Controller{
             $this->session->set_flashdata('notimported', $notImported);
             $this->session->set_flashdata('appmsg', 'Regions imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('regions/import');
         }
     }

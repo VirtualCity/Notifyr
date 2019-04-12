@@ -66,7 +66,7 @@ class Services extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'New Services NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('products/add');
                 }
             }
@@ -184,7 +184,7 @@ class Services extends Admin_Controller{
                     //return fail. product code already in use
                     $this->session->set_flashdata('appmsg', 'This Services Code "'.$code.'" is already in assigned by a different product');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('products/edit/'.$id);
                 }else{
                     //Services Code is unique to edited field
@@ -205,7 +205,7 @@ class Services extends Admin_Controller{
                             //return fail. product name already in use
                             $this->session->set_flashdata('appmsg', 'This Services description "'.strtoupper($description).'" is already exists for a different product');
                             $this->session->set_flashdata('alert_type', 'alert-danger');
-                            $this->session->set_flashdata('alert_type_', 'danger');
+                            $this->session->set_flashdata('alert_type_', 'error');
                             redirect('products/edit/'.$id);
                         }else{
                             //Save new product
@@ -222,7 +222,7 @@ class Services extends Admin_Controller{
                                 // Display fail message
                                 $this->session->set_flashdata('appmsg', 'Services NOT modified! Check logs');
                                 $this->session->set_flashdata('alert_type', 'alert-danger');
-                                $this->session->set_flashdata('alert_type_', 'danger');
+                                $this->session->set_flashdata('alert_type_', 'error');
                                 redirect('products');
                             }
 
@@ -235,7 +235,7 @@ class Services extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('products/edit/'.$id);
         }
 
@@ -270,7 +270,7 @@ class Services extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('products/import');
         }else{
             $data = array('upload_data' => $this->upload->data());

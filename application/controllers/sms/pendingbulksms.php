@@ -350,12 +350,12 @@ class Pendingbulksms extends Admin_Controller {
                 //     }else{
                 //         $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be approved ');
                 //         $this->session->set_flashdata('alert_type', 'alert-danger');
-                // $this->session->set_flashdata('alert_type_', 'danger');
+                // $this->session->set_flashdata('alert_type_', 'error');
                 //     }
                 // }else{
                 //     $this->session->set_flashdata('appmsg', 'An Error Was Encountered! The bulk sms could not be sent ');
                 //     $this->session->set_flashdata('alert_type', 'alert-danger');
-                // $this->session->set_flashdata('alert_type_', 'danger');
+                // $this->session->set_flashdata('alert_type_', 'error');
                 // }
         //    ==========================================================================
             
@@ -364,7 +364,7 @@ class Pendingbulksms extends Admin_Controller {
                 // No contact id specified
                 $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
                 $this->session->set_flashdata('alert_type', 'alert-danger');
-                $this->session->set_flashdata('alert_type_', 'danger');
+                $this->session->set_flashdata('alert_type_', 'error');
             }
 
         }else{
@@ -399,7 +399,7 @@ class Pendingbulksms extends Admin_Controller {
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             // redirect('sms/pendingbulksms');
         }
         redirect('sms/pendingbulksms');
@@ -427,7 +427,7 @@ class Pendingbulksms extends Admin_Controller {
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No bulk SMS identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             // redirect('sms/pendingbulksms');
         }
         redirect('sms/pendingbulksms');

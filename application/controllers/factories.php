@@ -143,7 +143,7 @@ class Factories extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Factory NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories/add');
                 }
 
@@ -184,7 +184,7 @@ class Factories extends Admin_Controller{
             // No factoryName id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('factories');
         }
 
@@ -230,13 +230,13 @@ class Factories extends Admin_Controller{
                     //return fail. factoryName name already in use
                     $this->session->set_flashdata('appmsg', 'This Factory "'.$factoryName.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories/edit/'.$id);
                 }elseif($code_exists){
                     //return fail. factoryName name already in use
                     $this->session->set_flashdata('appmsg', 'This Factory Code"'.$code.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories/edit/'.$id);
                 }else{
                     //Save new factoryName
@@ -253,7 +253,7 @@ class Factories extends Admin_Controller{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Factory NOT updated! Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
-                        $this->session->set_flashdata('alert_type_', 'danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
                         redirect('factories');
                     }
                 }
@@ -262,7 +262,7 @@ class Factories extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('factories/edit/'.$id);
         }
 
@@ -297,7 +297,7 @@ class Factories extends Admin_Controller{
             // Display fail message
             $this->session->set_flashdata('appmsg', $error['error']);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('factories/import');
         }else{
             $data = array('upload_data' => $this->upload->data());
@@ -409,7 +409,7 @@ class Factories extends Admin_Controller{
             // No factoryName id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('factories');
         }
 
@@ -466,7 +466,7 @@ class Factories extends Admin_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('factories/addsupervisor/'.$factory_id);
         }
 
@@ -552,7 +552,7 @@ class Factories extends Admin_Controller{
             // No factoryName id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('factories');
         }
 
@@ -723,7 +723,7 @@ class Factories extends Admin_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Configuration settings Not saved! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories');
                 }
             }

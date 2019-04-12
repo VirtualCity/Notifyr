@@ -101,7 +101,7 @@ class Contacts extends MY_Controller{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Contact identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('contacts');
         }
 
@@ -373,7 +373,7 @@ class Contacts extends MY_Controller{
                         // Display fail message
                         $this->session->set_flashdata('appmsg', 'Failed to add New contact. Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
-                        $this->session->set_flashdata('alert_type_', 'danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
                         redirect('contacts/add');
                     }
                 }
@@ -439,7 +439,7 @@ class Contacts extends MY_Controller{
             // No contact id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No Contact identifier provided ');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('contacts');
         }
 
@@ -497,7 +497,7 @@ class Contacts extends MY_Controller{
                     // Display fail message
                     $this->session->set_flashdata('appmsg', 'Failed to update contact! Check logs.');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
-                    $this->session->set_flashdata('alert_type_', 'danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
                     redirect('contacts');
                 }
 
@@ -506,7 +506,7 @@ class Contacts extends MY_Controller{
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
             redirect('contacts/edit/'.$id);
         }
 
@@ -523,7 +523,7 @@ class Contacts extends MY_Controller{
         }else{
             $this->session->set_flashdata('appmsg', 'Failed to activate contact!');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
         }
         redirect("contacts");
     }
@@ -538,7 +538,7 @@ class Contacts extends MY_Controller{
         }else{
             $this->session->set_flashdata('appmsg', 'Failed to suspend contact!');
             $this->session->set_flashdata('alert_type', 'alert-danger');
-            $this->session->set_flashdata('alert_type_', 'danger');
+            $this->session->set_flashdata('alert_type_', 'error');
         }
         redirect("contacts");
     }

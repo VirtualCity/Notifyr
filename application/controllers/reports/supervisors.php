@@ -125,7 +125,7 @@ class Supervisors extends Admin_Controller
         log_message('info','Towns dont exist. Data wont be exported and Email wont be sent');
         $this->session->set_flashdata('appmsg', 'There are currently no towns existing. Data cant be exported.');
         $this->session->set_flashdata('alert_type', 'alert-danger');
-        $this->session->set_flashdata('alert_type_', 'danger');
+        $this->session->set_flashdata('alert_type_', 'error');
         $this->session->set_flashdata('mailed', '');
     }
 

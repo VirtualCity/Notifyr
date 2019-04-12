@@ -84,7 +84,7 @@ class Login extends CI_Controller{
                 //login unsuccessful
                 $this->session->set_flashdata('appmsg', 'Login unsuccessful! Username or Password is invalid.');
                 $this->session->set_flashdata('alert_type', 'alert-danger');
-                $this->session->set_flashdata('alert_type_', 'danger');
+                $this->session->set_flashdata('alert_type_', 'error');
                 redirect('login');
 
             }
