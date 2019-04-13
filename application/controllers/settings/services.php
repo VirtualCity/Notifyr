@@ -18,8 +18,9 @@ class Services extends MY_Controller{
         $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
     }
 
-
     function index(){
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
         // SET VALIDATION RULES
         $this->form_validation->set_rules('qservice', 'Agrimanagr Query Service url', 'required|max_length[150]');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -53,7 +54,8 @@ class Services extends MY_Controller{
                 }
             }
         }else{
-            $retrievedData = $this->settings_m->get_qservice();
+            // $retrievedData = $this->settings_m->get_qservice();
+            $retrievedData = $this->settings_m->get_qservice($userfactory);
             if($retrievedData){
                 $origin_qservice=$retrievedData->value1;
             }

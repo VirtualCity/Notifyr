@@ -8,16 +8,6 @@
             <li class="active">Import Clerks</li>
         </ol>
     </div>
-
-    
-    <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
-
     
 
     <div class="row">

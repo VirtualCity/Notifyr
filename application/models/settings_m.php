@@ -139,6 +139,20 @@ class Settings_m extends CI_Model{
         }
     }
 
+    function get_qservice_by_factory($factory){
+        $this -> db-> select('*');
+        $this -> db -> from('settings');
+        $this->db->where('factory_id',$factory);
+        $this->db->where('title','QUERYSERVICE');
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
+
     /* SDP Configuration Section*/
 
     function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl,$approval,$factoryid){

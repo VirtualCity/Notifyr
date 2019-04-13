@@ -1,0 +1,150 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Created by PhpStorm.
+ * User: Bethuel
+ * Date: 8/3/14
+ * Time: 7:00 PM
+ */
+
+class Profile extends Admin_Controller{
+    function __construct(){
+        parent::__construct();
+        $this->load->helper('buttons_helper');
+
+
+        $this->load->model('user_model');
+        $this->load->database();
+
+    }
+
+    function index(){
+        $role = $this->session->userdata('role');
+        $userid = $this->session->userdata('id');
+        $userfactory = $this->session->userdata('factory');
+
+        $fname = "";
+        $oname = "";
+        $surname = "";
+        $mobile = "";
+        $email = "";
+        $username = "";
+        $role = "";
+        $address = "";
+
+        $userDetaile = $this->user_model->getUserProfile($userid);
+        if (!$userDetaile) {
+                $this->session->set_flashdata('appmsg', 'There was an error fetching profile details');
+                $this->session->set_flashdata('alert_type', 'alert-danger');
+                $this->session->set_flashdata('alert_type_', 'warning');
+                redirect('settings/profile');
+        } else {
+
+            $fname = $userDetaile->fname;
+            $oname = $userDetaile->oname;
+            $surname = $userDetaile->surname;
+            $mobile = $userDetaile->mobile;
+            $email = $userDetaile->email;
+            $username = $userDetaile->username;
+            $role = $userDetaile->role;
+   
+
+            $data['fname'] = $userDetaile->fname;
+            $data['oname'] = $userDetaile->oname;
+            $data['surname'] = $userDetaile->surname;
+            $data['mobile'] = $userDetaile->mobile;
+            $data['email'] = $userDetaile->email;
+            $data['username'] = $userDetaile->username;
+            $data['role'] = $userDetaile->role;
+            $data['address'] = "";
+            // $data['address'] = "";
+        }
+        
+
+
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "User Profile";
+
+        $data['mainContent']='users/user_profile';
+        $this->load->view('templates/template',$data);
+    }
+    
+
+    function add(){
+
+
+        // SET VALIDATION RULES
+        $this->form_validation->set_rules('fname', 'First Name', 'required|max_length[30]');
+        $this->form_validation->set_rules('sname', 'Surname', 'required|max_length[50]');
+        $this->form_validation->set_rules('oname', 'Other Names', 'alpha|max_length[40]');
+        $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[6]|max_length[30]|is_unique[users.username]');
+        $this->form_validation->set_rules('email', 'Email Address', 'max_length[150]|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'exact_length[12]||callback_mobile_check');
+        $this->form_validation->set_rules('role', 'User Role', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|max_length[50]');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+        $fname ="";
+        $sname ="";
+        $oname ="";
+        $username ="";
+        $email ="";
+        $mobile ="";
+        $role ="";
+        $password ="";
+
+
+
+        // has the form been submitted
+        if($this->input->post()){
+            log_message('info','submit');
+            $fname = $this->input->post('fname');
+            $sname = $this->input->post('sname');
+            $oname = $this->input->post('oname');
+            $username = trim($this->input->post('username'));
+            $email = $this->input->post('email');
+            $mobile = $this->input->post('mobile');
+            $role = $this->input->post('role');
+            $password = $this->input->post('password');
+
+            //Does it have valid form info (not empty values)
+            if($this->form_validation->run()){
+
+                //Save new user
+                $saved = $this->user_model->add_user($fname,$sname,$oname,$email,$mobile,$username,$role,$password,'Active');
+
+                if($saved){
+                    //   log_message('info','User Saved');
+                    // Display success message
+                    $this->session->set_flashdata('appmsg', 'User account added successfully!');
+                    $this->session->set_flashdata('alert_type', 'alert-success');
+                    $this->session->set_flashdata('alert_type_', 'success');
+                    redirect('users/add');
+
+                }else{
+                    //Display fail message
+                    //log_message('info','User NOT Saved');
+                    $this->session->set_flashdata('appmsg', 'User account NOT added! Check logs');
+                    $this->session->set_flashdata('alert_type', 'alert-danger');
+                    $this->session->set_flashdata('alert_type_', 'error');
+                    redirect('users/add');
+                }
+            }
+        }
+
+        $data['fname']=$fname;
+        $data['sname']=$sname;
+        $data['oname']=$oname;
+        $data['username']=$username;
+        $data['email']=$email;
+        $data['mobile']=$mobile;
+        $data['role']=$role;
+        $data['password']=$password;
+
+        $data['base']=$this->config->item('base_url');
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Add User";
+        $this->load->view('templates/header', $data);
+        $this->load->view('users/add_user',$data);
+    }
+
+}

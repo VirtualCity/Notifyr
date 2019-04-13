@@ -31,21 +31,21 @@ class Suspended extends Admin_Controller{
         $userfactory = $this->session->userdata('factory');
         if($role === "SUPER_USER"){
             $this->datatables->select("users.id as id,users.username as username,CONCAT(users.fname,' ',users.surname,' ',users.oname) as name,users.mobile,users.email,factories.name as factory,users.role,users.created",false)
-            ->unset_column('users.id')
-            ->add_column('actions', get_active_users_buttons('$1'), 'users.id')
+            ->unset_column('id')
+            ->add_column('actions', get_suspended_users_buttons('$1'), 'id')
             ->from('users')
             ->join('factories','users.factory_id=factories.id')
-            ->where('status','suspended');
+            ->where('status','Suspended');
             $result= $this->datatables->generate();
             echo $result;
         }else{
             $this->datatables->select("users.id as id,users.username as username,CONCAT(users.fname,' ',users.surname,' ',users.oname) as name,users.mobile,users.email,factories.name as factory,users.role,users.created",false)
-            ->unset_column('users.id')
-            ->add_column('actions', get_active_users_buttons('$1'), 'users.id')
+            ->unset_column('id')
+            ->add_column('actions', get_suspended_users_buttons('$1'), 'id')
             ->from('users')
             ->join('factories','users.factory_id=factories.id')
             ->where('users.factory_id',$userfactory)
-            ->where('status','suspended');                
+            ->where('status','Suspended');                
             $result= $this->datatables->generate();
             echo $result;
         }

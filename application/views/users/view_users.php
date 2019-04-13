@@ -25,13 +25,7 @@ if( $user_role === 'ADMIN'){
         </ul>
     </div>
     <div class="inner_content">
-        <div id="alert_placeholder">
-            <?php
-            $appmsg = $this->session->flashdata('appmsg');
-            if(!empty($appmsg)){ ?>
-                <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-            <?php } ?>
-        </div>
+        
         <div class="widgets_area">
 
             <div class="well blue">
@@ -51,9 +45,7 @@ if( $user_role === 'ADMIN'){
                                 <thead>
                                 <tr>
                                     <th>Username</th>
-                                    <th>First name</th>
-                                    <th>Surname</th>
-                                    <th>Other Names</th>
+                                    <th>Full Name</th>
                                     <th>Mobile No</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -73,9 +65,7 @@ if( $user_role === 'ADMIN'){
                                 <thead>
                                 <tr>
                                     <th>Username</th>
-                                    <th>First name</th>
-                                    <th>Surname</th>
-                                    <th>Other Names</th>
+                                    <th>Full Name</th>
                                     <th>Mobile No</th>
                                     <th>Email</th>
                                     <th>Role</th>

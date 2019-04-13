@@ -229,7 +229,7 @@ class Contacts extends MY_Controller{
                 $this->session->set_flashdata('alert_type_', 'warning');
                 
             }
-            redirect('contacts');          
+            redirect('contacts/blacklistedlist');          
 
         }
     }

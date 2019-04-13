@@ -5,15 +5,7 @@
         <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">SMS Contact</li>
     </ol>
-    </div>
-     <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
- 
+    </div> 
 
     <div class="row">
         <div class="col-md-12">

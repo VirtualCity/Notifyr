@@ -75,7 +75,7 @@ class Login extends CI_Controller{
 						//login unsuccessful
 						$this->session->set_flashdata('appmsg', 'Login unsuccessful! Your account has been suspended, contact the admin.');
                         $this->session->set_flashdata('alert_type', 'alert-info');
-                        $this->session->set_flashdata('alert_type_', 'info');
+                        $this->session->set_flashdata('alert_type_', 'warning');
 						redirect('login');
 					
 					}

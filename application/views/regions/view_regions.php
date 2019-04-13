@@ -7,16 +7,15 @@
     </ol>
     </div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-        <a  href="<?=base_url('regions/add')?>"><div class="btn btn-success btn-fill pull-right">Add Region</div></a>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <div class="well-content no_search">
-
+                    <!-- <div class="well-content no_search"> -->
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                        <a  href="<?=base_url('regions/add')?>"><div class="btn btn-success btn-fill pull-right">Add Region</div></a>
+                        </div>
+                    </div>
 
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
@@ -44,7 +43,7 @@
                             
                     </table>
 
-                </div>
+                <!-- </div> -->
                 </div>
                 <div class="panel-footer">View Regions</div>
             </div>

@@ -19,9 +19,6 @@
                 <li class=""><a href="<?=base_url('contacts/blacklistedlist')?>" >Blacklisted Contacts</a></li>
             </ul>
         </div>
-        <div class="col-md-2 col-md-offset-1 pull-right">
-            <a  href="<?=base_url('contacts/add')?>"><div class="btn btn-success btn-fill center">Add Contact</div></a>
-        </div>
     </div>
 
     <div class="panel panel-primary tab-content">
@@ -29,6 +26,12 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <table id="contactsdatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a  href="<?=base_url('contacts/add')?>"><div class="btn btn-success btn-fill pull-right">Add Contact</div></a>
+                        </div>
+                    </div>
+                    <br>
                         <thead>
                             <tr>
                                 <th>Mobile Number</th>

@@ -5,13 +5,15 @@
 			Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
 		-->
 			<div class="logo">
-				<a href="<?php echo base_url('dashboard');?>" class="simple-text logo-mini">
-					N
-				</a>
-
+				<!-- <span>
+					<a href="<?php echo base_url('dashboard');?>" class="simple-text logo-mini">
+						L
+					</a>
+				</span> -->
 				<a href="<?php echo base_url('dashboard');?>" class="simple-text logo-normal">
-                    Notifyr
+                    <img src="<?php echo base_url();?>assets/v2/img/vc-logo.png" alt="logo">
 				</a>
+				
             </div>
             
             
@@ -23,7 +25,7 @@
 	                <div class="info">
 						<a data-toggle="collapse" href="#collapseExample" class="collapsed">
 	                        <span>
-								Chet Faker
+							<?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?>
 		                        <b class="caret"></b>
 							</span>
 	                    </a>
@@ -44,7 +46,7 @@
 									</a>
 								</li>
 	                            <li>
-									<a href="#settings">
+									<a href="<?=base_url('password')?>">
 										<span class="sidebar-mini">S</span>
 										<span class="sidebar-normal">Settings</span>
 									</a>
@@ -67,6 +69,13 @@
 						<i class="ti-list"></i>
 						<p>Contacts</p>
 						</a>
+					</li>
+					
+					<li>
+	                    <a href="<?=base_url('users/active')?>">
+						<i class="ti-user"></i>
+						<p>Users</p>
+						</a>
 	                </li>
 					
 	                <li>
@@ -82,12 +91,6 @@
 									<a href="<?=base_url('groups')?>">
 										<span class="sidebar-mini">G</span>
 										<span class="sidebar-normal">View Groups</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="<?=base_url('groups/add')?>">
-										<span class="sidebar-mini">AG</span>
-										<span class="sidebar-normal">Add Group</span>
 									</a>
 								</li>
 	                            <li>
@@ -187,9 +190,16 @@
 	                    </div>
 					</li>
 
+					<li>
+	                    <a href="<?php echo base_url('settings/configuration');?>">
+						<i class="ti-settings"></i>
+						<p>Settings</p>
+						</a>
+					</li>
+
 	                <li>
 						<a data-toggle="collapse" href="#formsExamples">
-	                        <i class="ti-clipboard"></i>
+	                        <i class="ti-settings"></i>
 	                        <p>
 								Forms
 	                           <b class="caret"></b>

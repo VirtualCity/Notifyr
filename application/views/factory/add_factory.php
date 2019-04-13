@@ -8,16 +8,6 @@
             <li class="active">Add Factory</li>
         </ol>
     </div>
-
-    
-    <div id="alert_placeholder">
-        <?php
-        $appmsg = $this->session->flashdata('appmsg');
-        if(!empty($appmsg)){ ?>
-        <div id="alertdiv" class="alert <?=$this->session->flashdata('alert_type') ?> "><a class="close" data-dismiss="alert">x</a><span><?= $appmsg ?></span></div>
-        <?php } ?>
-    </div>
-
     
 
     <div class="row">
@@ -39,19 +29,6 @@
                         <span class="text-danger"> <?php echo form_error('factoryCode'); ?> </span>
                     </div>  
                  </div>
-                <div class="row">
-                <div class="col-md-6 col-xs-6">
-                        <label >Factory Sender Id </label>
-                        <input type="text" name="senderid" id="senderid" placeholder="Factory Sender Id" class="form-control" value="<?php echo $senderid ?>"/>
-                        <span class="text-danger"> <?php echo form_error('senderid'); ?> </span>
-                    </div>  
-
-                    <div class="col-md-6 col-xs-6">
-                        <label >Factory Key </label>
-                        <input type="text" name="apikey" id="apikey" placeholder="Factory Key" class="form-control" value="<?php echo $apikey ?>"/>
-                        <span class="text-danger"> <?php echo form_error('apikey'); ?> </span>
-                    </div> 
-                </div>
 
                 <div class="row">
                     <div class="col-md-6 col-xs-6">
@@ -87,5 +64,22 @@
 </div>
 </div>
 <!-- end #content -->
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
 
+ 
+<script type="text/javascript">
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>       
+    });
+
+</script> 
 

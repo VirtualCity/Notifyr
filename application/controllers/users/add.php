@@ -39,7 +39,6 @@ class Add extends Admin_Controller{
         $password ="";
         $role = $this->session->userdata('role');
         $userfactory = $this->session->userdata('factory');
-        // $factorys ="";
         $factorys ="";
         
         if ($role === 'SUPER_USER') {
@@ -49,13 +48,6 @@ class Add extends Admin_Controller{
         }
         $data['factorys']=$factorys;
 
-        // print_r($factorys);
-        // echo '<br>';
-        // print($userfactory);
-        // echo '<br>';
-        // echo $role;
-        // return;
-        // has the form been submitted
         if($this->input->post()){
             $fname = $this->input->post('fname');
             $sname = $this->input->post('sname');
@@ -74,10 +66,11 @@ class Add extends Admin_Controller{
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
 
+                // print_r($selectedfactory);
+                // return;
                 //Save new user
                 $saved = $this->user_model->add_user($fname,$sname,$oname,$email,$mobile,$username,$role,$password,"Active",$selectedfactory);
-                // print_r($saved);
-                // return;
+                
 
                 if($saved){
                     //log_message('info','User Saved');
@@ -114,7 +107,7 @@ class Add extends Admin_Controller{
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add User";
 
-  $data['mainContent']='users/add_user';
+        $data['mainContent']='users/add_user';
         $this->load->view('templates/template',$data);
 
      

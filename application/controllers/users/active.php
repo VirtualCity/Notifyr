@@ -30,8 +30,8 @@ class Active extends Admin_Controller{
         $userfactory = $this->session->userdata('factory');
         if($role === "SUPER_USER"){
             $this->datatables->select("users.id as id,users.username as username,CONCAT(users.fname,' ',users.surname,' ',users.oname) as name,users.mobile,users.email,factories.name as factory,users.role,users.created",false)
-            ->unset_column('users.id')
-            ->add_column('actions', get_active_users_buttons('$1'), 'users.id')
+            ->unset_column('id')
+            ->add_column('actions', get_active_users_buttons('$1'), 'id')
             ->from('users')
             ->join('factories','users.factory_id=factories.id')
             ->where('status','active');
@@ -39,8 +39,8 @@ class Active extends Admin_Controller{
             echo $result;
         }else{
             $this->datatables->select("users.id as id,users.username as username,CONCAT(users.fname,' ',users.surname,' ',users.oname) as name,users.mobile,users.email,factories.name as factory,users.role,users.created",false)
-            ->unset_column('users.id')
-            ->add_column('actions', get_active_users_buttons('$1'), 'users.id')
+            ->unset_column('id')
+            ->add_column('actions', get_active_users_buttons('$1'), 'id')
             ->from('users')
             ->join('factories','users.factory_id=factories.id')
             ->where('users.factory_id',$userfactory)
@@ -62,7 +62,7 @@ class Active extends Admin_Controller{
             $this->session->set_flashdata('alert_type_', 'warning');
 
         }else{
-            $suspended = $this-> user_model -> suspend_user($id);
+            $suspended = $this->user_model->suspend_user($id);
             if($suspended){
                 $this->session->set_flashdata('appmsg', 'User account successfully suspended!');
                 $this->session->set_flashdata('alert_type', 'alert-success');

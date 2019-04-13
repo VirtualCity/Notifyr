@@ -27,7 +27,7 @@ class Factories extends Admin_Controller{
     }
 
     function datatable(){
-        $this->datatables->select('factories.id AS id,factories.`name AS factoryName,factories.code as factoryCode,factories.senderId as senderid,regions.name AS region, factories.updated AS modified,factories.created AS created')
+        $this->datatables->select('factories.id AS id,factories.`name AS factoryName,factories.code as factoryCode,regions.name AS region, factories.updated AS modified,factories.created AS created')
         ->unset_column('id')
         ->add_column('actions', get_factories_buttons('$1'), 'id')
         ->from('factories')
@@ -93,28 +93,24 @@ class Factories extends Admin_Controller{
             }
         }
 
-        $json_data = array(
-            "draw"            => intval( $_REQUEST['draw'] ),
-            "recordsTotal"    => intval( count($factories) ),
-            "recordsFiltered" => intval( count($factories) ),
-            "data"            => $factories
-        );
+        // $json_data = array(
+        //     "draw"            => intval( $_REQUEST['draw'] ),
+        //     "recordsTotal"    => intval( count($factories) ),
+        //     "recordsFiltered" => intval( count($factories) ),
+        //     "data"            => $factories
+        // );
         // print(intval( $_REQUEST['draw'] ))
-        echo json_encode($json_data);
+        echo json_encode($factories);
     }
 
     function add(){
         $factoryName="";
         $region_id ="";
         $factoryCode="";
-        $senderid="";
-        $apikey="";
 
         // SET VALIDATION RULES
         $this->form_validation->set_rules('factoryName', 'Factory Name', 'required|max_length[50]|is_unique[factories.name]');
         $this->form_validation->set_rules('factoryCode', 'Factory Code', 'alpha_dash|max_length[20]|is_unique[factories.code]');
-        $this->form_validation->set_rules('senderid', 'Factory Sender Id', 'alpha_dash|max_length[50]|is_unique[factories.senderId]');
-        $this->form_validation->set_rules('apikey', 'Factory Key', 'alpha_dash|max_length[200]|is_unique[factories.apiKey]');
         $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -124,14 +120,12 @@ class Factories extends Admin_Controller{
             $factoryName = trim($this->input->post('factoryName'));
             $region_id = trim($this->input->post('region_id'));
             $factoryCode = trim($this->input->post('factoryCode'));
-            $senderid = trim($this->input->post('senderid'));
-            $apikey = trim($this->input->post('apikey'));
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
 
                 //Save new factoryName
-                $saved = $this->factories_model->add_factory($factoryName,$factoryCode,$region_id,$senderid,$apikey);
+                $saved = $this->factories_model->add_factory($factoryName,$factoryCode,$region_id);
                 if($saved){
                     // Display success message
                     $this->session->set_flashdata('appmsg', 'Factory added successfully!');
@@ -202,8 +196,6 @@ class Factories extends Admin_Controller{
         // SET VALIDATION RULES
         $this->form_validation->set_rules('factoryName', 'Factory Name', 'required|max_length[50]');
         $this->form_validation->set_rules('factoryCode', 'Factory Code', 'alpha_dash|max_length[20]');
-        $this->form_validation->set_rules('senderid', 'Factory Sender Id', 'alpha_dash|max_length[50]');
-        $this->form_validation->set_rules('apikey', 'Factory Key', 'alpha_dash|max_length[100]');
         $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
 
         // $this->form_validation->set_rules('factoryName', 'Factory Name', 'required|max_length[50]');
@@ -217,8 +209,6 @@ class Factories extends Admin_Controller{
             $factoryName = trim($this->input->post('factoryName'));
             $code = trim($this->input->post('factoryCode'));
             $region_id = trim($this->input->post('region_id'));
-            $senderid = trim($this->input->post('senderid'));
-            $apikey = trim($this->input->post('apikey'));
 
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
@@ -240,7 +230,7 @@ class Factories extends Admin_Controller{
                     redirect('factories/edit/'.$id);
                 }else{
                     //Save new factoryName
-                    $saved = $this->factories_model->update_factory($id,$factoryName,$code,$region_id,$senderid,$apikey);
+                    $saved = $this->factories_model->update_factory($id,$factoryName,$code,$region_id);
 
                     if($saved){
                         // Display success message

@@ -138,11 +138,9 @@ class Factories_model extends CI_Model{
         }
     }
 
-    function add_factory($factory_name,$code,$region_id,$senderid,$key){
+    function add_factory($factory_name,$code,$region_id){
         $data =  array(
             'name'=>ucwords($factory_name),
-            'senderId'=>$senderid,
-            'apiKey'=>$key,
             'region_id'=>$region_id,
             'code'=>strtoupper($code)
         );
@@ -154,12 +152,10 @@ class Factories_model extends CI_Model{
         return false;
     }
 
-    function update_factory($id,$factory_name,$code,$region_id,$senderid,$key){
+    function update_factory($id,$factory_name,$code,$region_id){
         $date = date('Y-m-d H:i:s');
         $data =  array(
             'name'=>ucwords($factory_name),
-            'senderId'=>$senderid,
-            'apiKey'=>$key,
             'region_id'=>$region_id,
             'code'=>strtoupper($code),
             'updated'=>$date

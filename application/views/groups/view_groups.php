@@ -13,6 +13,12 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <table id="groupsdatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                            <a  href="<?=base_url('groups/add')?>"><div class="btn btn-success btn-fill pull-right">Add Group</div></a>
+                            </div>
+                        </div>
+                        <br>
                         <thead>
                             <tr>
                                 <th>Group Name</th>
