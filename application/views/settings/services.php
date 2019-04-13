@@ -3,7 +3,7 @@
 	<div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">SDP Configuration Settings </li>
+            <li class="active">Service URL  </li>
         </ol>
     </div>
 	<div class="container-fluid">
@@ -32,11 +32,11 @@
 											<form action="<?=base_url('settings/services')?>" method="post" class="form-horizontal">
 
 												<div class="row">
-													<div class="col-md-6 col-xs-12">
-															<div class="col-md-6 col-xs-12">
+													<div class="col-md-12 col-xs-12">
+															<div class="col-md-4 col-xs-12">
 																<label > Cumulative Service URL  </label><span class="text-danger"> *</span>
 															</div>
-															<div class="col-md-6 col-xs-12">
+															<div class="col-md-8 col-xs-12">
                                                                 <input type="text" name="qservice" id="qservice" placeholder="Service URL" class="form-control" value="<?=$qservice?>"/>
                                                                 <span class="text-danger"> <?php echo form_error('qservice'); ?> </span>
 															</div>

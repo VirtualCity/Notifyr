@@ -30,7 +30,7 @@
 										</div>
 										<div class="panel-body">
                                             <?php echo form_open_multipart('settings/logo/doUpload');?>
-                                            <?php echo "<label > File to Upload (png not more than 2MB)  </label><span class='text-danger'> *</span>";?>
+                                            <?php echo "<label > File to Upload (png not more than 2MB, recommended dimension 230 x 55)  </label><span class='text-danger'> *</span>";?>
                                             <?php echo "<input class='form-control' type='file' required name='logo' size='20' />"; ?>
                                             <br>
                                             <?php echo "<input class='btn btn-primary' type='submit' name='submit' value='upload' /> ";?>

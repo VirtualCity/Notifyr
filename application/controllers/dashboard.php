@@ -104,6 +104,7 @@ class Dashboard extends MY_Controller{
             $blacklist_total = $this->dashboard_model->get_blacklist_total_by_factory($userfactory);
             $groups_total = $this->dashboard_model->get_contact_groups_total_by_factory($userfactory);
             $sms_balance = $this->dashboard_model->get_sms_balance_by_factory($userfactory);
+            // $sms_balance = 400;
             $sms_pending = $this->dashboard_model->get_sms_pending_total_by_factory($userfactory);
             
         // }

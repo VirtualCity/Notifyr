@@ -6,9 +6,9 @@
 					<div class="card-content">
 						<div class="row">
 							<div class="col-xs-5">
-								<div class="icon-big icon-warning text-center">
+								<div class="icon-big icon-success text-center">
 
-									<i class="ti-wallet"></i>
+									<i class="ti-money"></i>
 								</div>
 							</div>
 							<div class="col-xs-7">
@@ -31,7 +31,7 @@
 					<div class="card-footer">
 				<hr />
 				<div class="stats">
-				<i class="ti-clipboard"></i><div class="my-inline-block" id="campaign-name4"></div>
+				<i class="ti-clipboard"></i> <?php if ($sms_balance < 500) { ?><span class="text-warning pull-right"><i class="ti ti-alert"></i> low balance</span><?php } ?><div class="my-inline-block" id="campaign-name4"></div>
 				</div>
 				</div>
 				</div>
@@ -72,10 +72,23 @@
 		</div>
 		<div class="row">
 
-		<div class="col-lg-6 col-md-12">
+		<div class="col-lg-12 col-md-12">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">SMS Analytics</h4>
+					<h4 class="card-title">SMS Analytics</h4> 
+					<span class="">
+						<div class="row">
+							<div class="col-sm-2">
+								<select class="selectpicker" data-style="btn btn-default btn-block" title="Select Duration" data-size="7">
+									<option value="id">Today</option>
+									<option value="ms">Past One Week</option>
+									<option value="ca">Past One Month</option>
+								</select>
+							</div>
+							<div class="col-sm-10">
+							</div>
+						</div>
+					</span>
 					<!-- <p class="category">Plain text tabs</p> -->
 				</div>
 				<div class="card-content">
@@ -100,8 +113,8 @@
 								</div>
 								<div class="card-footer">
 									<div class="chart-legend">
-										<i class="fa fa-circle text-info"></i> Tesla Model S
-										<i class="fa fa-circle text-warning"></i> BMW 5 Series
+										<i class="ti ti-control-record text-info"></i> Tesla Model S
+										<i class="ti ti-control-record text-warning"></i> BMW 5 Series
 									</div>
 									<hr>
 									<div class="stats">
@@ -121,8 +134,21 @@
 			</div>
 		</div>
 
-			
-
 		</div>
 	</div>
 </div>
+
+<!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/demo.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		demo.initOverviewDashboard();
+		demo.initCirclePercentage();
+		demo.initStatsDashboard();
+		demo.initVectorMap();
+		demo.initCirclePercentage();
+
+	});
+</script>

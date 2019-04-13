@@ -21,6 +21,7 @@
                                 <th>Factory Code</th>
                                 <th>Sender Id</div>
                                 <th>Sent</div>
+                                <th>Received</div>
                                 <th>Balance</div>
                                 <th>Region</th>
                                 <th>Date Created</th>
@@ -32,6 +33,7 @@
                                 <th>Factory Code</th>
                                 <th>Sender Id</div>
                                 <th>Sent</div>
+                                <th>Received</div>
                                 <th>Balance</div>
                                 <th>Region</th>
                                 <th>Date Created</th>
@@ -88,6 +90,7 @@
                     { "data": "factoryCode"},
                     { "data": "senderid"},
                     { "data": "sent"},
+                    { "data": "received"},
                     { "data": "balance"},
                     { "data": "region"},
                     { "data": "created"}

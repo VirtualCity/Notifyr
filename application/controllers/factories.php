@@ -61,14 +61,14 @@ class Factories extends Admin_Controller{
             }
         }
 
-        $json_data = array(
-            "draw"            => intval( $_REQUEST['draw'] ),
-            "recordsTotal"    => intval( count($factories) ),
-            "recordsFiltered" => intval( count($factories) ),
-            "data"            => $factories
-        );
+        // $json_data = array(
+        //     "draw"            => intval( $_REQUEST['draw'] ),
+        //     "recordsTotal"    => intval( count($factories) ),
+        //     "recordsFiltered" => intval( count($factories) ),
+        //     "data"            => $factories
+        // );
         // print(intval( $_REQUEST['draw'] ))
-        echo json_encode($json_data);
+        echo json_encode($factories);
     }
 
     function usageBalance_period($period = null){
@@ -78,28 +78,26 @@ class Factories extends Admin_Controller{
 
             foreach ($factories as $key => $value) {
                 if ($period == 30) {
-                    $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                    $sent = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                    $received = $this->dashboard_model->get_months_total_by_factory($value->id);
                 } else if($period == 7) {
-                    $months_sent_total = $this->dashboard_model->get_weeks_sent_total_by_factory($value->id);
+                    $sent = $this->dashboard_model->get_weeks_sent_total_by_factory($value->id);
+                    $received = $this->dashboard_model->get_weeks_total_by_factory($value->id);
+                    
                 }else if($period == 1) {
-                    $months_sent_total = $this->dashboard_model->get_todays_sent_total($value->id);
+                    $sent = $this->dashboard_model->get_todays_sent_total($value->id);
+                    $received = $this->dashboard_model->get_todays_total_by_factory($value->id);
                 }else{
-                    $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                    $sent = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
+                    $received = $this->dashboard_model->get_months_total_by_factory($value->id);
                 }
                 
                 $bal = $this->dashboard_model->get_factory_sms_balance($value->username, $value->apiKey);
                 $value->balance = $bal;
-                $value->sent = $months_sent_total;
+                $value->sent = $sent;
+                $value->received = $received;
             }
         }
-
-        // $json_data = array(
-        //     "draw"            => intval( $_REQUEST['draw'] ),
-        //     "recordsTotal"    => intval( count($factories) ),
-        //     "recordsFiltered" => intval( count($factories) ),
-        //     "data"            => $factories
-        // );
-        // print(intval( $_REQUEST['draw'] ))
         echo json_encode($factories);
     }
 
@@ -152,8 +150,6 @@ class Factories extends Admin_Controller{
         $data['factoryName'] =$factoryName;
         $data['factoryCode'] =$factoryCode;
         $data['region_id'] =$region_id;
-        $data['senderid'] = $senderid;
-        $data['apikey'] = $apikey;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Add Factory";
         $data['mainContent']='factory/add_factory';
@@ -171,8 +167,6 @@ class Factories extends Admin_Controller{
             $data['id']=$id;
             $data['factoryName']=$to_edit->name;
             $data['factoryCode']=$to_edit->code;
-            $data['senderid'] = $to_edit->senderId;
-            $data['apikey'] = $to_edit->apikey;
             $data['region_id']=$to_edit->region_id;
         }else{
             // No factoryName id specified
@@ -562,19 +556,19 @@ class Factories extends Admin_Controller{
         //     redirect('dashboard');
         // }
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
-        $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
-        $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[20]|alpha_dash');
-        $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
-        $this->form_validation->set_rules('shortcodeName', 'Source Address', 'required|max_length[60]|alpha_numeric');
-        $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
-        $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
-        $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
-        // $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
-        $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
-        $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
-        $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
-        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        // $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
+        // $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
+        // $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[20]|alpha_dash');
+        // $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
+        // $this->form_validation->set_rules('shortcodeName', 'Source Address', 'required|max_length[60]|alpha_numeric');
+        // $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
+        // $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
+        // $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
+        // // $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
+        // $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
+        // $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
+        // $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
+        // $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         $origin_appid="";
         $origin_password="";

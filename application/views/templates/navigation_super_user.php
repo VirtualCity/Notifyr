@@ -65,6 +65,37 @@
 						</a>
 					</li>
 					<li>
+						<a data-toggle="collapse" href="#mapsExamples">
+	                        <i class="ti-comment-alt"></i>
+	                        <p>
+								SMS
+	                           <b class="caret"></b>
+	                        </p>
+	                    </a>
+	                    <div class="collapse" id="mapsExamples">
+							<ul class="nav">
+								<li>
+									<a href="../maps/google.html">
+										<span class="sidebar-mini">GM</span>
+										<span class="sidebar-normal">Single SMS</span>
+									</a>
+								</li>
+								<li>
+									<a href="../maps/vector.html">
+										<span class="sidebar-mini">VM</span>
+										<span class="sidebar-normal">Bulk SMS</span>
+									</a>
+								</li>
+								<li>
+									<a href="../maps/fullscreen.html">
+										<span class="sidebar-mini">FSM</span>
+										<span class="sidebar-normal">Full Screen Map</span>
+									</a>
+								</li>
+	                        </ul>
+	                    </div>
+	                </li>
+					<li>
 	                    <a href="<?=base_url('contacts')?>">
 						<i class="ti-list"></i>
 						<p>Contacts</p>
@@ -199,9 +230,9 @@
 
 	                <li>
 						<a data-toggle="collapse" href="#formsExamples">
-	                        <i class="ti-settings"></i>
+	                        <i class="ti-bar-chart-alt"></i>
 	                        <p>
-								Forms
+								Purchase Report
 	                           <b class="caret"></b>
 	                        </p>
 	                    </a>
@@ -229,93 +260,6 @@
 									<a href="../forms/wizard.html">
 										<span class="sidebar-mini">W</span>
 										<span class="sidebar-normal">Wizard</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
-					
-	                <li>
-						<a data-toggle="collapse" href="#mapsExamples">
-	                        <i class="ti-map"></i>
-	                        <p>
-								Maps
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse" id="mapsExamples">
-							<ul class="nav">
-								<li>
-									<a href="../maps/google.html">
-										<span class="sidebar-mini">GM</span>
-										<span class="sidebar-normal">Google Maps</span>
-									</a>
-								</li>
-								<li>
-									<a href="../maps/vector.html">
-										<span class="sidebar-mini">VM</span>
-										<span class="sidebar-normal">Vector maps</span>
-									</a>
-								</li>
-								<li>
-									<a href="../maps/fullscreen.html">
-										<span class="sidebar-mini">FSM</span>
-										<span class="sidebar-normal">Full Screen Map</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
-	                <li>
-	                    <a href="../charts.html">
-	                        <i class="ti-bar-chart-alt"></i>
-	                        <p>Charts</p>
-	                    </a>
-	                </li>
-	                <li>
-	                    <a href="../calendar.html">
-	                        <i class="ti-calendar"></i>
-	                        <p>Calendar</p>
-	                    </a>
-	                </li>
-	                <li>
-						<a data-toggle="collapse" href="#pagesExamples">
-	                        <i class="ti-gift"></i>
-	                        <p>
-								Pages
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse" id="pagesExamples">
-							<ul class="nav">
-								<li>
-									<a href="../pages/timeline.html">
-										<span class="sidebar-mini">TP</span>
-										<span class="sidebar-normal">Timeline Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/user.html">
-										<span class="sidebar-mini">UP</span>
-										<span class="sidebar-normal">User Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/login.html">
-										<span class="sidebar-mini">LP</span>
-										<span class="sidebar-normal">Login Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/register.html">
-										<span class="sidebar-mini">RP</span>
-										<span class="sidebar-normal">Register Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/lock.html">
-										<span class="sidebar-mini">LSP</span>
-										<span class="sidebar-normal">Lock Screen Page</span>
 									</a>
 								</li>
 	                        </ul>
