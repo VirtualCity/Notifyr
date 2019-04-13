@@ -81,8 +81,8 @@
 							<div class="col-sm-2">
 								<select class="selectpicker" data-style="btn btn-default btn-block" title="Select Duration" data-size="7">
 									<option value="id">Today</option>
-									<option value="ms">Past One Week</option>
-									<option value="ca">Past One Month</option>
+									<option value="ms">Past Week</option>
+									<option value="ca">Past Month</option>
 								</select>
 							</div>
 							<div class="col-sm-10">
@@ -124,10 +124,10 @@
 							</div>
 						</div>
 						<div class="tab-pane" id="profile">
-							<p>Here is your profile.</p>
+						<p>Here is your profile.</p>
 						</div>
 						<div class="tab-pane" id="messages">
-							<p>Here are your messages.</p>
+						<p>Here are your messages.</p>
 						</div>
 					</div>
 				</div>
