@@ -76,20 +76,20 @@
 							<ul class="nav">
 								<li>
 									<a href="../maps/google.html">
-										<span class="sidebar-mini">GM</span>
+										<span class="sidebar-mini">SS</span>
 										<span class="sidebar-normal">Single SMS</span>
 									</a>
 								</li>
 								<li>
 									<a href="../maps/vector.html">
-										<span class="sidebar-mini">VM</span>
+										<span class="sidebar-mini">BS</span>
 										<span class="sidebar-normal">Bulk SMS</span>
 									</a>
 								</li>
 								<li>
 									<a href="../maps/fullscreen.html">
-										<span class="sidebar-mini">FSM</span>
-										<span class="sidebar-normal">Full Screen Map</span>
+										<span class="sidebar-mini">T</span>
+										<span class="sidebar-normal">Templates</span>
 									</a>
 								</li>
 	                        </ul>
