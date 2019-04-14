@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form method="post" action="<?=base_url('login')?>">
+                        <form id="loginform" method="post" action="<?=base_url('login')?>">
                             <div class="card" data-background="color" data-color="blue">
                                 <div class="card-header">
                                     <h3 class="card-title">SMS Portal</h3>
@@ -12,12 +12,12 @@
                                 <div class="card-content">
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input type="text" id="userName" name="userName" value="" placeholder="Enter Username" class="form-control input-no-border">
+                                        <input required type="text" id="userName" name="userName" value="" placeholder="Enter Username" class="form-control input-no-border">
                                         <div><font color="red"> <?php echo form_error('userName'); ?></font></div>
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" id="userPassword" name="userPassword" placeholder="Password" class="form-control input-no-border">
+                                        <input required type="password" id="userPassword" name="userPassword" placeholder="Password" class="form-control input-no-border">
                                         <div> <font color="red"> <?php echo form_error('userPassword'); ?> </font></div>
                                     </div>
                                 </div>
@@ -40,6 +40,8 @@
 <link href="<?php echo base_url() ?>assets/css/sweetalert.min.css" rel="stylesheet" type="text/css" />
 <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>assets/js/sweetalert.min.js" type="text/javascript"></script>
+<!--  Forms Validations Plugin -->
+<script src="<?php echo base_url()?>assets/js/jquery.validate.min.js"></script>
 
  
 <script type="text/javascript">
@@ -56,4 +58,9 @@
         <?php endif; ?>       
     });
 
+</script>
+<script type="text/javascript">
+        $().ready(function(){
+			$('#loginform').validate();
+        });
 </script>

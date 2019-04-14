@@ -14,12 +14,12 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                 <form action="<?php echo base_url('users/add');?>" method="post" class="form-horizontal">
+                 <form id="adduserform" action="<?php echo base_url('users/add');?>" method="post" class="form-horizontal">
 
                  <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <label  > First Name</label><span class="text-danger"> *</span>
-                        <input required type="text" name="fname" id="fname" placeholder="First Name" class="form-control" value="<?=$fname?>"/>
+                        <input required="true" type="text" name="fname" id="fname" placeholder="First Name" class="form-control" value="<?=$fname?>"/>
                         <span class="text-danger"> <?php echo form_error('fname'); ?> </span>
                     </div>
 
@@ -39,7 +39,7 @@
 
                     <div class="col-md-6 col-xs-12">
                         <label  >Email</label><span class="text-danger"> *</span>
-                        <input required type="text" name="email" id="email" placeholder="Other Names" class="form-control" value="<?=$email?>"/>
+                        <input email="true" required type="text" name="email" id="email" placeholder="Other Names" class="form-control" value="<?=$email?>"/>
                         <span class="text-danger"> <?php echo form_error('email'); ?> </span>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <label  >Mobile No</label><span class="text-danger"> *</span>
-                        <input required type="text" name="mobile" id="mobile" placeholder="Mobile No" class="form-control" value="<?=$mobile?>"/>
+                        <input required number="true" minLength="12" maxLength="12" type="text" name="mobile" id="mobile" placeholder="e.g 2547..." class="form-control" value="<?=$mobile?>"/>
                         <span class="text-danger"> <?php echo form_error('mobile'); ?> </span>
                     </div>
 
@@ -133,7 +133,6 @@
 </div>
 <!-- end #content -->
 <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
-
  
 <script type="text/javascript">
    $(document).ready(function(){
@@ -150,3 +149,8 @@
     });
 
 </script> 
+<script type="text/javascript">
+        $().ready(function(){
+			$('#adduserform').validate();
+        });
+</script>
