@@ -23,7 +23,7 @@
                                 <div class="panel-body">
                                 <div class="well-content no_search">
 
-                                    <form action="<?=base_url('regions/modify')?>" method="post" class="form-horizontal">
+                                    <form id="editregionform" action="<?=base_url('regions/modify')?>" method="post" class="form-horizontal">
                                         <input type="hidden" name="id" value="<?=$id?>"/>
 
                                     <div class="row">
@@ -102,4 +102,9 @@
     });
 
 </script> 
+<script type="text/javascript">
+        $().ready(function(){
+			$('#editregionform').validate();
+        });
+</script>
 

@@ -34,16 +34,13 @@
                             <label class="field_name align_right"></label>
                             <div class="form-group col-lg-3">
                                 
-                              <div class="col-md-12 col-xs-12">
-                                <br>
-                                <br>
-                                <br>
-                                <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
-                                <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                                <div class="col-md-12 col-xs-12">
+                                    <button type="submit" name="submit" class="btn btn-primary" onclick="checkFile()"><i class="fa fa-upload"></i> Import</button>
+                                    <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                 </form>
 

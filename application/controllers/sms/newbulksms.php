@@ -499,6 +499,18 @@ class Newbulksms extends Admin_Controller {
         echo json_encode($groupContacts);
     }
 
+    public function download(){
+        //load download helper
+        $this->load->helper('download');
+        
+        //file path
+        $filePath = 'uploads/templates/';
+        $fileName = 'excelsms_import.xlsx';
+        $data = file_get_contents($filePath.$fileName);
+        force_download($fileName, $data);   
+        redirect('sms/newbulksms/uploadexcel');
+    }
+
 
 
 }

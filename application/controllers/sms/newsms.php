@@ -30,6 +30,7 @@ class Newsms extends Admin_Controller {
 		// 	// Display message
 		// 	$this -> session -> set_flashdata('appmsg', 'You are not allowed to access this function');
 		// 	$this -> session -> set_flashdata('alert_type', 'alert-info');
+		// $this -> session -> set_flashdata('alert_type_', 'info');
 		// 	redirect('dashboard');
 		// }
 
@@ -136,6 +137,7 @@ class Newsms extends Admin_Controller {
 							// Display success message
 							$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' sent successfully!');
 							$this -> session -> set_flashdata('alert_type', 'alert-success');
+							$this -> session -> set_flashdata('alert_type_', 'success');
 
 							//save sms
 							$userid = $this -> session -> userdata('id');
@@ -146,6 +148,7 @@ class Newsms extends Admin_Controller {
 							// Display fail message
 							$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
 							$this -> session -> set_flashdata('alert_type', 'alert-danger');
+							$this -> session -> set_flashdata('alert_type_', 'error');
 							redirect('sms/newsms');
 						}
 					}
@@ -190,6 +193,7 @@ class Newsms extends Admin_Controller {
 						// Display fail message
 						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
 						$this -> session -> set_flashdata('alert_type', 'alert-danger');
+						$this -> session -> set_flashdata('alert_type_', 'error');
 						redirect('sms/newsms');
 					}
 				}
@@ -292,6 +296,7 @@ class Newsms extends Admin_Controller {
 			// No template id specified
 			$this -> session -> set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
 			$this -> session -> set_flashdata('alert_type', 'alert-danger');
+			$this -> session -> set_flashdata('alert_type_', 'error');
 			redirect('newsms/templates');
 		}
 	}
@@ -320,12 +325,14 @@ class Newsms extends Admin_Controller {
 					// Display success message
 					$this -> session -> set_flashdata('appmsg', 'Template ' . $title . ' saved successfully!');
 					$this -> session -> set_flashdata('alert_type', 'alert-success');
+					$this -> session -> set_flashdata('alert_type_', 'success');
 
 					redirect('sms/newsms/smstemplate');
 				} else {
 					// Display fail message
 					$this -> session -> set_flashdata('appmsg', 'Saving template ' . $title . ' failed.');
 					$this -> session -> set_flashdata('alert_type', 'alert-danger');
+					$this -> session -> set_flashdata('alert_type_', 'error');
 					redirect('sms/newsms/smstemplate');
 				}
 
@@ -358,12 +365,14 @@ class Newsms extends Admin_Controller {
 					// Display success message
 					$this -> session -> set_flashdata('appmsg', 'Template ' . $title . ' updated successfully!');
 					$this -> session -> set_flashdata('alert_type', 'alert-success');
+					$this -> session -> set_flashdata('alert_type_', 'success');
 
 					redirect('sms/newsms/smstemplate');
 				} else {
 					// Display fail message
 					$this -> session -> set_flashdata('appmsg', 'Updating template ' . $title . ' failed.');
 					$this -> session -> set_flashdata('alert_type', 'alert-danger');
+					$this -> session -> set_flashdata('alert_type_', 'error');
 					redirect('sms/newsms/smstemplate');
 				}
 

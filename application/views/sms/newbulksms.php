@@ -3,7 +3,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
              <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            
+             <li><a href="<?=base_url('sms/pendingbulksms')?>"><i class="ti ti-comment-alt"></i> SMS</a></li>
             <li class="active">New Bulk SMS</li>
         </ol>
     </div>
@@ -13,21 +13,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-
-                    </div>
-                    <h4 class="panel-title"><?php ?></h4>
-                </div>
                 <div class="panel-body">
-                   <form action="<?php echo base_url('sms/newbulksms');?>" method="post" class="form-horizontal">
+                   <form id="bulksmsform" action="<?php echo base_url('sms/newbulksms');?>" method="post" class="form-horizontal">
 
                        <div class="col-md-12 col-xs-12">
                         <label>SMS Group </label><span class="text-danger"> *</span>
                         
-                        <select name="group" id="group" class="form-control"  >
+                        <select required name="group" id="group" class="form-control"  >
                             <option value="">---Please Select SMS Group---</option>
                             <?php foreach($groups as $row) { ?>
                             <option value="<?=$row->id?>"><?=$row->name?></option> <!-- <?php// if ($row->id ===$group_id){echo "selected";}?>-->
@@ -43,7 +35,7 @@
 
                           <label>Group Contacts </label><span class="text-danger"> *</span>
                          <div class="">
-                          <select style="height:30px" class="form-control" multiple="multiple" name="groupcontacts[]" id="groupcontacts_">
+                          <select style="height:30px" class="form-control" multiple  name="groupcontacts[]" id="groupcontacts_">
                               <option value="">---Please Select SMS Sub-Group contacts---</option>
                           </select>
 
@@ -128,7 +120,34 @@
     </div>
 </div>
 </div>
+
 <!-- end #content -->
+<!-- end #content -->
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+
+ 
+<script type="text/javascript">
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>       
+    });
+
+</script> 
+
+<script type="text/javascript">
+        $().ready(function(){
+			$('#bulksmsform').validate();
+        });
+</script>
+
 <script>
 	$("#template_id").change(function(){
 		var template= $("#template_id option:selected").attr("template");
@@ -148,12 +167,12 @@
                         $('#groupcontacts_').empty();
                         $.each(data, function(key, value) {
                             value.selected=true;
-                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'" selected> '+ value.name +'</option>');
+                            $('#groupcontacts_').append('<option value="'+ value.msisdn +'" selected> '+ value.name + ' - ' + value.msisdn +'</option>');
                         });
-                        $('#groupcontacts_').multipleSelect({
-                            filter: true,
-                            selectAll: true
-                        });
+                        // $('#groupcontacts_').multipleSelect({
+                        //     filter: true,
+                        //     selectAll: true
+                        // });
                         $(".ms-parent").removeAttr("style");
                     },
                 });
@@ -166,3 +185,5 @@
     });
     
 </script>
+
+

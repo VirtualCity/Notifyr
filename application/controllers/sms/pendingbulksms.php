@@ -251,6 +251,7 @@ class Pendingbulksms extends Admin_Controller {
                             // Display fail message
                             $this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
                             $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                            $this -> session -> set_flashdata('alert_type_', 'error');
                             redirect('sms/pendingbulksms');
                         }
                     }
@@ -260,6 +261,7 @@ class Pendingbulksms extends Admin_Controller {
                             // Display fail message
                             $this -> session -> set_flashdata('appmsg', 'Could no update the approved sms');
                             $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                            $this -> session -> set_flashdata('alert_type_', 'error');
                             redirect('sms/pendingbulksms');
                     }
                     // Display success message
@@ -297,6 +299,7 @@ class Pendingbulksms extends Admin_Controller {
                                 // Display fail message
                                 $this -> session -> set_flashdata('appmsg', 'Could no update the approved sms');
                                 $this -> session -> set_flashdata('alert_type', 'alert-danger');
+                                $this -> session -> set_flashdata('alert_type_', 'error');
                                 redirect('sms/pendingbulksms');
                         }
                         // Display success message

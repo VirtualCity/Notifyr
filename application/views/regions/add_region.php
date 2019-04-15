@@ -16,7 +16,7 @@
                 <div class="panel-body">
                      <div class="well-content no_search">
 
-                    <form action="<?php echo base_url('regions/add');?>" method="post" class="form-horizontal">
+                    <form id="addregionform" action="<?php echo base_url('regions/add');?>" method="post" class="form-horizontal">
 
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
@@ -67,10 +67,10 @@
 
     <!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
 	<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
-	<script src="<?php echo base_url()?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
+	<!-- <script src="<?php echo base_url()?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="<?php echo base_url()?>assets/js/perfect-scrollbar.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url()?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url()?>assets/css/sweetalert.min.css" type="text/javascript"></script>
+    <script src="<?php echo base_url()?>assets/css/sweetalert.min.css" type="text/javascript"></script> -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -96,6 +96,11 @@
 		
 
          });
+</script>
+<script type="text/javascript">
+        $().ready(function(){
+			$('#addregionform').validate();
+        });
 </script>
 
 <!-- Bootstrap core JavaScript

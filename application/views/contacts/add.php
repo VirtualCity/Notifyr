@@ -15,13 +15,13 @@
                 <div class="panel-body">
                     <div class="well-content no_search">
 
-                        <form action="<?=base_url('contacts/add')?>" method="post" class="form-horizontal">
+                        <form id="addcontactform" action="<?=base_url('contacts/add')?>" method="post" class="form-horizontal">
                           <div class="row">
                               <div class="col-md-6">
                                   <div class="col-md-12 col-xs-12">
                                       <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label><span class="text-danger"> *</span>
                                       <div >
-                                          <input required type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"/>
+                                          <input required number="true" type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"/>
 
                                           <span class="text-danger"> <?php echo form_error('msisdn'); ?> </span>
                                       </div>
@@ -29,7 +29,7 @@
                                   <div class="col-md-12 col-xs-12">
                                       <label for="name" class="field_name align_right lblBold">Name </label>
                                       <div >
-                                          <input  type="text" name="name" id="name"  class="form-control" value="<?=$name?>"/>
+                                          <input required  type="text" name="name" id="name"  class="form-control" value="<?=$name?>"/>
                                       </div>
                                   </div>
                                   <div class="col-md-12 col-xs-12">
@@ -41,7 +41,7 @@
                                   <div class="col-md-12 col-xs-12">
                                       <label for="name" class="field_name align_right lblBold">ID Number </label>
                                       <div >
-                                          <input  type="text" name="idno" id="id_number"  class="form-control" value="<?=$id_number?>"/>
+                                          <input number="true"  type="text" name="idno" id="id_number"  class="form-control" value="<?=$id_number?>"/>
                                       </div>
                                   </div>
 
@@ -51,7 +51,7 @@
                               <div class="col-md-12 col-xs-12">
                                       <label for="email" class="field_name align_right lblBold">Email</label>
                                       <div >
-                                          <input  type="text" name="email" id="email"  class="form-control" value="<?=$email?>"/>
+                                          <input email="true"  type="text" name="email" id="email"  class="form-control" value="<?=$email?>"/>
                                       </div>
                                   </div>
                               <div class="col-md-12 col-xs-12">
@@ -209,4 +209,9 @@
         
     });
     
+</script>
+<script type="text/javascript">
+        $().ready(function(){
+			$('#addcontactform').validate();
+        });
 </script>

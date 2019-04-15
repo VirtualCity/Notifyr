@@ -68,28 +68,23 @@
 						<a data-toggle="collapse" href="#mapsExamples">
 	                        <i class="ti-comment-alt"></i>
 	                        <p>
-								SMS
+								SMS Campaign
 	                           <b class="caret"></b>
 	                        </p>
 	                    </a>
 	                    <div class="collapse" id="mapsExamples">
 							<ul class="nav">
 								<li>
-									<a href="../maps/google.html">
-										<span class="sidebar-mini">SS</span>
-										<span class="sidebar-normal">Single SMS</span>
+									<a href="<?=base_url('sms/pendingbulksms')?>">
+										<span class="sidebar-mini">PS</span>
+										<span class="sidebar-normal">Pending SMS</span>
 									</a>
 								</li>
+								
 								<li>
-									<a href="../maps/vector.html">
-										<span class="sidebar-mini">BS</span>
-										<span class="sidebar-normal">Bulk SMS</span>
-									</a>
-								</li>
-								<li>
-									<a href="../maps/fullscreen.html">
-										<span class="sidebar-mini">T</span>
-										<span class="sidebar-normal">Templates</span>
+									<a href="<?=base_url('sms/newsms/templates')?>">
+										<span class="sidebar-mini">ST</span>
+										<span class="sidebar-normal">SMS Templates</span>
 									</a>
 								</li>
 	                        </ul>
