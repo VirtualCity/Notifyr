@@ -330,17 +330,6 @@ class Groups extends MY_Controller{
 
 
                 $result = $this->import_excel($file_name,$group_id,$fact_id);
-                // print_r($rowData);
-            // print_r($factory);
-            // print_r($result);
-            // return;
-
-                // =========================================start upload===========================
-
-
-                
-
-                // =========================================end upload==========================
 
 
                 $importedNo =$result['count'];
@@ -373,6 +362,12 @@ class Groups extends MY_Controller{
 
     function import_excel($fileName,$group_id,$factory_id){
        
+        $userfactory = $this->session->userdata('factory');
+        $countrycode = "";
+        $configurationData = $this->settings_m->get_configuration_by_factory($userfactory);
+            if($configurationData){
+                $countrycode = $configurationData->countrycode;
+            }
 
         $this->load->library('Excel');
         //  Include PHPExcel_IOFactory
@@ -422,7 +417,7 @@ class Groups extends MY_Controller{
                 //check if mobile has 12 characters and is numeric
                 if(is_numeric($mobile)&& strlen($mobile)){
                     //check if mobile is valid
-                    if($this->__mobile_check($mobile)){
+                    if($this->__mobile_check($mobile,$countrycode)){
                         //check if it is already added to group contacts
                         $registered = $this->contacts_model->check_subscribed_contact($group_id,$mobile);
 
@@ -491,9 +486,9 @@ class Groups extends MY_Controller{
         return $import_result;
     }
 
-    function __mobile_check($str){
+    function __mobile_check($str,$countrycode){
         if(trim($str)!==""){
-            if (substr($str, 0, 3 ) !== "250"){
+            if (substr($str, 0, 3 ) !== $countrycode){
                 //Mobile Number has to begin with 254
                 return false;
             }

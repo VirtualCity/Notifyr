@@ -31,7 +31,7 @@
 										<div class="panel-heading">
 										</div>
 										<div class="panel-body">
-											<form action="<?=base_url('settings/configuration')?>" method="post" class="form-horizontal">
+											<form id="settingsform" action="<?=base_url('settings/configuration')?>" method="post" class="form-horizontal">
 
 												<div class="row">
 													<div class="col-md-6 col-xs-12">
@@ -239,8 +239,11 @@
 													<div class="col-md-6 col-xs-12">
 														<div class="row">
 															<div class="col-md-6 col-xs-12">
+																<label > Country Telco Code  </label><span class="text-danger">*</span>
 															</div>
 															<div class="col-md-6 col-xs-12">
+																<input type="text" required name="countrycode" id="countrycode" placeholder="Country Telco Code" class="form-control" value="<?=$countrycode?>"/>
+																<span class="text-danger"> <?php echo form_error('countrycode'); ?> </span>
 															</div>
 														</div>
 													</div>
@@ -306,3 +309,9 @@
     });
 
 </script> 
+<!-- settingsform -->
+<script type="text/javascript">
+        $().ready(function(){
+			$('#settingsform').validate();
+        });
+</script>

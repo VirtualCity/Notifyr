@@ -704,6 +704,7 @@ class Factories extends Admin_Controller{
         $smsapproval = "";
         $factoryid = "";
         $originshortcode = "";
+        $countrycode = "";
         
             // $configurationData = $this->settings_m->get_configuration();
             $configurationData = $this->settings_m->get_configuration_by_factory($selectedfactory);
@@ -723,6 +724,7 @@ class Factories extends Admin_Controller{
                 $origin_balanceurl = $configurationData->balanceurl;
                 $smsapproval = $configurationData->smsapproval;
                 $factoryid = $configurationData->factory_id;
+                $countrycode = $configurationData->countrycode;
             }
         $groups = $this->groups_model->get_all_groups();
         $factories = $this->factories_model->get_all_factories();
@@ -742,6 +744,7 @@ class Factories extends Admin_Controller{
         $data['shortcodeName']=$origin_shortcodeName;
         $data['balanceurl']=$origin_balanceurl;
         $data['smsapproval']=$smsapproval;
+        $data['countrycode']=$countrycode;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";
         $data['mainContent'] = 'factory/factory_settings';
@@ -771,7 +774,7 @@ class Factories extends Admin_Controller{
         $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
-        // $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
+        $this->form_validation->set_rules('countrycode', 'Country Code', 'required|min_length[3]|max_length[3]|numeric');
         $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
@@ -790,6 +793,7 @@ class Factories extends Admin_Controller{
         $smsapproval = "";
         $factoryid = "";
         $originshortcode = "";
+        $countrycode = "";
 
         // has the form been submitted
         if($this->input->post())
@@ -808,13 +812,14 @@ class Factories extends Admin_Controller{
             $productsgroupid = $this->input->post('groups');
             $smsapproval = $this->input->post('smsapproval');
             $factoryid = $this->input->post('factoryid');
+            $countrycode = $this->input->post('countrycode');
 
             
             
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
                 //Save new product
-                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid);
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid,$countrycode);
                 // print($saved);
                 // return;
                 if($saved){

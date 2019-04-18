@@ -214,11 +214,18 @@ class Newsms extends Admin_Controller {
 
 	function msisdn_check($str) 
 	{
-		$pos = strpos($str, '254');
+		$userfactory = $this->session->userdata('factory');
+        $countrycode = "";
+        $configurationData = $this->settings_m->get_configuration_by_factory($userfactory);
+            if($configurationData){
+                $countrycode = $configurationData->countrycode;
+            }
+
+		$pos = strpos($str, $countrycode);
 
 		if ($pos !== 0) {
 			//Number does not have 254
-			$this -> form_validation -> set_message('msisdn_check', 'Mobile number has to start with 254 prefix, eg 25472xxxxxxx');
+			$this -> form_validation -> set_message('msisdn_check', 'Mobile number has to start with '.$countrycode.' prefix, eg '.$countrycode.'72xxxxxxx');
 			return FALSE;
 		} else {
 			return TRUE;

@@ -1609,6 +1609,14 @@ class CI_Email {
 	 */
 	protected function _send_with_smtp()
 	{
+
+		$userfactory = $this->session->userdata('factory');
+        $countrycode = "";
+        $configurationData = $this->settings_m->get_configuration_by_factory($userfactory);
+            if($configurationData){
+                $countrycode = $configurationData->countrycode;
+            }
+
 		if ($this->smtp_host == '')
 		{
 			$this->_set_error_message('lang:email_no_hostname');
@@ -1658,7 +1666,7 @@ class CI_Email {
 
 		$this->_set_error_message($reply);
 
-		if (strncmp($reply, '250', 3) != 0)
+		if (strncmp($reply, $countrycode, 3) != 0)
 		{
 			$this->_set_error_message('lang:email_smtp_error', $reply);
 			return FALSE;

@@ -38,6 +38,7 @@ class Configuration extends Admin_Controller{
         $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
         $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
         $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
+        $this->form_validation->set_rules('countrycode', 'Country Code', 'required|min_length[3]|max_length[3]|numeric');
         $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
         $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
@@ -55,6 +56,7 @@ class Configuration extends Admin_Controller{
         $productsgroupid="";
         $smsapproval = "";
         $factoryid = "";
+        $countrycode = "";
 
         // has the form been submitted
         if($this->input->post()){
@@ -72,6 +74,7 @@ class Configuration extends Admin_Controller{
             $productsgroupid = $this->input->post('groups');
             $smsapproval = $this->input->post('smsapproval');
             $factoryid = $this->input->post('factorye');
+            $countrycode = $this->input->post('countrycode');
             
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
@@ -79,7 +82,7 @@ class Configuration extends Admin_Controller{
                 // print($factoryid);
                 // return;
                 //Save new product
-                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid);
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid,$countrycode);
 
                 if($saved){
                     // Display success message
@@ -113,6 +116,8 @@ class Configuration extends Admin_Controller{
                 $origin_balanceurl = $configurationData->balanceurl;
                 $smsapproval = $configurationData->smsapproval;
                 $factoryid = $configurationData->factory_id;
+                $countrycode = $configurationData->countrycode;
+
             }
         }
         $groups = $this->groups_model->get_all_groups();
@@ -133,6 +138,7 @@ class Configuration extends Admin_Controller{
         $data['shortcodeName']=$origin_shortcodeName;
         $data['balanceurl']=$origin_balanceurl;
         $data['smsapproval']=$smsapproval;
+        $data['countrycode']=$countrycode;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";
         $data['mainContent'] = 'settings/app_config';

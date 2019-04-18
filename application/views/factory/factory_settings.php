@@ -21,7 +21,7 @@
             <div class="panel-heading">
             </div>
             <div class="panel-body">
-        <form action="<?=base_url('factories/update_settings')?>" method="post" class="form-horizontal">
+        <form id="factorysettingsform" action="<?=base_url('factories/update_settings')?>" method="post" class="form-horizontal">
 
               <div class="row">
                 <div class="col-md-6 col-xs-12">
@@ -115,6 +115,13 @@
 
                     <span class="text-danger"> <?php echo form_error('smsapproval'); ?> </span>
                 </div>  
+
+                <div class="col-md-6 col-xs-12">
+                    <label > Country Telco Code  </label><span class="text-danger">*</span>
+                
+                    <input type="text" required name="countrycode" id="countrycode" placeholder="Country Telco Code" class="form-control" value="<?=$countrycode?>"/>
+                    <span class="text-danger"> <?php echo form_error('countrycode'); ?> </span>
+                </div>
             </div>
 
 
@@ -151,6 +158,30 @@
 
 </div><!-- tab content -->
 </div>
+
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+
+ 
+<script type="text/javascript">
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>       
+    });
+
+</script> 
+<script type="text/javascript">
+        $().ready(function(){
+			$('#factorysettingsform').validate();
+        });
+</script>
 
 
 

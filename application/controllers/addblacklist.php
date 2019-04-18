@@ -80,11 +80,19 @@ class Addblacklist extends Admin_Controller{
     }
 
     function checkmsisdn($msisdn){
-        if(substr($msisdn,0,3)==='254'){
+
+        $userfactory = $this->session->userdata('factory');
+        $countrycode = "";
+        $configurationData = $this->settings_m->get_configuration_by_factory($userfactory);
+            if($configurationData){
+                $countrycode = $configurationData->countrycode;
+            }
+
+        if(substr($msisdn,0,3) === $countrycode){
             log_message('info','substring is: '.substr($msisdn,0,3));
             return true;
         }else{
-            $this->form_validation->set_message('checkmsisdn', 'Mobile number need to start with "254"');
+            $this->form_validation->set_message('checkmsisdn', 'Mobile number need to start with '.$countrycode);
             return false;
         }
     }
