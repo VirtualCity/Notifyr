@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					<div class="card-footer">
-				<hr />
+				<hr>
 				<div class="stats">
 				<i class="ti-clipboard"></i> <?php if ($sms_balance < 500) { ?><span class="text-warning pull-right"><i class="ti ti-alert"></i> low balance</span><?php } ?><div class="my-inline-block" id="campaign-name4"></div>
 				</div>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<hr />
+						<hr>
 						<div class="stats">
 							<i class="ti-calendar"></i>
 						</div>
@@ -71,84 +71,382 @@
 			</div>
 		</div>
 		<div class="row">
-
-		<div class="col-lg-12 col-md-12">
-			<div class="card">
-				<div class="card-header">
-					<h4 class="card-title">SMS Analytics</h4> 
-					<span class="">
-						<div class="row">
-							<div class="col-sm-2">
-								<select class="selectpicker" data-style="btn btn-default btn-block" title="Select Duration" data-size="7">
-									<option value="id">Today</option>
-									<option value="ms">Past Week</option>
-									<option value="ca">Past Month</option>
-								</select>
+			<div class="col-lg-12 col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">SMS Analytics</h4> 
+						<span class="">
+							<div class="row">
+								<!-- <div class="col-sm-2">
+									<select name="duration" id="duration" class="selectpicker" data-style="btn btn-default btn-block" title="Select Duration" data-size="7">
+										<option value="Today"  <?php if ($duration ==="Today"){echo "selected";}?> >Today</option>
+										<option value="Week" <?php if ($duration ==="Week"){echo "selected";}?>>Last 7 Days</option>
+										<option value="Month" <?php if ($duration ==="Month"){echo "selected";}?>>Last 30 Days</option>
+									</select>
+									<?=$duration?>
+								</div> -->
+								<div class="col-sm-10">
+								</div>
 							</div>
-							<div class="col-sm-10">
-							</div>
-						</div>
-					</span>
-					<!-- <p class="category">Plain text tabs</p> -->
-				</div>
-				<div class="card-content">
-					<div class="nav-tabs-navigation">
-						<div class="nav-tabs-wrapper">
-							<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-								<li class="active"><a href="#home" data-toggle="tab">Sent</a></li>
-								<li><a href="#profile" data-toggle="tab">Received</a></li>
-								<li><a href="#messages" data-toggle="tab">Messages</a></li>
-							</ul>
-						</div>
+						</span>
+						<!-- <p class="category">Plain text tabs</p> -->
 					</div>
-					<div id="my-tab-content" class="tab-content text-center">
-						<div class="tab-pane active" id="home">
-							<div class="card ">
-								<div class="card-header">
-									<h4 class="card-title">2015 Sales</h4>
-									<p class="category">All products including Taxes</p>
-								</div>
-								<div class="card-content">
-									<div id="chartActivity" class="ct-chart"></div>
-								</div>
-								<div class="card-footer">
-									<div class="chart-legend">
-										<i class="ti ti-control-record text-info"></i> Tesla Model S
-										<i class="ti ti-control-record text-warning"></i> BMW 5 Series
+					<div class="card-content">
+						<div class="nav-tabs-navigation">
+							<div class="nav-tabs-wrapper">
+								<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+									<li class="active"><a id="todayh" href="#today" data-toggle="tab">Today</a></li>
+									<li><a id="weekh" href="#week" data-toggle="tab">Last 7 Days</a></li>
+									<li><a id="monthh" href="#month" data-toggle="tab">Last 30 Days</a></li>
+									<li><a id="pendingh" href="#pending" data-toggle="tab">Pending Approval</a></li>
+								</ul>
+							</div>
+						</div>
+						<div id="my-tab-content" class="tab-content text-center">
+							<div class="tab-pane active" id="today">
+								<div class="card ">
+									<div class="card-header">
 									</div>
-									<hr>
-									<div class="stats">
-										<i class="ti-check"></i> Data information certified
+									<div class="card-content">
+										<div id="containertoday" style="height: auto; width: 100%;" class="ct-chart"></div>
+									</div>
+									<div class="card-footer">
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tab-pane" id="profile">
-						<p>Here is your profile.</p>
-						</div>
-						<div class="tab-pane" id="messages">
-						<p>Here are your messages.</p>
+							<div class="tab-pane" id="week">
+								<div class="card">
+											<div class="card-header">
+													
+											</div>
+
+											<div class="content">
+													<div id="containerweek" style="height: auto; width: 100%;" class="ct-chart"></div>
+											</div>
+
+											<div class="card-footer">
+													
+											</div>
+									</div>
+							</div>
+							<div class="tab-pane" id="month">
+								<div class="card">
+											<div class="card-header">
+													
+											</div>
+
+											<div class="content">
+													<div id="containermonth" style="height: auto; width: 100%;" class="ct-chart"></div>
+											</div>
+
+											<div class="card-footer">
+													
+											</div>
+									</div>
+							</div>
+
+							<div class="tab-pane" id="pending">
+								<div class="card">
+											<div class="card-header">
+													
+											</div>
+
+											<div class="content">
+													<div id="containerpending" style="height: auto; width: 100%;" class="ct-chart"></div>
+											</div>
+
+											<div class="card-footer">
+													
+											</div>
+									</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
 		</div>
 	</div>
 </div>
 
 <!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
 <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url()?>assets/demo.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/js/canvasjs.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/js/highcharts.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/js/exporting.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>assets/js/export-data.js" type="text/javascript"></script>
+
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		demo.initOverviewDashboard();
-		demo.initCirclePercentage();
-		demo.initStatsDashboard();
-		demo.initVectorMap();
-		demo.initCirclePercentage();
 
+	$(document).ready(function() {
+			
+		
+			var today = Highcharts.chart('containertoday', {
+					chart: {
+							type: 'column'
+					},
+					title: {
+							text: 'SMS Usage Report'
+					},
+					subtitle: {
+							text: 'Today'
+					},
+					xAxis: {
+							categories: ['SMS'],
+							crosshair: true
+					},
+					yAxis: {
+							min: 0,
+							title: {
+									text: 'Count'
+							}
+					},
+					tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+									'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+					},
+					plotOptions: {
+							column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+							}
+					},
+					
+					series: [{
+							name: 'Sent',
+							data: [<?php echo $today_sent_totals; ?>]
+					}, {
+							name: 'Pending',
+							data: [<?php echo $today_pending; ?>]
+					}, {
+							name: 'Delivered',
+							data: [<?php echo $today_success; ?>]
+					}, {
+							name: 'Failed',
+							data: [<?php echo $today_failed; ?>]
+					}, {
+							name: 'Received',
+							data: [<?php echo $todays_total; ?>]
+					}]
+			});
+
+		$('#todayh').click(()=>{
+			var today = Highcharts.chart('containertoday', {
+					chart: {
+							type: 'column'
+					},
+					title: {
+							text: 'SMS Usage Report'
+					},
+					subtitle: {
+							text: 'Today'
+					},
+					xAxis: {
+							categories: ['SMS'],
+							crosshair: true
+					},
+					yAxis: {
+							min: 0,
+							title: {
+									text: 'Count'
+							}
+					},
+					tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+									'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+					},
+					plotOptions: {
+							column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+							}
+					},
+					
+					series: [{
+							name: 'Sent',
+							data: [<?php echo $today_sent_totals; ?>]
+					}, {
+							name: 'Pending',
+							data: [<?php echo $today_pending; ?>]
+					}, {
+							name: 'Delivered',
+							data: [<?php echo $today_success; ?>]
+					}, {
+							name: 'Failed',
+							data: [<?php echo $today_failed; ?>]
+					}, {
+							name: 'Received',
+							data: [<?php echo $todays_total; ?>]
+					}]
+			});
+		});
+
+		
+			console.log( "ready!" );
+
+	$('#weekh').click(()=>{
+			var week = Highcharts.chart('containerweek', {
+					chart: {
+							type: 'column'
+					},
+					title: {
+							text: 'SMS Usage Report'
+					},
+					subtitle: {
+							text: 'Last 7 Days'
+					},
+					xAxis: {
+						categories: ['SMS'],
+							crosshair: true
+					},
+					yAxis: {
+							min: 0,
+							title: {
+									text: 'Count'
+							}
+					},
+					tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+									'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+					},
+					plotOptions: {
+							column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+							}
+					},
+					series: [{
+							name: 'Sent',
+							data: [<?php echo $weeks_sent_total; ?>]
+					}, {
+							name: 'Pending',
+							data: [<?php echo $week_pending; ?>]
+					}, {
+							name: 'Delivered',
+							data: [<?php echo $week_success; ?>]
+					}, {
+							name: 'Failed',
+							data: [<?php echo $week_failed; ?>]
+					}, {
+							name: 'Received',
+							data: [<?php echo $weeks_total; ?>]
+					}]
+			});
+		});
+
+
+		$('#monthh').click(()=>{
+			var month = Highcharts.chart('containermonth', {
+					chart: {
+							type: 'column'
+					},
+					title: {
+							text: 'SMS Usage Report'
+					},
+					subtitle: {
+							text: 'Last 30 Days'
+					},
+					xAxis: {
+						categories: ['SMS'],
+							crosshair: true
+					},
+					yAxis: {
+							min: 0,
+							title: {
+									text: 'Count'
+							}
+					},
+					tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+									'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+					},
+					plotOptions: {
+							column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+							}
+					},
+					series: [{
+							name: 'Sent',
+							data: [<?php echo $months_sent_total; ?>]
+					}, {
+							name: 'Pending',
+							data: [<?php echo $month_pending; ?>]
+					}, {
+							name: 'Delivered',
+							data: [<?php echo $month_success; ?>]
+					}, {
+							name: 'Failed',
+							data: [<?php echo $month_failed; ?>]
+					}, {
+							name: 'Received',
+							data: [<?php echo $months_total; ?>]
+					}]
+			});
+		});
+
+
+		$('#pendingh').click(()=>{
+			var month = Highcharts.chart('containerpending', {
+					chart: {
+							type: 'column'
+					},
+					title: {
+							text: 'SMS Report'
+					},
+					subtitle: {
+							text: 'Pending Approval'
+					},
+					xAxis: {
+						categories: ['SMS'],
+							crosshair: true
+					},
+					yAxis: {
+							min: 0,
+							title: {
+									text: 'Count'
+							}
+					},
+					tooltip: {
+							headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+							pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+									'<td style="padding:0"><b>{point.y}</b></td></tr>',
+							footerFormat: '</table>',
+							shared: true,
+							useHTML: true
+					},
+					plotOptions: {
+							column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+							}
+					},
+					series: [{
+							name: 'Sent',
+							data: [<?php echo $sms_pending; ?>]
+					}]
+			});
+		});
+	
 	});
+
 </script>
+
+
+

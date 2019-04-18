@@ -12,19 +12,22 @@
             <div class="panel panel-primary">
                 
                 <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12 col-xs-12">
-                    <a  href="<?=base_url('factories/add')?>"><div class="btn btn-success btn-fill pull-right">Add Factory</div></a>
-                    </div>
-                </div>
+               
                 <table id="factorydatatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                    <?Php if($user_role==="SUPER_USER"){ ?>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                            <a  href="<?=base_url('factories/add')?>"><div class="btn btn-success btn-fill pull-right">Add Factory</div></a>
+                            </div>
+                        </div>
+                    <?Php  } ?>
                     <thead>
                         <tr>
                             <th>Factory</th>
                             <th>Factory Code</th>
                             <th>Region</th>
                             <th>Date Created</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
+                            <?Php if(($user_role==="SUPER_USER") || ($user_role==="MANAGER") || ($user_role==="ADMIN")){ ?>
                                 <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
                         </tr>
@@ -35,7 +38,7 @@
                             <th>Factory Code</th>
                             <th>Region</th>
                             <th>Date Created</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
+                            <?Php if(($user_role==="SUPER_USER") || ($user_role==="MANAGER") || ($user_role==="ADMIN")){ ?>
                                 <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
                         </tr>
@@ -92,7 +95,7 @@
                 { "data": "factoryCode"},
                 { "data": "region"},
                 { "data": "created"}
-                <?Php if($user_role==="SUPER_USER"){ ?>
+                <?Php if(($user_role==="SUPER_USER") || ($user_role==="MANAGER") || ($user_role==="ADMIN")){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

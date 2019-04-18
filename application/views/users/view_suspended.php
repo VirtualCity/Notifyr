@@ -32,7 +32,7 @@
                                 <th>Factory</th>
                                 <th>Role</th>
                                 <th>Date Created</th>
-                                <?Php if($user_role==="SUPER_USER"){ ?>
+                                <?Php if($user_role==="SUPER_USER" || $user_role==="MANAGER" || $user_role==="ADMIN"){ ?>
                                     <th class="disabled-sorting">Actions</th>
                                 <?Php  } ?>
                             </tr>
@@ -46,7 +46,7 @@
                                 <th>Factory</th>
                                 <th>Role</th>
                                 <th>Date Created</th>
-                                <?Php if($user_role==="SUPER_USER"){ ?>
+                                <?Php if($user_role==="SUPER_USER" || $user_role==="MANAGER" || $user_role==="ADMIN"){ ?>
                                     <th class="disabled-sorting">Actions</th>
                                 <?Php  } ?>
                             </tr>
@@ -105,7 +105,7 @@
                     { "data": "factory"},
                     { "data": "role"},
                     { "data": "created"}
-                <?Php if($user_role==="SUPER_USER"){ ?>
+                <?Php if($user_role==="SUPER_USER" || $user_role==="MANAGER" || $user_role==="ADMIN"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

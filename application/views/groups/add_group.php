@@ -34,7 +34,7 @@
                                 <?php
                                 if(!empty($factories)){
                                     foreach($factories as $row) { ?>
-                                    <option value="<?=$row->id?>"><?=$row->name?></option> <!-- <?php// if ($row->id ===$userfactory){echo "selected";}?>-->
+                                    <option value="<?=$row->id?>" <?php if ($row->id ===$userfactory){echo "selected";}?>><?=$row->name?></option> <!-- <?php// if ($row->id ===$userfactory){echo "selected";}?>-->
                                     <?php   }
                                 } ?>
                             </select>

@@ -22,12 +22,23 @@ class Autoreplies extends Admin_Controller{
     }
 
     function datatable(){
-        $this->datatables->select("id,sent_to,recipient,message,created")
+
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select("id,sent_to,recipient,message,created")
             ->unset_column('id')
             ->from('smsout')
 			->where('message_type','AUTO_REPLY_SMS');
-
-        echo $this->datatables->generate();
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select("id,sent_to,recipient,message,created")
+            ->unset_column('id')
+            ->from('smsout')
+            ->where('factory_id', $userfactory)
+			->where('message_type','AUTO_REPLY_SMS');
+            echo $this->datatables->generate();
+        }
     }
 
 

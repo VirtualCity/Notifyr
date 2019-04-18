@@ -10,45 +10,43 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-heading-btn">
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                         
-                    </div>
-                    <h4 class="panel-title">SMS : <?php echo $name;?></h4>
-                </div>
+                    <h4 class="panel-title">Sent SMS To : <?php echo $name;?></h4>
                 <div class="panel-body">
                    <div class="well-content no_search">
 
-                    <form action="<?=base_url('contacts/sendsms')?>" method="post" class="form-horizontal">
+                    <form id="contactsmsform" action="<?=base_url('contacts/sendsms')?>" method="post" class="form-horizontal">
                         <input type="hidden" name="id" value="<?=$id?>"/>
 
-                        <div class="col-md-6 col-xs-12">
-                        <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label><span class="text-danger"> *</span>
-                        <div >
-                            <input required type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"  readOnly="true"/>
-                            
-                            <span class="text-danger"> <?php echo form_error('msisdn'); ?> </span>
-                        </div>
-                    </div>
-                        
-                        <hr class="field-separator">
-                        <div class="col-md-6 col-xs-12">
-                        <label for="message" class="field_name align_right lblBold">Message</label><span class="text-danger"> *</span>
-                       <div class="field">
-                                <textarea  id="message" required="textarea" name="message" placeholder="Message" class="form-control" rows="4" value=""></textarea>
-                                <span class="text-danger"> <?php echo form_error('fname'); ?> </span>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label><span class="text-danger"> *</span>
+                                <div >
+                                    <input required type="text" name="msisdn" id="msisdn" placeholder="Mobile Number" class="form-control" value="<?=$msisdn?>"  readOnly="true"/>
+                                    <span class="text-danger"> <?php echo form_error('msisdn'); ?> </span>
                                 </div>
-                    </div>
-                    <hr class="field-separator">
-
-                    <div class="col-md-6 col-xs-12">
-                        <div >
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Send</button>
-                            <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                            </div>
                         </div>
-                    </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="message" class="field_name align_right lblBold">Message</label><span class="text-danger"> *</span>
+                                
+                                <div class="field">
+                                    <textarea  id="message" required name="message" placeholder="Message" class="form-control" rows="4" value=""></textarea>
+                                    <span class="text-danger"> <?php echo form_error('fname'); ?> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="field-separator">
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <div >
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Send</button>
+                                    <button type="reset" class="btn btn-default"><i class=""></i> Reset</button>
+                                </div>
+                            </div>
+                        </div>
                         
                     </form>
                 </div> 
@@ -60,7 +58,30 @@
     </div>
 </div>
 
-<script>
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+ 
+<script type="text/javascript">
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>       
+    });
+
+</script> 
+<script type="text/javascript">
+        $().ready(function(){
+			$('#contactsmsform').validate();
+        });
+</script>
+
+<!-- <script>
 
 
 
@@ -86,5 +107,5 @@
 
     }
 
-</script>
+</script> -->
 

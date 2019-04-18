@@ -1,4 +1,329 @@
- 
+
+            <!-- <div class="content">
+	            <div class="container-fluid">
+                    <h4>Today</h4>
+	                <div class="row">
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-warning text-center">
+
+	                                            <i class="ti-server"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>SMS Sent</p>
+	                                            <?= $today_sent_totals; ?>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+                              <div class="card-footer">
+                                <hr />
+                                <div class="stats">
+										<i class="ti-calendar"></i> today
+									</div>
+                                </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-success text-center">
+	                                            <i class="ti-wallet"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Success</p>
+	                                            $1,345
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> today
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-danger text-center">
+	                                            <i class="ti-pulse"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Failed</p>
+	                                            23
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> today
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-info text-center">
+	                                            <i class="ti-twitter-alt"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>SMS Received</p>
+	                                            <?= $todays_total; ?>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> today
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+                    </div>
+                    <hr>
+
+                    <h4>Past Week</h4>
+	                <div class="row">
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-warning text-center">
+
+	                                            <i class="ti-server"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>SMS Sent</p>
+	                                            105GB
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+                              <div class="card-footer">
+                                <hr />
+                                <div class="stats">
+										<i class="ti-calendar"></i> last week
+									</div>
+                                </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-success text-center">
+	                                            <i class="ti-wallet"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Success</p>
+	                                            $1,345
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> last week
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-danger text-center">
+	                                            <i class="ti-pulse"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Failed</p>
+	                                            23
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> last week
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-info text-center">
+	                                            <i class="ti-twitter-alt"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>SMS Received</p>
+	                                            +45
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> last week
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+                    </div>
+                    <hr>
+
+                    <h4>Past Month</h4>
+	                <div class="row">
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-warning text-center">
+
+	                                            <i class="ti-server"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>SMS Sent</p>
+	                                            105GB
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+                              <div class="card-footer">
+                                <hr />
+                                <div class="stats">
+										<i class="ti-calendar"></i> last month
+									</div>
+                                </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-success text-center">
+	                                            <i class="ti-wallet"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Success</p>
+	                                            $1,345
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> last month
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-danger text-center">
+	                                            <i class="ti-pulse"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Failed</p>
+	                                            23
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> last month
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="card-content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-info text-center">
+	                                            <i class="ti-twitter-alt"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>SMS Received</p>
+	                                            +45
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+								<div class="card-footer">
+									<hr />
+									<div class="stats">
+										<i class="ti-calendar"></i> last month
+									</div>
+								</div>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+	        </div> -->
+
+
+
+
+
 <div id="content" class="content">
 
     <div class="breadcrumb-container ">
@@ -108,8 +433,8 @@
                                                     <p id="today_reports"> <?= $weeks_sent_total; ?></p>   
                                                 </div>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <h4> Delivered :  <?= $week_success; ?></h4>
-                                                    <h4> Failed    : <?= $week_failed; ?></h4>
+                                                    <h4> Delivered : <?= $week_success; ?></h4>
+                                                    <h4> Failed    : <?= $week_failed;  ?></h4>
                                                     <h4> Pending   : <?= $week_pending; ?></h4>
                                                 </div>
                                             </div>

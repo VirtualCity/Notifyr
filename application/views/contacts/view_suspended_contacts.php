@@ -35,10 +35,10 @@
                             <th>Id Number</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Region</th>
+                            <th>Group</th>
                             <th>Factory</th>
                             <th>Date Created</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                                 <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
                         </tr>
@@ -50,10 +50,10 @@
                             <th>Id Number</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Region</th>
+                            <th>Group</th>
                             <th>Factory</th>
                             <th>Date Created</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                                 <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
                         </tr>
@@ -112,10 +112,10 @@
                     { "data": "id_number"},
                     { "data": "email"},
                     { "data": "address"},
-                    { "data": "region"},
-                    { "data": "town"},
+                    { "data": "groupname"},
+                    { "data": "factory"},
                     { "data": "created"}
-                <?Php if($user_role==="SUPER_USER"){ ?>
+                <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

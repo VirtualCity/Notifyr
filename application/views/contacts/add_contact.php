@@ -38,7 +38,7 @@ if( $user_role === 'ADMIN'){
                 </div>
                 <div class="well-content no_search">
 
-                    <form action="<?php echo base_url('contacts/add');?>" method="post" class="form-horizontal">
+                    <form id="addcontactform" action="<?php echo base_url('contacts/add');?>" method="post" class="form-horizontal">
 
                         <div class="form_row">
                             <label for="msisdn" class="field_name align_right lblBold">Mobile Number </label>
@@ -96,20 +96,28 @@ if( $user_role === 'ADMIN'){
 </div>
 
 
+<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+ 
+<script type="text/javascript">
+   $(document).ready(function(){
+        <?php if ($this->session->flashdata('appmsg')): ?>
+            <?php $appmsg = $this->session->flashdata('appmsg'); ?>
+                        swal({
+                            title: "Done",
+                            text: "<?php echo $this->session->flashdata('appmsg'); ?>",
+                            timer: 3000,
+                            showConfirmButton: false,
+                            type: "<?php echo $this->session->flashdata('alert_type_') ?>"
+                    });
+        <?php endif; ?>       
+    });
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo base_url('assets/js/jquery-1.11.1.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-ui-1.10.3.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.collapsible.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mCustomScrollbar.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.uniform.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/library/jquery.autosize-min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/design_core.js'); ?>"></script>
+</script> 
+<script type="text/javascript">
+        $().ready(function(){
+			$('#addcontactform').validate();
+        });
+</script>
 
 
 </body>

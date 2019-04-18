@@ -9,7 +9,7 @@
 	                            </div>
 	                            <div class="card-content">
 	                                <div class="author">
-	                                  <img class="avatar border-white" src="<?=base_url()?>assets/img/faces/face-2.jpg" alt="..."/>
+	                                  <img class="avatar border-white" src="<?=base_url()?>assets/img/faces/face-2.png" alt="..."/>
 	                                  <h4 class="card-title"><?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?><br />
 	                                     <a href="#"><small><?=$email?></small></a>
 	                                  </h4>
@@ -84,13 +84,13 @@
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label>City</label>
-	                                                <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
+	                                                <input type="text" class="form-control border-input" placeholder="City" value="">
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label>Country</label>
-	                                                <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
+	                                                <input type="text" class="form-control border-input" placeholder="Country" value="">
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">
@@ -101,7 +101,7 @@
 	                                        </div>
 	                                    </div>
 	                                    <div class="text-center">
-	                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+	                                        <!-- <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button> -->
 	                                    </div>
 	                                    <div class="clearfix"></div>
 	                                </form>

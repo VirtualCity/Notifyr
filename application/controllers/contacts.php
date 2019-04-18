@@ -34,26 +34,58 @@ class Contacts extends MY_Controller{
 
     //active contacts
     function datatable(){
-        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region, contacts.created as created')
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,factories.name as factory,groups.name as groupname, contacts.created as created')
             ->unset_column('id')
             ->add_column('actions', get_active_contacts_buttons('$1'), 'id')
-            ->join('regions','contacts.region_id = regions.id','left')
-            ->join('towns','contacts.town_id = towns.id','left')
+            ->join('groups','contacts.group_id = groups.id','left')
+            ->join('factories','contacts.factory_id = factories.id','left')
             ->from('contacts')
 			->where('status','ACTIVE');
-        echo $this->datatables->generate();
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,factories.name as factory,groups.name as groupname, contacts.created as created')
+            ->unset_column('id')
+            ->add_column('actions', get_active_contacts_buttons('$1'), 'id')
+            ->join('groups','contacts.group_id = groups.id','left')
+            ->join('factories','contacts.factory_id = factories.id','left')
+            ->from('contacts')
+            ->where('contacts.factory_id',$userfactory)
+			->where('status','ACTIVE');
+            echo $this->datatables->generate();
+        }
+
     }
 
     // submitted contacts
     function submittedContacts(){
-        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region,contacts.created as created')
+
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,factories.name as factory,groups.name as groupname, contacts.created as created')
             ->unset_column('id')
-            ->add_column('actions', get_suspended_contacts_buttons('$1'), 'id')
-            ->join('regions','contacts.region_id = regions.id','left')
-            ->join('towns','contacts.town_id = towns.id','left')
+            ->add_column('actions', get_submitted_contacts_buttons('$1'), 'id')
+            ->join('groups','contacts.group_id = groups.id','left')
+            ->join('factories','contacts.factory_id = factories.id','left')
             ->from('contacts')
 			->where('status','SUBMITTED');
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,factories.name as factory,groups.name as groupname, contacts.created as created')
+            ->unset_column('id')
+            ->add_column('actions', get_submitted_contacts_buttons('$1'), 'id')
+            ->join('groups','contacts.group_id = groups.id','left')
+            ->join('factories','contacts.factory_id = factories.id','left')
+            ->from('contacts')
+            ->where('contacts.factory_id',$userfactory)
+			->where('status','SUBMITTED');
         echo $this->datatables->generate();
+        }
+
+        
     }
 
 	function suspended(){
@@ -75,15 +107,33 @@ class Contacts extends MY_Controller{
     }
 
     function datatable2(){
-        $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,towns.name as town,regions.name as region,contacts.created as created')
+
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,factories.name as factory,groups.name as groupname, contacts.created as created')
             ->unset_column('id')
-            ->add_column('actions', get_suspended_contacts_buttons('$1'), 'id')
-            ->join('regions','contacts.region_id = regions.id','left')
-            ->join('towns','contacts.town_id = towns.id','left')
+            ->add_column('actions', get_active_contacts_buttons('$1'), 'id')
+            ->join('groups','contacts.group_id = groups.id','left')
+            ->join('factories','contacts.factory_id = factories.id','left')
             ->from('contacts')
             ->where('status','SUSPENDED');
 
         echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('contacts.id as id,msisdn,id_number,contacts.name as name,email,address,factories.name as factory,groups.name as groupname, contacts.created as created')
+            ->unset_column('id')
+            ->add_column('actions', get_active_contacts_buttons('$1'), 'id')
+            ->join('groups','contacts.group_id = groups.id','left')
+            ->join('factories','contacts.factory_id = factories.id','left')
+            ->from('contacts')
+            ->where('contacts.factory_id',$userfactory)
+            ->where('status','SUSPENDED');
+
+        echo $this->datatables->generate();
+        }
+
+        
     }
 	
     function sms($id){

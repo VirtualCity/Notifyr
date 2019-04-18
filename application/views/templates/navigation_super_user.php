@@ -223,11 +223,11 @@
 						</a>
 					</li>
 
-	                <li>
+	                <!-- <li>
 						<a data-toggle="collapse" href="#formsExamples">
 	                        <i class="ti-bar-chart-alt"></i>
 	                        <p>
-								Purchase Report
+							SMS Reports
 	                           <b class="caret"></b>
 	                        </p>
 	                    </a>
@@ -259,7 +259,7 @@
 								</li>
 	                        </ul>
 	                    </div>
-	                </li>
+	                </li> -->
 	            </ul>
 	    	</div>
         </div>

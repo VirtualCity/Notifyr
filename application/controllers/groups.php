@@ -262,7 +262,6 @@ class Groups extends MY_Controller{
                         redirect('groups');
                     }
                 }
-
             }
             $errors = validation_errors();
             $this->session->set_flashdata('appmsg', $errors);
@@ -270,7 +269,6 @@ class Groups extends MY_Controller{
             $this->session->set_flashdata('alert_type_', 'error');
             redirect('groups/edit/'.$id);
         }
-
         redirect('groups');
     }
 
@@ -285,13 +283,20 @@ class Groups extends MY_Controller{
     }
 
     function do_upload(){
-
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
        // $this->form_validation->set_rules('userfile', 'Import File', 'required');
         $this->form_validation->set_rules('group', 'group', 'required');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         if($this->input->post('group')!==""){
             $group_id = $this->input->post('group');
+
+            $grp = $this->groups_model->get_group_by_id($group_id);
+            $factory = $this->factories_model->get_factory($grp->factory_id);
+            $fact_id = $factory[0]->id;
+
+            
 
             $config['upload_path'] = './uploads/groups/';
             $config['allowed_types'] = 'xls|xlsx';
@@ -322,7 +327,21 @@ class Groups extends MY_Controller{
                 $data2 =  $this->upload->data();
                 $file_name= $data2['file_name'];
 
-                $result = $this->import_excel($file_name,$group_id);
+
+
+                $result = $this->import_excel($file_name,$group_id,$fact_id);
+                // print_r($rowData);
+            // print_r($factory);
+            // print_r($result);
+            // return;
+
+                // =========================================start upload===========================
+
+
+                
+
+                // =========================================end upload==========================
+
 
                 $importedNo =$result['count'];
                 $existing = $result['existing'];
@@ -352,7 +371,9 @@ class Groups extends MY_Controller{
 
     }
 
-    function import_excel($fileName,$group_id){
+    function import_excel($fileName,$group_id,$factory_id){
+       
+
         $this->load->library('Excel');
         //  Include PHPExcel_IOFactory
 
@@ -392,6 +413,9 @@ class Groups extends MY_Controller{
             $email =  $groupData[5] ? trim($groupData[5]):"";
             $address =  $groupData[6] ? trim($groupData[6]):"";
 
+            
+            
+
             //Check if all fields are not null
             if($mobile!=null && $mobile!=""){
 
@@ -419,8 +443,10 @@ class Groups extends MY_Controller{
                                 $regionId = $this->regions_m->getAddRegionId($region);
                                 $townId = $this->towns_m->getAddTownId($town,$regionId);
                                 //Add to contacts list $msisdn,$name,$idno,$email,$address,$region,$town
+                                // $saved = $this->contacts_model->create_contact($mobile,substr($name,0,50),
+                                //     substr($idno,0,30),substr($email,0,50),substr($address,0,100),$regionId,$townId,"ACTIVE");
                                 $saved = $this->contacts_model->create_contact($mobile,substr($name,0,50),
-                                    substr($idno,0,30),substr($email,0,50),substr($address,0,100),$regionId,$townId,"ACTIVE");
+                                    substr($idno,0,30),substr($email,0,50),substr($address,0,100),$regionId,$townId,"ACTIVE",$factory_id, $group_id);
                             }else{
                                 if($notAdded !=""){
                                     $notAdded = $notAdded.' | '.$mobile;
@@ -457,15 +483,17 @@ class Groups extends MY_Controller{
 
 
 
-
+        // 'count'=>$addCounter
         $import_result = array('count'=>$addCounter,'existing'=>$existingVariables,'unregistered'=>$unregisteredVariables,'notadded'=>$notAdded);
 
+        // print_r($import_result);
+        // return;
         return $import_result;
     }
 
     function __mobile_check($str){
         if(trim($str)!==""){
-            if (substr($str, 0, 3 ) !== "254"){
+            if (substr($str, 0, 3 ) !== "250"){
                 //Mobile Number has to begin with 254
                 return false;
             }

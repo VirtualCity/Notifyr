@@ -27,22 +27,31 @@ class Factories extends Admin_Controller{
     }
 
     function datatable(){
-        $this->datatables->select('factories.id AS id,factories.`name AS factoryName,factories.code as factoryCode,regions.name AS region, factories.updated AS modified,factories.created AS created')
-        ->unset_column('id')
-        ->add_column('actions', get_factories_buttons('$1'), 'id')
-        ->from('factories')
-        ->join('regions','factories.region_id = regions.id');
-        echo $this->datatables->generate();
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select('factories.id AS id,factories.`name AS factoryName,factories.code as factoryCode,regions.name AS region, factories.updated AS modified,factories.created AS created')
+            ->unset_column('id')
+            ->add_column('actions', get_factories_buttons('$1'), 'id')
+            ->from('factories')
+            ->join('regions','factories.region_id = regions.id');
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select('factories.id AS id,factories.`name AS factoryName,factories.code as factoryCode,regions.name AS region, factories.updated AS modified,factories.created AS created')
+            ->unset_column('id')
+            ->add_column('actions', get_factories_buttons('$1'), 'id')
+            ->from('factories')
+            ->join('regions','factories.region_id = regions.id')
+            ->where('factories.id',$userfactory);
+            echo $this->datatables->generate();
+        }
+
     }
 
     function factory_usage_report(){
-        // $facts = "";
-
-        // $facts =$this->usageBalance();
 
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Factory Usage Reports";
-        // $data['factories'] = $facts;
         $data['mainContent']='factory/view_factories_report';
         $this->load->view('templates/template',$data); 
 
@@ -75,7 +84,6 @@ class Factories extends Admin_Controller{
         // $factories = $this->factories_model->get_all_factories_balance();
         $factories = $this->factories_model->get_all_factories_and_balance_settings();
         if(count($factories)>0){
-
             foreach ($factories as $key => $value) {
                 if ($period == 30) {
                     $sent = $this->dashboard_model->get_months_sent_total_by_factory($value->id);
@@ -148,6 +156,7 @@ class Factories extends Admin_Controller{
         $data['regions'] = $regions;
 
         $data['factoryName'] =$factoryName;
+        $data['userFactory'] =$factoryName;
         $data['factoryCode'] =$factoryCode;
         $data['region_id'] =$region_id;
         $data['user_role'] = $this->session->userdata('role');
@@ -165,9 +174,9 @@ class Factories extends Admin_Controller{
             // return;
             //display reply view
             $data['id']=$id;
-            $data['factoryName']=$to_edit->name;
-            $data['factoryCode']=$to_edit->code;
-            $data['region_id']=$to_edit->region_id;
+            $data['factoryName']=$to_edit[0]->name;
+            $data['factoryCode']=$to_edit[0]->code;
+            $data['region_id']=$to_edit[0]->region_id;
         }else{
             // No factoryName id specified
             $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
@@ -253,6 +262,118 @@ class Factories extends Admin_Controller{
         redirect('factories');
     }
 
+    function factory_dashboard($userfactory=null){
+
+
+        if(!empty($userfactory)){
+            //retrieve factoryName to edit
+            $factory_name="";
+            $factory = $this->factories_model->get_factory($userfactory);
+            $factory_name = $factory[0]->name;
+
+
+            $role = $this->session->userdata('role');
+            $user_factory = $this->session->userdata('factory');
+    
+            //Retrieve Dashboard variables
+            $today_totals =  "";
+            $weeks_total =  "";
+            $months_total =  "";
+            $today_sent_totals =  "";
+            $today_success = "";
+            $today_failed = "";
+            $today_pending = "";
+            $week_success = "";
+            $week_failed = "";
+            $week_pending = "";
+            $month_success = "";
+            $month_failed = "";
+            $month_pending = "";
+            $weeks_sent_total =  "";
+            $months_sent_total =  "";
+            $contacts_total =  "";
+            $blacklist_total =  "";
+            $groups_total =  "";
+            $outbox_total = "";
+            $balance_total = "";
+            $sms_balance = "";
+            $sms_pending = "";
+    
+    
+            $today_totals = $this->dashboard_model->get_todays_total_by_factory($userfactory);
+            $weeks_total = $this->dashboard_model->get_weeks_total_by_factory($userfactory);
+            $months_total = $this->dashboard_model->get_months_total_by_factory($userfactory);
+            $today_sent_totals = $this->dashboard_model->get_todays_sent_total_by_factory($userfactory);
+    
+            
+    
+            $today_success = $this->dashboard_model->get_todays_success_sent_total_by_factory($userfactory);
+            $today_failed = $this->dashboard_model->get_todays_failed_sent_total_by_factory($userfactory);
+            $today_pending = $this->dashboard_model->get_todays_pending_sent_total_by_factory($userfactory);
+    
+        
+            $week_success = $this->dashboard_model->get_weeks_success_sent_total_by_factory($userfactory);
+            $week_failed = $this->dashboard_model->get_weeks_failed_sent_total_by_factory($userfactory);
+            $week_pending = $this->dashboard_model->get_weeks_pending_sent_total_by_factory($userfactory);
+    
+            $month_success = $this->dashboard_model->get_months_success_sent_total_by_factory($userfactory);
+            $month_failed = $this->dashboard_model->get_months_failed_sent_total_by_factory($userfactory);
+            $month_pending = $this->dashboard_model->get_months_pending_sent_total_by_factory($userfactory);
+    
+            $weeks_sent_total = $this->dashboard_model->get_weeks_sent_total_by_factory($userfactory);
+            $months_sent_total = $this->dashboard_model->get_months_sent_total_by_factory($userfactory);
+            $contacts_total = $this->dashboard_model->get_contacts_total_by_factory($userfactory);
+            $blacklist_total = $this->dashboard_model->get_blacklist_total_by_factory($userfactory);
+            $groups_total = $this->dashboard_model->get_contact_groups_total_by_factory($userfactory);
+            $sms_balance = $this->dashboard_model->get_sms_balance_by_factory($userfactory);
+            $sms_pending = $this->dashboard_model->get_sms_pending_total_by_factory($userfactory);
+        }else{
+            // No factoryName id specified
+            $this->session->set_flashdata('appmsg', 'An Error Was Encountered! No identifier provided ');
+            $this->session->set_flashdata('alert_type', 'alert-danger');
+            $this->session->set_flashdata('alert_type_', 'error');
+            redirect('factories');
+        }
+
+       
+     
+
+        //Add dashvboards variables in data array
+        $data['todays_total']=$today_totals;
+        $data['weeks_total']=$weeks_total;
+        $data['months_total']=$months_total;
+        $data['today_sent_totals']=$today_sent_totals;
+
+        $data['today_success'] = $today_success;
+        $data['today_failed'] = $today_failed;
+        $data['today_pending'] = $today_pending;
+
+        $data['week_success'] = $week_success;
+        $data['week_failed'] = $week_failed;
+        $data['week_pending'] = $week_pending;
+
+        $data['month_success'] = $month_success;
+        $data['month_failed'] = $month_failed;
+        $data['month_pending'] = $month_pending;
+
+        $data['weeks_sent_total']=$weeks_sent_total;
+        $data['months_sent_total']=$months_sent_total;
+        $data['contacts_total']=$contacts_total;
+        $data['blacklist_total']=$blacklist_total;
+        $data['groups_total']=$groups_total;
+        $data['outbox_total']=$outbox_total;
+        $data['sms_balance']=$sms_balance;
+        $data['sms_pending']=$sms_pending;
+        $data['factoryName']=$factory_name;
+
+        $data['base']=$this->config->item('base_url');
+        $data['user_role'] = $this->session->userdata('role');
+        $data['title'] = "Factory Summary for " . $factory_name;
+        $data['mainContent']='factory/factory_dashboard';
+        $this->load->view('templates/template',$data);
+        
+    }
+
     function import(){
 
         $data['base']=$this->config->item('base_url');
@@ -274,7 +395,7 @@ class Factories extends Admin_Controller{
 
         $this->load->library('upload', $config);
 
-        if ( ! $this->upload->do_upload()){
+        if (!$this->upload->do_upload()){
             $error = array('error' => $this->upload->display_errors());
 
             log_message('error','Error: File not imported. '.$error);

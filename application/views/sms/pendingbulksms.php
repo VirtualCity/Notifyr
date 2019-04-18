@@ -28,22 +28,25 @@
 
             <div class="panel-body">
             
-                <div class="row">
-                    <div class="col-md-12 col-xs-12">
-                        <div class="dropdown pull-right">
-                            <button href="#" class="btn btn-success btn-fill btn-block dropdown-toggle" data-toggle="dropdown">
-                                Add New SMS
-                                <b class="caret"></b>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="<?=base_url('sms/newsms')?>">Single SMS</a></li>
-                                <li><a href="<?=base_url('sms/newbulksms')?>">Bulk SMS</a></li>
-                                <li><a href="<?=base_url('sms/newbulksms/uploadexcel')?>">SMS from Excel</a></li>
-                                <!--  -->
-                            </ul>
+                <?Php if($user_role==="USER" || $user_role==="SUPER_USER"){ ?>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="dropdown pull-right">
+                                <button href="#" class="btn btn-success btn-fill btn-block dropdown-toggle" data-toggle="dropdown">
+                                    Add New SMS
+                                    <b class="caret"></b>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?=base_url('sms/newsms')?>">Single SMS</a></li>
+                                    <li><a href="<?=base_url('sms/newbulksms')?>">Bulk SMS</a></li>
+                                    <!-- <li><a href="<?=base_url('sms/newbulksms/uploadexcel')?>">SMS from Excel</a></li> -->
+                                    <!--  -->
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?Php  } ?>
+                
                 <table id="pendingsmsdatatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
@@ -53,7 +56,7 @@
                             <th>status</th>
                             <th>date creted</th>
                             <th>creted by</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                                 <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
                         </tr>
@@ -66,7 +69,7 @@
                             <th>status</th>
                             <th>date creted</th>
                             <th>creted by</th>
-                            <?Php if($user_role==="SUPER_USER"){ ?>
+                            <?Php if($user_role==="MANAGER"){ ?>
                                 <th class="disabled-sorting">Actions</th>
                             <?Php  } ?>
                         </tr>
@@ -157,7 +160,7 @@
                     },
                     { "data": "datecreated"},
                     { "data": "createdby"}
-                <?Php if($user_role==="SUPER_USER"){ ?>
+                <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

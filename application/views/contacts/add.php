@@ -68,7 +68,7 @@
                                         <?php
                                         if(!empty($factories)){
                                             foreach($factories as $row) { ?>
-                                            <option value="<?=$row->id?>"><?=$row->name?></option> <!--<?php// if ($row->id ===$userfactory){echo "selected";}?>-->
+                                            <option value="<?=$row->id?>" <?php if ($row->id ===$userfactory){echo "selected";}?>><?=$row->name?></option> <!--<?php// if ($row->id ===$userfactory){echo "selected";}?>-->
                                             <?php   }
                                         } ?>
                                     </select>
@@ -182,28 +182,28 @@
         });
 
         
-        // $('select[name="factory_id"]').on('change', function() {
-        //     var factoryId = $(this).val();
-        //     var base='<?php //echo base_url(); ?>';
-        //     if(factoryId) {
-        //         $.ajax({
-        //             url:  base + 'groups/getGroupsByFactoryId/'+factoryId,
-        //             type: "GET",
-        //             dataType: "json",
-        //             success:function(data) {
-        //                 $('#group_id').empty();
-        //                 $('#group_id').append('<option value="" selected>---Please Select Group---</option>');
+        $('select[name="factory_id"]').on('change', function() {
+            var factoryId = $(this).val();
+            var base='<?php //echo base_url(); ?>';
+            if(factoryId) {
+                $.ajax({
+                    url:  base + 'groups/getGroupsByFactoryId/'+factoryId,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('#group_id').empty();
+                        $('#group_id').append('<option value="" selected>---Please Select Group---</option>');
                         
-        //                 $.each(data, function(key, value) {
-        //                     $('#group_id').append('<option value="'+ value.id +'" selected> '+ value.name +'</option>');
-        //                 });
-        //                 $(".ms-parent").removeAttr("style");
-        //             },
-        //         });
-        //     }else{
-        //         $('#group_id').empty();
-        //     }
-        // });
+                        $.each(data, function(key, value) {
+                            $('#group_id').append('<option value="'+ value.id +'" selected> '+ value.name +'</option>');
+                        });
+                        $(".ms-parent").removeAttr("style");
+                    },
+                });
+            }else{
+                $('#group_id').empty();
+            }
+        });
 
 
         

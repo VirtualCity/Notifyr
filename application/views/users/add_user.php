@@ -38,8 +38,8 @@
                     </div>
 
                     <div class="col-md-6 col-xs-12">
-                        <label  >Email</label><span class="text-danger"> *</span>
-                        <input email="true" required type="text" name="email" id="email" placeholder="Other Names" class="form-control" value="<?=$email?>"/>
+                        <label  >Email</label><span class="text-danger"></span>
+                        <input email="true" type="text" name="email" id="email" placeholder="Other Names" class="form-control" value="<?=$email?>"/>
                         <span class="text-danger"> <?php echo form_error('email'); ?> </span>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <span class="text-danger"> *</span>
                             <select name="role" id="role" class="form-control" >
                                 <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
-                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
+                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Clerk</option>
                                 <option value="SUPER_USER" <?php if ($role ==="SUPER_USER"){echo "selected";}?>>Enabler</option>
                                 <option value="ADMIN" <?php if ($role ==="ADMIN"){echo "selected";}?>>Administrator</option>
                                 <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
@@ -85,10 +85,10 @@
                         <div class="col-md-6 col-xs-12">
                             <label for="role" >Select Role </label>
                             <span class="text-danger"> *</span>
-                            <select name="role" id="role" class="form-control" >
+                            <select required name="role" id="role" class="form-control" >
                                 <option value=""  <?php if ($role ===""){echo "selected";}?>>--- Please Select Role ---</option>
                                 <option value="MANAGER" <?php if ($role ==="MANAGER"){echo "selected";}?>>Manager</option>
-                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Merchant</option>
+                                <option value="USER" <?php if ($role ==="USER"){echo "selected";}?>>Clerk</option>
                                 <option value="CONSUMER" <?php if ($role ==="CONSUMER"){echo "selected";}?>>Consumer</option>
                             </select> 
                             <span class="text-danger"><?php echo form_error('role'); ?> </span>
@@ -99,12 +99,12 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <label > Factory  </label><span class="text-danger"></span>
-                        <select name="factorys" id="factorys" class="form-control" >
+                        <select required name="factorys" id="factorys" class="form-control" >
                             <option value="">-- Select Factory --</option>
                             <?php
                             if(!empty($factorys)){
                                 foreach($factorys as $row) { ?>
-                                <option value="<?=$row->id?>" ><?=$row->name?></option>  <!--<?php// if ($row->id ===$userfactory){echo "selected";}?>-->
+                                <option value="<?=$row->id?>" <?php if ($row->id ===$userfactory){echo "selected";}?>><?=$row->name?></option>  <!--<?php// if ($row->id ===$userfactory){echo "selected";}?>-->
                                 <?php   }
                             } ?>
                         </select>

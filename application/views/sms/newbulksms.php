@@ -35,7 +35,7 @@
 
                           <label>Group Contacts </label><span class="text-danger"> *</span>
                          <div class="">
-                          <select style="height:30px" class="form-control" multiple  name="groupcontacts[]" id="groupcontacts_">
+                          <select style="min-height:100px" class="form-control" multiple required  name="groupcontacts[]" id="groupcontacts_">
                               <option value="">---Please Select SMS Sub-Group contacts---</option>
                           </select>
 
@@ -54,27 +54,62 @@
                             
                             <span class="text-danger"> <?php echo form_error('message'); ?> </span>
 
-                        <!-- ------------------------------------------------------------------ -->
-                            <p id="bulkmsgNum">0 Message(s)</p>
-                            <script type="text/JavaScript">
-                            function countChars(obj){
-                                var maxLength = 480;
-                                var singleMessageSize = 160;
-                                var strLength = obj.value.length;
-                                
-                                if(((strLength) > -1) && ((strLength) <= 0)){
-                                    document.getElementById("bulkmsgNum").innerHTML = 0 +' out of '+maxLength/singleMessageSize+' Message(s)';
-                                }else if(((strLength) > 0) && ((strLength) <= 160)){
-                                    document.getElementById("bulkmsgNum").innerHTML = 1 +' out of '+maxLength/singleMessageSize+' Message(s)';
-                                }else if(((strLength) > 160) && ((strLength) <= 320)){
-                                    document.getElementById("bulkmsgNum").innerHTML = 2 +' out of '+maxLength/singleMessageSize+' Message(s)';
-                                }else if(((strLength) > 320) && ((strLength) <= 480)){
-                                    document.getElementById("bulkmsgNum").innerHTML = 3 +' out of '+maxLength/singleMessageSize+' Message(s)';
-                                }else{
-                                    document.getElementById("bulkmsgNum").innerHTML = ' Message too big (more than 3)';
-                                }
+                            <div class="row">
+                                    <div class="col-md-6 col-xs-6">
+                                        <p class="pull-right" id="msgNum"> 0 Message(s)</p>
+                                    </div>
+                                    <div class="col-md-6 col-xs-6">
+                                        <p class="pull-left" id="chr"> 0 characters</p>
+                                    </div>
+                                </div>
 
+                        <!-- ------------------------------------------------------------------ -->
+                            <!-- <p id="bulkmsgNum">0 Message(s)</p> -->
+                            <script type="text/JavaScript">
+                            
+                            function countChars(obj){
+                            var maxLength = 480;
+                            var singleMessageSize = 160;
+                            var strLength = obj.value.length;
+
+                            
+                            
+                            if(((strLength) > -1) && ((strLength) <= 0)){
+                                document.getElementById("chr").innerHTML = strLength + ' characters';
+                                document.getElementById("msgNum").innerHTML = 0 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            }else if(((strLength) > 0) && ((strLength) <= 160)){
+                                document.getElementById("chr").innerHTML = strLength  + ' characters';
+                                document.getElementById("msgNum").innerHTML = 1 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            }else if(((strLength) > 160) && ((strLength) <= 320)){
+                                document.getElementById("chr").innerHTML = strLength  + ' characters';
+                                document.getElementById("msgNum").innerHTML = 2 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            }else if(((strLength) > 320) && ((strLength) <= 480)){
+                                document.getElementById("chr").innerHTML = strLength  + ' characters';
+                                document.getElementById("msgNum").innerHTML = 3 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            }else{
+                                document.getElementById("chr").innerHTML = strLength  + ' characters';
+                                document.getElementById("msgNum").innerHTML = ' Message too big (more than 3)';
                             }
+
+                        }
+                            // function countChars(obj){
+                            //     var maxLength = 480;
+                            //     var singleMessageSize = 160;
+                            //     var strLength = obj.value.length;
+                                
+                            //     if(((strLength) > -1) && ((strLength) <= 0)){
+                            //         document.getElementById("bulkmsgNum").innerHTML = 0 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            //     }else if(((strLength) > 0) && ((strLength) <= 160)){
+                            //         document.getElementById("bulkmsgNum").innerHTML = 1 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            //     }else if(((strLength) > 160) && ((strLength) <= 320)){
+                            //         document.getElementById("bulkmsgNum").innerHTML = 2 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            //     }else if(((strLength) > 320) && ((strLength) <= 480)){
+                            //         document.getElementById("bulkmsgNum").innerHTML = 3 +' out of '+maxLength/singleMessageSize+' Message(s)';
+                            //     }else{
+                            //         document.getElementById("bulkmsgNum").innerHTML = ' Message too big (more than 3)';
+                            //     }
+
+                            // }
                             </script>
 
                     <!-- ------------------------------------------------------------------ -->

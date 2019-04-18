@@ -342,7 +342,15 @@ class Newbulksms extends Admin_Controller {
             }
         }
         //Retrieve groups
-        $groups = $this->groups_model->get_all_groups();
+        $role = $this->session->userdata('role');
+        if ($role === "SUPER_USER") {
+            $groups = $this->groups_model->get_all_groups();
+        }else{
+            $groups = $this->groups_model->get_group_by_factory($userfactory);
+        }
+       
+
+
         $data['groups'] = $groups;
         $data['group_id'] = $group_id;
         $data['message'] = $message;

@@ -26,11 +26,15 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <table id="contactsdatatables" class="table table-responsive table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a  href="<?=base_url('contacts/add')?>"><div class="btn btn-success btn-fill pull-right">Add Contact</div></a>
+                    <?Php if($user_role==="MANAGER"){ ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a  href="<?=base_url('contacts/add')?>"><div class="btn btn-success btn-fill pull-right">Add Contact</div></a>
+                            </div>
                         </div>
-                    </div>
+                    <?Php  } ?>
+
+                    
                     <br>
                         <thead>
                             <tr>
@@ -39,10 +43,10 @@
                                 <th>Id Number</th>
                                 <th>Email</th>
                                 <th>Address</th>
-                                <th>Region</th>
+                                <th>Group</th>
                                 <th>Factory</th>
                                 <th>Date Created</th>
-                                <?Php if($user_role==="SUPER_USER"){ ?>
+                                <?Php if($user_role==="MANAGER"){ ?>
                                     <th class="disabled-sorting">Actions</th>
                                 <?Php  } ?>
                             </tr>
@@ -54,10 +58,10 @@
                                 <th>Id Number</th>
                                 <th>Email</th>
                                 <th>Address</th>
-                                <th>Region</th>
+                                <th>Group</th>
                                 <th>Factory</th>
                                 <th>Date Created</th>
-                                <?Php if($user_role==="SUPER_USER"){ ?>
+                                <?Php if($user_role==="MANAGER"){ ?>
                                     <th class="disabled-sorting">Actions</th>
                                 <?Php  } ?>
                             </tr>
@@ -114,10 +118,10 @@
                     { "data": "id_number"},
                     { "data": "email"},
                     { "data": "address"},
-                    { "data": "region"},
-                    { "data": "town"},
+                    { "data": "groupname"},
+                    { "data": "factory"},
                     { "data": "created"}
-                <?Php if($user_role==="SUPER_USER"){ ?>
+                <?Php if($user_role==="MANAGER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>

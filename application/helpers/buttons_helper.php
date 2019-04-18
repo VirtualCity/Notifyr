@@ -205,8 +205,14 @@ function get_factories_buttons($id)
     $html .= '<span><i class="ti-more-alt"></i></span>';
     $html .= '</a>';
     $html .= '<ul class="dropdown-menu">';
-    $html .= '<li><a href="' . base_url() . 'factories/edit/' . $id . '">Edit</a></li>';
-    $html .= '<li><a href="' . base_url() . 'factories/settings/' . $id . '">Settings</a></li>';
+    if($ci->session->userdata('role')==="SUPER_USER"){
+        $html .= '<li><a href="' . base_url() . 'factories/edit/' . $id . '">Edit</a></li>';
+    }
+   
+    if($ci->session->userdata('role')==="SUPER_USER" || $ci->session->userdata('role')==="ADMIN"){
+        $html .= '<li><a href="' . base_url() . 'factories/settings/' . $id . '">Settings</a></li>';
+    }
+    $html .= '<li><a href="' . base_url() . 'factories/factory_dashboard/' . $id . '">Dashboard</a></li>';
     $html .= '</ul>';
     $html .= '</li>';
 
@@ -221,7 +227,9 @@ function get_regions_buttons($id)
     $html .= '<span><i class="ti-more-alt"></i></span>';
     $html .= '</a>';
     $html .= '<ul class="dropdown-menu">';
-    $html .= '<li><a href="' . base_url() . 'regions/edit/' . $id . '">Edit</a></li>';
+    if($ci->session->userdata('role')==="SUPER_USER"){
+        $html .= '<li><a href="' . base_url() . 'regions/edit/' . $id . '">Edit</a></li>';
+    }
     $html .= '</ul>';
     $html .= '</li>';
 
@@ -300,6 +308,21 @@ function get_active_contacts_buttons($id)
     $html .= '<li><a href="' . base_url() . 'contacts/edit/' . $id . '">Edit</a></li>';
     $html .= '<li><a href="' . base_url() . 'contacts/suspend/' . $id . '">Suspend</a></li>';
     $html .= '<li><a href="' . base_url() . 'contacts/black_list_contact/' . $id . '">blacklist</a></li>';
+    $html .= '</ul>';
+    $html .= '</li>';
+
+    return $html;
+}
+
+function get_submitted_contacts_buttons($id)
+{
+    $ci = & get_instance();
+    $html = '<li class="dropdown">';
+    $html .= '<a href="#notigfications" class="dropdown-toggle" data-toggle="dropdown">';
+    $html .= '<span><i class="ti-more-alt"></i></span>';
+    $html .= '</a>';
+    $html .= '<ul class="dropdown-menu">';
+    $html .= '<li><a href="' . base_url() . 'contacts/activate/' . $id . '">Approve</a></li>';
     $html .= '</ul>';
     $html .= '</li>';
 

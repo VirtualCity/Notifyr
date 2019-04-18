@@ -18,7 +18,9 @@
 								<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 									<li class=""><a href="<?php echo site_url('settings/configuration') ?>">SDP Configuration</a></li>
 									<li class="active"><a href="<?php echo site_url('settings/services') ?>">Agrimanagr SMS</a></li>
-									<li class=""><a href="<?php echo site_url('settings/logo') ?>">Logo</a></li>
+									<?php if ($user_role === 'SUPER_USER') { ?>
+										<li class=""><a href="<?php echo site_url('settings/logo') ?>">Logo</a></li>
+									<?php } ?>
 								</ul>
 							</div>
 						</div>

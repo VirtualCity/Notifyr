@@ -34,7 +34,7 @@ class Active extends Admin_Controller{
             ->add_column('actions', get_active_users_buttons('$1'), 'id')
             ->from('users')
             ->join('factories','users.factory_id=factories.id')
-            ->where('status','active');
+            ->where('status','Active');
             $result= $this->datatables->generate();
             echo $result;
         }else{
@@ -44,7 +44,7 @@ class Active extends Admin_Controller{
             ->from('users')
             ->join('factories','users.factory_id=factories.id')
             ->where('users.factory_id',$userfactory)
-            ->where('status','active');                
+            ->where('status','Active');                
             $result= $this->datatables->generate();
             echo $result;
         }

@@ -28,12 +28,25 @@ class Outbox extends Admin_Controller{
     }
 
     function datatable(){
-        $this->datatables->select("smsout.id,smsout.sent_to,smsout.recipient,smsout.status,smsout.message,smsout.message_type,CONCAT(users.fname,' ',users.surname,' ',users.oname) AS name,smsout.created",FALSE)
+
+        $role = $this->session->userdata('role');
+        $userfactory = $this->session->userdata('factory');
+        if($role === "SUPER_USER"){
+            $this->datatables->select("smsout.id,smsout.sent_to,smsout.recipient,smsout.status,smsout.message,smsout.message_type,CONCAT(users.fname,' ',users.surname,' ',users.oname) AS name,smsout.created",FALSE)
             ->unset_column('smsout.id')
             ->from('smsout')
 			->join('users','smsout.sent_by = users.id');
 
-        echo $this->datatables->generate();
+            echo $this->datatables->generate();
+        }else{
+            $this->datatables->select("smsout.id,smsout.sent_to,smsout.recipient,smsout.status,smsout.message,smsout.message_type,CONCAT(users.fname,' ',users.surname,' ',users.oname) AS name,smsout.created",FALSE)
+            ->unset_column('smsout.id')
+            ->from('smsout')
+            ->where('users.factory_id', $userfactory)
+            ->join('users','smsout.sent_by = users.id');
+            echo $this->datatables->generate();
+        }
+
     }
 
 

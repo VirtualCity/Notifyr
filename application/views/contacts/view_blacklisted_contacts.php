@@ -13,9 +13,9 @@
 
         <ul class="nav nav-tabs ">
             <li class=""><a href="<?=base_url('contacts')?>" >Active Contacts</a></li>
-            <li class=""><a href="<?=base_url('contacts/suspended')?>" data-toggle="tab"><h4 class="panel-title">Suspended Contacts</h4></a></li>
-            <li class=""><a href="<?=base_url('contacts/submitted')?>" >Sumitted Contacts</a></li>
-            <li class="active"><a href="#default-tab-1" >Blacklisted Contacts</a></li>
+            <li class=""><a href="<?=base_url('contacts/suspended')?>">Suspended Contacts</a></li>
+            <li class=""><a href="<?=base_url('contacts/submitted')?>">Sumitted Contacts</a></li>
+            <li class="active"><a href="#default-tab-1" ><h4 class="panel-title">Blacklisted Contacts</h4></a></li>
             
         </ul>
 
@@ -93,7 +93,7 @@
                 columns: [
                     { "data": "msisdn"},
                     { "data": "created"}
-                <?Php if($user_role==="SUPER_USER"){ ?>
+                <?Php if($user_role==="MANAGER" || $user_role==="ADMIN" || $user_role==="SUPER_USER"){ ?>
                 ,
                 { "data": "actions","orderable": false,"bSearchable": false }
                 <?Php  } ?>
