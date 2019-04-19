@@ -13,6 +13,7 @@ class Groups extends MY_Controller{
         $this->load->model('groups_model');
         $this->load->model('contacts_model');
         $this->load->model('regions_m');
+        $this->load->model('settings_m');
         $this->load->model('towns_m');
         $this->load->model('factories_model');
     }
@@ -456,6 +457,11 @@ class Groups extends MY_Controller{
                         }
                     }else{
 
+                        $this->session->set_flashdata('appmsg','Kindly Confirm your counrty code and try again');
+                        $this->session->set_flashdata('alert_type', 'alert-danger');
+                        $this->session->set_flashdata('alert_type_', 'error');
+                        redirect('groups/import');
+
                     }
                 }else{
 
@@ -480,9 +486,6 @@ class Groups extends MY_Controller{
 
         // 'count'=>$addCounter
         $import_result = array('count'=>$addCounter,'existing'=>$existingVariables,'unregistered'=>$unregisteredVariables,'notadded'=>$notAdded);
-
-        // print_r($import_result);
-        // return;
         return $import_result;
     }
 

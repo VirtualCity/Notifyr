@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <form action="<?=base_url('groups/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <form id="groupcontactsform" action="<?=base_url('groups/do_upload')?>" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="row">
                         <div class="col-md-6 col-xs-6">
                             <label >Select File To Import: </label>
@@ -29,7 +29,7 @@
                     <div class="col-md-12 col-xs-12">
                         <label >SMS Group </label>
                         <span class="text-danger"> *</span>
-                        <select name="group" id="group"  class="form-control">
+                        <select required name="group" id="group"  class="form-control">
                             <option value="">---Please Select SMS Group---</option>
                             <?php foreach($groups as $row) { ?>
                             <option value="<?=$row->id?>" ><?=$row->name?></option>
@@ -119,3 +119,9 @@
     });
 
 </script> 
+
+<script type="text/javascript">
+        $().ready(function(){
+			$('#groupcontactsform').validate();
+        });
+</script>
