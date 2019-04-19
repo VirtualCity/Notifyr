@@ -516,16 +516,4 @@ class Groups extends MY_Controller{
             redirect('groups/import');
     }
 
-    // public function download1()
-    // {
-
-    // $this->load->helper('download');
-    // $name = 'import_to_group.csv';
-    // $data = file_get_contents('./uploads/templates/'.$name); 
-    // force_download($name, $data); 
-    //     redirect('groups/import','refresh');
-    // }
-
-
-
 }
