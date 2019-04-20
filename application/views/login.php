@@ -7,7 +7,7 @@
                 <div class="row">
                     <!-- <div class="col-md-8 col-md-offset-2 sms-logo"> -->
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <img style="padding-left: 25%;" src="<?php echo base_url()?>assets/img/notifyr-logo.png" alt="sms-logo">
+                        <img class="sms-logo" src="<?php echo base_url()?>assets/img/notifyr-logo.png" alt="sms-logo">
                     </div>
                 </div>
                 <div class="row">
