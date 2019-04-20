@@ -76,20 +76,23 @@
 					<div class="card-header">
 						<h4 class="card-title">SMS Analytics</h4> 
 						<span class="">
-							<div class="row">
-								<!-- <div class="col-sm-2">
-									<select name="duration" id="duration" class="selectpicker" data-style="btn btn-default btn-block" title="Select Duration" data-size="7">
-										<option value="Today"  <?php if ($duration ==="Today"){echo "selected";}?> >Today</option>
-										<option value="Week" <?php if ($duration ==="Week"){echo "selected";}?>>Last 7 Days</option>
-										<option value="Month" <?php if ($duration ==="Month"){echo "selected";}?>>Last 30 Days</option>
-									</select>
-									<?=$duration?>
-								</div> -->
-								<div class="col-sm-10">
-								</div>
-							</div>
+								<?Php if($user_role==="USER" || $user_role==="SUPER_USER"){ ?>
+									<div class="row">
+										<div class="col-md-12 col-xs-12 pull-right">
+											<div class="dropdown pull-right">
+												<button href="#" class="btn btn-success btn-fill btn-block dropdown-toggle" data-toggle="dropdown">
+													Add New SMS
+													<b class="caret"></b>
+												</button>
+												<ul class="dropdown-menu">
+													<li><a href="<?=base_url('sms/newsms')?>">Single SMS</a></li>
+													<li><a href="<?=base_url('sms/newbulksms')?>">Bulk SMS</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								<?Php  } ?>
 						</span>
-						<!-- <p class="category">Plain text tabs</p> -->
 					</div>
 					<div class="card-content">
 						<div class="nav-tabs-navigation">

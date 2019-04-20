@@ -55,10 +55,10 @@
         jQuery('#example').dataTable({
             "processing": true,
             "serverSide": true,
-            "scrollCollapse": true,
+            "scrollCollapse": false,
             "jQueryUI": true,
             "scrollX": true,
-            "scrollY": 400,
+            "scrollY": 350,
             "sPaginationType": "full_numbers",
             "pageLength": 50,
             "lengthMenu": [[50, 100,200,500,-1], [50, 100,200,500,"All"]],

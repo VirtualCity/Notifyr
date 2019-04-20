@@ -80,5 +80,27 @@ $db['local']['dbcollat'] = 'utf8_general_ci';
 $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
+
+
+/**
+ * connection to the external db for farmerquery
+ */
+$db['extdb']['hostname'] = 'localhost';
+$db['extdb']['username'] = 'vcity';
+$db['extdb']['password'] = 'admin2014@)!$';
+$db['extdb']['database'] = 'ci_notifyr';
+$db['extdb']['dbdriver'] = 'mysqli';
+$db['extdb']['dbprefix'] = '';
+$db['extdb']['pconnect'] = TRUE;
+$db['extdb']['db_debug'] = TRUE;
+$db['extdb']['cache_on'] = FALSE;
+$db['extdb']['cachedir'] = '';
+$db['extdb']['char_set'] = 'utf8';
+$db['extdb']['dbcollat'] = 'utf8_general_ci';
+$db['extdb']['swap_pre'] = '';
+$db['extdb']['autoinit'] = TRUE;
+$db['extdb']['stricton'] = FALSE;
+
 /* End of file database.php */
 /* Location: ./application/config/database.php */
+

@@ -73,9 +73,9 @@
                 buttons: [ 'copy', 'csv', 'excel' ],
                 "processing": true,
                 "serverSide": false,
-                "scrollCollapse": true,
+                "scrollCollapse": false,
                 "scrollX": true,
-                "scrollY": 400,
+                "scrollY": 350,
 
 	            "pagingType": "full_numbers",
 	            "lengthMenu": [[10, 50, 100,200,-1], [10, 50, 100,200,"All"]],
@@ -107,44 +107,3 @@
     });
 
 </script> 
-
-<!--Header Section-->
-<script type="text/javascript">
-    jQuery(document).ready(function(){
-        jQuery('#example').dataTable({
-            "processing": true,
-            "serverSide": true,
-            "scrollCollapse": true,
-            "jQueryUI": true,
-            "scrollX": true,
-            "scrollY": 400,
-            "pagingType": "full_numbers",
-            "pageLength": 50,
-            "lengthMenu": [[50, 100,200,500], [50, 100,200,500]],
-            "dom": 'T<"clear">lfrtip',
-            "tableTools": {
-                "sSwfPath": "<?= base_url('assets/tabletools/swf/copy_csv_xls_pdf.swf');?>",
-                "aButtons": [ "copy", "csv","xls","pdf" ]
-            },
-            columns: [
-
-                { "data": "template"},
-                { "data": "title"},
-                { "data": "type"},
-                { "data": "modified"}
-                <?Php if($user_role!=="USER"){ ?>
-                ,
-                { "data": "actions","orderable": false,"bSearchable": false }
-                <?Php  } ?>
-            ],
-            "oLanguage": {
-                "sProcessing": "<img src='<?= base_url('assets/img/loading.gif'); ?>'>"
-            },
-            "ajax":{
-                "url": "<?php echo base_url('sms/newsms/datatable')?>",
-                "type": "POST"
-            }
-        });
-    });
-
-</script>

@@ -75,9 +75,9 @@
         $('#blacklistdatatables').DataTable({
                 "processing": true,
                 "serverSide": false,
-                "scrollCollapse": true,
+                "scrollCollapse": false,
                 "scrollX": true,
-                "scrollY": 400,
+                "scrollY": 350,
                 "pageLength": 10,
 	            "pagingType": "full_numbers",
 	            "lengthMenu": [[10, 50, 100,200,-1], [10, 50, 100,200,"All"]],
