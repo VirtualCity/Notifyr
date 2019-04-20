@@ -1,7 +1,15 @@
 <div class="wrapper wrapper-full-page">
-    <div class="full-page login-page" data-color="" data-image="<?php echo base_url()?>assets/img/background/background-2.jpg">      
+    <div class="full-page login-page" data-color="green" data-image="<?php echo base_url()?>assets/img/bg.png">   
+    <!-- <div class="full-page login-page" data-color="" data-image="../../assets/img/background/background-2.jpg"> -->
+          <!-- you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple"    -->
         <div class="content">
             <div class="container">
+                <div class="row">
+                    <!-- <div class="col-md-8 col-md-offset-2 sms-logo"> -->
+                    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                        <img style="padding-left: 25%;" src="<?php echo base_url()?>assets/img/notifyr-logo.png" alt="sms-logo">
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
                         <form id="loginform" method="post" action="<?=base_url('login')?>">
