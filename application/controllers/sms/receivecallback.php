@@ -213,7 +213,7 @@ class ReceiveCallback extends CI_Controller{
                                         //log_message("info", 'Retrieving cumulative');
 
                                         $nmonth = $nmonth = date('m');
-                                        if($selected_month !=""){
+                                        if($selected_month !==""){
                                             $nmonth = date('m',strtotime($selected_month));
                                         }
 

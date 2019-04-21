@@ -11,7 +11,7 @@
 	                    </ul>
 	                </nav>
 					<div class="copyright pull-right">
-	                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="https://www.virtualcity.co.ke/">VirtualCity</a>
+	                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://www.virtualcity.co.ke/">VirtualCity</a>
 	                </div>
 	            </div>
 	        </footer>

@@ -34,6 +34,20 @@ class User_model extends CI_Model{
         }
         return false;
     }
+
+    function get_user_factory($username){
+        $this -> db-> select('factory_id');
+        $this -> db -> from('users');
+        $this -> db -> where('username',$username);
+        $this -> db -> limit(1);
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
 	
 	function check_user_status($username){
         $this -> db-> select('username');
@@ -270,5 +284,33 @@ class User_model extends CI_Model{
             return false;
         }
 
+    }
+
+    function reset_password($username,$password){
+        //Encrypt Password
+        $encrypted_pass = $this->encrypt->encode($password);
+        $data = array('password' => $encrypted_pass);
+        $this->db->where('username',$username);
+        $query = $this->db->update('users', $data);
+
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    function get_phone_number($username){
+        $this->db->select('mobile');
+        $this->db->from('users');
+        $this->db->where('username',$username);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if($query -> num_rows() == 1){
+            return $query -> result();
+        }else{
+            return false;
+        }
     }
 }

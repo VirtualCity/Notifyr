@@ -47,7 +47,7 @@ class Sendsms_model extends CI_Model
             $responseMsg = $msg;
 
             // Create the sender object server url
-            $sender = new SmsSender();
+            $sender = new SmsSender($userfactory);
 
             //sending a one message
 
@@ -85,6 +85,79 @@ class Sendsms_model extends CI_Model
         }
 
     }
+
+    function send_new_password_sms($destination, $msg, $factory)
+    {
+
+        /* $this->load->library('sms/SmsSender.php');
+         $this->load->library('sms/log.php');*/
+
+          // $userid = $this->session->userdata('id');
+        $role = $this->session->userdata('role');
+        $userfactory = $factory;
+
+        //SDP Configuration
+
+        $applicationId = "";
+        $password = "";
+        $sourceAddress = "";
+        $configurationData ="";
+       
+        $configurationData = $this->get_configuration_by_factory($userfactory);
+        
+        if ($configurationData) {
+            $applicationId = $configurationData->value1;
+            $senderId = $configurationData->value3;
+            $password = $configurationData->value2;
+            $sourceAddress = $configurationData->value9;
+        }
+
+
+        log_message('info', 'Message to send: ' . $msg);
+
+        try {
+            $responseMsg = $msg;
+
+            // Create the sender object server url
+            $sender = new SmsSender($userfactory);
+
+            //sending a one message
+
+
+            $encoding = "0";
+            $version = "1.0";
+            $deliveryStatusRequest = "0";
+            $charging_amount = "0";
+            $destinationAddresses = $destination;
+            $binary_header = "";
+            //  log_message("info","Sending Parameters ".$responseMsg ." ". $destinationAddresses[0]." ". $password." ".$applicationId." ".$sourceAddress." ".$deliveryStatusRequest." ".$charging_amount." ".$encoding." ".$version." ".$binary_header);
+            $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
+
+            $response = json_decode($res);
+            $server_response = $response->SMSMessageData->Recipients;
+
+            //  print_r($server_response[0]);
+
+            log_message("info", "SDP response: " . $server_response[0]->statusCode);
+            //AFRICASTALKING for success ->statusCode =101, status=success
+            // if ($server_response[0]->status == 'Success')
+            if (count($server_response) > 0)
+                // return 'success';
+                return $server_response;
+            else return null;
+
+            //log_message("info", "SDP response " . var_export($res, true));
+
+        } catch (SmsException $ex) {
+            //throws when failed sending or receiving the sms
+            log_message("info", "Status code error: " . $ex->getStatusCode());
+            log_message("info", "Status message error: " . $ex->getStatusMessage());
+            error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+            return "fail";
+        }
+
+    }
+
 
     function get_configuration()
     {

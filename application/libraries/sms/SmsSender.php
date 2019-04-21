@@ -13,22 +13,19 @@
 
 class SmsSender{
     var $server;
+    
 
-    public function __construct(){
-       // $this->server = $server; // Assign server url
-		//$this->server = "http://api.hewani.co.ke:7000/sms/send";
-        // $this->server = "https://tapconnector.azurewebsites.net/api/africastalking/agrimanagr-heifer";
-        // $this->server = "http://localhost:4200/api/africastalking/agrimanagr-heifer";
+    public function __construct($factory=null){
+        $settings = "";
+       
+        if ($factory!==null) {
+            $settings = $this->get_factory_settings($factory);
+        } else {
+            $settings = $this->getSettings();
+        }
         
 
-        // $settings = $this->getServerUrl();
-        // if(!empty($settings[0]->value5)){
-            
-        //     $this->server = $settings[0]->value5;
-        // print_r($this->server);
-        //     exit();
-        // }
-        $settings = $this->getSettings();
+        // $settings = $this->getSettings();
         if(!empty($settings[0]->value5)){
             $this->server = $settings[0]->value5;
         }else{
@@ -53,7 +50,7 @@ class SmsSender{
         } else if (is_string($addresses) && trim($addresses) != "") {
             return $this->smsMany($message, array($addresses), $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
         } else {
-            throw new Exception("address should a string or a array of strings");
+            throw new Exception("address should be a string or a array of strings");
         }
     }
 
@@ -125,6 +122,22 @@ class SmsSender{
         $CI->db->select('*');
         $CI->db->from('settings');
         $CI->db->where('title','CONFIGURATION');
+        $query  =   $CI->db->get();
+        return $query->result();
+
+        if($query -> num_rows() > 0){
+            return $query -> row();
+        }else{
+            return false;
+        }
+    }
+
+    private function get_factory_settings($factory){
+        $CI =& get_instance();
+        $CI->db->select('*');
+        $CI->db->from('settings');
+        $CI->db->where('title','CONFIGURATION');
+        $CI->db->where('factory_id',$factory);
         $query  =   $CI->db->get();
         return $query->result();
 

@@ -42,7 +42,7 @@
 	<div class="wrapper">
 
 	    <div class="main-panel">
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-default navigation">
 	            <div class="container-fluid">
 					<div class="navbar-minimize">
 						<button id="minimizeSidebar" class="btn btn-fill btn-icon"><i class="ti-more-alt"></i></button>

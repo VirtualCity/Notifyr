@@ -18,6 +18,19 @@
     padding-right: 25%;
 }
 
+.content, .navigation {
+    /* background-image: linear-gradient(green, yellow); */
+    /* opacity: 0.5; */
+}
+
+.sidebar, .sidebar-wrapper {
+    /* background-image: linear-gradient(green 5%, yellow 95%); */
+}
+
+.footer {
+    /* background-image: linear-gradient(green, yellow); */
+}
+
 .icon-section {
 	margin: 0 0 3em;
 	clear: both;
