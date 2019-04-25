@@ -11,6 +11,7 @@ class Add extends Admin_Controller{
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('factories_model');
+        $this->load->model('settings_m');
     }
 
     function index(){
@@ -23,7 +24,7 @@ class Add extends Admin_Controller{
         $this->form_validation->set_rules('oname', 'Other Names', 'alpha|max_length[40]');
         $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[6]|max_length[30]|is_unique[users.username]');
         $this->form_validation->set_rules('email', 'Email Address', 'max_length[150]|valid_email|is_unique[users.email]');
-        $this->form_validation->set_rules('mobile', 'Mobile', 'exact_length[12]');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'exact_length[12]|callback_mobile_check');
         $this->form_validation->set_rules('role', 'User Role', 'required');
         $this->form_validation->set_rules('factorys', 'factory', 'required|numeric');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|max_length[50]');
@@ -114,9 +115,15 @@ class Add extends Admin_Controller{
     }
 
     public function mobile_check($str){
-        if(trim($str)!==""){
-            if (substr($str, 0, 3 ) !== "254"){
-                $this->form_validation->set_message('mobile_check', 'Mobile Number has to begin with 254!');
+        $userfactory = $this->session->userdata('factory');
+        $countrycode = "";
+        $configurationData = $this->settings_m->get_configuration_by_factory($userfactory);
+            if($configurationData){
+                $countrycode = $configurationData->countrycode;
+            }
+        if(trim($str)!==$countrycode){
+            if (substr($str, 0, 3 ) !== $countrycode){
+                $this->form_validation->set_message('mobile_check', 'Mobile Number has to begin with '.$countrycode);
                 return FALSE;
             }
             else{

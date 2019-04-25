@@ -20,7 +20,7 @@
 	<div class="sidebar-wrapper">
 		<div class="user">
 			<div class="photo">
-				<img src="<?php echo $path;?>assets/img/faces/face-2.jpg" />
+				<img src="<?php echo $path;?>assets/img/faces/face-2.png" />
 			</div>
 			<div class="info">
 				<a data-toggle="collapse" href="#collapseExample" class="collapsed">

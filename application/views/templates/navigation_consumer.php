@@ -20,7 +20,7 @@
 	    	<div class="sidebar-wrapper">
 				<div class="user">
 	                <div class="photo">
-	                    <img src="<?php echo $path;?>assets/img/faces/face-2.jpg" />
+						<img src="<?php echo $path;?>assets/img/faces/face-2.png" />
 	                </div>
 	                <div class="info">
 						<a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -39,23 +39,10 @@
 										<span class="sidebar-normal">My Profile</span>
 									</a>
 								</li>
-	                            <li>
-									<a href="#edit">
-										<span class="sidebar-mini">Ep</span>
-										<span class="sidebar-normal">Edit Profile</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="<?=base_url('password')?>">
-										<span class="sidebar-mini">S</span>
-										<span class="sidebar-normal">Settings</span>
-									</a>
-								</li>
 	                        </ul>
 	                    </div>
 	                </div>
                 </div>
-                
                 
 	            <ul class="nav">
 					<li>
@@ -80,31 +67,11 @@
 										<span class="sidebar-normal">Pending SMS</span>
 									</a>
 								</li>
-								
-								<li>
-									<a href="<?=base_url('sms/newsms/templates')?>">
-										<span class="sidebar-mini">ST</span>
-										<span class="sidebar-normal">SMS Templates</span>
-									</a>
-								</li>
 	                        </ul>
 	                    </div>
 	                </li>
-					<li>
-	                    <a href="<?=base_url('contacts')?>">
-						<i class="ti-list"></i>
-						<p>Contacts</p>
-						</a>
-					</li>
-					
-					<li>
-	                    <a href="<?=base_url('users/active')?>">
-						<i class="ti-user"></i>
-						<p>Users</p>
-						</a>
-	                </li>
-					
-	                <li>
+										
+	                <!-- <li>
 	                    <a data-toggle="collapse" href="#groups">
 	                        <i class="ti-package"></i>
 	                        <p>Groups
@@ -119,15 +86,9 @@
 										<span class="sidebar-normal">View Groups</span>
 									</a>
 								</li>
-	                            <li>
-									<a href="<?=base_url('groups/import')?>">
-										<span class="sidebar-mini">IG</span>
-										<span class="sidebar-normal">Import to Group</span>
-									</a>
-								</li>
 	                        </ul>
 	                    </div>
-					</li>
+					</li> -->
 					
 					<li>
 	                    <a data-toggle="collapse" href="#smslogs">
@@ -160,7 +121,7 @@
 	                    </div>
 					</li>
 					
-					<li>
+					<!-- <li>
 	                    <a data-toggle="collapse" href="#factories">
 	                        <i class="ti-home"></i>
 	                        <p>Factories
@@ -175,21 +136,9 @@
 										<span class="sidebar-normal">View Factories</span>
 									</a>
 								</li>
-	                            <li>
-									<a href="<?=base_url('factories/import')?>">
-										<span class="sidebar-mini">IF</span>
-										<span class="sidebar-normal">Import Factory</span>
-									</a>
-								</li>
-								<li>
-									<a href="<?=base_url('factories/factory_usage_report')?>">
-										<span class="sidebar-mini">UR</span>
-										<span class="sidebar-normal">Usage Report</span>
-									</a>
-								</li>
 	                        </ul>
 	                    </div>
-					</li>
+					</li> -->
 
 					<li>
 	                    <a data-toggle="collapse" href="#region">
@@ -206,22 +155,10 @@
 										<span class="sidebar-normal">View Regions</span>
 									</a>
 								</li>
-	                            <li>
-									<a href="<?=base_url('regions/import')?>">
-										<span class="sidebar-mini">IR</span>
-										<span class="sidebar-normal">Import Regions</span>
-									</a>
-								</li>
 	                        </ul>
 	                    </div>
 					</li>
 
-					<li>
-	                    <a href="<?php echo base_url('settings/configuration');?>">
-						<i class="ti-settings"></i>
-						<p>Settings</p>
-						</a>
-					</li>
 
 	                <!-- <li>
 						<a data-toggle="collapse" href="#formsExamples">

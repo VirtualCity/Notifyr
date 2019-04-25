@@ -61,7 +61,7 @@
 	                    <ul class="nav navbar-nav navbar-right">
 	                        
 	                        <li class="dropdown">
-	                            <a href="#notigfications" class="dropdown-toggle" data-toggle="dropdown">
+	                            <a href="#notigfications" class="dropdown-toggle text-success" data-toggle="dropdown">
 
 									<?Php echo($this->session->userdata('fname').' '.$this->session->userdata('sname')); ?> (<?Php echo($this->session->userdata('role'));?>)
 									<span><i class="ti-arrow-circle-down"></i></span>

@@ -10,6 +10,7 @@ class Addblacklist extends Admin_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model('blacklist_model');
+        $this->load->model('settings_m');
 
         //Prevent caching and back button
         $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');

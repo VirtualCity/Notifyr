@@ -1,8 +1,8 @@
 <div class="wrapper wrapper-full-page">
-    <div class="full-page login-page" data-color="green" data-image="<?php echo base_url()?>assets/img/bg.png">   
+    <div class="full-page login-page" data-color="none" data-image="<?php echo base_url()?>assets/img/bg.png">   
     <!-- <div class="full-page login-page" data-color="" data-image="../../assets/img/background/background-2.jpg"> -->
           <!-- you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple"    -->
-        <div class="content">
+        <div class="content" data-image="<?php echo base_url()?>assets/img/bg.png"><!--</div>style="background-color: white;">-->
             <div class="container">
                 <div class="row">
                     <!-- <div class="col-md-8 col-md-offset-2 sms-logo"> -->

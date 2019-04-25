@@ -1609,7 +1609,7 @@ class CI_Email {
 	 */
 	protected function _send_with_smtp()
 	{
-
+		$this->load->model('settings_m');
 		$userfactory = $this->session->userdata('factory');
         $countrycode = "";
         $configurationData = $this->settings_m->get_configuration_by_factory($userfactory);

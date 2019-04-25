@@ -19,7 +19,7 @@ class Active extends Admin_Controller{
 
     function index(){
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Manage Actve Users";
+        $data['title'] = "Manage Active Users";
 
          $data['mainContent']='users/view_active';
         $this->load->view('templates/template',$data);

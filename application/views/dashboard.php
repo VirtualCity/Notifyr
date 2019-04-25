@@ -1,4 +1,13 @@
 <div class="content">
+
+	<div class="row">
+	<div class="breadcrumb-container ">
+        <ol class="breadcrumb pull-left ">
+           <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+       </ol>
+   </div>
+	</div>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6">

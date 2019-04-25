@@ -5,7 +5,7 @@
 	                    <div class="col-lg-4 col-md-5">
 	                        <div class="card card-user">
 	                            <div class="image">
-	                                <img src="<?=base_url()?>assets/img/background.jpg" alt="..."/>
+	                                <img src="<?=base_url()?>assets/img/bg.png" alt="..."/>
 	                            </div>
 	                            <div class="card-content">
 	                                <div class="author">

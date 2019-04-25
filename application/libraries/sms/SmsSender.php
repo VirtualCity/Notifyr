@@ -21,7 +21,7 @@ class SmsSender{
         if ($factory!==null) {
             $settings = $this->get_factory_settings($factory);
         } else {
-            $settings = $this->getSettings();
+            // $settings = $this->getSettings();
         }
         
 
