@@ -35,7 +35,7 @@
 
                           <label>Group Contacts </label><span class="text-danger"> *</span>
                          <div class="">
-                          <select style="min-height:100px" class="form-control" multiple required  name="groupcontacts[]" id="groupcontacts_">
+                          <select required style="min-height:100px" class="form-control" multiple required  name="groupcontacts[]" id="groupcontacts_">
                               <option value="">---Please Select SMS Sub-Group contacts---</option>
                           </select>
 
@@ -50,7 +50,7 @@
                        	 <div class="col-md-8">
                         	<label>Type to Compose</label>
                         	 <div >
-                            <textarea onkeyup="countChars(this);" onkeydown="countChars(this);" maxlength="480" required="true" id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
+                            <textarea onkeyup="countChars(this);" onkeydown="countChars(this);" maxlength="480" required id="message" name="message" placeholder="Message" class="form-control" rows="4" value=""><?php echo $message; ?></textarea>
                             
                             <span class="text-danger"> <?php echo form_error('message'); ?> </span>
 
@@ -204,10 +204,10 @@
                             value.selected=true;
                             $('#groupcontacts_').append('<option value="'+ value.msisdn +'" selected> '+ value.name + ' - ' + value.msisdn +'</option>');
                         });
-                        // $('#groupcontacts_').multipleSelect({
-                        //     filter: true,
-                        //     selectAll: true
-                        // });
+                        $('#groupcontacts_').multipleSelect({
+                            filter: true,
+                            selectAll: true
+                        });
                         $(".ms-parent").removeAttr("style");
                     },
                 });

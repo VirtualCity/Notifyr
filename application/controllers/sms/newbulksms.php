@@ -162,7 +162,7 @@ class Newbulksms extends Admin_Controller {
 
                                 log_message("info", "Sending status: " . $msg_sent);
 
-                                if ($msg_sent !== null) {
+                                if ($msg_sent !== null && $msg_sent !== 'fail') {
 
                                     $success = 0;
                                     $failed = 0;
@@ -187,7 +187,7 @@ class Newbulksms extends Admin_Controller {
                                     redirect('sms/newbulksms');
                                 } else {
                                     // Display fail message
-                                    $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                                    $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed. Check Your Network Connection');
                                     $this->session->set_flashdata('alert_type', 'alert-warning');
                                     $this->session->set_flashdata('alert_type_', 'warning');
                                     redirect('sms/newbulksms');
@@ -259,7 +259,7 @@ class Newbulksms extends Admin_Controller {
 
                             log_message("info", "Sending status: " . $msg_sent);
 
-                            if ($msg_sent !== null) {
+                            if ($msg_sent !== null && $msg_sent !== 'fail') {
 
                                 $success = 0;
                                 $failed = 0;
@@ -284,7 +284,7 @@ class Newbulksms extends Admin_Controller {
                                 redirect('sms/newbulksms');
                             } else {
                                 // Display fail message
-                                $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed.');
+                                $this->session->set_flashdata('appmsg', 'Message to ' . $group_details->name . ' failed. . Check Your Network Connection');
                                 $this->session->set_flashdata('alert_type', 'alert-warning');
                                 $this->session->set_flashdata('alert_type_', 'warning');
                                 redirect('sms/newbulksms');

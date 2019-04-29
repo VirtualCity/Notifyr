@@ -85,13 +85,13 @@ $db['local']['stricton'] = FALSE;
 /**
  * connection to the external db for farmerquery
  */
-$db['extdb']['hostname'] = 'localhost';
-$db['extdb']['username'] = 'vcity';
-$db['extdb']['password'] = 'admin2014@)!$';
-$db['extdb']['database'] = 'ci_notifyr';
-$db['extdb']['dbdriver'] = 'mysqli';
+$db['extdb']['hostname'] = '(localdb)\MSSQLLocalDB';
+$db['extdb']['username'] = 'sys';
+$db['extdb']['password'] = 'dev';
+$db['extdb']['database'] = 'NG_Core_AuthDb';
+$db['extdb']['dbdriver'] = 'sqlsrv';
 $db['extdb']['dbprefix'] = '';
-$db['extdb']['pconnect'] = TRUE;
+$db['extdb']['pconnect'] = FALSE; /*TRUE;*/
 $db['extdb']['db_debug'] = TRUE;
 $db['extdb']['cache_on'] = FALSE;
 $db['extdb']['cachedir'] = '';

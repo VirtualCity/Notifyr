@@ -34,6 +34,7 @@
     <link href='<?php echo base_url()?>assets/fonts.googleapis.com/cssbba8.css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 	<link href="<?php echo base_url()?>assets/css/themify-icons.css" rel="stylesheet">
 	<link href="<?php echo base_url() ?>assets/css/sweetalert.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo base_url() ?>assets/css/multiple-select.css" rel="stylesheet" type="text/css" />
 
 </head>
 

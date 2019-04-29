@@ -112,10 +112,10 @@ class Newsms extends Admin_Controller {
 						//$recipients = array('tel:' . $msisdn);
 						$recipients = array($msisdn);
 
-						$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
+						$msg_sent = $this->sendsms_model->send_sms($recipients, $message);						
 						log_message("info", "Sending status: " . $msg_sent);
 
-						if ($msg_sent !== null) {
+						if ($msg_sent !== null && $msg_sent !== 'fail') {
 							
 							$success = 0;
 							$failed = 0;
@@ -146,7 +146,7 @@ class Newsms extends Admin_Controller {
 							redirect('sms/newsms');
 						} else {
 							// Display fail message
-							$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
+							$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed. . Check Your Network Connection');
 							$this -> session -> set_flashdata('alert_type', 'alert-danger');
 							$this -> session -> set_flashdata('alert_type_', 'error');
 							redirect('sms/newsms');
@@ -158,9 +158,11 @@ class Newsms extends Admin_Controller {
 					//$recipients = array('tel:' . $msisdn);
 					$recipients = array($msisdn);
 					$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
+					// print_r($msg_sent);
+						// return;
 					log_message("info", "Sending status: " . $msg_sent);
 
-					if ($msg_sent !== null) {
+					if ($msg_sent !== null && $msg_sent !== 'fail') {
 						
 						$success = 0;
 						$failed = 0;
@@ -191,7 +193,7 @@ class Newsms extends Admin_Controller {
 						redirect('sms/newsms');
 					} else {
 						// Display fail message
-						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed.');
+						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed. . Check Your Network Connection');
 						$this -> session -> set_flashdata('alert_type', 'alert-danger');
 						$this -> session -> set_flashdata('alert_type_', 'error');
 						redirect('sms/newsms');

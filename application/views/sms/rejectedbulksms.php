@@ -3,11 +3,13 @@
 
 <div id="content" class="content">
 
+<div class="row">
 <div class="breadcrumb-container ">
     <ol class="breadcrumb pull-left ">
        <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
        <li class="active">Rejected SMS</li>
    </ol>
+</div>
 </div>
 
 
@@ -119,15 +121,15 @@
                     { "data": "status",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             if (sData == 0) {
-                                    $(nTd).addClass('text-warning').html('<span class="badge badge-warning">Pending</span>');
+                                    $(nTd).addClass('text-warning').html('<button class="btn btn-warning btn-fill btn-sm">Pending</button>');
                             }else if (sData == 1){
-                                    $(nTd).addClass('text-primary').html('<span class="badge badge-primary">Approved</span>'); 
+                                    $(nTd).addClass('text-primary').html('<button class="btn btn-primary btn-fill btn-sm">Approved</button>'); 
                             }else if (sData == 2){
-                                    $(nTd).addClass('text-success').html('<span class="badge badge-success">Cancelled</span>'); 
+                                    $(nTd).addClass('text-success').html('<button class="btn btn-success btn-fill btn-sm">Cancelled</button>'); 
                             }else if (sData == 3){
-                                    $(nTd).addClass('text-danger').html('<span class="badge badge-danger">Rejected</span>'); 
+                                    $(nTd).addClass('text-danger').html('<button class="btn btn-danger btn-fill btn-sm">Rejected</button>'); 
                             }else{
-                                // $(nTd).addClass('text-danger').html('<span class="badge badge-danger">Unknown</span>');
+                                    $(nTd).addClass('text-danger').html('<button class="btn btn-danger btn-fill btn-sm">Unknown</button>');
                             }
                         } 
                     },

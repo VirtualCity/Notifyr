@@ -25,7 +25,12 @@ class Dashboard extends MY_Controller{
         }
         log_message("info", "Role: ". $this->session->userdata('role'));
         
+        // echo phpinfo();
+        // get data
+        // $products = $this->dashboard_model->getRecords();
 
+        // print_r($products);
+        // return;
 
         //Retrieve Dashboard variables
         $today_totals =  "";

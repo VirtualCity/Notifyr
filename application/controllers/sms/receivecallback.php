@@ -81,7 +81,7 @@ class ReceiveCallback extends CI_Controller{
 
             $contact1 = $this->contacts_model->get_contact_by_msisdn($msisdn);
             if($contact1){
-                $factoryId = $contact1->factory;
+                $factoryId = $contact1[0]->factory;
                 $configurationData = $this->settings_m->get_configuration_by_factory($factoryId);
             
                 if($configurationData){
@@ -500,7 +500,7 @@ class ReceiveCallback extends CI_Controller{
             
 
             
-            $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0);
+            $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);
 
         } catch (SmsException $ex) {
             //throws when failed sending or receiving the sms

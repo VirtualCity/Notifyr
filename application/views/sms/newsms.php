@@ -145,6 +145,12 @@
 
  
 <script type="text/javascript">
+
+    $("#template_id").change(function(){
+		var template= $("#template_id option:selected").attr("template");
+		$("#message").val(template);
+	}); 
+
    $(document).ready(function(){
         <?php if ($this->session->flashdata('appmsg')): ?>
             <?php $appmsg = $this->session->flashdata('appmsg'); ?>

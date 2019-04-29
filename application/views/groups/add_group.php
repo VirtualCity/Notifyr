@@ -18,7 +18,7 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-body">
-                <form action="<?php echo base_url('groups/add');?>" method="post" class="form-horizontal">
+                <form id="addgroupform" action="<?php echo base_url('groups/add');?>" method="post" class="form-horizontal">
 
                 <div class="row">
                     <div class="col-md-6 col-xs-6">
@@ -29,7 +29,7 @@
                     </div> 
                     <div class="col-md-6 col-xs-6">
                             <label > Factory  </label><span class="text-danger">*</span>
-                            <select name="factory_id" id="factory_id" class="form-control" >
+                            <select required name="factory_id" id="factory_id" class="form-control" >
                                 <option value="">-- Select Factory --</option>
                                 <?php
                                 if(!empty($factories)){
@@ -92,3 +92,8 @@
     });
 
 </script> 
+<script type="text/javascript">
+        $().ready(function(){
+			$('#addgroupform').validate();
+        });
+</script>

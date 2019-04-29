@@ -13,6 +13,8 @@ class Dashboard_model extends CI_Model{
     var $server;
 
     public function __construct(){
+        // $db2 = $this->load->database('extdb',TRUE);
+        // $this->db2 = $this->load->database('extdb', TRUE);
         $role = $this->session->userdata('role');
         $userfactory = $this->session->userdata('factory');
         if ($role === "SUPER_USER") {
@@ -30,6 +32,25 @@ class Dashboard_model extends CI_Model{
         }
         
     }
+
+    function getRecords(){
+ 
+     
+        // Select records from 1st database
+        $this->db2->select('*');
+        $q = $this->db2->get('products');
+        $result1 = $q->result_array();
+     
+    //     // // Select records from 2nd database
+    //     // $db2->select('*');
+    //     // $q = $db2->get('users');
+    //     // $result2 = $q->result_array();
+      
+        $response = array("response1"=>$result1);
+        return $response;
+      }
+
+    
 
     private function getSettings(){
         $CI =& get_instance();
@@ -108,6 +129,58 @@ class Dashboard_model extends CI_Model{
         
     }
 
+    function getSmsAccountBalance($apikey, $username){
+
+        $paramField = array(
+            "username" => $username,
+        );
+        
+        $arrayField = array(
+            'apiKey: '.$apikey,
+            'Content-Type: application/json',
+            'Accept: application/json'
+        );
+
+        $curl = curl_init();
+        $url = $this->server;
+
+        $method="GET";
+
+        switch ($method){
+            case "POST":
+                curl_setopt($curl, CURLOPT_POST, 1);
+                if ($paramField)
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $paramField);
+                break;
+            case "PUT":
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+                if ($paramField)
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $paramField);			 					
+                break;
+            default:
+                if ($paramField)
+                    $url = sprintf("%s?%s", $url, http_build_query($paramField));
+        }
+
+        // OPTIONS:
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $arrayField);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        
+        // EXECUTE:
+        $result = curl_exec($curl);
+        // print_r($arrayField);
+        // return;
+        if(!$result)
+        {
+            $result = 'Failed';
+        }
+        curl_close($curl);
+        return $result;
+        
+    }
+
     function sendRequest($jsonObjectFields){
         $ch = curl_init($this->server);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -119,6 +192,7 @@ class Dashboard_model extends CI_Model{
         curl_close($ch);
         return $this->handleResponse($res);
     }
+
 
     /*
         Get the response from sendRequest
@@ -570,7 +644,8 @@ class Dashboard_model extends CI_Model{
         $sourceAddress = "";
 
         $configurationData = $this->get_configuration_by_factory($factory);
-        if ($configurationData) {
+        if ($configurationData)
+        {
             $password = $configurationData->value2;
             $sourceAddress = $configurationData->value9;
 
@@ -580,10 +655,25 @@ class Dashboard_model extends CI_Model{
                 $deliveryStatusRequest = "0";
                 $charging_amount = "0";
                 $binary_header = "";
-                $res = $this->getSmsBalance($password, $sourceAddress);
-                return $res;
+                // $res = $this->getSmsBalance($password, $sourceAddress);
+                $res = $this->getSmsAccountBalance($password, $sourceAddress);
+                if ($res !== 'Failed') {
+
+                    $sms_rate = 0.85;
+                    $raw_balance = explode(' ', $res)[1];
+                    $converted_balance = (float)$raw_balance;
+                    $quotient = ($converted_balance/$sms_rate);
+                    $sms_count = round($quotient,0,PHP_ROUND_HALF_UP);
+                    return $sms_count;
+                    // return json_decode($res)->UserData->balance;
+                } else {
+                    return $res;
+                }
+                
+                
     
-            } catch (SmsException $ex) {
+            } catch (SmsException $ex)
+            {
                 log_message("info", "Status code error: " . $ex->getStatusCode());
                 log_message("info", "Status message error: " . $ex->getStatusMessage());
                 error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
