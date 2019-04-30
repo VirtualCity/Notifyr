@@ -21,14 +21,28 @@ class Contacts_model extends CI_Model{
     }
 
     function get_contact_by_msisdn($msisdn){
+
         $this->db->select('contacts.name as name,id_number,email,address,towns.name as town, msisdn, regions.name as region, contacts.factory_id as factory');
         $this->db->from('contacts');
         $this->db->where('msisdn',$msisdn);
-        $this->db->join('towns','contacts.town_id = towns.id');
-        $this->db->join('regions','contacts.region_id = regions.id');
-        $query = $this -> db -> get();
+        $this->db->join('towns','contacts.town_id = towns.id','left');
+        $this->db->join('regions','contacts.region_id = regions.id', 'left');
+        $query = $this->db->get();
 
-        if($query -> num_rows() > 0){
+        if($query->num_rows() > 0){
+            // return $query -> row();
+            return $query -> result();
+        }else{
+            return false;
+        }
+    }
+
+    function get_single_contact_by_msisdn($msisdn){
+        $this->db->select('msisdn,factory_id as factory');
+        $this->db->from('contacts');
+        $this->db->where('msisdn',$msisdn);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
             // return $query -> row();
             return $query -> result();
         }else{

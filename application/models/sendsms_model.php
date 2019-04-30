@@ -25,12 +25,16 @@ class Sendsms_model extends CI_Model
         $password = "";
         $sourceAddress = "";
         $configurationData ="";
+        $senderId = "";
 
-        if ($role === 'SUPER_USER') {
-            $configurationData = $this->get_configuration();
-        } else {
-            $configurationData = $this->get_configuration_by_factory($userfactory);
-        }
+        $configurationData = $this->get_configuration_by_factory($userfactory);
+
+        // if ($role === 'SUPER_USER') {
+        //     // $configurationData = $this->get_configuration();
+        //     $configurationData = $this->get_configuration_by_factory($userfactory);
+        // } else {
+        //     $configurationData = $this->get_configuration_by_factory($userfactory);
+        // }
         
         
         if ($configurationData) {
@@ -61,18 +65,32 @@ class Sendsms_model extends CI_Model
             //  log_message("info","Sending Parameters ".$responseMsg ." ". $destinationAddresses[0]." ". $password." ".$applicationId." ".$sourceAddress." ".$deliveryStatusRequest." ".$charging_amount." ".$encoding." ".$version." ".$binary_header);
             $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
 
-            $response = json_decode($res);
-            $server_response = $response->SMSMessageData->Recipients;
+            $check = is_object($res);
+            if ($check) {
+                // print("true");
+                $response = json_decode($res);
+                // $server_response = $res->SMSMessageData->Recipients;
+                $server_response = $response->SMSMessageData->Recipients;
 
-            //  print_r($server_response[0]);
+                //  print_r($server_response[0]);
 
-            log_message("info", "SDP response: " . $server_response[0]->statusCode);
-            //AFRICASTALKING for success ->statusCode =101, status=success
-            // if ($server_response[0]->status == 'Success')
-            if (count($server_response) > 0)
-                // return 'success';
-                return $server_response;
-            else return null;
+                log_message("info", "SDP response: " . $server_response[0]->statusCode);
+                //AFRICASTALKING for success ->statusCode =101, status=success
+                // if ($server_response[0]->status == 'Success')
+                if (count($server_response) > 0)
+                {
+                    return $server_response;
+                }
+                else
+                {
+                    return null;
+                }
+            } else {
+                return $res;
+            }
+
+            
+            
 
             //log_message("info", "SDP response " . var_export($res, true));
 

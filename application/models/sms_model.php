@@ -219,12 +219,11 @@ class Sms_model extends CI_Model{
         return false;
     }
 
-    function update_sms_status($msisdn,$messageId,$status){
+    function update_sms_status($messageId,$status){
         $data =  array(
             'status'=>$status
         );
         $this->db->where('message_id', $messageId);
-        // $this->db->where('sent_to', $msisdn);
         $query = $this->db->update('smsout', $data);
 
         if($query){

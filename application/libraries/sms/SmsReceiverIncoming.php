@@ -28,7 +28,7 @@ class SmsReceiverIncoming{
             // Success received response
             $responses = array("statusCode" => "200", "statusDetail" => "Success");
             header("Content-type: application/json");
-           echo json_encode($responses);
+        //    echo json_encode($responses);
         }
     }
 

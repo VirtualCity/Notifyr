@@ -48,6 +48,9 @@ class IncomingSmsCallback extends CI_Controller{
             $date = $receiver->getDate(); // get the version
 
 
+            // print($from);
+            // return;
+
             logFile("[ content=$content, from=$from, id=$id, linkId=$linkId, to=$to, date=$date ]");
             // //log_message("info","[ content=$content, address=$from, requestId=$requestId, applicationId=$applicationId, encoding=$encoding, version=$version ]");
 
@@ -65,13 +68,25 @@ class IncomingSmsCallback extends CI_Controller{
             $factoryId = "";
             $msg_group="";
             $message="";
-            $msisdn = $from;
 
+            $firstCharacter = substr($from, 0, 1);
+            if ($firstCharacter === '+') {
+                $msisdn = substr($from, 1);
+            } else {
+                $msisdn = $from;
+            }
+            
+
+        //    print($msisdn);
+        //    return;
+
+            // $contact1 = $this->contacts_model->get_single_contact_by_msisdn($msisdn);
             $contact1 = $this->contacts_model->get_contact_by_msisdn($msisdn);
+
             if($contact1){
                 $factoryId = $contact1[0]->factory;
                 $configurationData = $this->settings_m->get_configuration_by_factory($factoryId);
-            
+    
                 if($configurationData){
                     // $applicationId = $configurationData->value1;
                     $password = $configurationData->value2;
@@ -80,6 +95,8 @@ class IncomingSmsCallback extends CI_Controller{
                     $subscriptionKeyword = $configurationData->value6;
                     $unsubscriptionKeyword = $configurationData->value7;
                     $allowedPurchaseGroup = $configurationData->value8;
+                }else{
+                    $responseMsg = 'Failed to load configurations. Contact Administrator.';
                 }
 
             }
@@ -145,7 +162,9 @@ class IncomingSmsCallback extends CI_Controller{
                                     $responseMsg = 'Wrong Format! Kindly use the correct SMS format.';
                                 }
 
-                            } else {
+                            } 
+                            else 
+                            {
 
                                 $part2 = $split[1];//Service Word or Group Name or Reg or Unreg
                                 $part3 = $split[2];//Farmercode or Group Name or GROUP Message
@@ -391,14 +410,14 @@ class IncomingSmsCallback extends CI_Controller{
                                                 $message = substr($content,$minus);
 
                                                 //save received message for the group
-                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'SUBSCRIPTION',trim($part3),"AUTO-REPLIED");
+                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'SUBSCRIPTION',trim($part3),"AUTO-REPLIED",$factoryId);
 
                                                 if($groupLocked){
                                                     $responseMsg="Sorry! This group does not allow self subscription ";
                                                 }else{
                                                     if($saved){
                                                         //log_message("info","Subscription message logged to received messages");
-                                                        $responseMsg = $this->contacts_model->add_group_contacts(trim($part3),$msisdn,"","","","",null,null);
+                                                        $responseMsg = $this->contacts_model->add_group_contacts(trim($part3),$msisdn,"","","","",null,null,$factoryId);
                                                     }else{
                                                         $responseMsg="System error. Please try again ";
                                                         //log_message("info",$responseMsg." Failed to save subscriber to contacts");
@@ -465,11 +484,15 @@ class IncomingSmsCallback extends CI_Controller{
                                 }
 
                             }
-                     }else{
+                    }
+                    else
+                    {
                         $responseMsg = "Invalid Keyword.";
                     }
 
-                }else{
+                }
+                else
+                {
                     $responseMsg = "Invalid message format!";
                     //log_message("info", "Invalid Message Format. Keyword and content missing");
                 }
@@ -484,11 +507,12 @@ class IncomingSmsCallback extends CI_Controller{
 
             // Create the sender object server url
 
-            echo json_encode($responseMsg);
+            // echo json_encode($responseMsg);
             
 
             
             $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);
+            $this->sendsms_model->send_sms($msisdn, $responseMsg);
 
         } catch (SmsException $ex) {
             //throws when failed sending or receiving the sms

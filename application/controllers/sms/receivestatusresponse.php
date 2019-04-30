@@ -47,8 +47,8 @@ class ReceiveStatusResponse extends CI_Controller{
 
             $check = $resp = $this->sms_model->findByMessageId($messageId);
 
-            if ($check == true) {
-                $resp = $this->sms_model->update_sms_status($phoneNumber,$messageId,$status);
+            if ($check === true) {
+                $resp = $this->sms_model->update_sms_status($messageId,$status);
                 echo json_encode($resp);
                 return $resp;
             }else{

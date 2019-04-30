@@ -29,10 +29,7 @@ class SmsSender{
         if(!empty($settings[0]->value5)){
             $this->server = $settings[0]->value5;
         }else{
-            // $this->server = "http://api.hewani.co.ke:7000/sms/send";
 
-            //use this for local testing
-            //$this->server = "http://localhost:7000/sms/send";
         }
         
     }
@@ -46,9 +43,9 @@ class SmsSender{
     public function sms($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
         log_message("info","Sms Sender sms function" );
         if (is_array($addresses)) {
-            return $this->smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
-        } else if (is_string($addresses) && trim($addresses) != "") {
-            return $this->smsMany($message, array($addresses), $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
+            return $this->smsMany1($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
+        } else if (is_string($addresses) && trim($addresses) !== "") {
+            return $this->smsMany1($message, array($addresses), $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
         } else {
             throw new Exception("address should be a string or a array of strings");
         }
@@ -61,28 +58,67 @@ class SmsSender{
         Send json to sendRequest
     **/
 
-    private function smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
+    // private function smsMany($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
 
+    //     $arrayField = array(
+    //         "applicationId" => $applicationId,
+    //         "password" => $password,
+    //         "senderId" =>$senderId,
+    //         "message" => $message,
+    //         "deliveryStatusRequest" => $deliveryStatusRequest,
+    //         "recipients" => $addresses,
+    //         "sourceAddress" => $sourceAddress,
+    //         "chargingAmount" => $charging_amount,
+    //         "encoding" => $encoding,
+    //         "version" => $version,
+    //         "binaryHeader" => $binary_header,
+    //         "apiKey"=>$password
+    //     );
+
+    //     $jsonObjectFields = json_encode($arrayField);
+
+    //     log_message("info",$jsonObjectFields );
+    //     return $this->sendRequest($jsonObjectFields);
+    // }
+
+
+
+
+
+    private function smsMany1($message, $addresses, $apikey, $applicationId, $username, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
+        $address_string = "";
+        if (is_array($addresses)) {
+            $address_string = implode(",",$addresses);
+            $address_string = rtrim($address_string);
+        } else {
+            $address_string = $addresses;
+        }
+        
+        $paramField = array(
+            "username" => urlencode( $username),
+            "to"=> urlencode($address_string),
+            "from"=> urlencode($senderId),
+            "message"=> urlencode($message),
+            "bulkSMSMode"=> urlencode(1),
+            "enqueue"=> urlencode(0),
+            "keyword"=> urlencode(""),
+            "linkId"=> urlencode(""),
+            "retryDurationInHours"=> urlencode(1)
+        );
+        
         $arrayField = array(
-            "applicationId" => $applicationId,
-            "password" => $password,
-            "senderId" =>$senderId,
-            "message" => $message,
-            "deliveryStatusRequest" => $deliveryStatusRequest,
-            "recipients" => $addresses,
-            "sourceAddress" => $sourceAddress,
-            "chargingAmount" => $charging_amount,
-            "encoding" => $encoding,
-            "version" => $version,
-            "binaryHeader" => $binary_header,
-            "apiKey"=>$password
+            'apiKey: '.$apikey,
+            'Content-Type: application/x-www-form-urlencoded',
+            'Accept: application/json'
         );
 
-        $jsonObjectFields = json_encode($arrayField);
+        $jsonObjectFields = json_encode($paramField);
+        // print_r($jsonObjectFields);
+        // return;
+        return $this->sendRequestnew($paramField, $arrayField);
 
-        log_message("info",$jsonObjectFields );
-        return $this->sendRequest($jsonObjectFields);
-    }
+     }
+
 
     /*
         Get the json request from smsMany
@@ -90,17 +126,38 @@ class SmsSender{
         Send the response to handleResponse
     **/
 
-    private function sendRequest($jsonObjectFields){
+    private function sendRequestnew($jsonObjectFields, $arrayFields){
         $ch = curl_init($this->server);
+        $fields_string = "";
+        // $fields = json_decode($jsonObjectFields);
+        foreach($jsonObjectFields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+        rtrim($fields_string, '&');
+
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonObjectFields);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $arrayFields);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
+        $response['content'] = curl_exec($ch);  
+        $response['statuscode'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            // print_r($res);
+            // return;
         curl_close($ch);
         return $this->handleResponse($res);
     }
+
+    // private function sendRequest($jsonObjectFields){
+    //     $ch = curl_init($this->server);
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($ch, CURLOPT_POST, 1);
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonObjectFields);
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     $res = curl_exec($ch);
+    //     curl_close($ch);
+    //     return $this->handleResponse($res);
+    // }
 
     /*
         Get the response from sendRequest

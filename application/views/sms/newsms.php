@@ -3,7 +3,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
              <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-             <li><a href="<?=base_url('sms/pendingbulksms')?>"><i class="fa fa-dashboard"></i> SMS</a></li>
+             <li><a href="<?=base_url('sms/pendingbulksms')?>"><i class="ti ti-comment"></i> SMS</a></li>
             <li class="active">New SMS</li>
         </ol>
     </div>
@@ -21,7 +21,7 @@
                                 <label>Mobile Number </label><span class="text-danger"> *</span>
                             </div>
                             <div class="col-md-10 col-xs-12">
-                                <input required number="true" type="text" name="msisdn" id="msisdn" placeholder="2547..." class="form-control" value="<?php echo $msisdn;?>"/>
+                                <input required number="true" type="text" name="msisdn" id="msisdn" placeholder="e.g. 2547... or 2507... etc" class="form-control" value="<?php echo $msisdn;?>"/>
                                 <span class="text-danger">  <?php echo form_error('msisdn'); ?> </span>
                             </div>
                         </div>
@@ -69,6 +69,7 @@
                     <!-- ----------------------------------------------------------- -->
 
                     <br>
+                    <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
                     <script type="text/JavaScript">
 
                     $("#template_id").change(function(){
@@ -141,7 +142,7 @@
 </div>
 </div>
 <!-- end #content -->
-<script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script>
+<!-- <script src="<?php echo base_url()?>assets/js/jquery.min.js" type="text/javascript"></script> -->
 
  
 <script type="text/javascript">

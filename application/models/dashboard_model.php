@@ -170,8 +170,6 @@ class Dashboard_model extends CI_Model{
         
         // EXECUTE:
         $result = curl_exec($curl);
-        // print_r($arrayField);
-        // return;
         if(!$result)
         {
             $result = 'Failed';

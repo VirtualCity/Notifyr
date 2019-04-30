@@ -21,6 +21,17 @@ class Newsms extends Admin_Controller {
 		$this->load->helper('buttons_helper');
 	}
 
+	// private function isJson($string) {
+	// 	return ((is_string($string) &&
+	// 			(is_object(json_decode($string)) ||
+	// 			is_array(json_decode($string))))) ? true : false;
+	// }
+
+	private function isJson($string) {
+		json_decode($string);
+		return (json_last_error() == JSON_ERROR_NONE);
+	   }
+
 	public function index() 
 	{
 		//check if user and redirect to dashboard
@@ -59,10 +70,12 @@ class Newsms extends Admin_Controller {
 				$smstype = 'Individual';
 
 				if ($role === 'SUPER_ADMIN') {
-					$config = $this->settings_m->get_configuration();
+					$config = $this->settings_m->get_configuration($userfactory);
+					// $config = $this->settings_m->get_configuration();
 				} else {
 					$config = $this->settings_m->get_configuration($userfactory);
 				}
+				
 				
 				
 
@@ -157,23 +170,34 @@ class Newsms extends Admin_Controller {
 					//Send message
 					//$recipients = array('tel:' . $msisdn);
 					$recipients = array($msisdn);
+
 					$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
-					// print_r($msg_sent);
-						// return;
+					$check = $this->isJson($msg_sent);
+					// print_r(json_decode($msg_sent)->SMSMessageData->Recipients);
+					// if ($check) {
+					// 	print("true");
+					// } else {
+					// 	print("false");
+					// }
+					// return;
+					
+					
 					log_message("info", "Sending status: " . $msg_sent);
 
-					if ($msg_sent !== null && $msg_sent !== 'fail') {
+					if ($msg_sent !== null && $msg_sent !== 'fail' && $check) {
 						
 						$success = 0;
 						$failed = 0;
-						
+						$smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
 						//loop through the result if it contains more than one object and save each response
-						foreach ($msg_sent as $key => $value) {
+						foreach ($smsresponse as $key => $value) {
 							if ($value->status == 'Success') {
 								$success++;
 								$status = 'Sent';
 								$phoneNumber = substr($value->number, 1);
 								$this->sms_model-> save_sms($phoneNumber, "Individual", $message, $userid, $value->messageId,$status,$userfactory);
+								// print($phoneNumber);
+								// return;
 							}else{
 								$failed++;
 								log_message("info", "Sending status code: " . $value->Status);
@@ -187,13 +211,13 @@ class Newsms extends Admin_Controller {
 						$this->session->set_flashdata('alert_type_', 'success');
 
 						//save sms
-						$userid = $this -> session -> userdata('id');
+						$userid = $this->session->userdata('id');
 						// $this -> sms_model -> save_sms($msisdn, "Individual", $message, $userid);
 
 						redirect('sms/newsms');
 					} else {
 						// Display fail message
-						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed. . Check Your Network Connection');
+						$this -> session -> set_flashdata('appmsg', 'Message to ' . $msisdn . ' failed. '.$msg_sent.' Check Your Network Connection');
 						$this -> session -> set_flashdata('alert_type', 'alert-danger');
 						$this -> session -> set_flashdata('alert_type_', 'error');
 						redirect('sms/newsms');
