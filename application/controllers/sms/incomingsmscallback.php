@@ -11,6 +11,7 @@ class IncomingSmsCallback extends CI_Controller{
     function __construct(){
         parent::__construct();
         $this->load->helper('text');
+        $this->load->library('sms/SmsSender.php');
         $this->load->model('groups_model');
         $this->load->model('sms_model');
         $this->load->model('sendsms_model');
@@ -20,10 +21,31 @@ class IncomingSmsCallback extends CI_Controller{
         $this->load->model('blacklist_model');
         ini_set('error_log', 'sms-app-error.log');
 
+        
+		$this->load->model('template_model');
+
         $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
         $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    }
+
+    private function create_proper_recipients($from){
+        $formatted_from = "";
+        $msisdn = "";
+        $array_recipients =[];
+        $array_recipients = explode(",", $from);
+        foreach ($array_recipients as $key => $value) {
+            $firstCharacter = substr($value, 0, 1);
+            if ($firstCharacter === '+') {
+                $msisdn = substr($from, 1);
+            } else {
+                $msisdn = $value;
+            }
+            $formatted_from .=$value.",";
+        }
+
+        return rtrim($formatted_from, ",");
     }
 
     //Hsenid API
@@ -31,13 +53,11 @@ class IncomingSmsCallback extends CI_Controller{
         $this->load->library('sms/SmsReceiverIncoming.php');
         $this->load->library('sms/SmsSender.php');
         $this->load->library('sms/log.php');
+        $msisdn1 = "";
 
 
         try {
 
-
-
-            // $receiver = new SmsReceiver(); // Create the Receiver object
             $receiver = new SmsReceiverIncoming();
 
             $content = $receiver->getMessage(); // get the message content
@@ -46,9 +66,8 @@ class IncomingSmsCallback extends CI_Controller{
             $linkId = $receiver->getLinkId(); // get application ID
             $to = $receiver->getTo(); // get the encoding value
             $date = $receiver->getDate(); // get the version
-
-
-            // print($from);
+            // print($content);
+            // // echo json_encode($msg_sent);
             // return;
 
             logFile("[ content=$content, from=$from, id=$id, linkId=$linkId, to=$to, date=$date ]");
@@ -61,7 +80,9 @@ class IncomingSmsCallback extends CI_Controller{
             $sourceKeyword ="";
             $subscriptionKeyword="";
             $unsubscriptionKeyword="";
-            $allowedPurchaseGroup="";         
+            $allowedPurchaseGroup="";     
+            
+            $senderId = "";
 
 
             $responseMsg="";
@@ -77,10 +98,6 @@ class IncomingSmsCallback extends CI_Controller{
             }
             
 
-        //    print($msisdn);
-        //    return;
-
-            // $contact1 = $this->contacts_model->get_single_contact_by_msisdn($msisdn);
             $contact1 = $this->contacts_model->get_contact_by_msisdn($msisdn);
 
             if($contact1){
@@ -95,6 +112,9 @@ class IncomingSmsCallback extends CI_Controller{
                     $subscriptionKeyword = $configurationData->value6;
                     $unsubscriptionKeyword = $configurationData->value7;
                     $allowedPurchaseGroup = $configurationData->value8;
+
+                    $applicationId = $configurationData->value1;
+                    $senderId = $configurationData->value3;
                 }else{
                     $responseMsg = 'Failed to load configurations. Contact Administrator.';
                 }
@@ -507,19 +527,88 @@ class IncomingSmsCallback extends CI_Controller{
 
             // Create the sender object server url
 
-            // echo json_encode($responseMsg);
             
+            $msisdn1 = array($msisdn);
+            // echo json_encode($msisdn1);
+            // return;
+           
 
-            
-            $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);
-            $this->sendsms_model->send_sms($msisdn, $responseMsg);
+
+            try {
+                $msg_sent = $this->send_sms_msg($msisdn1, $responseMsg, $factoryId, $senderId, $applicationId, $password, $sourceAddress);
+                // echo json_encode($msg_sent);
+                $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);
+                logFile("[ Sending status: = json_encode($msg_sent) ]");
+            } catch (SmsException $th) {
+                logFile("[ Sending status: = Failed to send ]");
+            }
+            						
+        
+          
+        } catch (SmsException $ex) {
+            logFile("[ ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()} ]");
+            error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+        }
+    }
+
+
+    private function send_sms_msg($destination, $msg, $factory,$sender_id, $appId, $pass, $soureadd)
+    {
+        ini_set('error_log', 'sms-app-error.log');
+        $this->load->helper('text');
+        $this->load->library('sms/log.php');
+        $userfactory = $factory;
+
+        //SDP Configuration
+
+        $applicationId1 = $appId;
+        $password = $pass;
+        $sourceAddress = $soureadd;
+        // $configurationData ="";
+        $senderId = $sender_id;
+
+
+        log_message('info', 'Message to send: ' . $msg);
+
+        try {
+
+            // Create the sender object server url
+            $sender = new SmsSender($userfactory);
+
+            $encoding = "0";
+            $version = "1.0";
+            $deliveryStatusRequest = "0";
+            $charging_amount = "0";
+            // $destinationAddresses = $destination;
+            $binary_header = "";
+            $res = $sender->sms($msg, $destination, $password, $applicationId1, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
+
+            $check = $this->isJson($res);
+            if ($check) {
+                $response = json_decode($res);
+                $server_response = $response->SMSMessageData->Recipients;
+                logFile("[ server_response_at_incomingsmscallback=$$server_response]");
+                log_message("info", "SDP response: " . $server_response[0]->statusCode);
+                    return $server_response;
+            } else {
+                return $res;
+            }
+
 
         } catch (SmsException $ex) {
             //throws when failed sending or receiving the sms
-            //log_message("info","Error Code: ".$ex->getStatusCode());
-            //log_message("error","Error Message: ".$ex->getStatusMessage());
+            log_message("info", "Status code error: " . $ex->getStatusCode());
+            log_message("info", "Status message error: " . $ex->getStatusMessage());
             error_log("ERROR: {$ex->getStatusCode()} | {$ex->getStatusMessage()}");
+            return "fail";
         }
+
+    }
+
+    private function isJson($string) 
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
     }
 
 

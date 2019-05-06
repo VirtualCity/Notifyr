@@ -166,21 +166,15 @@ class Newsms extends Admin_Controller {
 						}
 					}
 					
-				}else{
+				}
+				else
+				{
 					//Send message
 					//$recipients = array('tel:' . $msisdn);
 					$recipients = array($msisdn);
 
 					$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
-					$check = $this->isJson($msg_sent);
-					// print_r(json_decode($msg_sent)->SMSMessageData->Recipients);
-					// if ($check) {
-					// 	print("true");
-					// } else {
-					// 	print("false");
-					// }
-					// return;
-					
+					$check = $this->isJson($msg_sent);					
 					
 					log_message("info", "Sending status: " . $msg_sent);
 

@@ -42,11 +42,16 @@ class SmsSender{
 
     public function sms($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId){
         log_message("info","Sms Sender sms function" );
-        if (is_array($addresses)) {
+        if (is_array($addresses) || (is_string($addresses) && trim($addresses) !== "") ) 
+        {
             return $this->smsMany1($message, $addresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
-        } else if (is_string($addresses) && trim($addresses) !== "") {
+        } 
+        else if (is_string($addresses) && trim($addresses) !== "") 
+        {
             return $this->smsMany1($message, array($addresses), $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
-        } else {
+        } 
+        else
+        {
             throw new Exception("address should be a string or a array of strings");
         }
     }
@@ -130,7 +135,10 @@ class SmsSender{
         $ch = curl_init($this->server);
         $fields_string = "";
         // $fields = json_decode($jsonObjectFields);
-        foreach($jsonObjectFields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+        foreach($jsonObjectFields as $key=>$value)
+        { 
+            $fields_string .= $key.'='.$value.'&';
+        }
         rtrim($fields_string, '&');
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -139,12 +147,11 @@ class SmsSender{
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
-        $response['content'] = curl_exec($ch);  
-        $response['statuscode'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            // print_r($res);
-            // return;
+        // $response['content'] = curl_exec($ch);  
+        // $response['statuscode'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        return $this->handleResponse($res);
+        return $res;
+        // return $this->handleResponse($res);
     }
 
     // private function sendRequest($jsonObjectFields){

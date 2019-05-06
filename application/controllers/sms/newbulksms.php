@@ -20,6 +20,12 @@ class Newbulksms extends Admin_Controller {
         $this->load->model('settings_m');
     }
 
+    private function isJson($string) 
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
+
     public function index()
     {
         //check if user and redirect to dashboard
@@ -126,15 +132,31 @@ class Newbulksms extends Admin_Controller {
 
                                     //send sms
                                     $msg_sent1= $this->sendsms_model->send_sms($value,$message);
-                                    if ($msg_sent1 !== null) {
-                                        //loop through the result if it contains more than one object and save each response
-                                        foreach ($msg_sent1 as $key => $value) {
-                                            if ($value->status == 'Success') {
+                                    // if ($msg_sent1 !== null) {
+                                    //     //loop through the result if it contains more than one object and save each response
+                                    //     foreach ($msg_sent1 as $key => $value) {
+                                        $check = $this->isJson($msg_sent);					
+					
+                                        log_message("info", "Sending status: " . $msg_sent);
+
+                                if ($msg_sent !== null && $msg_sent !== 'fail' && $check) 
+                                    {
+                                            
+                                            $success = 0;
+                                            $failed = 0;
+                                            $smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
+                                            //loop through the result if it contains more than one object and save each response
+                                        foreach ($smsresponse as $key => $value)
+                                        {
+                                            if ($value->status == 'Success')
+                                            {
                                                 $success1++;
                                                 $status = 'Sent';
                                                 $phoneNumber = substr($value->number, 1);
                                                 $this->sms_model->save_bulksms($phoneNumber, $group_details->name, $message, $this->session->userdata('id'),$value->messageId,$status,$userfactory);
-                                            }else{
+                                            }
+                                            else
+                                            {
                                                 $failed1++;
                                                 log_message("info", "Sending status code: " . $value->Status);
                                             }

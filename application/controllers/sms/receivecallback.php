@@ -403,14 +403,14 @@ class ReceiveCallback extends CI_Controller{
                                                 $message = substr($content,$minus);
 
                                                 //save received message for the group
-                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'SUBSCRIPTION',trim($part3),"AUTO-REPLIED");
+                                                $saved = $this->sms_model->save_received_sms($msisdn,trim($message),'SUBSCRIPTION',trim($part3),"AUTO-REPLIED",$factoryId);
 
                                                 if($groupLocked){
                                                     $responseMsg="Sorry! This group does not allow self subscription ";
                                                 }else{
                                                     if($saved){
                                                         //log_message("info","Subscription message logged to received messages");
-                                                        $responseMsg = $this->contacts_model->add_group_contacts(trim($part3),$msisdn,"","","","",null,null);
+                                                        $responseMsg = $this->contacts_model->add_group_contacts(trim($part3),$msisdn,"","","","",null,null,$factoryId);
                                                     }else{
                                                         $responseMsg="System error. Please try again ";
                                                         //log_message("info",$responseMsg." Failed to save subscriber to contacts");
@@ -496,11 +496,12 @@ class ReceiveCallback extends CI_Controller{
 
             // Create the sender object server url
 
-            echo json_encode($responseMsg);
+            // echo json_encode($responseMsg);
             
 
             
             $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);
+            echo json_encode($responseMsg);
 
         } catch (SmsException $ex) {
             //throws when failed sending or receiving the sms

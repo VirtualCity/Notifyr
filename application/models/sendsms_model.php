@@ -9,8 +9,17 @@
 class Sendsms_model extends CI_Model
 {
 
+    private function isJson($string) 
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
+
     function send_sms($destination, $msg)
     {
+        ini_set('error_log', 'sms-app-error.log');
+        $this->load->helper('text');
+        $this->load->library('sms/log.php');
 
         /* $this->load->library('sms/SmsSender.php');
          $this->load->library('sms/log.php');*/
@@ -28,15 +37,12 @@ class Sendsms_model extends CI_Model
         $senderId = "";
 
         $configurationData = $this->get_configuration_by_factory($userfactory);
-
         // if ($role === 'SUPER_USER') {
         //     // $configurationData = $this->get_configuration();
         //     $configurationData = $this->get_configuration_by_factory($userfactory);
         // } else {
         //     $configurationData = $this->get_configuration_by_factory($userfactory);
         // }
-        
-        
         if ($configurationData) {
             $applicationId = $configurationData->value1;
             $senderId = $configurationData->value3;
@@ -54,8 +60,6 @@ class Sendsms_model extends CI_Model
             $sender = new SmsSender($userfactory);
 
             //sending a one message
-
-
             $encoding = "0";
             $version = "1.0";
             $deliveryStatusRequest = "0";
@@ -65,7 +69,7 @@ class Sendsms_model extends CI_Model
             //  log_message("info","Sending Parameters ".$responseMsg ." ". $destinationAddresses[0]." ". $password." ".$applicationId." ".$sourceAddress." ".$deliveryStatusRequest." ".$charging_amount." ".$encoding." ".$version." ".$binary_header);
             $res = $sender->sms($responseMsg, $destinationAddresses, $password, $applicationId, $sourceAddress, $deliveryStatusRequest, $charging_amount, $encoding, $version, $binary_header,$senderId);
 
-            $check = is_object($res);
+            $check = $this->isJson($res);
             if ($check) {
                 // print("true");
                 $response = json_decode($res);
@@ -73,18 +77,18 @@ class Sendsms_model extends CI_Model
                 $server_response = $response->SMSMessageData->Recipients;
 
                 //  print_r($server_response[0]);
-
+                logFile("[ server_response_at_sendsms_model=$$server_response]");
                 log_message("info", "SDP response: " . $server_response[0]->statusCode);
                 //AFRICASTALKING for success ->statusCode =101, status=success
                 // if ($server_response[0]->status == 'Success')
-                if (count($server_response) > 0)
-                {
+                // if (count($server_response) > 0)
+                // {
                     return $server_response;
-                }
-                else
-                {
-                    return null;
-                }
+                // }
+                // else
+                // {
+                //     return null;
+                // }
             } else {
                 return $res;
             }
