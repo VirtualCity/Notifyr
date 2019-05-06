@@ -538,7 +538,7 @@ class IncomingSmsCallback extends CI_Controller{
                 $msg_sent = $this->send_sms_msg($msisdn1, $responseMsg, $factoryId, $senderId, $applicationId, $password, $sourceAddress);
                 // echo json_encode($msg_sent);
                 $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);
-                logFile("[ Sending status: = json_encode($msg_sent) ]");
+                // logFile("[ Sending status: $msg_sent ]");
             } catch (SmsException $th) {
                 logFile("[ Sending status: = Failed to send ]");
             }
@@ -587,7 +587,7 @@ class IncomingSmsCallback extends CI_Controller{
             if ($check) {
                 $response = json_decode($res);
                 $server_response = $response->SMSMessageData->Recipients;
-                logFile("[ server_response_at_incomingsmscallback=$$server_response]");
+                // logFile("[ server_response_at_incomingsmscallback= $server_response]");
                 log_message("info", "SDP response: " . $server_response[0]->statusCode);
                     return $server_response;
             } else {
