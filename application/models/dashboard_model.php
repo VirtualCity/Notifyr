@@ -30,6 +30,7 @@ class Dashboard_model extends CI_Model{
         }else{
             
         }
+        ini_set('error_log', 'sms-app-error.log');
         
     }
 
@@ -170,6 +171,8 @@ class Dashboard_model extends CI_Model{
         
         // EXECUTE:
         $result = curl_exec($curl);
+        // print_r($result);
+        // return;
         if(!$result)
         {
             $result = 'Failed';
@@ -656,9 +659,13 @@ class Dashboard_model extends CI_Model{
                 // $res = $this->getSmsBalance($password, $sourceAddress);
                 $res = $this->getSmsAccountBalance($password, $sourceAddress);
                 if ($res !== 'Failed') {
-
                     $sms_rate = 0.85;
-                    $raw_balance = explode(' ', $res)[1];
+                    // $raw_balance = explode(" ", json_decode($res)->UserData->balance)[1];
+                    $raw_balance = explode(" ",json_decode($res)->UserData->balance)[1];
+                    // logFile("[ Balance: $raw_balance ]");
+                    // print(explode(" ",json_decode($res)->UserData->balance)[1]);
+                    // print($raw_balance);
+                    // return;
                     $converted_balance = (float)$raw_balance;
                     $quotient = ($converted_balance/$sms_rate);
                     $sms_count = round($quotient,0,PHP_ROUND_HALF_UP);
