@@ -63,6 +63,18 @@
 				<div class="collapse" id="mapsExamples">
 					<ul class="nav">
 						<li>
+							<a href="<?=base_url('sms/newsms')?>">
+								<span class="sidebar-mini">SS</span>
+								<span class="sidebar-normal">Single SMS</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?=base_url('sms/newbulksms')?>">
+								<span class="sidebar-mini">BS</span>
+								<span class="sidebar-normal">Bulk SMS</span>
+							</a>
+						</li>
+						<li>
 							<a href="<?=base_url('sms/pendingbulksms')?>">
 								<span class="sidebar-mini">PS</span>
 								<span class="sidebar-normal">Pending SMS</span>
@@ -151,7 +163,7 @@
 			<li>
 				<a data-toggle="collapse" href="#factories">
 					<i class="ti-home"></i>
-					<p>Factories
+					<p>Enterprises
 						<b class="caret"></b>
 					</p>
 				</a>
@@ -160,19 +172,19 @@
 						<li>
 							<a href="<?=base_url('factories')?>">
 								<span class="sidebar-mini">VF</span>
-								<span class="sidebar-normal">View Factories</span>
+								<span class="sidebar-normal">View Enterprises</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?=base_url('factories/import')?>">
 								<span class="sidebar-mini">IF</span>
-								<span class="sidebar-normal">Import Factory</span>
+								<span class="sidebar-normal">Import Enterprises</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?=base_url('factories/factory_usage_report')?>">
 								<span class="sidebar-mini">UR</span>
-								<span class="sidebar-normal">Usage Report</span>
+								<span class="sidebar-normal">Usage Enterprises</span>
 							</a>
 						</li>
 					</ul>

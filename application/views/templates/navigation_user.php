@@ -63,6 +63,18 @@
 	                    <div class="collapse" id="mapsExamples">
 							<ul class="nav">
 								<li>
+									<a href="<?=base_url('sms/newsms')?>">
+										<span class="sidebar-mini">SS</span>
+										<span class="sidebar-normal">Single SMS</span>
+									</a>
+								</li>
+								<li>
+									<a href="<?=base_url('sms/newbulksms')?>">
+										<span class="sidebar-mini">BS</span>
+										<span class="sidebar-normal">Bulk SMS</span>
+									</a>
+								</li>
+								<li>
 									<a href="<?=base_url('sms/pendingbulksms')?>">
 										<span class="sidebar-mini">PS</span>
 										<span class="sidebar-normal">Pending SMS</span>

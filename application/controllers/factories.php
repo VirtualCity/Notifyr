@@ -21,7 +21,7 @@ class Factories extends Admin_Controller{
 
     function index(){
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Factories";
+        $data['title'] = "Enterprises";
         $data['mainContent']='factory/view_factories';
         $this->load->view('templates/template',$data); 
     }
@@ -51,7 +51,7 @@ class Factories extends Admin_Controller{
     function factory_usage_report(){
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Factory Usage Reports";
+        $data['title'] = "Enterprise Usage Reports";
         $data['mainContent']='factory/view_factories_report';
         $this->load->view('templates/template',$data); 
 
@@ -115,8 +115,8 @@ class Factories extends Admin_Controller{
         $factoryCode="";
 
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('factoryName', 'Factory Name', 'required|max_length[50]|is_unique[factories.name]');
-        $this->form_validation->set_rules('factoryCode', 'Factory Code', 'alpha_dash|max_length[20]|is_unique[factories.code]');
+        $this->form_validation->set_rules('factoryName', 'Enterprise Name', 'required|max_length[50]|is_unique[factories.name]');
+        $this->form_validation->set_rules('factoryCode', 'Enterprise Code', 'alpha_dash|max_length[20]|is_unique[factories.code]');
         $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
         $this->form_validation->set_message('is_unique', 'The %s already exists');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -134,14 +134,14 @@ class Factories extends Admin_Controller{
                 $saved = $this->factories_model->add_factory($factoryName,$factoryCode,$region_id);
                 if($saved){
                     // Display success message
-                    $this->session->set_flashdata('appmsg', 'Factory added successfully!');
+                    $this->session->set_flashdata('appmsg', 'Enterprise added successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
                     $this->session->set_flashdata('alert_type_', 'success');
                     redirect('factories/add');
 
                 }else{
                     // Display fail message
-                    $this->session->set_flashdata('appmsg', 'Factory NOT added! Check logs');
+                    $this->session->set_flashdata('appmsg', 'Enterprise NOT added! Check logs');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories/add');
@@ -160,7 +160,7 @@ class Factories extends Admin_Controller{
         $data['factoryCode'] =$factoryCode;
         $data['region_id'] =$region_id;
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Add Factory";
+        $data['title'] = "Add Enterprise";
         $data['mainContent']='factory/add_factory';
         $this->load->view('templates/template',$data); 
     }
@@ -189,7 +189,7 @@ class Factories extends Admin_Controller{
         $regions = $this->regions_m->get_all_regions();
         $data['regions'] = $regions;
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Edit Factory";
+        $data['title'] = "Edit Enterprise";
         $data['mainContent']='factory/edit_factory';
         $this->load->view('templates/template',$data);
     }
@@ -197,12 +197,12 @@ class Factories extends Admin_Controller{
     function modify(){
 
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('factoryName', 'Factory Name', 'required|max_length[50]');
-        $this->form_validation->set_rules('factoryCode', 'Factory Code', 'alpha_dash|max_length[20]');
+        $this->form_validation->set_rules('factoryName', 'Enterprise Name', 'required|max_length[50]');
+        $this->form_validation->set_rules('factoryCode', 'Enterprise Code', 'alpha_dash|max_length[20]');
         $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
 
-        // $this->form_validation->set_rules('factoryName', 'Factory Name', 'required|max_length[50]');
-        // $this->form_validation->set_rules('code', 'Factory Code', 'alpha_dash|max_length[20]');
+        // $this->form_validation->set_rules('factoryName', 'Enterprise Name', 'required|max_length[50]');
+        // $this->form_validation->set_rules('code', 'Enterprise Code', 'alpha_dash|max_length[20]');
         // $this->form_validation->set_rules('region_id', 'Region', 'required|numeric');
 
         // has the form been submitted
@@ -221,13 +221,13 @@ class Factories extends Admin_Controller{
                 $code_exists = $this->factories_model->verify_factory($id,$code);
                 if($factory_exists){
                     //return fail. factoryName name already in use
-                    $this->session->set_flashdata('appmsg', 'This Factory "'.$factoryName.'" already exists');
+                    $this->session->set_flashdata('appmsg', 'This Enterprise "'.$factoryName.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories/edit/'.$id);
                 }elseif($code_exists){
                     //return fail. factoryName name already in use
-                    $this->session->set_flashdata('appmsg', 'This Factory Code"'.$code.'" already exists');
+                    $this->session->set_flashdata('appmsg', 'This Enterprise Code"'.$code.'" already exists');
                     $this->session->set_flashdata('alert_type', 'alert-danger');
                     $this->session->set_flashdata('alert_type_', 'error');
                     redirect('factories/edit/'.$id);
@@ -237,14 +237,14 @@ class Factories extends Admin_Controller{
 
                     if($saved){
                         // Display success message
-                        $this->session->set_flashdata('appmsg', 'Factory updated successfully!');
+                        $this->session->set_flashdata('appmsg', 'Enterprise updated successfully!');
                         $this->session->set_flashdata('alert_type', 'alert-success');
                         $this->session->set_flashdata('alert_type_', 'success');
                         redirect('factories');
 
                     }else{
                         // Display fail message
-                        $this->session->set_flashdata('appmsg', 'Factory NOT updated! Check logs');
+                        $this->session->set_flashdata('appmsg', 'Enterprise NOT updated! Check logs');
                         $this->session->set_flashdata('alert_type', 'alert-danger');
                         $this->session->set_flashdata('alert_type_', 'error');
                         redirect('factories');
@@ -368,7 +368,7 @@ class Factories extends Admin_Controller{
 
         $data['base']=$this->config->item('base_url');
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Factory Summary for " . $factory_name;
+        $data['title'] = "Enterprise Summary for " . $factory_name;
         $data['mainContent']='factory/factory_dashboard';
         $this->load->view('templates/template',$data);
         
@@ -423,7 +423,7 @@ class Factories extends Admin_Controller{
             // Display success message
             $this->session->set_flashdata('existing', $existing_regions);
             $this->session->set_flashdata('notimported', $notImported);
-            $this->session->set_flashdata('appmsg', 'Factories imported: '.$importedNo);
+            $this->session->set_flashdata('appmsg', 'Enterprises imported: '.$importedNo);
             $this->session->set_flashdata('alert_type', 'alert-success');
             $this->session->set_flashdata('alert_type_', 'success');
             redirect('factories/import');
@@ -468,7 +468,7 @@ class Factories extends Admin_Controller{
             $factoryRegion = trim($factoryData[2]);
 
             if ($factoryName != null AND $factoryRegion!=null) {
-                log_message('info', 'Excel Factory Name: ' . $factoryName . '. Region: ' . $factoryRegion);
+                log_message('info', 'Excel Enterprise Name: ' . $factoryName . '. Region: ' . $factoryRegion);
 
                 $regionId = $this->regions_m->getAddRegionId($factoryRegion);
                 $factoryexists = $this->factories_model->check_factory_region($factoryName,$regionId);
@@ -520,14 +520,14 @@ class Factories extends Admin_Controller{
 
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Assign Clerks to Factory";
+        $data['title'] = "Assign Clerks to Enterprise";
         $data['mainContent']='factories/assign_factory_supervisors';
         $this->load->view('templates/template',$data); 
     }
 
     function assignsupervisor(){
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('factoryName', 'Factory Name', 'required');
+        $this->form_validation->set_rules('factoryName', 'Enterprise Name', 'required');
         $this->form_validation->set_rules('supervisor', 'Select atleast one supervisors', 'required');
 
         // has the form been submitted
@@ -560,7 +560,7 @@ class Factories extends Admin_Controller{
                 }
 
                 // Display success message
-                $this->session->set_flashdata('appmsg', $count.' Clerk(s) have being  successfully assigned to '.$factory_details->name.' Factory!');
+                $this->session->set_flashdata('appmsg', $count.' Clerk(s) have being  successfully assigned to '.$factory_details->name.' Enterprise!');
                 $this->session->set_flashdata('alert_type', 'alert-success');
                 $this->session->set_flashdata('alert_type_', 'success');
                 redirect('factories');
@@ -601,7 +601,7 @@ class Factories extends Admin_Controller{
         }
 
         $data['user_role'] = $this->session->userdata('role');
-        $data['title'] = "Factory Clerks";
+        $data['title'] = "Enterprise Clerks";
         $data['mainContent']='factories/view_factory_supervisors';
         $this->load->view('templates/template',$data); 
 
@@ -685,7 +685,7 @@ class Factories extends Admin_Controller{
         // $this->form_validation->set_rules('subscription', 'Subscription Keyword', 'required|max_length[20]|alpha_numeric');
         // $this->form_validation->set_rules('unsubscription', 'Un-subscription Keyword', 'required|max_length[20]|alpha_numeric');
         // $this->form_validation->set_rules('groups', 'Products linked Group', 'numeric');
-        // // $this->form_validation->set_rules('factorye', 'Factory', 'required|numeric');
+        // // $this->form_validation->set_rules('factorye', 'Enterprise', 'required|numeric');
         // $this->form_validation->set_rules('smsurl', 'SMS SDP Server URL', 'required|max_length[150]');
         // $this->form_validation->set_rules('balanceurl', 'SMS SDP Balance Server URL', 'required|max_length[150]');
         // $this->form_validation->set_rules('smsapproval', 'SMS Approval Status', 'required');
@@ -857,7 +857,7 @@ class Factories extends Admin_Controller{
         // $data['balanceurl']=$origin_balanceurl;
         // $data['smsapproval']=$smsapproval;
         // $data['user_role'] = $this->session->userdata('role');
-        // $data['title'] = "Factory Configuration Settings";
+        // $data['title'] = "Enterprise Configuration Settings";
         // $data['mainContent'] = 'factory/factory_settings';
         // $this->load->view('templates/template', $data);
     }

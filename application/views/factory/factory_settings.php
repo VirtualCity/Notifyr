@@ -5,8 +5,8 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="<?php echo site_url('factories') ?>"><i class="ti ti-home"></i> Factories</a></li>
-            <li class="active">Factory Settings</li>
+            <li><a href="<?php echo site_url('factories') ?>"><i class="ti ti-home"></i> Enterprises</a></li>
+            <li class="active">Enterprises Settings</li>
         </ol>
     </div>
 

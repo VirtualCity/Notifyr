@@ -4,7 +4,7 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
         <li><a href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">View Factories Usage Report</li>
+        <li class="active">View Enterprises Usage Report</li>
     </ol>
     </div>
  

@@ -163,7 +163,7 @@
 					<li>
 	                    <a data-toggle="collapse" href="#factories">
 	                        <i class="ti-home"></i>
-	                        <p>Factories
+	                        <p>Enterprises
 	                           <b class="caret"></b>
 	                        </p>
 	                    </a>
@@ -172,7 +172,7 @@
 	                            <li>
 									<a href="<?=base_url('factories')?>">
 										<span class="sidebar-mini">VF</span>
-										<span class="sidebar-normal">View Factories</span>
+										<span class="sidebar-normal">View Enterprises</span>
 									</a>
 								</li>
 	                            <!-- <li>

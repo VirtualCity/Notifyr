@@ -4,8 +4,8 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="<?php echo site_url('factories') ?>"><i class="fa fa-map-marker"></i> Factories</a></li>
-            <li class="active"><a >Edit Factory: (<?php echo $factoryName;?>)</a></li>
+            <li><a href="<?php echo site_url('factories') ?>"><i class="fa fa-map-marker"></i> Enterprises</a></li>
+            <li class="active"><a >Edit Enterprise: (<?php echo $factoryName;?>)</a></li>
         </ol>
     </div>
 

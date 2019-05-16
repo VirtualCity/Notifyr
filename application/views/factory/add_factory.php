@@ -4,8 +4,8 @@
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
             <li><a href="<?php echo site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="<?php echo site_url('factories') ?>"><i class="fa fa-home"></i> Factories</a></li>
-            <li class="active">Add Factory</li>
+            <li><a href="<?php echo site_url('factories') ?>"><i class="fa fa-home"></i> Enterprises</a></li>
+            <li class="active">Add Enterprise</li>
         </ol>
     </div>
     
@@ -58,7 +58,7 @@
 
                 </form>
             </div>
-            <div class="panel-footer">Add Factory</div>
+            <div class="panel-footer">Add Enterprise</div>
         </div>
     </div>
 </div>
