@@ -475,13 +475,13 @@ class Contacts extends MY_Controller{
 
             //retrieve contact to edit
             $to_edit = $this->contacts_model->get_contact($id);
-
             //display edit view
             $data['id']=$id;
             $data['msisdn']=$to_edit->msisdn;
             $data['code']=$to_edit->code;
             $data['name']=$to_edit->name;
             $data['email']=$to_edit->email;
+            // $data['idno'] = $to_edit->id_number;
             $data['address']=$to_edit->address;
 
 
@@ -511,7 +511,7 @@ class Contacts extends MY_Controller{
         $this->form_validation->set_rules('msisdn', 'Mobile Number', 'required|numeric|exact_length[12]');
         $this->form_validation->set_rules('name', 'Name', 'max_length[50]');
         // $this->form_validation->set_rules('code', 'Code', 'max_length[50]');
-        $this->form_validation->set_rules('idno', 'Id Number', 'max_length[30]|numeric');
+        // $this->form_validation->set_rules('idno', 'Id Number', 'max_length[30]|numeric');
         $this->form_validation->set_rules('email', 'Email', 'max_length[50]|valid_email');
         $this->form_validation->set_rules('address', 'Address', 'max_length[100]');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -523,7 +523,7 @@ class Contacts extends MY_Controller{
             $msisdn = $this->input->post('msisdn');
             $name = $this->input->post('name');
             // $code = $this->input->post('code');
-            $idno = $this->input->post('idno');
+            // $idno = $this->input->post('idno');
             $email = $this->input->post('email');
             $address = $this->input->post('address');
 
@@ -532,7 +532,7 @@ class Contacts extends MY_Controller{
                 //Update msisdn to group contact too
                 $current = $this->contacts_model->get_contact($id);
                 $_msisdn=$current->msisdn;
-
+                $idno = $current->id_number;
                 $update_grp_contact=$this->groups_model->update_group_contact_msisdn($_msisdn, $msisdn);
                 //Save new user
                 $updated = $this->contacts_model->edit_contact($id,$msisdn,ucwords($name),$idno,strtolower($email),$address);

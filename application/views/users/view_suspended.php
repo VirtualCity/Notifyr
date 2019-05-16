@@ -1,11 +1,14 @@
 <div id="content" class="content">
-
+<div class="row">
+    <div class="col-md-12">
     <div class="breadcrumb-container ">
         <ol class="breadcrumb pull-left ">
            <li><a href="<?=base_url('dashboard')?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
            <li class="active">Suspended Users</li>
        </ol>
    </div>
+   </div>
+</div>
 
 <div class="row">
     

@@ -67,7 +67,7 @@ $db['default']['stricton'] = FALSE;
 /*Test Environment*/
 $db['local']['hostname'] = 'localhost';
 $db['local']['username'] = 'root';
-$db['local']['password'] = '';
+$db['local']['password'] = 'password';
 $db['local']['database'] = 'notifyr1';
 $db['local']['dbdriver'] = 'mysqli';
 $db['local']['dbprefix'] = '';

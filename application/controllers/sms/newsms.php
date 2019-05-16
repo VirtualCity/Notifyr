@@ -125,16 +125,20 @@ class Newsms extends Admin_Controller {
 						//$recipients = array('tel:' . $msisdn);
 						$recipients = array($msisdn);
 
-						$msg_sent = $this->sendsms_model->send_sms($recipients, $message);						
+						$msg_sent = $this->sendsms_model->send_sms($recipients, $message);	
+						
 						log_message("info", "Sending status: " . $msg_sent);
+						$check = $this->isJson($msg_sent);		
+							
 
-						if ($msg_sent !== null && $msg_sent !== 'fail') {
+						if ($msg_sent !== null && $msg_sent !== 'fail' && $check) {
 							
 							$success = 0;
 							$failed = 0;
+							$smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
 							
 							//loop through the result if it contains more than one object and save each response
-							foreach ($msg_sent as $key => $value) {
+							foreach ($smsresponse as $key => $value) {
 								if ($value->status == 'Success') {
 									$success++;
 									$status = 'Sent';
@@ -174,7 +178,9 @@ class Newsms extends Admin_Controller {
 					$recipients = array($msisdn);
 
 					$msg_sent = $this->sendsms_model->send_sms($recipients, $message);
-					$check = $this->isJson($msg_sent);					
+					// print_r($msg_sent);
+					// return;
+					$check = $this->isJson($msg_sent);	
 					
 					log_message("info", "Sending status: " . $msg_sent);
 
@@ -183,6 +189,7 @@ class Newsms extends Admin_Controller {
 						$success = 0;
 						$failed = 0;
 						$smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
+						
 						//loop through the result if it contains more than one object and save each response
 						foreach ($smsresponse as $key => $value) {
 							if ($value->status == 'Success') {

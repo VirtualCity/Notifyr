@@ -80,7 +80,8 @@ class IncomingSmsCallback extends CI_Controller{
             $sourceKeyword ="";
             $subscriptionKeyword="";
             $unsubscriptionKeyword="";
-            $allowedPurchaseGroup="";     
+            $allowedPurchaseGroup="";  
+            $configurationData = ""   ;
             
             $senderId = "";
 
@@ -534,7 +535,7 @@ class IncomingSmsCallback extends CI_Controller{
            
 
 
-            try {
+            try {              
                 $msg_sent = $this->send_sms_msg($msisdn1, $responseMsg, $factoryId, $senderId, $applicationId, $password, $sourceAddress);
                 // echo json_encode($msg_sent);
                 $this->sms_model->log_auto_reply($msisdn,"Individual",$responseMsg,0,$factoryId);

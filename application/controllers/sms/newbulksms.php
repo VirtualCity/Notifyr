@@ -135,9 +135,9 @@ class Newbulksms extends Admin_Controller {
                                     // if ($msg_sent1 !== null) {
                                     //     //loop through the result if it contains more than one object and save each response
                                     //     foreach ($msg_sent1 as $key => $value) {
-                                        $check = $this->isJson($msg_sent);					
+                                    $check = $this->isJson($msg_sent);					
 					
-                                        log_message("info", "Sending status: " . $msg_sent);
+                                    log_message("info", "Sending status: " . $msg_sent);
 
                                 if ($msg_sent !== null && $msg_sent !== 'fail' && $check) 
                                     {
@@ -188,8 +188,9 @@ class Newbulksms extends Admin_Controller {
 
                                     $success = 0;
                                     $failed = 0;
+                                    $smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
                                     //loop through the result if it contains more than one object and save each response
-                                    foreach ($msg_sent as $key => $value) {
+                                    foreach ($smsresponse as $key => $value) {
                                         if ($value->status == 'Success') {
                                             $success++;
                                             $status = 'Sent';
@@ -246,8 +247,9 @@ class Newbulksms extends Admin_Controller {
                                 //send sms
                                 $msg_sent1= $this->sendsms_model->send_sms($value,$message);
                                 if ($msg_sent1 !== null) {
+                                    $smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
                                     //loop through the result if it contains more than one object and save each response
-                                    foreach ($msg_sent1 as $key => $value) {
+                                    foreach ($smsresponse as $key => $value) {
                                         if ($value->status == 'Success') {
                                             $success1++;
                                             $status = 'Sent';
@@ -285,8 +287,9 @@ class Newbulksms extends Admin_Controller {
 
                                 $success = 0;
                                 $failed = 0;
+                                $smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
                                 //loop through the result if it contains more than one object and save each response
-                                foreach ($msg_sent as $key => $value) {
+                                foreach ($smsresponse as $key => $value) {
                                     if ($value->status == 'Success') {
                                         $success++;
                                         $status = 'Sent';
@@ -502,10 +505,10 @@ class Newbulksms extends Admin_Controller {
                     if ($text != "") {
                         $recipients = array($mobile);
                         $msg_sent = $this->sendsms_model->send_sms($recipients, $text);
-
+                        $status = json_decode($msg_sent)->SMSMessageData->Recipients->status;
                         log_message("info", "Sending status: " . $msg_sent);
 
-                        if ($msg_sent == 'success') {
+                        if ($status === 'Success') {
                             $addCounter++;
 
                         } else

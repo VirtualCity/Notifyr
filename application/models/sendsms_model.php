@@ -77,18 +77,18 @@ class Sendsms_model extends CI_Model
                 $server_response = $response->SMSMessageData->Recipients;
 
                 //  print_r($server_response[0]);
-                logFile("[ server_response_at_sendsms_model=$$server_response]");
-                log_message("info", "SDP response: " . $server_response[0]->statusCode);
+                log_message("info", "SDP response: " . $res);
                 //AFRICASTALKING for success ->statusCode =101, status=success
                 // if ($server_response[0]->status == 'Success')
-                // if (count($server_response) > 0)
-                // {
-                    return $server_response;
-                // }
-                // else
-                // {
-                //     return null;
-                // }
+                if (count($server_response) > 0)
+                {
+                    //return json_encode($server_response);
+                    return $res;
+                }
+                else
+                {
+                    return null;
+                }
             } else {
                 return $res;
             }
