@@ -67,7 +67,7 @@ $db['default']['stricton'] = FALSE;
 /*Test Environment*/
 $db['local']['hostname'] = 'localhost';
 $db['local']['username'] = 'root';
-$db['local']['password'] = 'password';
+$db['local']['password'] = '';
 $db['local']['database'] = 'notifyr1';
 $db['local']['dbdriver'] = 'mysqli';
 $db['local']['dbprefix'] = '';
@@ -100,6 +100,24 @@ $db['extdb']['dbcollat'] = 'utf8_general_ci';
 $db['extdb']['swap_pre'] = '';
 $db['extdb']['autoinit'] = TRUE;
 $db['extdb']['stricton'] = FALSE;
+
+
+$db['sqldb']['hostname'] = "(localdb)\MSSQLLocalDB";//"127.0.0.1"; // or put the IP of your SQL Server Instance
+//$db['sqldb']['port'] = 1433; // or the port you configured on step 6
+$db['sqldb']['username'] = 'dev';
+$db['sqldb']['password'] = 'sys';
+$db['sqldb']['database'] = 'walletmanagr';
+$db['sqldb']['dbdriver'] = 'sqlsrv';
+$db['sqldb']['dbprefix'] = '';
+$db['sqldb']['pconnect'] = FALSE; // Pay attention to this, codeigniter makes true for sqldb
+$db['sqldb']['db_debug'] = TRUE;
+$db['sqldb']['cache_on'] = FALSE;
+$db['sqldb']['cachedir'] = '';
+$db['sqldb']['char_set'] = 'utf8';
+$db['sqldb']['dbcollat'] = 'utf8_general_ci';
+$db['sqldb']['swap_pre'] = '';
+$db['sqldb']['autoinit'] = TRUE;
+$db['sqldb']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
