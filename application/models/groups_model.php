@@ -47,6 +47,19 @@ class Groups_model extends CI_Model
         }
     }
 
+    function get_group_by_type($id)
+    {
+        $this->db->select('*');
+        $this->db->from('groups');
+        $this->db->where('type', $id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+
     function get_group_by_factory($id)
     {
         $this->db->select('*');
@@ -100,11 +113,12 @@ class Groups_model extends CI_Model
         }
     }
 
-    function add_group($group, $description,$factory)
+    function add_group($group, $type, $description,$factory)
     {
 
         $data = array(
             'name' => $group,
+            'type' => $type,
             'description' => $description,
             'factory_id' => $factory
         );
@@ -116,11 +130,11 @@ class Groups_model extends CI_Model
         return false;
     }
 
-    function update_group($id, $group, $description)
+    function update_group($id, $group, $type, $description)
     {
-
         $data = array(
             'name' => ucfirst($group),
+            'type' => $type,
             'description' => $description
         );
         $this->db->set('modified', 'NOW()', false);

@@ -91,7 +91,24 @@
                 columns: [
                     { "data": "template"},
                     { "data": "title"},
-                    { "data": "type"},
+                    { "data": "type",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+
+                            if (sData == 0) {
+                                    $(nTd).html('Default');
+                            }else if (sData == 1){
+                                    $(nTd).html('Daily'); 
+                            }else if (sData == 2){
+                                    $(nTd).html('Three Days'); 
+                            }else if (sData == 3){
+                                    $(nTd).html('Weekly'); 
+                            }else if (sData == 4){
+                                    $(nTd).html('Monthly'); 
+                            }else{
+                                    $(nTd).html('Unknown');
+                            }
+                        }
+                    },
                     { "data": "modified"}
                     <?Php if($user_role==="SUPER_USER"){ ?>
                     ,

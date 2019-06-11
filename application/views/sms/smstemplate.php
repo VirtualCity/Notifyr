@@ -27,9 +27,13 @@
                         <div class="col-md-6 col-xs-12">
                             <label>Type </label><span class="text-danger"> *</span>
                             <select class="form-control" required name="type" id="type">
-                                <?php if(!empty($type)) echo '<option value="'.$type.'">'.$type.'</option>'?>
+                                <!-- <?php //if(!empty($type)) echo '<option value="'.$type.'">'.$type.'</option>'?> -->
                                 <option value="">---Please Select Type---</option>
-                                    <option value="DEFAULT">DEFAULT</option>
+                                    <option value="0" <?php if($type == 0) echo 'selected'?>>DEFAULT</option>
+                                    <option value="1" <?php if($type == 1) echo 'selected'?>>THREE DAYS</option>
+                                    <option value="2" <?php if($type == 2) echo 'selected'?>>DAILY</option>
+                                    <option value="3" <?php if($type == 3) echo 'selected'?>>WEEKLY</option>
+                                    <option value="4" <?php if($type == 4) echo 'selected'?>>MONTHLY</option>
                             </select>
                             <span class="text-danger"><?php echo form_error('type'); ?> </span>
                             

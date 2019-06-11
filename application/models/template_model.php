@@ -50,5 +50,16 @@ class Template_model extends CI_Model {
 			return false;
 		}
 	}
+	function get_template_by_type($type) {
+		$this -> db -> select('*');
+		$this -> db -> from('sms_templates');
+		$this -> db -> where('type', $type);
+		$query = $this -> db -> get();
+		if ($query -> num_rows() > 0) {
+			return $query -> row();
+		} else {
+			return false;
+		}
+	}
 
 }

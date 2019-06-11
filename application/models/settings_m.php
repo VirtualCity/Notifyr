@@ -155,7 +155,7 @@ class Settings_m extends CI_Model{
 
     /* SDP Configuration Section*/
 
-    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl,$approval,$factoryid,$countrycode){
+    function save_app_configuration($value1,$value2,$value3,$value4,$value5,$value6,$value7,$value8,$value9,$shortcode,$balanceurl,$approval,$factoryid,$countrycode,$remotedbdsn,$remotedbusername,$remotedbpassword){
         $configTagExist = $this->check_configuration_by_factory($factoryid);
 
         if($configTagExist){
@@ -174,7 +174,10 @@ class Settings_m extends CI_Model{
                 'balanceurl'=>$balanceurl,
                 'smsapproval'=>$approval,
                 'factory_id'=>$factoryid,
-                'countrycode'=>$countrycode
+                'countrycode'=>$countrycode,
+                'remotedbdsn'=>$remotedbdsn,
+                'remotedbuser'=>$remotedbusername,
+                'remotedbpass'=>$remotedbpassword
             );
             $this->db->where('factory_id', $factoryid);
             $this->db->where('title', 'CONFIGURATION');
@@ -203,7 +206,10 @@ class Settings_m extends CI_Model{
                 'balanceurl'=>$balanceurl,
                 'smsapproval'=>$approval,
                 'factory_id'=>$factoryid,
-                'countrycode'=>$countrycode
+                'countrycode'=>$countrycode,
+                'remotedbdsn'=>$remotedbdsn,
+                'remotedbuser'=>$remotedbusername,
+                'remotedbpass'=>$remotedbpassword
             );
 
             $this->db->insert('settings',$data);

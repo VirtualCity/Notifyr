@@ -248,6 +248,66 @@
 														</div>
 													</div>
 												</div>
+												<br>
+
+												<div class="row">
+													<div class="col-md-6 col-xs-12">
+														<div class="row">
+															<div class="col-md-6 col-xs-12">
+																<label >Remote Database Dsn  </label>
+															</div>
+															<div class="col-md-6 col-xs-12">
+																<input type="text" name="remoteDbDsn" id="remoteDbDsn" placeholder="e.g sqlsrv:Server=10.0.0.118;Database=devhub" class="form-control" value="<?=$remoteDbDsn?>"/>
+																<span class="text-danger"> <?php echo form_error('remoteDbDsn'); ?> </span>
+															</div>
+														</div>
+
+														
+														
+													</div>
+
+													<div class="col-md-6 col-xs-12">
+														<div class="row">
+															<div class="col-md-6 col-xs-12">
+																<label >Remote Database Username</label>
+															</div>
+															<div class="col-md-6 col-xs-12">
+																<input type="text" name="remoteDbUser" id="remoteDbUser" placeholder="Remote Database Username" class="form-control" value="<?=$remoteDbUser?>"/>
+																<span class="text-danger"> <?php echo form_error('remoteDbUser'); ?> </span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<br>
+
+												<div class="row">
+													<div class="col-md-6 col-xs-12">
+														<div class="row">
+															<div class="col-md-6 col-xs-12">
+																<label >Remote Database Password  </label>
+															</div>
+															<div class="col-md-6 col-xs-12">
+																<input type="password" name="remoteDbPass" id="remoteDbPass" placeholder="Remote Database Password" class="form-control" value="<?=$remoteDbPass?>"/>
+																<span class="text-danger"> <?php echo form_error('remoteDbPass'); ?> </span>
+															</div>
+														</div>
+
+														
+														
+													</div>
+
+													<div class="col-md-6 col-xs-12">
+														<div class="row">
+															<!-- <div class="col-md-6 col-xs-12">
+																<label >SMS SDP Server URL  </label><span class="text-danger"> *</span>
+															</div>
+															<div class="col-md-6 col-xs-12">
+																<input type="text" name="smsurl" id="smsurl" placeholder="SMS SDP Server URL" class="form-control" value="<?=$smsurl?>"/>
+																<span class="text-danger"> <?php //echo form_error('smsurl'); ?> </span>
+															</div> -->
+														</div>
+													</div>
+												</div>
 
 												<hr class="field-separator">
 												<div class="row">

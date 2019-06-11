@@ -123,6 +123,37 @@
                     <span class="text-danger"> <?php echo form_error('countrycode'); ?> </span>
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <label >Remote Database Dsn  </label>
+                    <input type="text" name="remoteDbDsn" id="remoteDbDsn" placeholder="e.g sqlsrv:Server=10.0.0.118;Database=devhub" class="form-control" value="<?=$remoteDbDsn?>"/>
+
+                    <span class="text-danger"> <?php echo form_error('remoteDbDsn'); ?> </span>
+                </div>
+
+
+                <div class="col-md-6 col-xs-12">
+                    <label > Remote Database Username  </label>
+                    <input type="text" name="remoteDbUser" id="remoteDbUser" placeholder="username" class="form-control" value="<?=$remoteDbUser?>"/>
+
+                    <span class="text-danger"> <?php echo form_error('remoteDbUser'); ?> </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <label >Remote Database Password  </label>
+                    <input type="password" name="remoteDbPass" id="remoteDbPass" placeholder="password" class="form-control" value="<?=$remoteDbPass?>"/>
+
+                    <span class="text-danger"> <?php echo form_error('remoteDbPass'); ?> </span>
+                </div>
+
+
+                <div class="col-md-6 col-xs-12">
+                    
+                </div>
+            </div>
 
 
             <!-- <div class="col-md-12 col-xs-12">

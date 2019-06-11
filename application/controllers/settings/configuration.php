@@ -57,6 +57,9 @@ class Configuration extends Admin_Controller{
         $smsapproval = "";
         $factoryid = "";
         $countrycode = "";
+        $remoteDbDsn = "";
+        $remoteDbUser = "";
+        $remoteDbPass = "";
 
         // has the form been submitted
         if($this->input->post()){
@@ -75,6 +78,9 @@ class Configuration extends Admin_Controller{
             $smsapproval = $this->input->post('smsapproval');
             $factoryid = $this->input->post('factorye');
             $countrycode = $this->input->post('countrycode');
+            $remoteDbDsn = $this->input->post('remoteDbDsn');
+            $remoteDbUser = $this->input->post('remoteDbUser');
+            $remoteDbPass = $this->input->post('remoteDbPass');
             
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
@@ -82,7 +88,7 @@ class Configuration extends Admin_Controller{
                 // print($factoryid);
                 // return;
                 //Save new product
-                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid,$countrycode);
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid,$countrycode,$remoteDbDsn,$remoteDbUser,$remoteDbPass);
 
                 if($saved){
                     // Display success message
@@ -117,7 +123,9 @@ class Configuration extends Admin_Controller{
                 $smsapproval = $configurationData->smsapproval;
                 $factoryid = $configurationData->factory_id;
                 $countrycode = $configurationData->countrycode;
-
+                $remoteDbDsn = $configurationData->remotedbdsn;
+                $remoteDbUser = $configurationData->remotedbuser;
+                $remoteDbPass = $configurationData->remotedbpass;
             }
         }
         $groups = $this->groups_model->get_all_groups();
@@ -139,6 +147,9 @@ class Configuration extends Admin_Controller{
         $data['balanceurl']=$origin_balanceurl;
         $data['smsapproval']=$smsapproval;
         $data['countrycode']=$countrycode;
+        $data['remoteDbDsn']=$remoteDbDsn;
+        $data['remoteDbUser']=$remoteDbUser;
+        $data['remoteDbPass']=$remoteDbPass;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";
         $data['mainContent'] = 'settings/app_config';

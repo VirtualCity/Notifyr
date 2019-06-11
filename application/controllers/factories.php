@@ -669,6 +669,9 @@ class Factories extends Admin_Controller{
         $userfactory = $this->session->userdata('factory');
         $factory = $this->session->userdata('factory');
 
+        // print($selectedfactory);
+        //         return;
+
         
         // if ($role !== "SUPER_USER" || $role !== "ADMIN") {
         //     // Display message
@@ -702,9 +705,12 @@ class Factories extends Admin_Controller{
         $unsubscription_word="";
         $productsgroupid="";
         $smsapproval = "";
-        $factoryid = "";
+        $factoryid = $selectedfactory;
         $originshortcode = "";
         $countrycode = "";
+        $remoteDbDsn = "";
+        $remoteDbUser = "";
+        $remoteDbPass = "";
         
             // $configurationData = $this->settings_m->get_configuration();
             $configurationData = $this->settings_m->get_configuration_by_factory($selectedfactory);
@@ -725,6 +731,9 @@ class Factories extends Admin_Controller{
                 $smsapproval = $configurationData->smsapproval;
                 $factoryid = $configurationData->factory_id;
                 $countrycode = $configurationData->countrycode;
+                $remoteDbDsn = $configurationData->remotedbdsn;
+                $remoteDbUser = $configurationData->remotedbuser;
+                $remoteDbPass = $configurationData->remotedbpass;
             }
         $groups = $this->groups_model->get_all_groups();
         $factories = $this->factories_model->get_all_factories();
@@ -745,6 +754,9 @@ class Factories extends Admin_Controller{
         $data['balanceurl']=$origin_balanceurl;
         $data['smsapproval']=$smsapproval;
         $data['countrycode']=$countrycode;
+        $data['remoteDbDsn']=$remoteDbDsn;
+        $data['remoteDbUser']=$remoteDbUser;
+        $data['remoteDbPass']=$remoteDbPass;
         $data['user_role'] = $this->session->userdata('role');
         $data['title'] = "Configuration Settings";
         $data['mainContent'] = 'factory/factory_settings';
@@ -758,15 +770,11 @@ class Factories extends Admin_Controller{
         $userfactory = $this->session->userdata('factory');
         $factory = $this->session->userdata('factory');
 
-        
-        // if ($role !== "SUPER_USER" ) {
-        //     // Display message
-        //     $this->session->set_flashdata('appmsg', 'You are not allowed to access this function');
-        //     $this->session->set_flashdata('alert_type', 'alert-info');
-        //     redirect('dashboard');
-        // }
+        // print($this->input->post('factoryid'));
+        // return;
+
         // SET VALIDATION RULES
-        $this->form_validation->set_rules('appid', 'Application ID', 'required|exact_length[10]|alpha_dash');
+        $this->form_validation->set_rules('appid', 'Application ID', 'required|alpha_dash');
         $this->form_validation->set_rules('password', 'Application Password', 'required|max_length[150]|alpha_numeric');
         $this->form_validation->set_rules('shortcode', 'SMS Short Code', 'required|max_length[20]|alpha_dash');
         $this->form_validation->set_rules('keyword', 'SMS Keyword', 'required|max_length[20]|alpha_numeric');
@@ -794,10 +802,16 @@ class Factories extends Admin_Controller{
         $factoryid = "";
         $originshortcode = "";
         $countrycode = "";
+        $remoteDbDsn = "";
+        $remoteDbUser = "";
+        $remoteDbPass = "";
 
         // has the form been submitted
         if($this->input->post())
         {
+
+            //     print($this->input->post('smsapproval'));
+            // return;
 
             $origin_appid = $this->input->post('appid');
             $origin_password = $this->input->post('password');
@@ -813,17 +827,21 @@ class Factories extends Admin_Controller{
             $smsapproval = $this->input->post('smsapproval');
             $factoryid = $this->input->post('factoryid');
             $countrycode = $this->input->post('countrycode');
-
-            
+            $remoteDbDsn = $this->input->post('remoteDbDsn');
+            $remoteDbUser = $this->input->post('remoteDbUser');
+            $remoteDbPass = $this->input->post('remoteDbPass');
             
             //Does it have valid form info (not empty values)
             if($this->form_validation->run()){
+            //     print($remoteDbDsn);
+            // return;
                 //Save new product
-                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid,$countrycode);
-                // print($saved);
-                // return;
+                $saved = $this->settings_m->save_app_configuration($origin_appid,$origin_password,$origin_shortcode,$origin_keyword,$origin_smsurl,$subscription_word,$unsubscription_word,$productsgroupid,$origin_shortcodeName,$originshortcode,$origin_balanceurl,$smsapproval,$factoryid,$countrycode,$remoteDbDsn,$remoteDbUser,$remoteDbPass);
+                
                 if($saved){
                     // Display success message
+                //     print($saved);
+                // return;
                     $this->session->set_flashdata('appmsg', 'Configuration settings saved successfully!');
                     $this->session->set_flashdata('alert_type', 'alert-success');
                     $this->session->set_flashdata('alert_type_', 'success');
@@ -838,28 +856,6 @@ class Factories extends Admin_Controller{
                 }
             }
         }
-        // $groups = $this->groups_model->get_all_groups();
-        // $factories = $this->factories_model->get_all_factories();
-
-        // $data['groups']=$groups;
-        // $data['factories']=$factories;
-        // $data['appid']=$origin_appid;
-        // $data['password']=$origin_password;
-        // $data['shortcode']=$origin_shortcode;
-        // $data['shortcodeNumber']=$originshortcode;
-        // $data['keyword']=$origin_keyword;
-        // $data['smsurl']=$origin_smsurl;
-        // $data['subscription']=$subscription_word;
-        // $data['unsubscription']=$unsubscription_word;
-        // $data['productsgroupid']=$productsgroupid;
-        // $data['factoryid']=$factoryid;
-        // $data['shortcodeName']=$origin_shortcodeName;
-        // $data['balanceurl']=$origin_balanceurl;
-        // $data['smsapproval']=$smsapproval;
-        // $data['user_role'] = $this->session->userdata('role');
-        // $data['title'] = "Factory Configuration Settings";
-        // $data['mainContent'] = 'factory/factory_settings';
-        // $this->load->view('templates/template', $data);
     }
     
 

@@ -69,11 +69,11 @@ class Newbulksms extends Admin_Controller {
 
             //Does it have valid form info (not empty values)
             if ($this->form_validation->run()) {
-                if ($role === 'SUPER_USER') {
-                    $config = $this->settings_m->get_configuration();
-                } else {
+                // if ($role === 'SUPER_USER') {
+                //     $config = $this->settings_m->get_configuration();
+                // } else {
                     $config = $this->settings_m->get_configuration__by_factory($userfactory);
-                }
+                // }
                 
                 
 				if($config){

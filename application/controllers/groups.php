@@ -54,6 +54,7 @@ class Groups extends MY_Controller{
         $userfactory = $this->session->userdata('factory');
 
         $group="";
+        $type="";
         $description ="";
         $factories = "";
         $factory_id = "";
@@ -69,11 +70,13 @@ class Groups extends MY_Controller{
         $this->form_validation->set_message('is_unique', 'This Group name already exists!');
         $this->form_validation->set_rules('description', 'Description', 'max_length[100]');
         $this->form_validation->set_rules('factory_id', 'Factory', 'required|numeric');
+        $this->form_validation->set_rules('type', 'Type', 'required|numeric');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
         // has the form been submitted
         if($this->input->post()){
             $group = trim($this->input->post('group'));
+            $type = trim($this->input->post('type'));
             $description = trim($this->input->post('description'));
             $factory_id = trim($this->input->post('factory_id'));
 
@@ -81,7 +84,7 @@ class Groups extends MY_Controller{
             if($this->form_validation->run()){
 
                 //Save new town
-                $saved =  $this->groups_model->add_group(ucfirst($group),$description,$factory_id);
+                $saved =  $this->groups_model->add_group(ucfirst($group),$type,$description,$factory_id);
 
                 if($saved){
                     // Display success message
@@ -105,8 +108,9 @@ class Groups extends MY_Controller{
 
         $data['group'] =$group;
         $data['description'] =$description;
-        $data['factory_id'] =$description;
+        $data['factory_id'] =$factory_id;
         $data['factories'] =$factories;
+        $data['type'] =$type;
         $data['userfactory'] = $userfactory;
 
         $data['user_role'] = $this->session->userdata('role');
@@ -184,22 +188,24 @@ class Groups extends MY_Controller{
         if(!empty($id)){
             //check if group already has contacts
             $contacts = $this->contacts_model->get_group_contacts($id);
-
-            if(!$contacts){
+            
+            // if(!$contacts){
                 //retrieve group to edit
                 $to_edit = $this->groups_model->get_group_by_id($id);
-                
+                // print_r($to_edit);
+                // return;
                 //display reply view
                 $data['id']=$id;
                 $data['group']=$to_edit->name;
+                $data['type']=$to_edit->type;
                 $data['description']=$to_edit->description;
-            }else{
+            // }else{
                 // No group id specified
-                $this->session->set_flashdata('appmsg', 'Group cannot be edited because it already contains subscribed numbers');
-                $this->session->set_flashdata('alert_type', 'alert-warning');
-                $this->session->set_flashdata('alert_type_', 'warning');
-                redirect('groups');
-            }
+            //     $this->session->set_flashdata('appmsg', 'Group cannot be edited because it already contains subscribed numbers');
+            //     $this->session->set_flashdata('alert_type', 'alert-warning');
+            //     $this->session->set_flashdata('alert_type_', 'warning');
+            //     redirect('groups');
+            // }
 
 
         }else{
@@ -230,6 +236,7 @@ class Groups extends MY_Controller{
 
             $id = $this->input->post('id');
             $group = trim($this->input->post('group'));
+            $type = trim($this->input->post('type'));
             $description = trim($this->input->post('description'));
 
             //Does it have valid form info (not empty values)
@@ -246,7 +253,7 @@ class Groups extends MY_Controller{
                     redirect('groups/edit/'.$id);
                 }else{
                     //Save new group
-                    $saved = $this->groups_model->update_group($id,ucfirst($group),$description);
+                    $saved = $this->groups_model->update_group($id,ucfirst($group),$type,$description);
 
                     if($saved){
                         // Display success message

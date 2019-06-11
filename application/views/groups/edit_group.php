@@ -29,6 +29,23 @@
 
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2 col-xs-12">
+                                <label > Group Type </label><span class="text-danger">*</span>
+                                <select class="form-control" required name="type" id="type">
+                                        <option value="" <?php if (empty($type)){echo "selected";}?>>---Please Select Type---</option>
+                                        <option value="0" <?php if ($type == 0){echo "selected";}?>>DAILY</option>
+                                        <option value="1" <?php if ($type == 1){echo "selected";}?>>THREE DAYS</option>
+                                        <option value="2" <?php if ($type == 2){echo "selected";}?>>WEEKLY</option>
+                                        <option value="3" <?php if ($type == 3){echo "selected";}?>>MONTHLY</option>
+                                        <option value="4" <?php if ($type == 4){echo "selected";}?>>ANNUALLY</option>
+                                        <option value="5" <?php if ($type == 5){echo "selected";}?>>OTHER</option>
+                                </select>
+
+                                <span class="text-danger"> <?php echo form_error('type'); ?> </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 col-xs-12">
                                 <label>Description </label><span class="text-danger"> *</span>
                                 <div >
 

@@ -69,12 +69,12 @@ class Newsms extends Admin_Controller {
 			if ($this->form_validation->run()) {
 				$smstype = 'Individual';
 
-				if ($role === 'SUPER_ADMIN') {
+				// if ($role === 'SUPER_ADMIN') {
 					$config = $this->settings_m->get_configuration($userfactory);
 					// $config = $this->settings_m->get_configuration();
-				} else {
-					$config = $this->settings_m->get_configuration($userfactory);
-				}
+				// } else {
+				// 	$config = $this->settings_m->get_configuration($userfactory);
+				// }
 				
 				
 				

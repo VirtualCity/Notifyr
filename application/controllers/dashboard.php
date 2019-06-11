@@ -11,6 +11,8 @@ class Dashboard extends MY_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model('dashboard_model');
+        $this->load->model('anotherdb_model');
+        $this->load->model('settings_m');
 
     }
 
@@ -109,8 +111,8 @@ class Dashboard extends MY_Controller{
             $blacklist_total = $this->dashboard_model->get_blacklist_total_by_factory($userfactory);
             $groups_total = $this->dashboard_model->get_contact_groups_total_by_factory($userfactory);
             $sms_balance = $this->dashboard_model->get_sms_balance_by_factory($userfactory);
-            // $sms_balance = 400;
             $sms_pending = $this->dashboard_model->get_sms_pending_total_by_factory($userfactory);
+            
             
         // }
        // $outbox_total = $this->dashboard_model->get_outbox_total();
