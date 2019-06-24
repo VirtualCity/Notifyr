@@ -80,7 +80,9 @@ class Weeklysms extends CI_Controller{
 
                     $adb = $this->anotherdb_model;
                     $conn = $adb->getConnection($dsn, $usr, $pass);
-                    $cumulative = $adb->getWeekToDate($conn);
+                    
+                    if ($conn !== null) {
+                        $cumulative = $adb->getWeekToDate($conn);
                     // $cumulative = $adb->getLastOneDayToDate($conn);
                     // $users = $adb->getAllUsers($conn);
                     // print_r(json_encode($cumulative));
@@ -149,13 +151,13 @@ class Weeklysms extends CI_Controller{
                                     //log sms sent failur
                                     log_message("error", "Sending failed: ");
                                 }
-
-                                $finalRecipients = [];
-                                $localGrpContacts = [];
-                        
+ 
+                    }
                     }
                    
                 }
+                $finalRecipients = [];
+                $localGrpContacts = [];
             }
         }
          

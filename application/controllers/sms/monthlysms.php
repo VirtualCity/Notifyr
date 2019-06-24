@@ -80,29 +80,30 @@ class Monthlysms extends CI_Controller{
 
                     $adb = $this->anotherdb_model;
                     $conn = $adb->getConnection($dsn, $usr, $pass);
-                    $cumulative = $adb->getMonthToDate($conn);
-                    // $cumulative = $adb->getLastOneDayToDate($conn);
-                    // $users = $adb->getAllUsers($conn);
-                    // print_r(json_encode($cumulative));
-                    // return;
-
-                    
-                    foreach ($grpcontacts as $key1 => $value1) {
-                        array_push($localGrpContacts, $value1->msisdn);
-                    }
-
-                    //prepare the final array of farmers
-                    foreach ($cumulative as $key2 => $value2) {
-                        if (in_array($value2->Phone, $localGrpContacts))
-                        {
-                            array_push($finalRecipients, $value2);
+                   
+                    if ($conn !== null) {
+                        $cumulative = $adb->getMonthToDate($conn);
+                        // $cumulative = $adb->getLastOneDayToDate($conn);
+                        // $users = $adb->getAllUsers($conn);
+                        // print_r(json_encode($cumulative));
+                        // return;
+    
+                        
+                        foreach ($grpcontacts as $key1 => $value1) {
+                            array_push($localGrpContacts, $value1->msisdn);
                         }
-                    }
-
-                    // print_r($finalRecipients);
-                    // return;
-
-                    //loop through the final recipient for the group and send sms using the template
+    
+                        //prepare the final array of farmers
+                        foreach ($cumulative as $key2 => $value2) {
+                            if (in_array($value2->Phone, $localGrpContacts))
+                            {
+                                array_push($finalRecipients, $value2);
+                            }
+                        }
+    
+                        // print_r($finalRecipients);
+                        // return;
+                        //loop through the final recipient for the group and send sms using the template
                     foreach ($finalRecipients as $key3 => $value3) {
                         $message = $template;
                         // print(json_encode($value3));
@@ -148,14 +149,16 @@ class Monthlysms extends CI_Controller{
                                 } else {
                                     //log sms sent failur
                                     log_message("error", "Sending failed: ");
-                                }
-
-                                $finalRecipients = [];
-                                $localGrpContacts = [];
+                                }        
                         
+                        }
                     }
+
+                    
                    
                 }
+                $finalRecipients = [];
+                $localGrpContacts = [];
             }
         }
          

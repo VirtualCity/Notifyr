@@ -38,6 +38,7 @@ class Dailysms extends CI_Controller{
     }
     //Hsenid API
     function index(){
+        $this->load->library('sms/log.php');
         $grpfactory = "";
         $grpcontacts = "";
         $config = "";
@@ -80,29 +81,30 @@ class Dailysms extends CI_Controller{
 
                     $adb = $this->anotherdb_model;
                     $conn = $adb->getConnection($dsn, $usr, $pass);
-                    // $cumulative = $adb->getLastOneDayToDate($conn);
-                    $cumulative = $adb->get2MonthsToDate($conn);
-                    // $users = $adb->getAllUsers($conn);
-                    // print_r(json_encode($cumulative));
-                    // return;
 
-                    
-                    foreach ($grpcontacts as $key1 => $value1) {
-                        array_push($localGrpContacts, $value1->msisdn);
-                    }
-
-                    //prepare the final array of farmers
-                    foreach ($cumulative as $key2 => $value2) {
-                        if (in_array($value2->Phone, $localGrpContacts))
-                        {
-                            array_push($finalRecipients, $value2);
+                    if ($conn !== null) {
+                        // $cumulative = $adb->getLastOneDayToDate($conn);
+                        // $cumulative = $adb->get2MonthsToDate($conn);
+                        $cumulative = $adb->getAllUsers($conn);
+                        // print_r(json_encode($cumulative));
+                        // return;
+                        // logFile("[ recipients=$cumulative[1] ]");
+                        
+                        foreach ($grpcontacts as $key1 => $value1) {
+                            array_push($localGrpContacts, $value1->msisdn);
                         }
-                    }
 
-                    // print_r($finalRecipients);
-                    // return;
+                        //prepare the final array of farmers
+                        foreach ($cumulative as $key2 => $value2) {
+                            if (in_array($value2->Phone, $localGrpContacts))
+                            {
+                                array_push($finalRecipients, $value2);
+                            }
+                        }
 
-                    //loop through the final recipient for the group and send sms using the template
+                        // print_r($finalRecipients);
+                        // return;
+                        //loop through the final recipient for the group and send sms using the template
                     foreach ($finalRecipients as $key3 => $value3) {
                         $message = $template;
                         // print(json_encode($value3));
@@ -117,15 +119,17 @@ class Dailysms extends CI_Controller{
                                 $recipients = array($value3->Phone);
                                 // print_r($recipients);
                                 // return;
+                                
                                 $msg_sent = $this->sendsms_model->send_sms($recipients, $message);
                                 // print($msg_sent);
                                 // return;
-                                $check = $this->isJson($msg_sent);	
+                                $check = $this->isJson($msg_sent);
                                 
-                                log_message("info", "Sending status: " . $msg_sent);
+                                log_message("info", "Sending status: " . $check);
+                                
+                                
 
                                 if ($msg_sent !== null && $msg_sent !== 'fail' && $check) {
-                                    
                                     $success = 0;
                                     $failed = 0;
                                     $smsresponse = json_decode($msg_sent)->SMSMessageData->Recipients;
@@ -141,6 +145,7 @@ class Dailysms extends CI_Controller{
                                             // return;
                                         }else{
                                             $failed++;
+                                            logFile("[ info= 'Sending status code: '.$value->Status ]");
                                             log_message("info", "Sending status code: " . $value->Status);
                                         }
                                         
@@ -148,14 +153,17 @@ class Dailysms extends CI_Controller{
                                 } else {
                                     //log sms sent failur
                                     log_message("error", "Sending failed: ");
+                                    logFile("[ error= 'Sending failed: ']");
                                 }
-
-                                $finalRecipients = [];
-                                $localGrpContacts = [];
                         
+                        }
+                    
                     }
+   
                    
                 }
+                $finalRecipients = [];
+                $localGrpContacts = [];
             }
         }
          

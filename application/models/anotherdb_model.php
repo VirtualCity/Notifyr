@@ -17,6 +17,7 @@ class Anotherdb_model extends CI_Model
   }
 
    function getConnection($dbsrv, $dbUsr, $dbPswd){
+    $this->load->library('sms/log.php');
     try {
       //$dbconn = new PDO("sqlsrv:Server=(localdb)\MSSQLLocalDB;Database=NG_Core_Authdb","sys","dev");
       //$dbconn = new PDO("sqlsrv:Server=10.0.0.118;Database=devhub","dev","sys");
@@ -25,14 +26,16 @@ class Anotherdb_model extends CI_Model
       return $dbconn;
     } catch (Exception $th) {
       // return $dbconn;
-       die(print_r($th->getMessage()));
+      $errorMessage = $th->getMessage();
+      //  die(print_r($th->getMessage()));
+      logFile("[ db_error= $errorMessage]");
       return null;
     }
   }
  
   public function getAllUsers($another)
   {
-    $tsql = "SELECT * FROM MD_User";
+    $tsql = "SELECT * FROM User";
     // $tsql = "SELECT * FROM Products";
     $getResults = $another->prepare($tsql);
 
@@ -165,13 +168,13 @@ class Anotherdb_model extends CI_Model
     $endOfYesterDay = date('Y-m-d');
 
     $tsql = "select Distinct Doc.AcquisitionDetails_SupplierId as FarmerId
-            ,Sum(FBL.[NetWeight_Value])  as Weight
-            ,MAX(FBL.HarvestDate) as LatestSyncDate
-            FROM Bat_FieldAcquisitionBatchLineItem FBL ,Doc_FieldAcquisitionDocument Doc, Doc_FieldAcquisitionDocumentLineItem DocL
-            where DocL.BatchReference_Id =FBL.FieldAcquisitionBatch_Id
-            and Doc.id=DocL.FieldAcquisitionDocument_Id
-            and FBL.HarvestDate between '$startOfMonth' and '$endOfYesterDay'
-            Group by Doc.AcquisitionDetails_SupplierId ";
+    ,Sum(FBL.[NetWeight_Value])  as Weight
+     ,MAX(FBL.HarvestDate) as LatestSyncDate
+    FROM Bat_FieldAcquisitionBatchLineItem FBL ,Doc_FieldAcquisitionDocument Doc, Doc_FieldAcquisitionDocumentLineItem DocL
+    where DocL.BatchReference_Id =FBL.FieldAcquisitionBatch_Id
+    and Doc.id=DocL.FieldAcquisitionDocument_Id
+    and FBL.HarvestDate between '$startOfMonth' and '$endOfYesterDay'
+    Group by Doc.AcquisitionDetails_SupplierId ";
     $getResults = $another->prepare($tsql);
 
     $getResults->execute();

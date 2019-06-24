@@ -80,7 +80,9 @@ class Threedaysms extends CI_Controller{
 
                     $adb = $this->anotherdb_model;
                     $conn = $adb->getConnection($dsn, $usr, $pass);
-                    $cumulative = $adb->getLastThreeDaysToDate($conn);
+                    
+                    if ($conn !== null) {
+                        $cumulative = $adb->getLastThreeDaysToDate($conn);
                     // 
                     // $users = $adb->getAllUsers($conn);
                     // print_r(json_encode($cumulative));
@@ -150,13 +152,16 @@ class Threedaysms extends CI_Controller{
                                     log_message("error", "Sending failed: ");
                                 }
 
-                                $finalRecipients = [];
-                                $localGrpContacts = [];
+                                
                         
+                    }
                     }
                    
                 }
+                $finalRecipients = [];
+                $localGrpContacts = [];
             }
+
         }
          
     }
